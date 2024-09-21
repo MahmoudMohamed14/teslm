@@ -47,9 +47,9 @@ class EditInformation extends StatelessWidget {
                 if(state is UpdateUserLoading)
                   const LinearProgressIndicator(),
                 const SizedBox(height: 15,),
-                profile('رقم الهاتف','Phone number',true,TextEditingController(text: '${DeliveryCubit.get(context).getUserData!.phoneNumber}',),Icons.phone),
-                profile('اسمك','Name',user!.name!=''||name? true:false,user.name!=''? TextEditingController(text: '${DeliveryCubit.get(context).getUserData!.name}',):nameController,Icons.person),
-                profile('حسابك','Gmail',user.email!=''||updateEmail? true:false,user.email!=''? TextEditingController(text:'${DeliveryCubit.get(context).getUserData!.email}',):gmailController,Icons.email,
+                profile('رقم الهاتف','Phone number',true,TextEditingController(text: '${DeliveryCubit.get(context).getUserData?.phoneNumber}',),Icons.phone),
+                profile('اسمك','Name',user!.name!=''||name? true:false,user.name!=''? TextEditingController(text: '${DeliveryCubit.get(context).getUserData?.name}',):nameController,Icons.person),
+                profile('حسابك','Gmail',user.email!=''||updateEmail? true:false,user.email!=''? TextEditingController(text:'${DeliveryCubit.get(context).getUserData?.email}',):gmailController,Icons.email,
                     validate: (value){
                       if(emailRegex.hasMatch(value)){ return null;}
                       else if(gmailController.text.isNotEmpty)
