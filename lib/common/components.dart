@@ -358,7 +358,7 @@ Widget appBarWithIcons(text,image)=>SafeArea(
           child: SvgPicture.asset(
             image,
             width: 70, // You can set width and height as needed
-            height: 100,
+            height: 70,
           ),
         )
       ],
