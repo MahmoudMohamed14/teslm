@@ -21,7 +21,7 @@ class ColorsApp {
   static const Color facebookColor = Color(0xFF3B5999);
   static const Color googleColor = Color(0xFFDE4B39);
   static const Color backgroundColor = Color(0xFFECF3F9);
-  static const Color secondColorGreen = Color(0xFFF78C2E);
+  static const Color secondColorGreen = Color(0xFF33C072);
   static const Color otherColorGreen = Color(0xFFF88623);
   static const Color greyColor = Color(0x6BD9D9D9);
   static const Color filterColor = Color(0xFFE1E1E1);
@@ -30,7 +30,7 @@ class ColorsApp {
   static const Color pendingDarkColor = Color(0xFF545260);
   static const Color pendingLightColor = Color(0xFFEAEAEA);
   static const Color pointDarkColor = Color(0xFF4F4F5C);
-  static const Color greenColor = Color(0xFF33C072);
+  static const Color orangeColor =  Color(0xFFF78C2E);
   static const Color bottomNavigationBarColor = Color(0xFF393A4A);
   static const Color iconsMainColor = Color(0xFFF78C2E);
 }

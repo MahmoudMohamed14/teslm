@@ -144,6 +144,7 @@ class MainCategories extends StatelessWidget {
                     minHeight: 50.0,
                     maxHeight: 50.0,
                     child: Container(
+                      color: Colors.white,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(

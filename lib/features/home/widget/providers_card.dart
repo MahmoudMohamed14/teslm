@@ -92,7 +92,7 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
 
                     padding: EdgeInsets.symmetric(horizontal: 8.w),
                     decoration: BoxDecoration(
-                        color:ColorsApp.greenColor,
+                        color:ColorsApp.orangeColor,
                         borderRadius: BorderRadius.circular(7)
                     ),
                     child:  Row(
