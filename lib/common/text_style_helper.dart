@@ -31,7 +31,10 @@ class TextStyleHelper {
   TextStyle get regular16 =>
       getTextStyle(fontSize: 16, fontWeight: FontWeight.w400);
   TextStyle get regular12 =>
+
       getTextStyle(fontSize: 12, fontWeight: FontWeight.w400);
+  TextStyle get regular15 =>
+      getTextStyle(fontSize: 15, fontWeight: FontWeight.w400);
   TextStyle get regular14 =>
       getTextStyle(fontSize: 14, fontWeight: FontWeight.w400);
   TextStyle get regular10 =>
@@ -40,4 +43,6 @@ class TextStyleHelper {
       getTextStyle(fontSize: 10, fontWeight: FontWeight.w700);
   TextStyle get bold12 =>
       getTextStyle(fontSize: 12, fontWeight: FontWeight.w700);
+  TextStyle get bold19 =>
+      getTextStyle(fontSize: 19, fontWeight: FontWeight.w700);
 }

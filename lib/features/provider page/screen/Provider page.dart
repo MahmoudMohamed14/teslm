@@ -1,12 +1,17 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant%20values.dart';
+import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/translate/applocal.dart';
 import 'package:delivery/features/provider%20page/widget/search_provider_page.dart';
+import 'package:delivery/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
 import '../../cart/screen/cart.dart';
 import '../widget/add_or_remove_in_provider.dart';
@@ -41,7 +46,14 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
   builder: (context, state) {
     var menu= DeliveryCubit.get(context).providerFoodData;
     return Scaffold(
-      body: SafeArea(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          OtherWidget()
+
+        ],),
+      )
+     /* SafeArea(
         bottom: false,
         child: Stack(
           children: [
@@ -197,10 +209,62 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
               searchProvider(context),
           ],
         ),
-      ));
+      )*/
+    );
   },
 );
   }
 
 }
 
+class OtherWidget extends StatelessWidget {
+  const OtherWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: ThemeModel.of(context).backgroundColor,
+        borderRadius: BorderRadius.circular(20)
+      ),
+      child: Row(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppTextWidget('Cusomizable',style: TextStyleHelper.of(context).regular15.copyWith(color:ThemeModel.of(context).font2 ),),
+                5.h.heightBox,
+                AppTextWidget('El back mail 8 piece',style: TextStyleHelper.of(context).bold19,),
+                10.h.heightBox,
+                AppTextWidget('Crispy chicken pieces in   accordance with quality stand ',maxLines: 2
+                  ,textAlign: TextAlign.start
+                  ,style: TextStyleHelper.of(context).regular12.copyWith(color:ThemeModel.of(context).font2,overflow: TextOverflow.ellipsis ),),
+              ],
+            ),
+          ),
+          15.h.heightBox,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 13),
+        decoration: BoxDecoration(
+            color: ThemeModel.of(context).font2,
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(30),bottomRight:Radius.circular(30) ),
+
+
+        ),
+        child: Row(
+          children: [
+            AppTextWidget('sar 33',style: TextStyleHelper.of(context).regular15.copyWith(color:ThemeModel.of(context).font3 ),),
+          ],
+        ),
+      ),
+
+        ],)
+      ],),
+    );
+  }
+}
