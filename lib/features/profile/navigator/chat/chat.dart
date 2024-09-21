@@ -28,7 +28,22 @@ class Chat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ChatControllerCubit, ChatControllerState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is ReloadChat){
+            Future.delayed(
+                Duration(milliseconds: 500),
+                    () {
+                  _scrollController.animateTo(
+                    _scrollController.position
+                        .maxScrollExtent,
+                    duration: Duration(
+                        milliseconds: 500),
+                    curve: Curves.easeOut,
+                  );
+                });
+
+          }
+        },
         builder: (context, state) {
           TextEditingController messageController = TextEditingController();
           var chatData = ChatControllerCubit.get(context).chat;
@@ -64,6 +79,7 @@ class Chat extends StatelessWidget {
                         controller: _scrollController,
                         physics: BouncingScrollPhysics(),
                         itemCount: message.messages!.length,
+                       // reverse: true,
                         padding: EdgeInsets.only(top: 10, bottom: 10),
                         itemBuilder: (context, index) {
                           return Container(
@@ -380,13 +396,13 @@ class Chat extends StatelessWidget {
                                                 );
                                                 messageController.clear();
                                                 Future.delayed(
-                                                    Duration(milliseconds: 300),
+                                                    Duration(milliseconds: 500),
                                                     () {
                                                   _scrollController.animateTo(
                                                     _scrollController.position
                                                         .maxScrollExtent,
                                                     duration: Duration(
-                                                        milliseconds: 300),
+                                                        milliseconds: 500),
                                                     curve: Curves.easeOut,
                                                   );
                                                 });
