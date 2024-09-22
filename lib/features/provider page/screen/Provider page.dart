@@ -4,12 +4,16 @@ import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant%20values.dart';
 import 'package:delivery/common/extensions.dart';
+import 'package:delivery/common/images/images.dart';
 import 'package:delivery/common/translate/applocal.dart';
 import 'package:delivery/features/provider%20page/widget/search_provider_page.dart';
 import 'package:delivery/widgets/app_text_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
@@ -46,13 +50,18 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
   builder: (context, state) {
     var menu= DeliveryCubit.get(context).providerFoodData;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          OtherWidget()
-
-        ],),
-      )
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(children: [
+            AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font2),),
+          8.h.heightBox,
+            OtherWidget()
+        
+          ],),
+        ),
+      ),
+        bottomNavigationBar: bottom(Strings.showCart.tr(context), () async {}),
      /* SafeArea(
         bottom: false,
         child: Stack(
@@ -223,8 +232,9 @@ class OtherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        height:172.h ,
       decoration: BoxDecoration(
-        color: ThemeModel.of(context).backgroundColor,
+        color: ThemeModel.of(context).font4,
         borderRadius: BorderRadius.circular(20)
       ),
       child: Row(children: [
@@ -232,7 +242,7 @@ class OtherWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
           Padding(
-            padding: const EdgeInsetsDirectional.only(start: 12),
+            padding: const EdgeInsetsDirectional.only(start: 12,top: 10),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,13 +253,14 @@ class OtherWidget extends StatelessWidget {
                 10.h.heightBox,
                 AppTextWidget('Crispy chicken pieces in   accordance with quality stand ',maxLines: 2
                   ,textAlign: TextAlign.start
-                  ,style: TextStyleHelper.of(context).regular12.copyWith(color:ThemeModel.of(context).font2,overflow: TextOverflow.ellipsis ),),
+                  ,style: TextStyleHelper.of(context).regular12.copyWith(color:ThemeModel.of(context).font2,height: 1.3,overflow: TextOverflow.ellipsis ),),
               ],
             ),
           ),
           15.h.heightBox,
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 13),
+
+            padding:  EdgeInsets.symmetric(horizontal: 13,vertical: 5.h),
         decoration: BoxDecoration(
             color: ThemeModel.of(context).font2,
             borderRadius: const BorderRadius.only(topRight: Radius.circular(30),bottomRight:Radius.circular(30) ),
@@ -257,13 +268,43 @@ class OtherWidget extends StatelessWidget {
 
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AppTextWidget('sar 33',style: TextStyleHelper.of(context).regular15.copyWith(color:ThemeModel.of(context).font3 ),),
+           5.w.widthBox,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(ImagesApp.fire),
+                5.w.widthBox,
+                AppTextWidget('234 Calories',style: TextStyleHelper.of(context).regular15.copyWith(color:ThemeModel.of(context).font3 ),),
+              ],
+            )
+            
           ],
         ),
       ),
+            15.h.heightBox,
 
-        ],)
+        ],).expand,
+        15.w.widthBox,
+        Stack(
+          children: [
+            Container(
+                height:172.h ,
+              width: 140.w,
+              decoration:BoxDecoration(
+                  color: ThemeModel.of(context).red,
+                  borderRadius: BorderRadius.circular(20)
+              )
+            ),
+            PositionedDirectional(
+              bottom: 0,
+                end: 0,
+                child: CircleAvatar(backgroundColor: ThemeModel.of(context).font1,radius: 15,child:
+                Icon(CupertinoIcons.add,color: ThemeModel.of(context).backgroundColor),))
+          ],
+        )
       ],),
     );
   }

@@ -33,4 +33,5 @@ class ImagesApp {
   static const String shopPointImage = 'assets/images/shop.svg';
   static const String shopCarImage = 'assets/images/shopping_car.svg';
   static const String moreSettingImage = 'assets/images/more_image.svg';
+  static const String fire = '$_iconPath/fire.svg';
 }

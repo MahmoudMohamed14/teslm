@@ -83,5 +83,6 @@ class Strings {
   static const String codeYouEnteredInvalid= "codeYouEnteredInvalid";
   static const String resendCode= "resendCode";
   static const String verityYourAccount= "verityYourAccount";
+  static const String other= "other";
 
 }

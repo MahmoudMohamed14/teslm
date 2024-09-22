@@ -75,7 +75,7 @@ Widget loadingMainPage(scrollController,context)=>Padding(
       const SizedBox(height: 15,),
       GridView.count(
         physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true, childAspectRatio: 1/1, crossAxisSpacing: 0, mainAxisSpacing: 0.2,
+        shrinkWrap: true, childAspectRatio: 1/1.3, crossAxisSpacing: 0, mainAxisSpacing: 0.2,
         crossAxisCount: 4,children: List.generate(3,
             (index)=> Column(
           children: [

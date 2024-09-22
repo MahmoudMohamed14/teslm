@@ -88,5 +88,6 @@
   "resendCode": "Resend Code",
   "verity": "Verity",
   "codeYouEnteredInvalid":"the code you entered is invalid please try again",
-  "verityYourAccount": "Verity Your Account"
+  "verityYourAccount": "Verity Your Account",
+  "other": "Other"
 }

@@ -45,4 +45,6 @@ class TextStyleHelper {
       getTextStyle(fontSize: 12, fontWeight: FontWeight.w700);
   TextStyle get bold19 =>
       getTextStyle(fontSize: 19, fontWeight: FontWeight.w700);
+  TextStyle get bold20 =>
+      getTextStyle(fontSize: 20, fontWeight: FontWeight.w700);
 }

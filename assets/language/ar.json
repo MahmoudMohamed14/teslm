@@ -87,5 +87,6 @@
   "resendCode": "إعادة إرسال الرمز",
   "verity": "تحقيق",
   "codeYouEnteredInvalid":"الرمز الذي أدخلته غير صالح يرجى المحاولة مرة أخرى",
-  "verityYourAccount": "صدق حسابك"
+  "verityYourAccount": "صدق حسابك",
+  "other": "اخرى"
 }
