@@ -2,10 +2,11 @@ import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
-import 'package:delivery/common/constant%20values.dart';
+
 import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/images/images.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
+
 import 'package:delivery/features/provider%20page/widget/search_provider_page.dart';
 import 'package:delivery/widgets/app_text_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../../common/constant/constant values.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
 import '../../../models/provider items model.dart';
@@ -101,14 +103,19 @@ class _ProviderPage extends State<ProviderPage>
                         .copyWith(color: ThemeModel.of(context).font2),
                   ),
                   background: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(18),
                           bottomRight: Radius.circular(18),
                         ),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(widget.providerCover))),
+
+                    ),
+                    child: image(widget.providerCover, 120.h, double.maxFinite, 0.0, BoxFit.cover
+                        ,borderRadius:const BorderRadius.only(
+                          bottomLeft: Radius.circular(18),
+                          bottomRight: Radius.circular(18),
+                        )
+                    ),
                     /*// child: Image.network("https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
                 width: double.maxFinite,fit: BoxFit.cover,),*/
                   ),

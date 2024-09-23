@@ -277,8 +277,8 @@ Widget Skeleton({height,width,radius})  {
 
       ));}
 
-Widget image(url,height,width,reduis,fit)=>ClipRRect(
-  borderRadius: BorderRadius.circular(reduis),
+Widget image(url,height,width,reduis,fit, {BorderRadiusGeometry? borderRadius})=>ClipRRect(
+  borderRadius:borderRadius?? BorderRadius.circular(reduis),
   child: CachedNetworkImage(
     placeholder: (context,url) => const Center(child: CircularProgressIndicator()),
     errorWidget: (context, url, error) =>  Icon(Icons.error),
