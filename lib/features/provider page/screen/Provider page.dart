@@ -1,13 +1,10 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
-import 'package:delivery/common/colors/colors.dart';
+
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
-
 import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/images/images.dart';
 import 'package:delivery/common/translate/app_local.dart';
-
-import 'package:delivery/features/provider%20page/widget/search_provider_page.dart';
 import 'package:delivery/widgets/app_text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,17 +12,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../../common/colors/colors.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
 import '../../../models/provider items model.dart';
-import '../../cart/screen/cart.dart';
-import '../widget/add_or_remove_in_provider.dart';
-import '../widget/loading_widget.dart';
-import '../widget/menu_items.dart';
-import '../widget/resturant_card.dart';
-import 'extra_items_class.dart';
+
 
 class ProviderPage extends StatefulWidget {
   String providerDescription;
@@ -179,32 +171,31 @@ class _ProviderPage extends State<ProviderPage>
                 surfaceTintColor: ThemeModel.of(context).backgroundColor,
               ),
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                child: ListView.separated(
+                    itemBuilder: (context, index1) {
+                      return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                       AppTextWidget(
-                        Strings.other.tr(context),
-                        style: TextStyleHelper.of(context)
-                            .bold20
-                            .copyWith(color: ThemeModel.of(context).font2),
+                        menu?.CategoriesItemsData?[index1].name ?? '',
+                      style: TextStyleHelper.of(context)
+                          .bold20
+                          .copyWith(color: ThemeModel.of(context).font2),
                       ),
                       8.0.heightBox,
                       ListView.separated(
-                          itemBuilder: (context, index) => OtherWidget(
-                                item: menu?.CategoriesItemsData?.firstOrNull
-                                    ?.items?[index],
-                              ),
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          separatorBuilder: (context, index) => 10.h.heightBox,
-                          itemCount: menu?.CategoriesItemsData?.firstOrNull
-                                  ?.items?.length ??
-                              0)
-                    ],
-                  ),
-                ),
+                      itemBuilder: (context, index) =>OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) => 10.h.heightBox,
+                  itemCount: menu?.CategoriesItemsData?[index1].items?.length ??0)
+                ],
+                );
+                    } ,//OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) => 10.h.heightBox,
+                    itemCount:menu?.CategoriesItemsData?.length ??0),
               ),
             ],
           ),
@@ -657,7 +648,7 @@ class OtherWidget extends StatelessWidget {
                       AppTextWidget(
                         ' ${item?.price} ${Strings.sar.tr(context)}',
                         style: TextStyleHelper.of(context)
-                            .regular12
+                            .regular15
                             .copyWith(color: ThemeModel.of(context).font3),
                       ),
                       5.w.widthBox,
@@ -669,7 +660,7 @@ class OtherWidget extends StatelessWidget {
                           AppTextWidget(
                             '${item?.calories} ${Strings.calories.tr(context)}',
                             style: TextStyleHelper.of(context)
-                                .regular12
+                                .regular15
                                 .copyWith(color: ThemeModel.of(context).font3,),
                           ),
                         ],
@@ -753,3 +744,40 @@ class BottomSheetWidget extends StatelessWidget {
     return const Placeholder();
   }
 }
+class CategoryShimmer extends StatelessWidget {
+  const CategoryShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 175.h,
+      // padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          color: isDark??false? ColorsApp.cardBottomColor:Colors.grey.shade200
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Skeleton(width: 140.w,height: 179.h,radius: 18.0),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              10.h.heightBox,
+              Skeleton(width: 100.w,height: 15.h,),
+              12.h.heightBox,
+              Skeleton(width: 200.w,height: 20.h,),
+              // 5.h.heightBox,
+              Skeleton(width: 200.w,height: 5.h,),
+              Skeleton(width: 200.w,height: 5.h,),
+              12.h.heightBox,
+              Skeleton(width: 200.w,height: 30.h,radius: 16.0),
+            ],)
+
+
+        ],
+      ),
+    );
+  }
+}
+
