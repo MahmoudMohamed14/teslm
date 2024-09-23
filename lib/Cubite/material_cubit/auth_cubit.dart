@@ -1,17 +1,12 @@
-import 'package:bloc/bloc.dart';
 import 'package:delivery/common/extensions.dart';
-import 'package:delivery/common/translate/applocal.dart';
-
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
 import '../../Dio/Dio.dart';
 import '../../common/colors/theme_model.dart';
 import '../../common/components.dart';
-import '../../common/constant values.dart';
+import '../../common/constant/constant values.dart';
 import '../../common/images/images.dart';
 import '../../common/text_style_helper.dart';
 import '../../common/translate/strings.dart';
@@ -20,7 +15,7 @@ import '../../features/home/screens/home.dart';
 import '../../features/payment page/screen/payment.dart';
 import '../../models/login model.dart';
 import '../../models/otpModel.dart';
-import '../../shared prefernace/shared preferance.dart';
+import '../../shared_preference/shared preference.dart';
 import '../../widgets/app_text_widget.dart';
 import '../delivery_cubit.dart';
 

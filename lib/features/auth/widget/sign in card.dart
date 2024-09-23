@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl_phone_field/countries.dart';
 Container buildSignupSection(countryCode,numberController) {

@@ -1,9 +1,7 @@
-import 'package:bloc/bloc.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/shared%20prefernace/shared%20preferance.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-
+import '../../shared_preference/shared preference.dart';
 part 'app_dark_light_state.dart';
 
 class AppDarkLightCubit extends Cubit<AppDarkLightState> {
@@ -11,7 +9,7 @@ class AppDarkLightCubit extends Cubit<AppDarkLightState> {
   static AppDarkLightCubit get(context) => BlocProvider.of(context);
   bool isDark = false;
 
-  void changeapppmode({bool? formshare}) {
+  void changeAppMode({bool? formShare}) {
       isDark = !isDark;
       Save.putdata(key: 'isDark', value: isDark).then((value) =>
           emit(ChangeMode()));
@@ -28,7 +26,4 @@ class AppDarkLightCubit extends Cubit<AppDarkLightState> {
       emit(ChangeLangStatesApp());
      }
   }
-  /*getCurrentTheme() {
-    isDark = Save.getdata(key: 'isDark');
-  }*/
 }

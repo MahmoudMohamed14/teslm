@@ -1,4 +1,4 @@
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

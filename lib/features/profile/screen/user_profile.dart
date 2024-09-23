@@ -1,22 +1,20 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/profile/navigator/chat/controller/chat_controller_cubit.dart';
-import 'package:delivery/features/profile/navigator/setting.dart';
-import 'package:delivery/shared%20prefernace/shared%20preferance.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:delivery/features/profile/navigator/setting/setting.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
-import '../../home/screens/home.dart';
+import '../../../shared_preference/shared preference.dart';
 import '../navigator/chat/chat.dart';
-import '../navigator/edit data.dart';
-import '../navigator/support.dart';
+import '../navigator/logout/logout_dialog.dart';
+import '../navigator/my_account/my_account.dart';
+import '../navigator/my_coupons/my_coupons.dart';
+import '../navigator/support/support.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
@@ -34,7 +32,7 @@ class UserProfile extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(98.0),
-        child: appBarWithIcons(Strings.more.tr(context),ImagesApp.moreSettingImage),
+        child: appBarWithIcons(Strings.more.tr(context),ImagesApp.moreSettingImage,false,context),
       ),
       body: SafeArea(
         child: Padding(
@@ -53,9 +51,10 @@ class UserProfile extends StatelessWidget {
                     hasNavigation: true,
                     onTap: (){
                       ChatControllerCubit.get(context).getChat();
-                      if(DeliveryCubit.get(context).getUserData==null)
-                      DeliveryCubit.get(context).getNewCustomer();
-                      navigate(context, EditInformation());},
+                      if(DeliveryCubit.get(context).getUserData==null) {
+                        DeliveryCubit.get(context).getNewCustomer();
+                      }
+                      navigate(context,const EditInformation());},
                   ),
                   if(token!=''&&token!=null)
                   ProfileListItem(
@@ -63,12 +62,21 @@ class UserProfile extends StatelessWidget {
                     text: Strings.addPayment.tr(context),
                     hasNavigation: false,
                   ),
+                  if(token!=''&&token!=null)
+                  ProfileListItem(
+                    icon: Icons.discount,
+                    text: Strings.myCoupons.tr(context),
+                    hasNavigation: true,
+                    onTap: (){
+                      navigate(context,const MyCoupons());},
+                  ),
                   ProfileListItem(
                     icon: Icons.help_outline,
                     text: Strings.helpSupport.tr(context),
                     hasNavigation: true,
-                    onTap: (){navigate(context, Support());},
+                    onTap: (){navigate(context, const Support());},
                   ),
+                  if(token!=''&&token!=null)
                   ProfileListItem(
                     icon: Icons.headset_mic_outlined,
                     text: Strings.callCenter.tr(context),
@@ -81,7 +89,7 @@ class UserProfile extends StatelessWidget {
                     icon: Icons.settings_outlined,
                     text: Strings.settings.tr(context),
                     hasNavigation: true,
-                      onTap: (){navigate(context, Setting());}
+                      onTap: (){navigate(context,const Setting());}
                   ),
                   if(token!=''&&token!=null)
                   ProfileListItem(
@@ -95,16 +103,7 @@ class UserProfile extends StatelessWidget {
                     text: Strings.logout.tr(context),
                     hasNavigation: false,
                     onTap: ()async{
-                      final FirebaseAuth auth = FirebaseAuth.instance;
-                      token=null;
-                      balances=null;
-                      customerId=null;
-                      Save.remove(key: 'token');
-                      Save.remove(key: 'balance');
-                      Save.remove(key: 'customerId');
-                      await auth.signOut();
-                      DeliveryCubit.get(context).current=3;
-                      navigateAndFinish(context,const Home());
+                      logoutAccount(context,);
                     },
                   ),
                 ],
@@ -123,9 +122,8 @@ class ProfileListItem extends StatelessWidget {
   final IconData icon;
   final String text;
   final bool hasNavigation;
-  var onTap;
-
-   ProfileListItem({super.key,
+  final VoidCallback? onTap;
+   const ProfileListItem({super.key,
     required this.icon,
     required this.text,
     required this.hasNavigation,
@@ -137,39 +135,37 @@ class ProfileListItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 10,
         ).copyWith(
         ),
-        padding: EdgeInsets.symmetric(
+        padding:const EdgeInsets.symmetric(
           vertical: 10,
           horizontal: 10,
-        ),
-        decoration: BoxDecoration(
-
         ),
         child: Column(
           children: [
             Row(
               children: <Widget>[
                 Icon(
-                  this.icon,
+                  icon,
                   size: 20,
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 Text(
-                  this.text,
-                  style: TextStyle(fontWeight: FontWeight.w700,fontSize: 15),
+                  text,
+                  style: const TextStyle(fontWeight: FontWeight.w700,fontSize: 15),
                 ),
-                Spacer(),
-                if (this.hasNavigation)
-                  Icon(
+                const Spacer(),
+                if (hasNavigation)
+                  const Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 20,
                     color: ColorsApp.iconsMainColor,
                   ),
               ],
             ),
+            if(text!=Strings.logout.tr(context))
             Padding(
               padding: const EdgeInsets.only(left: 20.0,right: 20,top: 10),
               child: Container(decoration: BoxDecoration(

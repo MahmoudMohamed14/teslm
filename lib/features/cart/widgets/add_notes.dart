@@ -1,9 +1,6 @@
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../common/constant values.dart';
 
 final RegExp english = RegExp(r'^[a-zA-Z]+');
 bool langEn=true;

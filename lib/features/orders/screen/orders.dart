@@ -1,17 +1,16 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
-import '../../order details/orderDetails.dart';
-import '../widget/loading orders.dart';
-import '../widget/order card.dart';
+import '../../order details/screen/orderDetails.dart';
+import '../widget/loading_orders.dart';
+import '../widget/order_card.dart';
 
 
 class Orders extends StatelessWidget {
@@ -19,7 +18,7 @@ class Orders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: ColorsApp.secondColorGreen, // Set the status bar color
     ));
     return BlocConsumer<DeliveryCubit, DeliveryState>(
@@ -29,8 +28,12 @@ class Orders extends StatelessWidget {
   builder: (context, state) {
     return Scaffold(
       appBar:PreferredSize(
-        preferredSize: const Size.fromHeight(98.0),
+        preferredSize: const Size.fromHeight(70.0),
+<<<<<<< HEAD
+        child: appBarWithIcons(Strings.myOrders.tr(context),ImagesApp.myOrdersAppBarImage,false,context),
+=======
         child: appBarWithIcons(Strings.myOrders.tr(context),ImagesApp.myOrdersAppBarImage),
+>>>>>>> d76808266dd76ff12e0b33734630675a6d9e7475
       ),
         body: DeliveryCubit.get(context).customerOrders != null && state is! GetOrdersLoading ? SafeArea(
             child: DeliveryCubit.get(context).customerOrders!.data!.isNotEmpty ?
@@ -71,7 +74,7 @@ class Orders extends StatelessWidget {
                     child: Text(Strings.noOrdersFounded.tr(context), style: const TextStyle(
                         fontWeight: FontWeight.w700),),)
                 ],),
-            )) :ordersLoading()
+            )) :ordersLoading(context)
     );});
   }
 }

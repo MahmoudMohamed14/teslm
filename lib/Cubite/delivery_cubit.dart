@@ -1,33 +1,23 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
-import 'package:bloc/bloc.dart';
-import 'package:blured_navigation_bar_x/blured_nav_bar_x_item.dart';
 import 'package:delivery/Dio/Dio.dart';
-import 'package:delivery/common/constant%20values.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/images/images.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/models/categories%20provider.dart';
-import 'package:delivery/models/chat%20model.dart';
 import 'package:delivery/models/coupon%20model.dart';
 import 'package:delivery/models/get%20user%20data.dart';
 import 'package:delivery/models/login%20model.dart';
 import 'package:delivery/models/offers model.dart';
 import 'package:delivery/models/otpModel.dart';
-import 'package:delivery/shared%20prefernace/shared%20preferance.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:meta/meta.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../common/colors/theme_model.dart';
 import '../common/components.dart';
@@ -42,9 +32,8 @@ import '../models/filter model.dart';
 import '../models/get coupons model.dart';
 import '../models/provider items model.dart';
 import '../models/provider model.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:http/http.dart' as http;
-
+import '../shared_preference/shared preference.dart';
 import '../widgets/app_text_widget.dart';
 part 'delivery_state.dart';
 
@@ -677,15 +666,12 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     if (birthdate != null) {data['birthdate'] = birthdate;
     }
     print(data);
-    DioHelper.patchData(url: 'customers/auth/me',token: token,data:data).then((value) {
-      DioHelper.getData(url: 'customers/auth/me',
-          token: token,
-          myapp: true
-      ).then((value) {
-        getUserData=GetUserData.fromJson(value.data);
-        print(value.data);
-      });
-      print(data);
+    DioHelper.patchData(
+      url: 'customers/auth/me',
+      token: token,
+      data: data,
+    ).then((value) {
+      getNewCustomer();
       emit(UpdateUserSuccess());
     }).catchError((error) {
       print(error.toString());
@@ -695,11 +681,11 @@ class DeliveryCubit extends Cubit<DeliveryState> {
   Provider? providerData;
   void getProviderData(){
     emit(GetProviderLoading());
-    DioHelper.getData(url:'providers/customers',
+    DioHelper.getData(url:'providers/home',
         myapp: true
     ).then((value) {
       providerData = Provider.fromJson(value.data);
-      print('truuuuuuuuuuuuuuuuuuuuuu');
+      print('uuuuuuuuuuuuuuuuuuuuuuuuuu ${value.data}');
         emit(GetProviderSuccess());
       }).catchError((error) {
         print('eeeeeeeeeeeeeeeeeeeeeeee ${error.toString()}');

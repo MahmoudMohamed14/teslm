@@ -1,11 +1,10 @@
 import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
-import 'package:delivery/common/constant%20values.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/images/images.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/main%20category%20page/widget/big_card.dart';
 import 'package:delivery/features/main%20category%20page/widget/filter_loading.dart';
@@ -21,7 +20,7 @@ import '../widget/small_card.dart';
 class MainCategories extends StatelessWidget {
   final String categoryName;
 
-  MainCategories({super.key, required this.categoryName});
+  const MainCategories({super.key, required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class MainCategories extends StatelessWidget {
         return Scaffold(
           key: scaffoldKey,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(200.0),
+            preferredSize: const Size.fromHeight(200.0),
             child:appBar(context,false),
           ),
           body:providers!=null&&state is !CategoryProviderLoading? Padding(
@@ -48,7 +47,7 @@ class MainCategories extends StatelessWidget {
                 SliverAppBar(
                   leading: Container(),
                   bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(65.0),
+                    preferredSize:const Size.fromHeight(65.0),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -66,7 +65,7 @@ class MainCategories extends StatelessWidget {
                                 child: Stack(
                                   children: [
                                 Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding:const EdgeInsets.all(10),
                                   width: MediaQuery.sizeOf(context).width / 1.8,
                                   height: 117,
                                   child: ClipRRect(
@@ -88,20 +87,20 @@ class MainCategories extends StatelessWidget {
                                   bottom: 15,
                                   child: Container(
                                     width: MediaQuery.sizeOf(context).width / 5,
-                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    padding: const EdgeInsets.only(left: 8, right: 8),
                                     color: Colors.black45,
                                     child: Row(
                                       children: [
                                         Text(
                                           language=='en'?'${newOffers.data![index].provider!.providerName!.en}':
                                           '${newOffers.data![index].provider!.providerName!.ar}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16.58,
                                             color: Colors.white,
                                           ),
                                         ),
-                                        Icon(
+                                        const Icon(
                                           Icons.arrow_forward_ios_outlined,
                                           size: 16,
                                           color: Colors.white,
@@ -125,8 +124,8 @@ class MainCategories extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '$categoryName',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                          categoryName,
+                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                         ),
                         Row(
                           children: [
@@ -158,10 +157,10 @@ class MainCategories extends StatelessWidget {
                 if (providers.providers!.isEmpty)
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 170),
+                      padding: const EdgeInsets.only(top: 170),
                       child: Center(
                         child: Text(Strings.thisNotWorkLocation.tr(context),
-                          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+                          style:const TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
                         ),
                       ),
                     ),
@@ -202,8 +201,8 @@ class MainCategories extends StatelessWidget {
                                   providerImage: providerItem.providerImage,
                                 ),
                               );
-                                                        },context
-                                                      ),
+                              },context
+                              ),
                             )
                             : Padding(
                               padding: const EdgeInsets.only(left: 8.0,right: 8.0),

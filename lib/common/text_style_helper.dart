@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'colors/theme_model.dart';
-
-
 class TextStyleHelper {
   final BuildContext context;
   const TextStyleHelper._(this.context);
   static TextStyleHelper of(BuildContext context) => TextStyleHelper._(context);
-  /*_fontFamily() {
-    return TextStyle;
-  }*/
-
   TextStyle getTextStyle({required double fontSize, FontWeight? fontWeight}) =>
       TextStyle(
         fontFamily: 'Roboto',
@@ -19,7 +12,6 @@ class TextStyleHelper {
         color: ThemeModel.of(context).font1,
         height: 1.0,
       );
-
   TextStyle get medium24 =>
       getTextStyle(fontSize: 24, fontWeight: FontWeight.w500);
   TextStyle get regular24 =>

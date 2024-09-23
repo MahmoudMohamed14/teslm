@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_autocomplete_text_field/google_places_autocomplete_text_field.dart';
 import 'package:google_places_autocomplete_text_field/model/prediction.dart';
 import '../../../common/colors/colors.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 

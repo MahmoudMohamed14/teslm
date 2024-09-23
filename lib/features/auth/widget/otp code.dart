@@ -4,7 +4,7 @@ import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 
 Widget otpCode(state,otpController,pinFocusNode,country,phoneNumber,context,otp1)=>Padding(
   padding: const EdgeInsets.only(left: 10.0,right: 10),

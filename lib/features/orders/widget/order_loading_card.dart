@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/components.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 
 Widget getOrderLoading()=>Card(
   child: Padding(

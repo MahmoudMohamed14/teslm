@@ -1,13 +1,14 @@
 import 'package:delivery/Cubite/them/app_dark_light_cubit.dart';
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/shared%20prefernace/shared%20preferance.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../common/images/images.dart';
-import '../../../common/translate/applocal.dart';
-import '../../../common/translate/strings.dart';
+import '../../../../common/components.dart';
+import '../../../../common/images/images.dart';
+import '../../../../common/translate/app_local.dart';
+import '../../../../common/translate/strings.dart';
+import '../../../../shared_preference/shared preference.dart';
 
 class Setting extends StatelessWidget {
   const Setting({super.key});
@@ -19,16 +20,16 @@ class Setting extends StatelessWidget {
   builder: (context, state) {
     isDark ??= false;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Strings.settings.tr(context)),
-      ),
+      appBar:  PreferredSize(
+          preferredSize: const Size.fromHeight(70.0),
+          child: appBarWithIcons(Strings.settings.tr(context),ImagesApp.settingImage,true,context)),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment:CrossAxisAlignment.start,
           children: [
             Text(Strings.chooseLanguage.tr(context),
-              style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
+              style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -38,9 +39,9 @@ class Setting extends StatelessWidget {
             ),
 
 
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
                   Text(Strings.them.tr(context),
-                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
+                    style:const TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -57,7 +58,7 @@ class Setting extends StatelessWidget {
   }
 }
 Widget languageAndThem(them,text,flag,icon,color,onTapLang,textBorderColor,context,)=>InkWell(
-  onTap: them?(){AppDarkLightCubit.get(context).changeapppmode();
+  onTap: them?(){AppDarkLightCubit.get(context).changeAppMode();
   isDark=!isDark!;
   Save.putdata(key: 'isDark', value: isDark??false);
   DeliveryCubit.get(context).increment();}
@@ -74,7 +75,7 @@ Widget languageAndThem(them,text,flag,icon,color,onTapLang,textBorderColor,conte
             child: Align( alignment: AlignmentDirectional.topStart,child: CircleAvatar(backgroundColor:color,radius:10,child: Icon(icon,size: 18,color: Colors.white,))),
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             width: 60,
             height: 50,
             decoration:  BoxDecoration(
@@ -82,9 +83,9 @@ Widget languageAndThem(them,text,flag,icon,color,onTapLang,textBorderColor,conte
             ),
             child: them?Icon(flag,color: textBorderColor,):Image.asset(flag),
           ),
-          Spacer(),
+          const Spacer(),
           Text(text,style: TextStyle(color: textBorderColor,fontWeight: FontWeight.w600),),
-          SizedBox(height: 15,)
+          const SizedBox(height: 15,)
         ],
       ),
     ),

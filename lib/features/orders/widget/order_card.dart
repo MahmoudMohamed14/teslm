@@ -2,7 +2,7 @@ import 'package:delivery/common/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../common/components.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 
 Widget orderCard(order){
   DateTime createdAt = DateTime.parse(order.createdAt);
@@ -27,7 +27,7 @@ Widget orderCard(order){
                           style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700),maxLines: 1,overflow: TextOverflow.ellipsis,),
                         Text(
                             DateFormat('MMMM d, yyyy HH:mm').format(createdAt),
-                          style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400),
+                          style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),
                         )
                       ],
                     )),

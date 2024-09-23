@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../Dio/Dio.dart';
-import '../../../../../common/constant values.dart';
+import '../../../../../common/constant/constant values.dart';
 import '../../../../../models/chat model.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 part 'chat_controller_state.dart';

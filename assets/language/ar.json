@@ -91,5 +91,20 @@
   "other": "اخرى",
   "deliveryPrice": "سعر التوصيل",
   "duration": "المدة",
-  "minimumCharge": "الحد الادنى للشحن"
+  "minimumCharge": "الحد الادنى للشحن",
+  "write_message": "اكتب رساله...",
+  "camera" : "الكاميرا",
+  "file" : "ملف",
+  "phone_number":"رقم الهاتف",
+  "name":"أسمك",
+  "gmail":"حسابك",
+  "update_information": "حدث بياناتك",
+  "birth_date": "تاريخ ميلادك",
+  "enter_valid_email": "ادخل حساب صحيح",
+  "cancel" : "الغاء",
+  "sure_logout": "هل تريد تسجيل الخروج",
+  "enter_text_search":"ادخل نص للبحث",
+  "logout_miss_customer_message":"سنفتقدك كثيرا اذا قمت بتسجيل الخروج ننتظر عودتك لنا مجددا",
+  "my_coupons":"قسائمى"
+
 }
