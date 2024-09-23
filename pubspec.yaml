@@ -85,6 +85,7 @@ flutter:
     - assets/images/
     - assets/images/icons/
     - assets/language/
+    - assets/images/background_image_splash.svg
 
 
   # The following line ensures that the Material Icons font is

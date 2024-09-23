@@ -1,11 +1,9 @@
-import 'package:delivery/common/translate/applocal.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../common/colors/colors.dart';
 import '../../../common/components.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 import '../../../common/translate/strings.dart';
 
 Widget bigCardHome(providerData,onTap,context)=>InkWell(
@@ -16,16 +14,15 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
       borderRadius: BorderRadius.circular(10.0),
     ),
     child: Container(
-      padding: EdgeInsets.all(15),
+      padding:const EdgeInsets.all(15),
       child: Column(
         mainAxisAlignment:language=='English Language'? MainAxisAlignment.end:MainAxisAlignment.start,
         crossAxisAlignment:CrossAxisAlignment.start,
         children: [
           SizedBox(
-              height:150.0,
               child:  Stack(
                 children: [
-                  image(providerData.providerCover, 180.0, MediaQuery.sizeOf(context).width/1.2,15.0,BoxFit.fill),
+                  image(providerData.providerCover, 135.0, MediaQuery.sizeOf(context).width/1.7,15.0,BoxFit.fill),
                   Positioned(
                     top: 10, right: 10, height:50, width: 50,
                     child:image(providerData.providerImage, 50.0, 50.0,15.0,BoxFit.fill),),
@@ -34,14 +31,14 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                     child:Container(
                       decoration: BoxDecoration(color:Colors.blueGrey.shade900,borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 8.0,right: 8),
+                        padding: const EdgeInsets.only(left: 8.0,right: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(Icons.star,color: Colors.amber,),
                             Text(
                         "${(providerData.reviewCount != null && providerData.reviewCount != 0 ? (providerData.totalReviews / providerData.reviewCount) : 0).toInt()} (${providerData.reviewCount ?? 0})",
-                        style: TextStyle(color: Colors.white),
+                        style:const TextStyle(color: Colors.white),
                       ),
                           ],
                         ),
@@ -50,7 +47,7 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                   Positioned(
                       bottom: 0, left: 0, height:25,
                       child:Container(
-                        width: MediaQuery.sizeOf(context).width/1.2,
+                        width: MediaQuery.sizeOf(context).width/1.7,
                         decoration: BoxDecoration(color:Colors.black26,borderRadius:BorderRadius.circular(5)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,10 +55,11 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.stars_rounded,color: Colors.white,),Text(language=='English Language'?'Best in 2023':"الافضل فى 2023",style: TextStyle(color: Colors.white),),
+                                const Icon(Icons.stars_rounded,color: Colors.white,),Text(language=='English Language'?'Best in 2023':"الافضل فى 2023",
+                                  style: const TextStyle(color: Colors.white),),
                               ],
                             ),
-                            Text(language=='English Language'?'Advertisement':"اعلان",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
+                            Text(language=='English Language'?'Advertisement':"اعلان",style:const TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
                           ],
                         )
                       )),
@@ -70,7 +68,7 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
           ),
           const SizedBox(height: 10,),
           Container(
-            width: MediaQuery.sizeOf(context).width/1.2,
+            width: MediaQuery.sizeOf(context).width/1.7,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),color: isDark??false? ColorsApp.cardBottomColor:Colors.grey.shade200),
             child: Padding(
               padding: const EdgeInsets.all(4.0),
@@ -79,12 +77,14 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(language=='en'?'${providerData.providerName.en??""}':'${providerData.providerName!.ar??''}',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                      Text(language=='en'?'${providerData.providerName.en??""}':'${providerData.providerName!.ar??''}',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,
+                        style:const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
                     ],
                   ),
                     Row(
                       children: [
-                        const Icon(Icons.more_time_rounded,),SizedBox(width: 5,),Text(Strings.timeMinutes.tr(context),style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400),),
+                        const Icon(Icons.more_time_rounded,),const SizedBox(width: 5,),Text(Strings.timeMinutes.tr(context),
+                          style:const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),),
                       ],
                     ),
                   Container(
@@ -98,13 +98,13 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                     child:  Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.add,color: Colors.white,size: 25,),
+                        const Icon(Icons.add,color: Colors.white,size: 18,),
                         const SizedBox(width: 5,),
                         Flexible(
 
                           child: Text(
                             Strings.freeDelivery.tr(context),
-                            style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w700),
+                            style:const TextStyle(color: Colors.white,fontSize: 13,fontWeight: FontWeight.w700),
                           ),
                         ),
                       ],

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../common/constant values.dart';
+import 'package:flutter_svg/svg.dart';
+import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
 
 class Splash extends StatefulWidget {
@@ -25,7 +26,34 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Image(image: AssetImage(isDark??false? ImagesApp.splashDarkImage:ImagesApp.splashLightImage)),),
+      body: Container(
+        decoration:const BoxDecoration(
+          gradient: LinearGradient(
+            colors:[
+              Color(0xFF33C072),Color(0xFF545461),],
+            begin: Alignment.topCenter, // Start the gradient at the top
+            end: Alignment.bottomCenter,
+        )),
+        child: Stack(
+          children: [
+            Center(
+              child: SvgPicture.asset(
+                ImagesApp.backgroundImageSplash,
+                height: 600,
+                width:double.infinity,// You can set width and height as needed
+              ),
+            ),
+            Center(
+              child: SvgPicture.asset(
+                ImagesApp.circleImageSplash,
+                height: 350,
+                width: 700,
+              ),
+            ),
+            Center(child: Image(image: AssetImage(ImagesApp.splashDarkImage)),),
+          ],
+        ),
+      ),
     );
   }
 }

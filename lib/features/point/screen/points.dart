@@ -1,6 +1,6 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -24,7 +24,7 @@ class Points extends StatelessWidget {
     return Scaffold(
       appBar:PreferredSize(
         preferredSize: const Size.fromHeight(98.0),
-        child: appBarWithIcons(Strings.points.tr(context),ImagesApp.pointsAppBarImage),
+        child: appBarWithIcons(Strings.points.tr(context),ImagesApp.pointsAppBarImage,false,context),
       ),
       body: SafeArea(child: ListView(
         children: [
@@ -43,7 +43,7 @@ class Points extends StatelessWidget {
             child: Card(
               color:isDark??false? ColorsApp.pointDarkColor:ColorsApp.whiteColor,
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding:const EdgeInsets.all(10),
                 child: Row(children: [
                   CircleAvatar(
                       backgroundColor: ColorsApp.secondColorGreen,

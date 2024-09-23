@@ -22,7 +22,7 @@ Widget pointsAndWalletCard(textData,quantity,image)=>SizedBox(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Text('$textData',style: TextStyle(color: Colors.black),),
+          Text('$textData',style:const TextStyle(color: Colors.black),),
           Text('$quantity',style:const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),)
         ],),
       ],),

@@ -1,8 +1,8 @@
 
 
 import 'package:delivery/common/components.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -113,10 +113,6 @@ class LoginState extends State<Login> {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Center(child: Text("enterValidPhoneNumber".tr(context),
                             style:const TextStyle(fontSize: 15,fontWeight: FontWeight.w400,color: Colors.white) ,)),backgroundColor: Colors.red.shade300,),);
                         }
-
-
-
-                       //
                       },radius: 30,)
                   
                     ],

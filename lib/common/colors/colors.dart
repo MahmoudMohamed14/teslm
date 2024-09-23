@@ -33,5 +33,7 @@ class ColorsApp {
   static const Color orangeColor =  Color(0xFFF78C2E);
   static const Color bottomNavigationBarColor = Color(0xFF393A4A);
   static const Color iconsMainColor = Color(0xFFF78C2E);
+  static const Color myAccountTextFieldLightColor = Color(0xFFEBEBEB);
+  static const Color myAccountBackgroundDarkColor = Color(0xFF4F4F5C);
 }
 

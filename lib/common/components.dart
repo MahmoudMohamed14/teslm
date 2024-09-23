@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery/Cubite/delivery_cubit.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shimmer/shimmer.dart';
 import '../features/map_page/screen/maps.dart';
-import '../features/search/search page.dart';
+import '../features/search/screen/search_page.dart';
 import 'colors/colors.dart';
 import 'colors/theme_model.dart';
 import 'images/images.dart';
@@ -103,14 +103,13 @@ Widget date(text,selected){
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
-      border: Border.all(color: ColorsApp.textColor1),
+      color: isDark??false? ColorsApp.cardsDarkColor:ColorsApp.myAccountTextFieldLightColor,
       borderRadius: BorderRadius.circular(35)
     ),
     child: Row(
       children: [
         Icon(
-          Icons.date_range,
-          color: ColorsApp.iconColor,
+          Icons.date_range_outlined,
         ),
         SizedBox(width: 15,),
         Text(text,style:TextStyle(fontSize: 14, ))
@@ -143,7 +142,7 @@ class bottom extends StatelessWidget {
         height: 46,
         padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
-            color: color??mainColor.shade400,
+            color: color??ColorsApp.orangeColor,
             borderRadius: BorderRadius.circular(radius??10),
             boxShadow: [
               BoxShadow(
@@ -340,18 +339,32 @@ Widget appBar(BuildContext context, bool mainPage) => SizedBox(
     ],
   ),
 );
-Widget appBarWithIcons(text,image)=>SafeArea(
+Widget appBarWithIcons(text,image,navigator,context)=>SafeArea(
   child: Container(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
         color: ColorsApp.secondColorGreen,
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 10.0,right: 10),
-          child: Text(text, style: const TextStyle(color: Colors.white,
-              fontSize: 25, fontWeight: FontWeight.w700),),
+        Row(
+          children: [
+            if(navigator)
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, right: 15),
+                child: IconButton(
+                  icon:const  Icon(Icons.arrow_back_ios_sharp, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0,right: 10),
+              child: Text(text, style: const TextStyle(color: Colors.white,
+                  fontSize: 25, fontWeight: FontWeight.w700),),
+            ),
+          ],
         ),
         Transform.flip(
           flipX:language=='en'? false:true,

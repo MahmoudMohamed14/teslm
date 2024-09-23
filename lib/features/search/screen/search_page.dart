@@ -1,10 +1,12 @@
-import 'package:delivery/common/constant%20values.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
-import '../../common/colors/colors.dart';
+import '../../../common/colors/colors.dart';
 
 class SearchPage extends StatelessWidget {
-  var textcontroller=TextEditingController();
-  var formkey=GlobalKey<FormState>();
+  final textController=TextEditingController();
+  final formKey=GlobalKey<FormState>();
   SearchPage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class SearchPage extends StatelessWidget {
         backgroundColor: isDark??false ? Colors.black12:floatActionColor,
         toolbarHeight: 60,
         title: Form(
-        key: formkey,
+        key: formKey,
         child: SingleChildScrollView(
           child: Column(
               children: [
@@ -22,13 +24,12 @@ class SearchPage extends StatelessWidget {
                   child: TextFormField(
                     autofocus: true,
                     validator: (value){
-                      if(value!.isEmpty){return 'Enter text to search';}
+                      if(value!.isEmpty){return Strings.enterTextSearch.tr(context);}
                       return null;
                     },
                     onChanged: (String text){},
-                    controller: textcontroller,
-                    decoration: InputDecoration(label: Text(
-                        language=='English Language'?'Search restaurants or stores':'ابحث عن المطاعم او المتاجر'),
+                    controller: textController,
+                    decoration: InputDecoration(label: Text(Strings.searchRestaurantStores.tr(context)),
                       prefixIcon:const Icon(Icons.search),
                       border: const OutlineInputBorder(),
                     ),

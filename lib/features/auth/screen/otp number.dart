@@ -1,9 +1,9 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/colors/theme_model.dart';
-import 'package:delivery/common/constant%20values.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/extensions.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/widgets/flip_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

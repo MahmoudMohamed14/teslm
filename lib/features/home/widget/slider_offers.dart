@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 import '../../provider page/screen/Provider page.dart';
 
 Widget slider(market,controller,context)=>CarouselSlider(

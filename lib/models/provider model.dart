@@ -1,35 +1,35 @@
 class Provider {
-  List<Data>? data;
-  int? count;
+  List<Providers>? providers;
+  List<CategoriesHome>? categories;
 
   Provider.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+    if (json['providers'] != null) {
+      providers = <Providers>[];
+      json['providers'].forEach((v) {
+        providers!.add(new Providers.fromJson(v));
       });
     }
-    count = json['count'];
+    if (json['categories'] != null) {
+      categories = <CategoriesHome>[];
+      json['categories'].forEach((v) {
+        categories!.add(new CategoriesHome.fromJson(v));
+      });
+    }
   }
 }
 
-class Data {
+class Providers {
   String? id;
   ProviderName? providerName;
   String? providerImage;
   String? providerCover;
   ProviderName? description;
   String? createdAt;
-  String? updatedAt;
-  List<ProviderCategories>? categories;
-  List<Branches>? branches;
   int? totalReviews;
   int? reviewCount;
-  int? itemCount;
-  int? categoryCount;
-  int? branchesCount;
+  List<Items>? items;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Providers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     providerName = json['provider_name'] != null
         ? new ProviderName.fromJson(json['provider_name'])
@@ -40,69 +40,65 @@ class Data {
         ? new ProviderName.fromJson(json['description'])
         : null;
     createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    createdAt = json['createdAt'];
     totalReviews = json['totalReviews'];
     reviewCount = json['reviewCount'];
-    if (json['categories'] != null) {
-      categories = <ProviderCategories>[];
-      json['categories'].forEach((v) {
-        categories!.add(new ProviderCategories.fromJson(v));
+    if (json['items'] != null) {
+      items = <Items>[];
+      json['items'].forEach((v) {
+        items!.add(new Items.fromJson(v));
       });
     }
-    if (json['branches'] != null) {
-      branches = <Branches>[];
-      json['branches'].forEach((v) {
-        branches!.add(new Branches.fromJson(v));
-      });
-    }
-    itemCount = json['itemCount'];
-    categoryCount = json['categoryCount'];
-    branchesCount = json['branchesCount'];
   }
 }
+
 class ProviderName {
   String? ar;
   String? en;
 
   ProviderName({this.ar, this.en});
+
   ProviderName.fromJson(Map<String, dynamic> json) {
     ar = json['ar'];
     en = json['en'];
   }
-}
 
-class ProviderCategories {
-  String? id;
-  ProviderName? name;
-  String? image;
-
-  ProviderCategories.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'] != null ? new ProviderName.fromJson(json['name']) : null;
-    image = json['image'];
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ar'] = this.ar;
+    data['en'] = this.en;
+    return data;
   }
 }
 
-class Branches {
+class Items {
   String? id;
-  ProviderName? branchName;
-  Location? location;
+  ProviderName? name;
+  int? calories;
+  int? price;
+  int? discount;
+  bool? topItem;
+  String? approvalStatus;
+  String? image;
+  int? totalReviews;
+  int? reviewCount;
   ProviderName? description;
 
-  Branches.fromJson(Map<String, dynamic> json) {
+  Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    branchName = json['branch_name'] != null
-        ? new ProviderName.fromJson(json['branch_name'])
-        : null;
-    location = json['location'] != null
-        ? new Location.fromJson(json['location'])
-        : null;
+    name =
+    json['name'] != null ? new ProviderName.fromJson(json['name']) : null;
+    calories = json['calories'];
+    price = json['price'];
+    discount = json['discount'];
+    topItem = json['top_item'];
+    approvalStatus = json['approval_status'];
+    image = json['image'];
+    totalReviews = json['totalReviews'];
+    reviewCount = json['reviewCount'];
     description = json['description'] != null
         ? new ProviderName.fromJson(json['description'])
         : null;
   }
-
 }
 
 class Location {
@@ -113,4 +109,117 @@ class Location {
     type = json['type'];
     coordinates = json['coordinates'].cast<double>();
   }
+}
+
+class WorkDays {
+  Label? label;
+  String? value;
+
+  WorkDays({this.label, this.value});
+
+  WorkDays.fromJson(Map<String, dynamic> json) {
+    label = json['label'] != null ? new Label.fromJson(json['label']) : null;
+    value = json['value'];
+  }
+}
+
+class Label {
+  Null? key;
+  Null? ref;
+  Type? type;
+  Props? props;
+  Null? nOwner;
+
+  Label.fromJson(Map<String, dynamic> json) {
+    key = json['key'];
+    ref = json['ref'];
+    type = json['type'] != null ? new Type.fromJson(json['type']) : null;
+    props = json['props'] != null ? new Props.fromJson(json['props']) : null;
+    nOwner = json['_owner'];
+  }
+}
+
+class Type {
+  String? displayName;
+
+  Type.fromJson(Map<String, dynamic> json) {
+    displayName = json['displayName'];
+  }
+
+}
+
+class Props {
+  String? id;
+  List<DefaultMessage>? defaultMessage;
+
+  Props({this.id, this.defaultMessage});
+
+  Props.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    if (json['defaultMessage'] != null) {
+      defaultMessage = <DefaultMessage>[];
+      json['defaultMessage'].forEach((v) {
+        defaultMessage!.add(new DefaultMessage.fromJson(v));
+      });
+    }
+  }
+}
+
+class DefaultMessage {
+  int? type;
+  String? value;
+
+  DefaultMessage({this.type, this.value});
+
+  DefaultMessage.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    value = json['value'];
+  }
+}
+
+class CategoriesHome {
+  String? id;
+  ProviderName? name;
+  String? image;
+  List<Providers>? providers;
+
+  CategoriesHome.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name =
+    json['name'] != null ? new ProviderName.fromJson(json['name']) : null;
+    image = json['image'];
+    if (json['providers'] != null) {
+      providers = <Providers>[];
+      json['providers'].forEach((v) {
+        providers!.add(new Providers.fromJson(v));
+      });
+    }
+  }
+}
+
+class ProvidersHome {
+  String? id;
+  ProviderName? providerName;
+  String? providerImage;
+  String? providerCover;
+  ProviderName? description;
+  int? totalReviews;
+  int? reviewCount;
+  int? orderCount;
+
+  ProvidersHome.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    providerName = json['provider_name'] != null
+        ? new ProviderName.fromJson(json['provider_name'])
+        : null;
+    providerImage = json['provider_image'];
+    providerCover = json['provider_cover'];
+    description = json['description'] != null
+        ? new ProviderName.fromJson(json['description'])
+        : null;
+    totalReviews = json['totalReviews'];
+    reviewCount = json['reviewCount'];
+    orderCount = json['orderCount'];
+  }
+
 }

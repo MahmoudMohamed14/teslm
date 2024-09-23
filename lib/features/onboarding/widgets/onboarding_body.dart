@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/components.dart';
-import '../../../shared prefernace/shared preferance.dart';
+import '../../../shared_preference/shared preference.dart';
 import '../../home/screens/home.dart';
 import 'onboarding_data.dart';
 

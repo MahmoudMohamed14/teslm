@@ -83,5 +83,18 @@ class Strings {
   static const String codeYouEnteredInvalid= "codeYouEnteredInvalid";
   static const String resendCode= "resendCode";
   static const String verityYourAccount= "verityYourAccount";
-
+  static const String writeMessage= "write_message";
+  static const String camera= "camera";
+  static const String file= "file";
+  static const String myPhoneNumber= "phone_number";
+  static const String myName= "name";
+  static const String myGmail= "gmail";
+  static const String myBirthDate= "birth_date";
+  static const String updateMyData= "update_information";
+  static const String enterValidEmail= "enter_valid_email";
+  static const String cancel= "cancel";
+  static const String sureLogout= "sure_logout";
+  static const String enterTextSearch= "enter_text_search";
+  static const String logoutMissCustomerMessage= "logout_miss_customer_message";
+  static const String myCoupons= "my_coupons";
 }

@@ -33,4 +33,12 @@ class ImagesApp {
   static const String shopPointImage = 'assets/images/shop.svg';
   static const String shopCarImage = 'assets/images/shopping_car.svg';
   static const String moreSettingImage = 'assets/images/more_image.svg';
+  static const String myAccountImage = 'assets/images/my_account.svg';
+  static const String supportImage = 'assets/images/support.svg';
+  static const String callCenterImage = 'assets/images/call_center.svg';
+  static const String settingImage = 'assets/images/setting.svg';
+  static const String logoutIcon = 'assets/images/logout_icon.gif';
+  static const String backgroundImageSplash = 'assets/images/background_image_splash.svg';
+  static const String circleImageSplash = 'assets/images/circle_splash.svg';
+
 }

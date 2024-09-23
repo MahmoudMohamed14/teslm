@@ -1,8 +1,8 @@
 import 'package:blured_navigation_bar_x/blured_nav_bar_x_item.dart';
 import 'package:blured_navigation_bar_x/blured_navigation_bar_x.dart';
 import 'package:delivery/common/colors/colors.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +10,7 @@ import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/translate/strings.dart';
 import '../../orders/screen/orders.dart';
 import '../../point/screen/points.dart';
-import '../../profile/screen/userProfile.dart';
+import '../../profile/screen/user_profile.dart';
 import 'main_page.dart';
 
 class Home extends StatelessWidget {

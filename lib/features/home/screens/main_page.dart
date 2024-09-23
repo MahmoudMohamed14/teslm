@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/components.dart';
-import 'package:delivery/common/constant%20values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widget/home_body.dart';

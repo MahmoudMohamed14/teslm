@@ -1,7 +1,7 @@
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 import '../../../common/translate/strings.dart';
 import 'bottom_sheet_items.dart';
 

@@ -1,10 +1,11 @@
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/components.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 
 Widget smallCard(providerData,onTap,context)=>InkWell(
   onTap: onTap,
@@ -67,24 +68,25 @@ Widget smallCard(providerData,onTap,context)=>InkWell(
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
-              height: 30,
+              height: 24,
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
               decoration: BoxDecoration(
-                  color:mainColor.shade400,
-                  borderRadius: BorderRadius.circular(15)
+                  color:ColorsApp.orangeColor,
+                  borderRadius: BorderRadius.circular(7)
               ),
-              child:  Padding(
-                padding: const EdgeInsets.only(left: 8.0,right: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.add,color: Colors.white,size: 25,),
-                    const SizedBox(width: 5,),
-                    Text(
+              child:  Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.add,color: Colors.white,size: 25,),
+                  const SizedBox(width: 5,),
+                  Flexible(
+
+                    child: Text(
                       Strings.freeDelivery.tr(context),
                       style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w700),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

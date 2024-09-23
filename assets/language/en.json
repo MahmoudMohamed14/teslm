@@ -88,5 +88,19 @@
   "resendCode": "Resend Code",
   "verity": "Verity",
   "codeYouEnteredInvalid":"the code you entered is invalid please try again",
-  "verityYourAccount": "Verity Your Account"
+  "verityYourAccount": "Verity Your Account",
+  "write_message": "Write message...",
+  "camera" : "Camera",
+  "file" : "File",
+  "phone_number":"your phone number",
+  "name": "Your name",
+  "gmail":"Your gmail",
+  "update_information":"Update information",
+  "birth_date": "your Birth date",
+  "enter_valid_email":"Enter valid email",
+  "cancel" : "Cancel",
+  "sure_logout": "Are you Sure Want Logout",
+  "enter_text_search":"Enter text to search",
+  "logout_miss_customer_message":"We will miss you a lot if you log out. We look forward to your return again",
+  "my_coupons":"My coupons"
 }

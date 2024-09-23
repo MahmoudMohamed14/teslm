@@ -1,7 +1,7 @@
 import 'package:delivery/common/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../common/constant values.dart';
+import '../../../common/constant/constant values.dart';
 
 Widget howPoints(text,icon,description)=>Padding(
   padding: const EdgeInsets.all(8.0),

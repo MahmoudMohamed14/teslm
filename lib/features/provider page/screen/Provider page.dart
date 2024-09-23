@@ -2,9 +2,9 @@ import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
-import 'package:delivery/common/constant%20values.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/extensions.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/provider%20page/widget/search_provider_page.dart';
 import 'package:delivery/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +48,7 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          OtherWidget()
-
-        ],),
-      )
-     /* SafeArea(
+        child: SafeArea(
         bottom: false,
         child: Stack(
           children: [
@@ -209,8 +204,7 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
               searchProvider(context),
           ],
         ),
-      )*/
-    );
+    )));
   },
 );
   }

@@ -1,8 +1,8 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
-import 'package:delivery/common/constant%20values.dart';
-import 'package:delivery/common/translate/applocal.dart';
+import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,9 +13,9 @@ import '../widget/order_brief.dart';
 import '../widget/payment_methods card.dart';
 
 class Payment extends StatelessWidget {
-  Payment({super.key,required this.customerNotes});
+  const Payment({super.key,required this.customerNotes});
 
-  String customerNotes;
+  final String customerNotes;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DeliveryCubit, DeliveryState>(
@@ -24,7 +24,8 @@ class Payment extends StatelessWidget {
   },
   builder: (context, state) {
     return Scaffold(
-      appBar: AppBar(title: Text(Strings.reviewOrder.tr(context)),leading: InkWell(onTap:(){if(loginFromCart){Navigator.pop(context);Navigator.pop(context);Navigator.pop(context);loginFromCart=false;}else{Navigator.pop(context);}},child: Icon(Icons.arrow_back_outlined)),),
+      appBar: AppBar(title: Text(Strings.reviewOrder.tr(context)),leading: InkWell(onTap:(){if(loginFromCart){Navigator.pop(context);Navigator.pop(context);Navigator.pop(context);loginFromCart=false;}else{Navigator.pop(context);}},
+          child: const Icon(Icons.arrow_back_outlined)),),
         body:Column(
           children: [
             Expanded(
@@ -37,7 +38,7 @@ class Payment extends StatelessWidget {
                     height: 50,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(width: 0.9,color:
                     borderColor)),
-                    padding: EdgeInsets.all(10),
+                    padding:const EdgeInsets.all(10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -84,7 +85,7 @@ class Payment extends StatelessWidget {
               size: 25.0,
             )
             :cartPaymentBottom(Strings.confirmOrder.tr(context), (){
-              DeliveryCubit.get(context).postOrder(items: values, customerId: '$customerId',coupon: '${_couponController.text}' ,deliveryPartnerId: 'trhygfdgfdh', customerNotes: customerNotes,context: context);
+              DeliveryCubit.get(context).postOrder(items: values, customerId: '$customerId',coupon: _couponController.text ,deliveryPartnerId: 'trhygfdgfdh', customerNotes: customerNotes,context: context);
             }, false,context),
           ],
         )
