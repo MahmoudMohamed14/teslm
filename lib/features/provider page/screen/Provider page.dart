@@ -50,18 +50,142 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
   builder: (context, state) {
     var menu= DeliveryCubit.get(context).providerFoodData;
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(children: [
-            AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font2),),
-          8.h.heightBox,
-            OtherWidget()
-        
-          ],),
-        ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor:  ThemeModel.of(context).backgroundColor,
+            surfaceTintColor: ThemeModel.of(context).backgroundColor,
+            toolbarHeight: 200.h,
+
+            //floating: true,
+
+
+
+
+
+
+            
+            pinned: true,
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(backgroundColor: ThemeModel.of(context).backgroundColor,radius: 10,child:
+              Icon(CupertinoIcons.xmark,color: ThemeModel.of(context).font1,size:22,),),
+
+            ),
+            bottom: PreferredSize(preferredSize: Size.fromHeight(70)
+              , child: Padding(
+                padding: const EdgeInsets.symmetric(vertical:10,horizontal: 15 ),
+                child: Container(
+                  height: 70,
+                  color: Colors.red,
+                  width: double.maxFinite,
+                ),
+              ),
+
+            ),
+
+            flexibleSpace: FlexibleSpaceBar(
+
+              
+              title:  AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font2),),
+              background: Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(18),bottomRight: Radius.circular(18),
+                    
+                  ),
+                  image: DecorationImage(fit: BoxFit.cover,image: NetworkImage('https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D'))
+                      
+                ),
+               /*// child: Image.network("https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+                width: double.maxFinite,fit: BoxFit.cover,),*/
+              ),
+              ),
+              
+
+
+            expandedHeight: 200.h,
+
+          ),
+          SliverAppBar(
+           // pinned: true,
+            leading: const SizedBox.shrink(),
+            flexibleSpace:const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PriceWidget(),
+                  PriceWidget(),
+                  PriceWidget(),
+                ],
+              ),
+            ) ,
+            backgroundColor:  ThemeModel.of(context).backgroundColor,
+            surfaceTintColor: ThemeModel.of(context).backgroundColor,
+
+          ),
+          SliverAppBar(
+             pinned: true,
+
+            leading: const SizedBox.shrink(),
+            flexibleSpace: PreferredSize(preferredSize: Size.fromHeight(50)
+              , child: Padding(
+                padding: const EdgeInsets.symmetric(vertical:10,horizontal: 15 ),
+                child: Container(
+                  height: 50,
+                  color: Colors.red,
+                  width: double.maxFinite,
+                ),
+              ),
+
+            ),
+
+
+
+            backgroundColor:  ThemeModel.of(context).backgroundColor,
+            surfaceTintColor: ThemeModel.of(context).backgroundColor,
+
+            //  pinned: true,
+
+
+
+
+
+           // expandedHeight: 40.h,
+
+          ),
+          SliverToBoxAdapter(child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font2),),
+               // 8.h.heightBox,
+                ListView.separated(itemBuilder: (context,index)=>OtherWidget(),physics: NeverScrollableScrollPhysics(), shrinkWrap: true,separatorBuilder: (context,index)=>10.h.heightBox, itemCount: 10)
+
+              ],),
+          ),),
+        /*  SliverList(delegate: SliverChildBuilderDelegate((context, index) {
+
+            return  Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font2),),
+                8.h.heightBox,
+                OtherWidget()
+
+              ],);
+          },childCount: 5),)*/
+
+        ],
+
+
+
       ),
-        bottomNavigationBar: bottom(Strings.showCart.tr(context), () async {}),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(15),
+          child: bottom(Strings.showCart.tr(context), () async {}),
+        ),
      /* SafeArea(
         bottom: false,
         child: Stack(
@@ -299,13 +423,33 @@ class OtherWidget extends StatelessWidget {
               )
             ),
             PositionedDirectional(
-              bottom: 0,
-                end: 0,
+              bottom: 2,
+                end: 3,
                 child: CircleAvatar(backgroundColor: ThemeModel.of(context).font1,radius: 15,child:
                 Icon(CupertinoIcons.add,color: ThemeModel.of(context).backgroundColor),))
           ],
         )
       ],),
     );
+  }
+}
+class PriceWidget extends StatelessWidget {
+  const PriceWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).font1),),
+      10.h.heightBox,
+      Container(
+        padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 16.w),
+        decoration: BoxDecoration(
+        color: ThemeModel.of(context).greenAppBar,
+        borderRadius: BorderRadius.circular(18)
+      ),
+        child:Center(child: AppTextWidget('23-65 sr',style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).backgroundColor),)),
+        )
+      
+    ],);
   }
 }
