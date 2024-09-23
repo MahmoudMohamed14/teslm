@@ -681,6 +681,7 @@ class OtherWidget extends StatelessWidget {
               ],
             ).expand,
             15.w.widthBox,
+            //hi mostfa
             Stack(
               children: [
                 image(item?.image, 144.0, 130.w, 20.0, BoxFit.cover),
