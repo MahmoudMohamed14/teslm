@@ -76,7 +76,7 @@
   "pleaseAddYourPhone": "يرجى إضافة رقم هاتفك والمتابعة",
   "phoneNumber": "رقم الهاتف",
   "continueText": "متابعة",
-  "OTP_not_valid": "الكود المدخل ليس صحيح",
+
   "this_not_work_location": "هذه الخدمه غير متوفرة فى موقعك",
   "high_review": "الاعلى تقييم",
   "most_reviewers": "الاكثر تقييم",
@@ -88,5 +88,8 @@
   "verity": "تحقيق",
   "codeYouEnteredInvalid":"الرمز الذي أدخلته غير صالح يرجى المحاولة مرة أخرى",
   "verityYourAccount": "صدق حسابك",
-  "other": "اخرى"
+  "other": "اخرى",
+  "deliveryPrice": "سعر التوصيل",
+  "duration": "المدة",
+  "minimumCharge": "الحد الادنى للشحن"
 }

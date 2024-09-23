@@ -84,5 +84,9 @@ class Strings {
   static const String resendCode= "resendCode";
   static const String verityYourAccount= "verityYourAccount";
   static const String other= "other";
+  static const String duration= "duration";
+  static const String deliveryPrice= "deliveryPrice";
+  static const String minimumCharge= "minimumCharge";
+
 
 }

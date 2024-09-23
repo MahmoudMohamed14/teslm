@@ -14,7 +14,7 @@ Widget filterSmallViewLoading()=>ListView.builder(
       children: [
         Row(
           children: [
-            Skeleton(height: 102.0,width:102.0,radius: 40.0),
+            Skeleton(height: 90.0,width:90.0,radius: 40.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -89,5 +89,8 @@
   "verity": "Verity",
   "codeYouEnteredInvalid":"the code you entered is invalid please try again",
   "verityYourAccount": "Verity Your Account",
-  "other": "Other"
+  "other": "Other",
+  "duration": "Duration",
+  "deliveryPrice": "Delivery Price",
+  "minimumCharge": "Minimum Charge"
 }

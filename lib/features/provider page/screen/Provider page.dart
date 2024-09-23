@@ -17,176 +17,195 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
+import '../../../models/provider items model.dart';
 import '../../cart/screen/cart.dart';
 import '../widget/add_or_remove_in_provider.dart';
 import '../widget/loading_widget.dart';
 import '../widget/menu_items.dart';
 import '../widget/resturant_card.dart';
 import 'extra_items_class.dart';
+
 class ProviderPage extends StatefulWidget {
   String providerDescription;
   String providerName;
   String providerCover;
   String providerImage;
 
-  ProviderPage({super.key,required this.providerDescription,required this.providerName,required this.providerCover,required this.providerImage});
+  ProviderPage(
+      {super.key,
+      required this.providerDescription,
+      required this.providerName,
+      required this.providerCover,
+      required this.providerImage});
 
   @override
   State<ProviderPage> createState() => _ProviderPage();
 }
 
-class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMixin{
+class _ProviderPage extends State<ProviderPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController controller;
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     controller = BottomSheet.createAnimationController(this);
     controller.duration = const Duration(milliseconds: 700);
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DeliveryCubit, DeliveryState>(
-  listener: (context, state) {},
-  builder: (context, state) {
-    var menu= DeliveryCubit.get(context).providerFoodData;
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor:  ThemeModel.of(context).backgroundColor,
-            surfaceTintColor: ThemeModel.of(context).backgroundColor,
-            toolbarHeight: 200.h,
-
-            //floating: true,
-
-
-
-
-
-
-            
-            pinned: true,
-            leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(backgroundColor: ThemeModel.of(context).backgroundColor,radius: 10,child:
-              Icon(CupertinoIcons.xmark,color: ThemeModel.of(context).font1,size:22,),),
-
-            ),
-            bottom: PreferredSize(preferredSize: Size.fromHeight(70)
-              , child: Padding(
-                padding: const EdgeInsets.symmetric(vertical:10,horizontal: 15 ),
-                child: Container(
-                  height: 70,
-                  color: Colors.red,
-                  width: double.maxFinite,
-                ),
-              ),
-
-            ),
-
-            flexibleSpace: FlexibleSpaceBar(
-
-              
-              title:  AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font2),),
-              background: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(18),bottomRight: Radius.circular(18),
-                    
+      listener: (context, state) {},
+      builder: (context, state) {
+        var menu = DeliveryCubit.get(context).providerFoodData;
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                backgroundColor: ThemeModel.of(context).backgroundColor,
+                surfaceTintColor: ThemeModel.of(context).backgroundColor,
+                toolbarHeight: 120.h,
+                pinned: true,
+                // floating: true, // Set to true
+                // snap: true,
+                leading: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    backgroundColor: ThemeModel.of(context).backgroundColor,
+                    radius: 10,
+                    child: Icon(
+                      CupertinoIcons.xmark,
+                      color: ThemeModel.of(context).font1,
+                      size: 22,
+                    ),
                   ),
-                  image: DecorationImage(fit: BoxFit.cover,image: NetworkImage('https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D'))
-                      
                 ),
-               /*// child: Image.network("https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+                bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(95.h),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    child: Container(
+                      height: 60,
+                      color: Colors.red,
+                      width: double.maxFinite,
+                    ),
+                  ),
+                ),
+                flexibleSpace: FlexibleSpaceBar(
+                  title: AppTextWidget(
+                    Strings.other.tr(context),
+                    style: TextStyleHelper.of(context)
+                        .bold20
+                        .copyWith(color: ThemeModel.of(context).font2),
+                  ),
+                  background: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(18),
+                          bottomRight: Radius.circular(18),
+                        ),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(widget.providerCover))),
+                    /*// child: Image.network("https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
                 width: double.maxFinite,fit: BoxFit.cover,),*/
+                  ),
+                ),
+                //expandedHeight: 200.h,
               ),
+              SliverAppBar(
+                expandedHeight: 60,
+                // pinned: true,
+                leading: const SizedBox.shrink(),
+                flexibleSpace: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PriceWidget(
+                        title: Strings.duration.tr(context),
+                        value: '55-21',
+                      ),
+                      PriceWidget(
+                          title: Strings.deliveryPrice.tr(context),
+                          value: '55-21'),
+                      PriceWidget(
+                          title: Strings.minimumCharge.tr(context),
+                          value: '55-21'),
+                    ],
+                  ),
+                ),
+                backgroundColor: ThemeModel.of(context).backgroundColor,
+                surfaceTintColor: ThemeModel.of(context).backgroundColor,
               ),
-              
-
-
-            expandedHeight: 200.h,
-
-          ),
-          SliverAppBar(
-           // pinned: true,
-            leading: const SizedBox.shrink(),
-            flexibleSpace:const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  PriceWidget(),
-                  PriceWidget(),
-                  PriceWidget(),
-                ],
+              SliverAppBar(
+                pinned: true,
+                leading: const SizedBox.shrink(),
+                flexibleSpace: PreferredSize(
+                  preferredSize: const Size.fromHeight(40),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    child: Container(
+                      height: 40,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          color: ThemeModel.of(context).font3,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(start: 8),
+                            child: Icon(
+                              CupertinoIcons.search,
+                              color: ThemeModel.of(context).font1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                backgroundColor: ThemeModel.of(context).backgroundColor,
+                surfaceTintColor: ThemeModel.of(context).backgroundColor,
               ),
-            ) ,
-            backgroundColor:  ThemeModel.of(context).backgroundColor,
-            surfaceTintColor: ThemeModel.of(context).backgroundColor,
-
-          ),
-          SliverAppBar(
-             pinned: true,
-
-            leading: const SizedBox.shrink(),
-            flexibleSpace: PreferredSize(preferredSize: Size.fromHeight(50)
-              , child: Padding(
-                padding: const EdgeInsets.symmetric(vertical:10,horizontal: 15 ),
-                child: Container(
-                  height: 50,
-                  color: Colors.red,
-                  width: double.maxFinite,
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppTextWidget(
+                        Strings.other.tr(context),
+                        style: TextStyleHelper.of(context)
+                            .bold20
+                            .copyWith(color: ThemeModel.of(context).font2),
+                      ),
+                      8.0.heightBox,
+                      ListView.separated(
+                          itemBuilder: (context, index) => OtherWidget(
+                                item: menu?.CategoriesItemsData?.firstOrNull
+                                    ?.items?[index],
+                              ),
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          separatorBuilder: (context, index) => 10.h.heightBox,
+                          itemCount: menu?.CategoriesItemsData?.firstOrNull
+                                  ?.items?.length ??
+                              0)
+                    ],
+                  ),
                 ),
               ),
-
-            ),
-
-
-
-            backgroundColor:  ThemeModel.of(context).backgroundColor,
-            surfaceTintColor: ThemeModel.of(context).backgroundColor,
-
-            //  pinned: true,
-
-
-
-
-
-           // expandedHeight: 40.h,
-
+            ],
           ),
-          SliverToBoxAdapter(child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font2),),
-               // 8.h.heightBox,
-                ListView.separated(itemBuilder: (context,index)=>OtherWidget(),physics: NeverScrollableScrollPhysics(), shrinkWrap: true,separatorBuilder: (context,index)=>10.h.heightBox, itemCount: 10)
-
-              ],),
-          ),),
-        /*  SliverList(delegate: SliverChildBuilderDelegate((context, index) {
-
-            return  Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font2),),
-                8.h.heightBox,
-                OtherWidget()
-
-              ],);
-          },childCount: 5),)*/
-
-        ],
-
-
-
-      ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(15),
-          child: bottom(Strings.showCart.tr(context), () async {}),
-        ),
-     /* SafeArea(
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.all(15),
+            child: bottom(Strings.showCart.tr(context), () async {}),
+          ),
+          /* body:  SafeArea(
         bottom: false,
         child: Stack(
           children: [
@@ -287,6 +306,8 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
                         ),
                       ),
                     ),
+
+
                       DecoratedSliver(
                         decoration: BoxDecoration(
                           color: isDark??false? Colors.black87:floatActionColor,
@@ -303,20 +324,227 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
                                     shrinkWrap: true,
                                     padding: EdgeInsets.zero,
                                     physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context,indexNew) =>Column(
-                                      crossAxisAlignment:CrossAxisAlignment.start,
+                                    itemBuilder: (context,indexNew) {
+                                      print("new Index $indexNew" "index $index");
+                                      return Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
                                       children: [
                                         InkWell(
-                                          onTap: (){bottomSheet(context, ExtraItemsBottomSheet(extra:menu.CategoriesItemsData![index].items![indexNew].optionGroups,itemImage:'${menu.CategoriesItemsData![index].items![indexNew].image}', name:language=='en'? '${menu.CategoriesItemsData![index].items![indexNew].name!.en}':'${menu.CategoriesItemsData![index].items![indexNew].name!.ar}',description:language=='en'? '${menu.CategoriesItemsData![index].items![indexNew].description!.en}':'${menu.CategoriesItemsData![index].items![indexNew].description!.ar}',price: menu.CategoriesItemsData![index].items![indexNew].price,id: '${menu.CategoriesItemsData![index].items![indexNew].id}',),controller: controller);},
-                                          child: menuItems(menu.CategoriesItemsData![index].items![indexNew].optionGroups!.isNotEmpty?(){
-                                            bottomSheet(context, ExtraItemsBottomSheet(extra:menu.CategoriesItemsData![index].items![indexNew].optionGroups,itemImage:'${menu.CategoriesItemsData![index].items![indexNew].image}', name: language=='en'?'${menu.CategoriesItemsData![index].items![indexNew].name!.en}':'${menu.CategoriesItemsData![index].items![indexNew].name!.ar}',description: language=='en'? '${menu.CategoriesItemsData![index].items![indexNew].description!.en}':'${menu.CategoriesItemsData![index].items![indexNew].description!.ar}',price: menu.CategoriesItemsData![index].items![indexNew].price,id: '${menu.CategoriesItemsData![index].items![indexNew].id}'),controller: controller);}
-                                              :(){DeliveryCubit.get(context).addValue(language=='en'?'${menu.CategoriesItemsData![index].items![indexNew].name!.en}':'${menu.CategoriesItemsData![index].items![indexNew].name!.ar}',1,menu.CategoriesItemsData![index].items![indexNew].image,menu.CategoriesItemsData![index].items![indexNew].price??0,menu.CategoriesItemsData![index].items![indexNew].id,null);},menu.CategoriesItemsData![index].items![indexNew].optionGroups!.length!=0?true : false,menu.CategoriesItemsData![index].items![indexNew],context,
-                                              DeliveryCubit.get(context).getValueById('${menu.CategoriesItemsData![index].items![indexNew].id}')!=0? addOrRemoveOne(DeliveryCubit.get(context).getValueById('${menu.CategoriesItemsData![index].items![indexNew].id}'), context, menu.CategoriesItemsData![index].items![indexNew].optionGroups!.isNotEmpty?(){
-                                              bottomSheet(context, ExtraItemsBottomSheet( extra:menu.CategoriesItemsData![index].items![indexNew].optionGroups,itemImage: '${menu.CategoriesItemsData![index].items![indexNew].image}', name:language=='en'?'${menu.CategoriesItemsData![index].items![indexNew].name!.en}':'${menu.CategoriesItemsData![index].items![indexNew].name!.ar}',description: language=='en'? '${menu.CategoriesItemsData![index].items![indexNew].description!.en}':'${menu.CategoriesItemsData![index].items![indexNew].description!.ar}',price: menu.CategoriesItemsData![index].items![indexNew].price,id: '${menu.CategoriesItemsData![index].items![indexNew].id}'),
-                                                controller: controller,);}:(){DeliveryCubit.get(context).addValue(language=='en'?'${menu.CategoriesItemsData![index].items![indexNew].name!.en}':'${menu.CategoriesItemsData![index].items![indexNew].name!.ar}', 1,menu.CategoriesItemsData![index].items![indexNew].image,menu.CategoriesItemsData![index].items![indexNew].price??0,menu.CategoriesItemsData![index].items![indexNew].id,null);},
-                                              (){DeliveryCubit.get(context).minusValue(language=='en'?'${menu.CategoriesItemsData![index].items![indexNew].name!.en}':'${menu.CategoriesItemsData![index].items![indexNew].name!.ar}', 1,menu.CategoriesItemsData![index].items![indexNew].image,menu.CategoriesItemsData![index].items![indexNew].price??0,menu.CategoriesItemsData![index].items![indexNew].id);},false):null)),
+                                            onTap: () {
+                                              bottomSheet(context,
+                                                  ExtraItemsBottomSheet(
+                                                    extra: menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .optionGroups,
+                                                    itemImage: '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .image}',
+                                                    name: language == 'en'
+                                                        ? '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew].name!
+                                                        .en}'
+                                                        : '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew].name!
+                                                        .ar}',
+                                                    description: language ==
+                                                        'en'
+                                                        ? '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .description!.en}'
+                                                        : '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .description!.ar}',
+                                                    price: menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew].price,
+                                                    id: '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .id}',),
+                                                  controller: controller);
+                                            },
+                                            child: menuItems(
+                                                menu.CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .optionGroups!.isNotEmpty
+                                                    ? () {
+                                                  bottomSheet(context,
+                                                      ExtraItemsBottomSheet(
+                                                          extra: menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .optionGroups
+                                                          ,
+                                                          itemImage: '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .image}',
+                                                          name: language == 'en'
+                                                              ? '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .name!.en}'
+                                                              : '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .name!.ar}',
+                                                          description: language ==
+                                                              'en' ?
+                                                          '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .description!.en}'
+                                                              : '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .description!
+                                                              .ar}',
+                                                          price:
+                                                          menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .price,
+                                                          id:
+                                                          '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .id}'),
+                                                      controller: controller);
+                                                }
+                                                    : () {
+                                                  DeliveryCubit.get(context)
+                                                      .addValue(
+                                                      language == 'en' ? '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.en}' : '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.ar}', 1, menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew].image,
+                                                      menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .price ?? 0, menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew].id,
+                                                      null);
+                                                }
+
+                                                ,
+                                                menu.CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .optionGroups!.length != 0
+                                                    ? true
+                                                    : false,
+                                                menu.CategoriesItemsData![index]
+                                                    .items![indexNew], context,
+                                                DeliveryCubit.get(context)
+                                                    .getValueById('${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew].id}') != 0
+                                                    ? addOrRemoveOne(
+                                                    DeliveryCubit.get(context)
+                                                        .getValueById('${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew].id}'),
+                                                    context, menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .optionGroups!.isNotEmpty
+                                                    ? () {
+                                                  bottomSheet(context,
+                                                    ExtraItemsBottomSheet(
+                                                        extra: menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .optionGroups,
+                                                        itemImage: '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .image}',
+                                                        name: language == 'en'
+                                                            ? '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .name!.en}'
+                                                            : '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .name!.ar}',
+                                                        description: language ==
+                                                            'en'
+                                                            ? '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .description!.en}'
+                                                            : '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .description!.ar}',
+                                                        price: menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .price,
+                                                        id: '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .id}'),
+                                                    controller: controller,);
+                                                }
+                                                    : () {
+                                                  DeliveryCubit.get(context)
+                                                      .addValue(
+                                                      language == 'en' ? '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.en}' : '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.ar}', 1, menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew].image,
+                                                      menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .price ?? 0, menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew].id,
+                                                      null);
+                                                },
+                                                        () {
+                                                      DeliveryCubit.get(context)
+                                                          .minusValue(
+                                                          language == 'en'
+                                                              ? '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .name!.en}'
+                                                              : '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .name!.ar}', 1,
+                                                          menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .image, menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .price ?? 0, menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew].id);
+                                                    }, false)
+                                                    : null)),
                                       ],
-                                    )
+                                    );}
                                     ,itemCount: menu.CategoriesItemsData![index].items!.length, separatorBuilder: (BuildContext context, int index) =>seperate(),),
                                   if(index!=menu.CategoriesItemsData!.length-1&&index!=0)
                                     seperate(),
@@ -343,113 +571,177 @@ class _ProviderPage extends State<ProviderPage>with SingleTickerProviderStateMix
           ],
         ),
       )*/
+        );
+      },
     );
-  },
-);
   }
-
 }
 
 class OtherWidget extends StatelessWidget {
-  const OtherWidget({super.key});
+  const OtherWidget({super.key, this.item});
+
+  final Items? item;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height:172.h ,
-      decoration: BoxDecoration(
-        color: ThemeModel.of(context).font4,
-        borderRadius: BorderRadius.circular(20)
-      ),
-      child: Row(children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () {
+        showBottomSheet1(
+          context,
+          widget: const BottomSheetWidget(),
+        );
+      },
+      child: Container(
+        height:144,
+        decoration: BoxDecoration(
+            color: ThemeModel.of(context).font4,
+            borderRadius: BorderRadius.circular(20)),
+        child: Row(
           children: [
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: 12,top: 10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppTextWidget('Cusomizable',style: TextStyleHelper.of(context).regular15.copyWith(color:ThemeModel.of(context).font2 ),),
-                5.h.heightBox,
-                AppTextWidget('El back mail 8 piece',style: TextStyleHelper.of(context).bold19,),
-                10.h.heightBox,
-                AppTextWidget('Crispy chicken pieces in   accordance with quality stand ',maxLines: 2
-                  ,textAlign: TextAlign.start
-                  ,style: TextStyleHelper.of(context).regular12.copyWith(color:ThemeModel.of(context).font2,height: 1.3,overflow: TextOverflow.ellipsis ),),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 12, top: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppTextWidget(
+                        'Cusomizable',
+                        style: TextStyleHelper.of(context)
+                            .regular15
+                            .copyWith(color: ThemeModel.of(context).font2),
+                      ),
+                      5.h.heightBox,
+                      AppTextWidget(
+                        language == 'en'
+                            ? item?.name?.en ?? ''
+                            : '${item?.name?.ar}',
+                        style: TextStyleHelper.of(context).bold19,
+                      ),
+                      10.h.heightBox,
+                      AppTextWidget(
+                        language == 'en'
+                            ? '${item?.description?.en}'
+                            : '${item?.description?.ar}',
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
+                        style: TextStyleHelper.of(context).regular12.copyWith(
+                            color: ThemeModel.of(context).font2,
+                            height: 1.3,
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                    ],
+                  ),
+                ),
+                15.h.heightBox,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                  decoration: BoxDecoration(
+                    color: ThemeModel.of(context).font2,
+                    borderRadius: const BorderRadiusDirectional.only(
+                        topEnd: Radius.circular(30),
+                        bottomEnd: Radius.circular(30)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppTextWidget(
+                        ' ${item?.price} ${Strings.sar.tr(context)}',
+                        style: TextStyleHelper.of(context)
+                            .regular12
+                            .copyWith(color: ThemeModel.of(context).font3),
+                      ),
+                      5.w.widthBox,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(ImagesApp.fire),
+                          5.w.widthBox,
+                          AppTextWidget(
+                            '${item?.calories} ${Strings.calories.tr(context)}',
+                            style: TextStyleHelper.of(context)
+                                .regular12
+                                .copyWith(color: ThemeModel.of(context).font3,),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              //  10.h.heightBox,
               ],
-            ),
-          ),
-          15.h.heightBox,
-          Container(
-
-            padding:  EdgeInsets.symmetric(horizontal: 13,vertical: 5.h),
-        decoration: BoxDecoration(
-            color: ThemeModel.of(context).font2,
-            borderRadius: const BorderRadius.only(topRight: Radius.circular(30),bottomRight:Radius.circular(30) ),
-
-
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AppTextWidget('sar 33',style: TextStyleHelper.of(context).regular15.copyWith(color:ThemeModel.of(context).font3 ),),
-           5.w.widthBox,
-            Row(
-              mainAxisSize: MainAxisSize.min,
+            ).expand,
+            15.w.widthBox,
+            Stack(
               children: [
-                SvgPicture.asset(ImagesApp.fire),
-                5.w.widthBox,
-                AppTextWidget('234 Calories',style: TextStyleHelper.of(context).regular15.copyWith(color:ThemeModel.of(context).font3 ),),
+                image(item?.image, 144.0, 130.w, 20.0, BoxFit.cover),
+                /* Container(
+                  height:147.h ,
+                width: 130.w,
+                decoration:BoxDecoration(
+                    color: ThemeModel.of(context).red,
+                    borderRadius: BorderRadius.circular(20)
+                )
+              ),*/
+                PositionedDirectional(
+                    bottom: 2,
+                    end: 3,
+                    child: CircleAvatar(
+                      backgroundColor: ThemeModel.of(context).font1,
+                      radius: 15,
+                      child: Icon(CupertinoIcons.add,
+                          color: ThemeModel.of(context).backgroundColor),
+                    ))
               ],
             )
-            
           ],
         ),
       ),
-            15.h.heightBox,
-
-        ],).expand,
-        15.w.widthBox,
-        Stack(
-          children: [
-            Container(
-                height:172.h ,
-              width: 140.w,
-              decoration:BoxDecoration(
-                  color: ThemeModel.of(context).red,
-                  borderRadius: BorderRadius.circular(20)
-              )
-            ),
-            PositionedDirectional(
-              bottom: 2,
-                end: 3,
-                child: CircleAvatar(backgroundColor: ThemeModel.of(context).font1,radius: 15,child:
-                Icon(CupertinoIcons.add,color: ThemeModel.of(context).backgroundColor),))
-          ],
-        )
-      ],),
     );
   }
 }
+
 class PriceWidget extends StatelessWidget {
-  const PriceWidget({super.key});
+  const PriceWidget({super.key, this.value, this.title});
+
+  final String? value;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      AppTextWidget(Strings.other.tr(context),style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).font1),),
-      10.h.heightBox,
-      Container(
-        padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 16.w),
-        decoration: BoxDecoration(
-        color: ThemeModel.of(context).greenAppBar,
-        borderRadius: BorderRadius.circular(18)
-      ),
-        child:Center(child: AppTextWidget('23-65 sr',style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).backgroundColor),)),
+    return Column(
+      children: [
+        AppTextWidget(
+          title ?? '',
+          style: TextStyleHelper.of(context)
+              .medium14
+              .copyWith(color: ThemeModel.of(context).font1),
+        ),
+        10.h.heightBox,
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          decoration: BoxDecoration(
+              color: ThemeModel.of(context).greenAppBar,
+              borderRadius: BorderRadius.circular(18)),
+          child: AppTextWidget(
+            '${value ?? ''} ${Strings.sar.tr(context)}',
+            style: TextStyleHelper.of(context)
+                .medium14
+                .copyWith(color: ThemeModel.of(context).backgroundColor),
+          ),
         )
-      
-    ],);
+      ],
+    );
+  }
+}
+
+class BottomSheetWidget extends StatelessWidget {
+  const BottomSheetWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

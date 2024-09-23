@@ -16,6 +16,32 @@ import 'colors/colors.dart';
 import 'colors/theme_model.dart';
 import 'images/images.dart';
 bool loginFromCart=false;
+void showBottomSheet1(BuildContext context,
+    {required Widget widget,
+      Color? backgroundColor,
+      bool isFullScreen = true}) {
+  showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: isFullScreen,
+      backgroundColor:
+      backgroundColor ?? ThemeModel.of(context).backgroundColor,
+      showDragHandle: true,
+      sheetAnimationStyle: AnimationStyle(curve: Curves.linearToEaseOut),
+      context: context,
+      enableDrag: true,
+      builder: (context) {
+        return widget;
+        // BottomSheet(
+        //   enableDrag: true,
+        //   dragHandleColor: ThemeModel.of(context).primary.withOpacity(0.1),
+        //   onClosing: () {},
+        //   backgroundColor:
+        //       backgroundColor ?? ThemeModel.of(context).backgroundColor,
+        //   builder: (context) {
+        //     return widget;
+        //   });
+      });
+}
 void showDialogHelper(BuildContext context,
     {required Widget contentWidget,
       Color? backgroundColor,

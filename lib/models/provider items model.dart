@@ -135,7 +135,7 @@ class ItemsCategory {
     if (json['items'] != null) {
       items = <Items>[];
       json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
+        items?.add(new Items.fromJson(v));
       });
     }
   }
