@@ -41,5 +41,6 @@ class ImagesApp {
   static const String logoutIcon = 'assets/images/logout_icon.gif';
   static const String backgroundImageSplash = 'assets/images/background_image_splash.svg';
   static const String circleImageSplash = 'assets/images/circle_splash.svg';
+  static const String panner = 'assets/images/panner.png';
 
 }
