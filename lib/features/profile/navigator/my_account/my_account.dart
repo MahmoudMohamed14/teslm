@@ -1,5 +1,6 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
@@ -37,23 +38,22 @@ class EditInformation extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                      color: isDark??false ?ColorsApp.myAccountBackgroundDarkColor:floatActionColor,
+                      color: ThemeModel.of(context).myAccountBackgroundDarkColor,
                       borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      profile(Strings.myPhoneNumber.tr(context),true,TextEditingController(text: '${DeliveryCubit.get(context).getUserData?.phoneNumber}',),Icons.phone),
-                      profile(Strings.myName.tr(context),false,nameController,Icons.person),
-                      profile(Strings.myGmail.tr(context),false,gmailController,Icons.email,
+                      profile(Strings.myPhoneNumber.tr(context),true,TextEditingController(text: '${DeliveryCubit.get(context).getUserData?.phoneNumber}',),Icons.phone,context),
+                      profile(Strings.myName.tr(context),false,nameController,Icons.person,context),
+                      profile(Strings.myGmail.tr(context),false,gmailController,Icons.email,context,
                           validate: (value){
                             if(emailRegex.hasMatch(value)){ return null;}
-
                           }),
                       Text(Strings.myBirthDate.tr(context),style: const TextStyle(fontWeight: FontWeight.w400),),
                       StatefulBuilder(
                         builder:(context,setState)=> GestureDetector(
                             child: dateSelected?
-                            date("${birthDate!.day}-${birthDate!.month}-${birthDate!.year}",true):date(user!.birthdate!=''? '${user.birthdate}':'mm/dd/yy',true),
+                            date("${birthDate!.day}-${birthDate!.month}-${birthDate!.year}",true,context):date(user!.birthdate!=''? '${user.birthdate}':'mm/dd/yy',true,context),
                             onTap: () async{
                               final datePick= await showDatePicker(
                                 context: context,
@@ -77,7 +77,7 @@ class EditInformation extends StatelessWidget {
           bottom(
             Strings.updateMyData.tr(context),
             radius: 30,
-            color: ColorsApp.orangeColor,
+            color: ThemeModel.mainColor,
                 () {
                 if (gmailController.text.isNotEmpty) {
                 if(emailRegex.hasMatch(gmailController.text)) {
@@ -108,7 +108,7 @@ class EditInformation extends StatelessWidget {
     );
   }
 }
-Widget profile(text,readOnly,controller,icon,{validate})=>Padding(
+Widget profile(text,readOnly,controller,icon,context,{validate})=>Padding(
   padding: const EdgeInsets.only(bottom: 10.0),
   child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +124,7 @@ Widget profile(text,readOnly,controller,icon,{validate})=>Padding(
             prefixIcon: Icon(
               icon,
             ),
-            fillColor:isDark??false? ColorsApp.cardsDarkColor:ColorsApp.myAccountTextFieldLightColor,
+            fillColor:ThemeModel.of(context).myAccountTextFieldLightColor,
             filled: true,
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: textFieldColor,width: 0),
@@ -132,7 +132,7 @@ Widget profile(text,readOnly,controller,icon,{validate})=>Padding(
             ),
             hintText: '$text',
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: readOnly? textFieldColor:mainColor.shade400),
+              borderSide: BorderSide(color: readOnly? textFieldColor:ThemeModel.mainColor),
               borderRadius: const BorderRadius.all(Radius.circular(35.0)),
             ),
             labelStyle: TextStyle(fontSize: readOnly? 22:14,color:isDark??false? Colors.white:Colors.black),

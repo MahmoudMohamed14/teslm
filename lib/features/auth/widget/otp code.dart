@@ -4,6 +4,7 @@ import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/constant/constant values.dart';
 
 Widget otpCode(state,otpController,pinFocusNode,country,phoneNumber,context,otp1)=>Padding(
@@ -19,11 +20,11 @@ Widget otpCode(state,otpController,pinFocusNode,country,phoneNumber,context,otp1
         color: Colors.black, // Change the text color here
         fontSize: 20.0, // Change the font size if desired
       ),
-      strokeColorBuilder: PinListenColorBuilder(mainColor, Colors.black),
+      strokeColorBuilder: PinListenColorBuilder(ThemeModel.mainColor, Colors.black),
       bgColorBuilder: const FixedColorBuilder(Colors.white),
       strokeWidth: 2,
     ),
-    cursor: Cursor(color: mainColor, enabled: true, width: 1),
+    cursor: Cursor(color: ThemeModel.mainColor, enabled: true, width: 1),
     onCodeSubmitted: (code) {
       checkOtp(context,country,phoneNumber,otp1);
     },

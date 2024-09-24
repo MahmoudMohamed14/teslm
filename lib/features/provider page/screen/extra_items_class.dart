@@ -4,6 +4,7 @@ import 'package:delivery/features/provider%20page/widget/check_list_widget.dart'
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../widget/add_or_remove_in_provider.dart';
@@ -120,8 +121,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start,
                 style: TextStyle(fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: isDark ?? false ? floatActionColor : brownColor),
+                    fontWeight: FontWeight.bold,),
               ),
             ),
             Padding(
@@ -150,18 +150,12 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                               Text('${getTrueCountAtIndex(index)}/${widget
                                   .extra[index].maxSelections}',
                                 style: TextStyle(fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: isDark ?? false
-                                        ? floatActionColor
-                                        : brownColor),),
+                                    fontWeight: FontWeight.bold,),),
                               Text(language == 'English Language' ? '${widget
                                   .extra[index].name.en}' : '${widget
                                   .extra[index].name.ar}', style: TextStyle(
                                   fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: isDark ?? false
-                                      ? floatActionColor
-                                      : brownColor),),
+                                  fontWeight: FontWeight.bold, ),),
                             ],
                           ),
                         ),
@@ -336,7 +330,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                       .width / 2,
                   height: 50,
                   decoration: BoxDecoration(
-                      color: mainColor.shade400,
+                      color: ThemeModel.mainColor,
                       borderRadius: const BorderRadius.all(Radius.circular(10))
                   ),
                   child: InkWell(

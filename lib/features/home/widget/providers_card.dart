@@ -1,3 +1,4 @@
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,7 @@ import '../../../common/translate/strings.dart';
 Widget bigCardHome(providerData,onTap,context)=>InkWell(
   onTap: onTap,
   child: Card(
-    color:isDark??false? ColorsApp.cardsDarkColor:Colors.white,
+    color:ThemeModel.of(context).cardsColor,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.0),
     ),
@@ -69,7 +70,7 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
           const SizedBox(height: 10,),
           Container(
             width: MediaQuery.sizeOf(context).width/1.7,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),color: isDark??false? ColorsApp.cardBottomColor:Colors.grey.shade200),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),color: ThemeModel.of(context).bigCardBottomColor),
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Column(
@@ -89,10 +90,9 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                     ),
                   Container(
                     height: 20,
-
                     padding: EdgeInsets.symmetric(horizontal: 8.w),
                     decoration: BoxDecoration(
-                        color:ColorsApp.orangeColor,
+                        color:ThemeModel.mainColor,
                         borderRadius: BorderRadius.circular(7)
                     ),
                     child:  Row(
@@ -101,7 +101,6 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                         const Icon(Icons.add,color: Colors.white,size: 18,),
                         const SizedBox(width: 5,),
                         Flexible(
-
                           child: Text(
                             Strings.freeDelivery.tr(context),
                             style:const TextStyle(color: Colors.white,fontSize: 13,fontWeight: FontWeight.w700),

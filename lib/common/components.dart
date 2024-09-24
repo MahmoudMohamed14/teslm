@@ -93,43 +93,11 @@ Widget actionAppbar(context)=>Padding(
 );
 Widget container(context)=>Padding(
   padding: const EdgeInsets.all(10.0),);
-Widget buildTextField(
-    IconData icon, String hintText, bool isPassword, type,{controller,validator,Color? background}) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 8.0),
-    child: TextFormField(
-      validator: validator,
-      controller: controller,
-      obscureText: isPassword,
-      keyboardType: type,
-      decoration: InputDecoration(
-        fillColor:background ,
-
-        prefixIcon: Icon(
-          icon,
-          color: ColorsApp.iconColor,
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: ColorsApp.textColor1),
-          borderRadius: BorderRadius.all(Radius.circular(35.0)),
-        ),
-        focusedBorder:const OutlineInputBorder(
-          borderSide: BorderSide(color: ColorsApp.textColor1),
-          borderRadius: BorderRadius.all(Radius.circular(35.0)),
-        ),
-        contentPadding: const EdgeInsets.all(10),
-        hintText: hintText,
-        hintStyle:const TextStyle(fontSize: 14, color: ColorsApp.textColor1),
-      ),
-
-    ),
-  );
-}
-Widget date(text,selected){
+Widget date(text,selected,context){
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
-      color: isDark??false? ColorsApp.cardsDarkColor:ColorsApp.myAccountTextFieldLightColor,
+      color: ThemeModel.of(context).myAccountTextFieldLightColor,
       borderRadius: BorderRadius.circular(35)
     ),
     child: Row(
@@ -168,7 +136,7 @@ class bottom extends StatelessWidget {
         height: 46,
         padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
-            color: color??ColorsApp.orangeColor,
+            color: color??ThemeModel.mainColor,
             borderRadius: BorderRadius.circular(radius??10),
             boxShadow: [
               BoxShadow(
@@ -194,7 +162,7 @@ Widget cartPaymentBottom(text,onTap,isProvider,context)=>BlocListener<DeliveryCu
   child: InkWell(
     onTap: onTap,
     child: Container(
-      decoration: BoxDecoration(color: mainColor.shade400,borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: ThemeModel.mainColor,borderRadius: BorderRadius.circular(10)),
       height: 50,
       width: MediaQuery.sizeOf(context).width/1.25,
       child: Row(
@@ -320,7 +288,7 @@ Widget appBar(BuildContext context, bool mainPage) => SizedBox(
     children: [
       Container(
         decoration: BoxDecoration(
-          color: ColorsApp.secondColorGreen),
+          color: ThemeModel.of(context).greenAppBar),
 
         height: 150,
         width: double.infinity,
@@ -367,9 +335,9 @@ Widget appBar(BuildContext context, bool mainPage) => SizedBox(
 );
 Widget appBarWithIcons(text,image,navigator,context)=>SafeArea(
   child: Container(
-    decoration: const BoxDecoration(
-        color: ColorsApp.secondColorGreen,
-        borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20))),
+    decoration: BoxDecoration(
+        color: ThemeModel.of(context).greenAppBar,
+        borderRadius:const BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20))),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

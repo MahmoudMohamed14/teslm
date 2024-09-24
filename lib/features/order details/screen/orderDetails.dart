@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../common/colors/theme_model.dart';
 import '../widgets/body_order_data.dart';
 
 class OrderDetails extends StatelessWidget {
@@ -49,11 +50,11 @@ class OrderDetails extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: Column(
                 children: [
-                  Container(width:language=='en'? 140:100,height: 35,decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: mainColor,),
+                  Container(width:language=='en'? 140:100,height: 35,decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color: ThemeModel.mainColor,),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                    CircleAvatar(radius: 13,backgroundColor: Colors.white,child: Icon(Icons.home,size: 25,color: mainColor.shade500,),),
+                    CircleAvatar(radius: 13,backgroundColor: Colors.white,child: Icon(Icons.home,size: 25,color: ThemeModel.mainColor,),),
                     Text(language=='English Language'?'Apartment':'البيت',style:const TextStyle(fontWeight: FontWeight.bold,fontSize: 18,color: Colors.white),),
                   ],),
                   ),

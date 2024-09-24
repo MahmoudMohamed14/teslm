@@ -7,6 +7,7 @@ import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/auth/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../payment page/screen/payment.dart';
 import '../widgets/add_notes.dart';
 import '../widgets/cart_bottom.dart';
@@ -86,8 +87,8 @@ class Cart extends StatelessWidget{
                     children: [
                       cartBottom(context,(){navigate(context,(token!=''&&token!=null)? Payment(customerNotes: noteTextController.text,)
                           :const Login());if(token==''||token==null)loginFromCart=true;
-                        totalPrice=price+shippingPrice;},cartBottomColor.shade600,Strings.payNow.tr(context)),
-                      cartBottom(context,(){Navigator.pop(context);},mainColor.shade400,Strings.addNew.tr(context)),
+                        totalPrice=price+shippingPrice;},ThemeModel.of(context).greenAppBar,Strings.payNow.tr(context)),
+                      cartBottom(context,(){Navigator.pop(context);},ThemeModel.mainColor,Strings.addNew.tr(context)),
                     ],
                   ),
                 ],

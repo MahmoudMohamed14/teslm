@@ -19,6 +19,8 @@ class ThemeModel {
   }
 
   static const constFont1 = Color(0xFFF0F0F2);
+  static const mainColor = Color(0xFFF78C2E);
+  static const filterColor = Color(0xFFE1E1E1);
   final Color primary;
   final Color backgroundColor;
   final Color blackWhiteColor;
@@ -37,6 +39,18 @@ class ThemeModel {
   final Color successColor;
   final Color red;
   final Color greenAppBar;
+  final Color cardsColor;
+  final Color myAccountTextFieldLightColor;
+  final Color chatTextField;
+  final Color alwaysWhitColor;
+  final Color pointBigCardColor;
+  final Color pointSmallCardColor;
+  final Color pendingColor;
+  final Color iconMainColor;
+  final Color bottomNavigationBarColor;
+  final Color bigCardBottomColor;
+  final Color myAccountBackgroundDarkColor;
+  final Color smallCardIconsColor;
   ThemeModel.light( {
     this.primary = const Color(0xffF78C2E),
     this.greenAppBar= const Color(0xff33C072),
@@ -56,6 +70,19 @@ class ThemeModel {
     this.iconBackgroundColor = const Color(0xFF53AE94),
     this.successColor = const Color(0xFF6FCF97),
     this.red = const Color(0xFFEB5757),
+    this.cardsColor =const Color(0xFFFFFFFF),
+    this.myAccountTextFieldLightColor =const  Color(0xFFEBEBEB),
+    this.chatTextField =Colors.black12,
+    this.alwaysWhitColor =const Color(0xFFFFFFFF),
+    this.pointBigCardColor =const Color(0xFFFFFFFF),
+    this.pointSmallCardColor =const Color(0x6BD9D9D9),
+    this.pendingColor =const Color(0xFFEAEAEA),
+    this.iconMainColor =const Color(0xFFF78C2E),
+    this.bottomNavigationBarColor =const Color(0xFFFFFFFF),
+    this.bigCardBottomColor =const Color(0xEEEEEEFF),
+    this.myAccountBackgroundDarkColor =const Color(0xFFFFFFFF),
+    this.smallCardIconsColor =const Color(0xFF5B5B5B),
+
   }); // Safety check
 
   ThemeModel.dark({
@@ -77,5 +104,18 @@ class ThemeModel {
     this.iconBackgroundColor = const Color(0xFF53AE94),
     this.successColor = const Color(0xFF6FCF97),
     this.red = const Color(0xFFEB5757),
+    this.cardsColor =const Color(0xFF33333B),
+    this.myAccountTextFieldLightColor =const  Color(0xFF33333B),
+    this.chatTextField =const  Color(0xFF33333B),
+    this.alwaysWhitColor =const Color(0xFFFFFFFF),
+    this.pointBigCardColor =const Color(0xFF4F4F5C),
+    this.pointSmallCardColor =const Color(0xFF33333B),
+    this.pendingColor =const Color(0xFF545260),
+    this.iconMainColor =const Color(0xFFF78C2E),
+    this.bottomNavigationBarColor =const Color(0xFF393A4A),
+    this.bigCardBottomColor =const Color(0xFF393A4A),
+    this.myAccountBackgroundDarkColor =const Color(0xFF4F4F5C),
+    this.smallCardIconsColor =const Color(0xFFFFFFFF),
+
   }); // Safety check
 }

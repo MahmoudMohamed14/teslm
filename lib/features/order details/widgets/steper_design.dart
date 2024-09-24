@@ -1,5 +1,7 @@
 import 'package:delivery/common/colors/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../common/colors/theme_model.dart';
 class NumberStepper extends StatefulWidget {
   const NumberStepper({super.key,
     required this.curStep,
@@ -39,7 +41,7 @@ class _NumberStepperState extends State<NumberStepper> with TickerProviderStateM
   }
   void _startAnimation() {
     _sizeAnimation = Tween<double>(begin: 28.0, end: 32.0).animate(_animationController);
-    _colorAnimation = ColorTween(begin: Colors.grey, end: mainColor.shade400).animate(_animationController);
+    _colorAnimation = ColorTween(begin: Colors.grey, end: ThemeModel.mainColor).animate(_animationController);
     _animationController.reset();
     _animationController.forward();
   }
@@ -154,7 +156,7 @@ class _NumberStepperState extends State<NumberStepper> with TickerProviderStateM
 
   getLineColor(i) {
     var color =
-    widget.curStep > i + 1 ? mainColor.withOpacity(0.4) : Colors.grey[200];
+    widget.curStep > i + 1 ? ThemeModel.mainColor.withOpacity(0.4) : Colors.grey[200];
     return color;
   }
 }

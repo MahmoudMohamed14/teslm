@@ -2,6 +2,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 
@@ -66,7 +67,7 @@ Widget menuItems(onTap,canAdd,provider,context,onTheImage)
               Positioned(
                   bottom: 0,
                   child: onTheImage ?? InkWell(
-                      onTap:onTap,child: CircleAvatar(radius: 15,backgroundColor: mainColor.shade400,child: Icon(Icons.add,color: Colors.white,),)))
+                      onTap:onTap,child: CircleAvatar(radius: 15,backgroundColor: ThemeModel.mainColor,child: Icon(Icons.add,color: Colors.white,),)))
             ],
           ),
         ],

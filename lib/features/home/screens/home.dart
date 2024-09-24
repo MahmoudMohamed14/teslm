@@ -1,6 +1,7 @@
 import 'package:blured_navigation_bar_x/blured_nav_bar_x_item.dart';
 import 'package:blured_navigation_bar_x/blured_navigation_bar_x.dart';
 import 'package:delivery/common/colors/colors.dart';
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/auth/screen/login.dart';
@@ -23,24 +24,24 @@ class Home extends StatelessWidget {
   },
   builder: (context, state) {
     List<BluredNavBarXItem> navBar = [
-      BluredNavBarXItem(icon: Icons.more_horiz,
-        title: Strings.more.tr(context),
-      ),
-      BluredNavBarXItem(icon: Icons.card_giftcard,
-        title: Strings.points.tr(context),
+      BluredNavBarXItem(icon:  Icons.home,
+        title: Strings.home.tr(context),
       ),
       BluredNavBarXItem(icon: Icons.apps_outlined,
         title: Strings.myOrders.tr(context),
       ),
-      BluredNavBarXItem(icon:  Icons.home,
-        title: Strings.home.tr(context),
+      BluredNavBarXItem(icon: Icons.card_giftcard,
+        title: Strings.points.tr(context),
+      ),
+      BluredNavBarXItem(icon: Icons.more_horiz,
+        title: Strings.more.tr(context),
       ),
     ];
     return Scaffold(
         bottomNavigationBar:BluredNavigationBarX(
-            browColor: ColorsApp.iconsMainColor,
-          backgroundColor: isDark??false? ColorsApp.bottomNavigationBarColor:Colors.white,
-          selectedItemColor: ColorsApp.iconsMainColor,
+            browColor: ThemeModel.of(context).iconMainColor,
+          backgroundColor: ThemeModel.of(context).bottomNavigationBarColor,
+          selectedItemColor: ThemeModel.of(context).iconMainColor,
           unselectedItemColor:isDark??false?Colors.white:Colors.grey,
         currentIndex: DeliveryCubit.get(context).current,
         items:navBar,
@@ -53,10 +54,10 @@ class Home extends StatelessWidget {
           },
           children: <Widget>
           [
-            const UserProfile(),
-            token=='' ||token==null?const Login():const Points(),
-            token==''||token==null?const Login(fromOrder: true,):const Orders(),
             const MainPage(),
+            token==''||token==null?const Login(fromOrder: true,):const Orders(),
+            token=='' ||token==null?const Login():const Points(),
+            const UserProfile(),
           ],
         )
     );

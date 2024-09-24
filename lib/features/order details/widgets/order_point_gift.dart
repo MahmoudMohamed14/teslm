@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../home/screens/home.dart';
@@ -21,6 +22,6 @@ Widget orderPointsGift(order,orderIndex,context)=>Expanded(
       InkWell(onTap: (){
         pageController=PageController(initialPage: 1);
         navigate(context, const Home());},
-          child: Text(language=='English Language'?'View rewards':'شوف هديتك',textDirection:language=='English Language'? TextDirection.ltr:TextDirection.rtl,maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: isDark??false?Colors.white:mainColor.shade700),))
+          child: Text(language=='English Language'?'View rewards':'شوف هديتك',textDirection:language=='English Language'? TextDirection.ltr:TextDirection.rtl,maxLines: 2,overflow: TextOverflow.ellipsis,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: isDark??false?Colors.white:ThemeModel.mainColor),))
     ],),
 );

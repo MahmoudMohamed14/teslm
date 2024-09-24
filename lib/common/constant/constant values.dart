@@ -2,6 +2,7 @@ import 'package:delivery/common/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared_preference/shared preference.dart';
+import '../colors/theme_model.dart';
 
 bool? isDark=Save.getdata(key: 'isDark');
 int shippingPrice=15;
@@ -9,15 +10,15 @@ int totalPrice=0;
 String? balances=Save.getdata(key: 'balance');
 String? customerId=Save.getdata(key: 'customerId');
 PageController pageController = PageController(
-  initialPage: 3,
+  initialPage: 0,
 );
 String? token;
 int price=0;
 String ?language=Save.getdata(key: 'lang')??'ar';
 ThemeData lightMode=ThemeData(
     fontFamily: language=='en'? 'fonten':'fontTop',
-    primarySwatch: mainColor,
-    primaryColor:mainColor
+    primarySwatch: Colors.deepOrange,
+    primaryColor:ThemeModel.mainColor
 );
 ThemeData darkMode=ThemeData(
   fontFamily: language=='en'? 'fonten':'fontTop',

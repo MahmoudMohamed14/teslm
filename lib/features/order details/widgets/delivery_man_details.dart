@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
 import '../screen/orderDetails.dart';
@@ -29,7 +30,7 @@ Widget deliveryManDetails()=>Padding(
             },
             child: CircleAvatar(
                 radius: 20,
-                child: Icon(Icons.phone,size: 30,color: mainColor.shade400,)),
+                child: Icon(Icons.phone,size: 30,color: ThemeModel.mainColor,)),
           ),
           const SizedBox(width: 15,),
           InkWell(
@@ -41,7 +42,7 @@ Widget deliveryManDetails()=>Padding(
           ),
           const SizedBox(width: 15,),
           CircleAvatar(
-              radius: 20,child: Icon(Icons.chat,size: 30,color: mainColor.shade400)),
+              radius: 20,child: Icon(Icons.chat,size: 30,color: ThemeModel.mainColor)),
         ],
       ),
     ],),

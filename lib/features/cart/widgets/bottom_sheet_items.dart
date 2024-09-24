@@ -3,6 +3,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/translate/strings.dart';
 
@@ -45,12 +46,12 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>  with SingleTicke
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        color: !containerPadding&&_isCheckedList[index]==true?mainColor.shade400:null,
+                        color: !containerPadding&&_isCheckedList[index]==true?ThemeModel.mainColor:null,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(width: 1.2,color: isDark??false ?_isCheckedList[index]==true? mainColor.shade400:floatActionColor:_isCheckedList[index]==true?mainColor.shade400:borderColor)),
+                        border: Border.all(width: 1.2,color: isDark??false ?_isCheckedList[index]==true? ThemeModel.mainColor:floatActionColor:_isCheckedList[index]==true?ThemeModel.mainColor:borderColor)),
                     child: CircleAvatar(
                       radius:5,
-                      backgroundColor: _isCheckedList[index]==true? mainColor.shade400: isDark??false ?Colors.black12:floatActionColor,
+                      backgroundColor: _isCheckedList[index]==true? ThemeModel.mainColor: isDark??false ?Colors.black12:floatActionColor,
                     ),
                   ),
                 ),

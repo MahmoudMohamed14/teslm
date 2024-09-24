@@ -6,6 +6,7 @@ import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../common/colors/theme_model.dart';
 import 'home/widget/slider_offers.dart';
 
 class Market extends StatelessWidget {
@@ -17,7 +18,7 @@ class Market extends StatelessWidget {
         builder: (context, state) {
           CarouselController controller = CarouselController();
           return Scaffold(
-            appBar: AppBar(  toolbarHeight: 100,backgroundColor:mainColor,title: search(MediaQuery.sizeOf(context).width/1.4,language=='English Language'?'Search for a restaurant or stores':'ابحث عن المطاعم او المتاجر',(){}),),
+            appBar: AppBar(  toolbarHeight: 100,backgroundColor:ThemeModel.mainColor,title: search(MediaQuery.sizeOf(context).width/1.4,language=='English Language'?'Search for a restaurant or stores':'ابحث عن المطاعم او المتاجر',(){}),),
             body: DeliveryCubit.get(context).offersData != null?ListView(children: [
               Row(
                 children: [

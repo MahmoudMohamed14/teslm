@@ -2,6 +2,7 @@ import 'package:delivery/common/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../common/colors/theme_model.dart';
 import '../common/components.dart';
 
 class Electronics extends StatelessWidget {
@@ -36,7 +37,7 @@ class Electronics extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 3.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color:index==0? mainColor.shade400:borderColor.shade800,
+                    color:index==0? ThemeModel.mainColor:borderColor.shade800,
                   ),
                     child: Center(child: Text('جولات',style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),maxLines: 1,overflow: TextOverflow.ellipsis,))),
               )),
@@ -68,7 +69,7 @@ Widget ElectronicCard() => SizedBox(
           width: 135,
           child: Text(
             '20 ريال',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w200, color: mainColor),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w200, color: ThemeModel.mainColor),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

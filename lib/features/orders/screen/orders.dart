@@ -1,11 +1,11 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
-import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
 import '../../order details/screen/orderDetails.dart';
@@ -18,8 +18,8 @@ class Orders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: ColorsApp.secondColorGreen, // Set the status bar color
+    SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
+      statusBarColor: ThemeModel.of(context).greenAppBar, // Set the status bar color
     ));
     return BlocConsumer<DeliveryCubit, DeliveryState>(
   listener: (context, state) {
@@ -31,8 +31,6 @@ class Orders extends StatelessWidget {
         preferredSize: const Size.fromHeight(70.0),
 
         child: appBarWithIcons(Strings.myOrders.tr(context),ImagesApp.myOrdersAppBarImage,false,context),
-
-
 
       ),
         body: DeliveryCubit.get(context).customerOrders != null && state is! GetOrdersLoading ? SafeArea(
@@ -59,7 +57,7 @@ class Orders extends StatelessWidget {
                                 onTap: () {
                                   navigate(context, OrderDetails(orderIndex: index,));
                                 },
-                                child: orderCard(DeliveryCubit.get(context).customerOrders!.data![index]))),
+                                child: orderCard(DeliveryCubit.get(context).customerOrders!.data![index],context))),
                   )
                 ],),
             ) : Center(

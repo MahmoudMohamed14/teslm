@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
-import '../../../common/constant/constant values.dart';
 
 Widget filterSmallViewLoading()=>ListView.builder(
     shrinkWrap: true,
     physics:const NeverScrollableScrollPhysics(),itemCount:3,itemBuilder:(context,index)=> Card(
-  color:isDark??false? ColorsApp.cardsDarkColor:Colors.white,
+  color:ThemeModel.of(context).cardsColor,
   child: Padding(
     padding: const EdgeInsets.only(left: 8.0,right: 8),
     child: Column(
@@ -35,18 +34,18 @@ Widget filterSmallViewLoading()=>ListView.builder(
 Widget filterBigViewLoading()=>ListView.builder(
     shrinkWrap: true,
     physics:const NeverScrollableScrollPhysics(),itemCount:3,itemBuilder:(context,index)=> Card(
-  color:isDark??false? ColorsApp.cardsDarkColor:Colors.white,
+  color:ThemeModel.of(context).cardsColor,
   child: Padding(
     padding: const EdgeInsets.only(left: 8.0,right: 8),
     child: Container(
-      padding: EdgeInsets.all(15),
+      padding:const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Skeleton(width: MediaQuery.sizeOf(context).width/1.20,height: 150.0),
           Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),
-                color: isDark??false? ColorsApp.cardBottomColor:Colors.grey.shade200),
+                color: ThemeModel.of(context).bigCardBottomColor),
             child: Column(
               children: [
                 Row(

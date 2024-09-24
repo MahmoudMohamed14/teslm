@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/images/images.dart';
@@ -59,9 +60,7 @@ class Chat extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: isDark ?? false
-                                  ? ColorsApp.cardsDarkColor
-                                  : Colors.black12),
+                              color: ThemeModel.of(context).chatTextField),
                           padding: const EdgeInsets.only(left: 10, bottom: 3, top: 3),
                           width: double.infinity,
                           child: Row(
@@ -131,7 +130,7 @@ class Chat extends StatelessWidget {
                                                                           borderRadius:
                                                                               BorderRadius.circular(10),
                                                                           color:
-                                                                              ColorsApp.orangeColor,
+                                                                              ThemeModel.mainColor,
                                                                         ),
                                                                         padding:
                                                                            const EdgeInsets.all(8),
@@ -165,7 +164,7 @@ class Chat extends StatelessWidget {
                                                                           borderRadius:
                                                                               BorderRadius.circular(10),
                                                                           color:
-                                                                              ColorsApp.orangeColor,
+                                                                              ThemeModel.mainColor,
                                                                         ),
                                                                         padding:
                                                                             const EdgeInsets.all(8),
@@ -210,7 +209,7 @@ class Chat extends StatelessWidget {
                                             },
                                             child: CircleAvatar(
                                               radius: 14,
-                                              backgroundColor: ColorsApp.orangeColor,
+                                              backgroundColor: ThemeModel.mainColor,
                                               child: Icon(icon,
                                                   color: Colors.white,
                                                   size: 22),

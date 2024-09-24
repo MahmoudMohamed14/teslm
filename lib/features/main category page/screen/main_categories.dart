@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/images/images.dart';
 import 'package:delivery/common/translate/app_local.dart';
@@ -129,8 +130,8 @@ class MainCategories extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            viewNew(ImagesApp.categoryBigViewImage, view ? ColorsApp.secondColorGreen : cartBottomColor.shade300, context),
-                            viewNew(ImagesApp.categorySmallViewImage, view ? cartBottomColor.shade200 : ColorsApp.secondColorGreen, context),
+                            viewNew(ImagesApp.categoryBigViewImage, view ? ThemeModel.of(context).greenAppBar :  ThemeModel.of(context).greenAppBar.withOpacity(0.4), context),
+                            viewNew(ImagesApp.categorySmallViewImage, view ?  ThemeModel.of(context).greenAppBar.withOpacity(0.4) : ThemeModel.of(context).greenAppBar, context),
                           ],
                         ),
                       ],

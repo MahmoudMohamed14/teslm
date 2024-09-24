@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 
 Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
   margin: mainPage?const EdgeInsets.only(left: 20,bottom: 10):EdgeInsets.zero,
@@ -7,7 +8,7 @@ Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
   width: mainPage? MediaQuery.sizeOf(context).width/3:100,
   height:mainPage? 50:30,
   decoration: BoxDecoration(
-      color: mainColor.shade400,
+      color: ThemeModel.mainColor,
       borderRadius:const BorderRadius.all(Radius.circular(20))
   ),
   child: Row(

@@ -7,6 +7,7 @@ import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../../common/colors/theme_model.dart';
 import '../function/check_copoun.dart';
 import '../widget/location_card.dart';
 import '../widget/order_brief.dart';
@@ -68,7 +69,7 @@ class Payment extends StatelessWidget {
                     onTap: DeliveryCubit.get(context).couponData!=null? null:(){enterCoupon(context,_couponController);},
                   child: Container(
                   padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: mainColor.shade400,borderRadius: BorderRadius.circular(8)),
+                  decoration: BoxDecoration(color: ThemeModel.mainColor,borderRadius: BorderRadius.circular(8)),
                   width: language=='en'?160:140,
                     child: Row(children: [
                       Text(Strings.addCoupon.tr(context),

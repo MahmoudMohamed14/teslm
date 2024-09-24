@@ -2,6 +2,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/translate/strings.dart';
@@ -44,12 +45,12 @@ Widget paymentMethodCard(context) {
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                  color: !DeliveryCubit.get(context).choosePadding&&DeliveryCubit.get(context).isCheckedList[index]==true?mainColor.shade400:null,
+                  color: !DeliveryCubit.get(context).choosePadding&&DeliveryCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor:null,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: 1.2,color: isDark??false ?DeliveryCubit.get(context).isCheckedList[index]==true? mainColor.shade400:floatActionColor:DeliveryCubit.get(context).isCheckedList[index]==true?mainColor.shade400:borderColor)),
+                  border: Border.all(width: 1.2,color: isDark??false ?DeliveryCubit.get(context).isCheckedList[index]==true? ThemeModel.mainColor:floatActionColor:DeliveryCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor:borderColor)),
               child: CircleAvatar(
                 radius:5,
-                backgroundColor: DeliveryCubit.get(context).isCheckedList[index]==true? mainColor.shade400: isDark??false ?Colors.black12:floatActionColor,
+                backgroundColor: DeliveryCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor: isDark??false ?Colors.black12:floatActionColor,
               ),
             ),
           ),

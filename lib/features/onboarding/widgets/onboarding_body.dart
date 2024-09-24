@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../shared_preference/shared preference.dart';
 import '../../home/screens/home.dart';
@@ -23,7 +24,7 @@ Widget onBoardingBody(context,currentPage,onTap) {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           TextButton(
-              onPressed: (){submit();}, child:const Text('تخطى',style: TextStyle(fontFamily: 'fontTop',color: mainColor,fontWeight: FontWeight.w500,fontSize: 18),)),
+              onPressed: (){submit();}, child:const Text('تخطى',style: TextStyle(fontFamily: 'fontTop',color: ThemeModel.mainColor,fontWeight: FontWeight.w500,fontSize: 18),)),
         ],
       ),
       const SizedBox(height: 25,),
@@ -64,7 +65,7 @@ Widget onBoardingBody(context,currentPage,onTap) {
               height: 10,
               width: currentPage==index ?30:10,
               decoration: BoxDecoration(
-                  color: currentPage==index? mainColor:Colors.grey.shade400,
+                  color: currentPage==index? ThemeModel.mainColor:Colors.grey.shade400,
                   borderRadius: BorderRadius.circular(5)
               ),),
           );

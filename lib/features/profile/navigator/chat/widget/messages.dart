@@ -2,7 +2,7 @@ import 'package:delivery/common/extensions.dart';
 import 'package:delivery/features/profile/navigator/chat/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../../../../common/colors/colors.dart';
+import '../../../../../common/colors/theme_model.dart';
 import '../../../../../common/constant/constant values.dart';
 
 Widget messages(message)=>ListView.builder(
@@ -52,10 +52,8 @@ Widget messages(message)=>ListView.builder(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: ((message.messages![messageEnd].from==null)
-                            ? isDark ?? false
-                            ? ColorsApp.cardsDarkColor
-                            : ColorsApp.whiteColor
-                            : ColorsApp.orangeColor),
+                            ? ThemeModel.of(context).cardsColor
+                            : ThemeModel.mainColor),
                       ),
                       padding:const EdgeInsets.all(10),
                       child: Text(

@@ -1,6 +1,7 @@
 import 'package:delivery/features/order%20details/widgets/steper_design.dart';
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/constant/constant values.dart';
 import '../screen/orderDetails.dart';
 
@@ -46,8 +47,8 @@ Widget orderStatus(index)=>SliverToBoxAdapter(
         NumberStepper(
           totalSteps: 3,
           curStep: index,
-          stepCompleteColor: mainColor.shade400,
-          currentStepColor: mainColor.shade100,
+          stepCompleteColor:ThemeModel.mainColor,
+          currentStepColor: ThemeModel.mainColor,
           inactiveColor:const Color(0xffbababa),
           lineHeight: 3,
         ),

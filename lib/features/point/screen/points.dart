@@ -1,4 +1,5 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
@@ -41,12 +42,12 @@ class Points extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Card(
-              color:isDark??false? ColorsApp.pointDarkColor:ColorsApp.whiteColor,
+              color:ThemeModel.of(context).pointBigCardColor,
               child: Container(
                 padding:const EdgeInsets.all(10),
                 child: Row(children: [
                   CircleAvatar(
-                      backgroundColor: ColorsApp.secondColorGreen,
+                      backgroundColor: ThemeModel.of(context).greenAppBar,
                       radius: 18,
                       child: SvgPicture.asset(
                         ImagesApp.pointTopImage,
@@ -61,7 +62,7 @@ class Points extends StatelessWidget {
                     onTap: (){DeliveryCubit.get(context).redeemPointsCustomer(context);},
                     child: Container(
                       padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(color: ColorsApp.iconsMainColor,borderRadius: BorderRadius.circular(20)),
+                      decoration: BoxDecoration(color: ThemeModel.of(context).iconMainColor,borderRadius: BorderRadius.circular(20)),
                       child: Row(children: [
                         Text(Strings.redeemYourPoints.tr(context),style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w500,color: Colors.white,),),
                       ],),
@@ -79,15 +80,15 @@ class Points extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             width: double.infinity,
             child: Card(
-              color:isDark??false? ColorsApp.pointDarkColor:ColorsApp.whiteColor,
+              color:ThemeModel.of(context).pointBigCardColor,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    howPoints(Strings.orderCollectPoints.tr(context),ImagesApp.shopCarImage,Strings.payReturned.tr(context)),
-                    howPoints(Strings.discoverShops.tr(context),ImagesApp.shopPointImage,Strings.howManyPointGet.tr(context)),
-                    howPoints(Strings.redeemYourPoints.tr(context),ImagesApp.pointBottomImage,Strings.replacePoints.tr(context)),
+                    howPoints(Strings.orderCollectPoints.tr(context),ImagesApp.shopCarImage,Strings.payReturned.tr(context),context),
+                    howPoints(Strings.discoverShops.tr(context),ImagesApp.shopPointImage,Strings.howManyPointGet.tr(context),context),
+                    howPoints(Strings.redeemYourPoints.tr(context),ImagesApp.pointBottomImage,Strings.replacePoints.tr(context),context),
                   ],),
               ),
             ),

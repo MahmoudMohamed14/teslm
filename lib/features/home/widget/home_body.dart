@@ -74,7 +74,8 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<DeliveryCubit
                         DeliveryCubit.get(context).containerHeight=180.0;DeliveryCubit.get(context).currentIndex=0;DeliveryCubit.get(context).opecity=1;
                         DeliveryCubit.get(context).containerPadding=100;DeliveryCubit.get(context).rowItems=150;
                         DeliveryCubit.get(context).getProviderFoodData(providers.categories![categoryIndex].providers![index].id);
-                        values=[];price=0;
+                        values=[];//todo انا عايز لما يخش ميفضلش يمسح الكارت لو هو كان ضايف قبل كدة متتمسحش الا لو خرج من التطبيق
+                        price=0;
                         Navigator.push(
                           context,
                           PageTransition(

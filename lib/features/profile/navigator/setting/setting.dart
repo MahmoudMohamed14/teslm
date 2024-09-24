@@ -1,6 +1,7 @@
 import 'package:delivery/Cubite/them/app_dark_light_cubit.dart';
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,8 +34,8 @@ class Setting extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                languageAndThem(false,'عربى',ImagesApp.arabicLanguage,language!='en'?Icons.check:null,language!='en'?mainColor.shade400: Colors.transparent, 'ar',language!='en'?mainColor.shade400:isDark??false?floatActionColor:borderColor,context),
-                languageAndThem(false,'English',ImagesApp.englishLanguage,language=='en'?Icons.check:null,language=='en'?mainColor.shade400: Colors.transparent,'en',language=='en'?mainColor.shade400:isDark??false?floatActionColor:borderColor,context),
+                languageAndThem(false,'عربى',ImagesApp.arabicLanguage,language!='en'?Icons.check:null,language!='en'?ThemeModel.mainColor: Colors.transparent, 'ar',language!='en'?ThemeModel.mainColor:isDark??false?floatActionColor:borderColor,context),
+                languageAndThem(false,'English',ImagesApp.englishLanguage,language=='en'?Icons.check:null,language=='en'?ThemeModel.mainColor: Colors.transparent,'en',language=='en'?ThemeModel.mainColor:isDark??false?floatActionColor:borderColor,context),
               ],
             ),
 
@@ -45,8 +46,8 @@ class Setting extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                languageAndThem(true,Strings.darkNode.tr(context),Icons.dark_mode,isDark??false?Icons.check:null,isDark??false?mainColor.shade400: Colors.transparent,language=='English Language'?'Dark mode':'العرض المظلم',isDark??false?mainColor.shade400:isDark??false?floatActionColor:borderColor,context),
-                languageAndThem(true,Strings.lightMode.tr(context),Icons.light_mode,!isDark!?Icons.check:null,!isDark!?mainColor.shade400: Colors.transparent,'English Language',!isDark!?mainColor.shade400:isDark??false?floatActionColor:borderColor,context),
+                languageAndThem(true,Strings.darkNode.tr(context),Icons.dark_mode,isDark??false?Icons.check:null,isDark??false?ThemeModel.mainColor: Colors.transparent,language=='English Language'?'Dark mode':'العرض المظلم',isDark??false?ThemeModel.mainColor:isDark??false?floatActionColor:borderColor,context),
+                languageAndThem(true,Strings.lightMode.tr(context),Icons.light_mode,!isDark!?Icons.check:null,!isDark!?ThemeModel.mainColor: Colors.transparent,'English Language',!isDark!?ThemeModel.mainColor:isDark??false?floatActionColor:borderColor,context),
               ],
             ),
           ],
@@ -67,7 +68,7 @@ Widget languageAndThem(them,text,flag,icon,color,onTapLang,textBorderColor,conte
     height: 150,
     width: 150,
     child: Card(
-      color: isDark??false ?ColorsApp.cardsDarkColor:floatActionColor,
+      color: ThemeModel.of(context).cardsColor,
       child: Column(
         children: [
           Padding(

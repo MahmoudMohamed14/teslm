@@ -1,3 +1,4 @@
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,7 @@ Widget loadingMainPage(scrollController,context)=>Padding(
                   Card(
                     child: Container(
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),
-                          color: isDark??false? ColorsApp.cardBottomColor:Colors.grey.shade200),
+                          color: ThemeModel.of(context).bigCardBottomColor),
                       child: Column(
                         children: [
                           Row(

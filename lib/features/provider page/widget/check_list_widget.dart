@@ -2,6 +2,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 
@@ -10,7 +11,7 @@ Widget checkList(isChecked,onChange,addNewName,price,extraImage,context)=> InkWe
   child: Card(
     child: Container(
       padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(border: isChecked?Border.all(color: mainColor.shade400,width:1.5):null,borderRadius: BorderRadius.circular(7)),
+      decoration: BoxDecoration(border: isChecked?Border.all(color: ThemeModel.mainColor,width:1.5):null,borderRadius: BorderRadius.circular(7)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

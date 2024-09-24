@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../Cubite/delivery_cubit.dart';
 import '../../../../common/colors/colors.dart';
+import '../../../../common/colors/theme_model.dart';
 import '../../../../common/components.dart';
 import '../../../../common/constant/constant values.dart';
 import '../../../../common/images/images.dart';
@@ -18,7 +19,7 @@ Future<void> logoutAccount(context,) async {
         listener: (context, state) {},
         builder: (context, state) {
           return AlertDialog(
-            backgroundColor: isDark??false ?ColorsApp.cardsDarkColor:floatActionColor,
+            backgroundColor: ThemeModel.of(context).cardsColor,
             content: SizedBox(
               height: 200,
               child: Center(
@@ -32,7 +33,7 @@ Future<void> logoutAccount(context,) async {
                     Expanded(
                       child: bottom(
                         radius: 15,
-                        color: ColorsApp.myAccountBackgroundDarkColor,
+                        color: ThemeModel.dark().myAccountBackgroundDarkColor,
                         Strings.cancel.tr(context),
                             () {
                           Navigator.pop(context);
@@ -43,7 +44,7 @@ Future<void> logoutAccount(context,) async {
                     Expanded(
                       child: bottom(
                         radius: 15,
-                        color: ColorsApp.orangeColor,
+                        color: ThemeModel.mainColor,
                         Strings.logout.tr(context),
                             () async{
                           token=null;

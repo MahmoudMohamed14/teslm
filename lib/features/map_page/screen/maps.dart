@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_autocomplete_text_field/google_places_autocomplete_text_field.dart';
 import 'package:google_places_autocomplete_text_field/model/prediction.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../fuctions/map_functions.dart';
 
@@ -265,7 +266,7 @@ class _MapsState extends State<Maps> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 95.0),
         child: FloatingActionButton(
-          backgroundColor: mainColor.shade400,
+          backgroundColor: ThemeModel.mainColor,
           onPressed:()=> getCurrentPosition(_currentPosition,_mapController,setState),
            child: const Icon(Icons.gps_fixed,color: floatActionColor,),
             ),

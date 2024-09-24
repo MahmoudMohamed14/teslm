@@ -191,7 +191,7 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
                     bgColorBuilder: const FixedColorBuilder(Colors.white),
                     strokeWidth:0,
                   ),
-                  cursor: Cursor(color: mainColor, enabled: true, width: 1),
+                  cursor: Cursor(color: ThemeModel.mainColor, enabled: true, width: 1),
                   onCodeSubmitted: (code) {
                    // checkOtp(context,country,phoneNumber,_otpController);
                     AuthCubit.get(context).userLoginOTP(phoneNumber: "$country$phoneNumber", otp: _otpController.text, context: context);

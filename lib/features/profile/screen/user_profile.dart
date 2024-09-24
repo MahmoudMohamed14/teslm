@@ -7,6 +7,7 @@ import 'package:delivery/features/profile/navigator/chat/controller/chat_control
 import 'package:delivery/features/profile/navigator/setting/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
 import '../../../shared_preference/shared preference.dart';
@@ -40,7 +41,7 @@ class UserProfile extends StatelessWidget {
           child: SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
-                  color: isDark??false ?ColorsApp.cardsDarkColor:floatActionColor,
+                  color: ThemeModel.of(context).cardsColor,
                   borderRadius: BorderRadius.circular(20)),
               child: Column(
                 children: <Widget>[
@@ -158,10 +159,10 @@ class ProfileListItem extends StatelessWidget {
                 ),
                 const Spacer(),
                 if (hasNavigation)
-                  const Icon(
+                   Icon(
                     Icons.arrow_forward_ios_outlined,
                     size: 20,
-                    color: ColorsApp.iconsMainColor,
+                    color: ThemeModel.of(context).iconMainColor,
                   ),
               ],
             ),

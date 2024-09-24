@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
@@ -91,7 +92,7 @@ class MyDraggableSheet extends StatelessWidget {
                           deliveryManDetails(),
                           Container(
                             padding:const EdgeInsets.only(left: 10,right: 10,top: 20,bottom: 20),
-                            color: mainColor.shade50,
+                            color: ThemeModel.mainColor,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

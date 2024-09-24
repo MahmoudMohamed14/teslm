@@ -46,7 +46,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     if(providerFoodData!=null)
     _calculateListOffsets();
   }
-  int current = 3;
+  int current = 0;
   int advertising = 0;
   bool changeViewNew=false;
   String currentLocationName='';
@@ -182,6 +182,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     price+=foodPrice;
     emit(Reload());
     print(values);
+
   }
 
   void minusValue(String name, int value, image, int foodPrice, id) {

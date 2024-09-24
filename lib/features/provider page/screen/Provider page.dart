@@ -62,157 +62,7 @@ class _ProviderPage extends State<ProviderPage>
       builder: (context, state) {
         var menu = DeliveryCubit.get(context).providerFoodData;
         return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                backgroundColor: ThemeModel.of(context).backgroundColor,
-                surfaceTintColor: ThemeModel.of(context).backgroundColor,
-                toolbarHeight: 120.h,
-                pinned: true,
-                // floating: true, // Set to true
-                // snap: true,
-                leading: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    backgroundColor: ThemeModel.of(context).backgroundColor,
-                    radius: 10,
-                    child: Icon(
-                      CupertinoIcons.xmark,
-                      color: ThemeModel.of(context).font1,
-                      size: 22,
-                    ),
-                  ),
-                ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(95.h),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 15),
-                    child: Container(
-                      height: 60,
-                      color: Colors.red,
-                      width: double.maxFinite,
-                    ),
-                  ),
-                ),
-                flexibleSpace: FlexibleSpaceBar(
-                  title: AppTextWidget(
-                    Strings.other.tr(context),
-                    style: TextStyleHelper.of(context)
-                        .bold20
-                        .copyWith(color: ThemeModel.of(context).font2),
-                  ),
-                  background: Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(18),
-                          bottomRight: Radius.circular(18),
-                        ),
-
-                    ),
-                    child: image(widget.providerCover, 120.h, double.maxFinite, 0.0, BoxFit.cover
-                        ,borderRadius:const BorderRadius.only(
-                          bottomLeft: Radius.circular(18),
-                          bottomRight: Radius.circular(18),
-                        )
-                    ),
-                    /*// child: Image.network("https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
-                width: double.maxFinite,fit: BoxFit.cover,),*/
-                  ),
-                ),
-                //expandedHeight: 200.h,
-              ),
-              SliverAppBar(
-                expandedHeight: 60,
-                // pinned: true,
-                leading: const SizedBox.shrink(),
-                flexibleSpace: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      PriceWidget(
-                        title: Strings.duration.tr(context),
-                        value: '55-21',
-                      ),
-                      PriceWidget(
-                          title: Strings.deliveryPrice.tr(context),
-                          value: '55-21'),
-                      PriceWidget(
-                          title: Strings.minimumCharge.tr(context),
-                          value: '55-21'),
-                    ],
-                  ),
-                ),
-                backgroundColor: ThemeModel.of(context).backgroundColor,
-                surfaceTintColor: ThemeModel.of(context).backgroundColor,
-              ),
-              SliverAppBar(
-                pinned: true,
-                leading: const SizedBox.shrink(),
-                flexibleSpace: PreferredSize(
-                  preferredSize: const Size.fromHeight(40),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 15),
-                    child: Container(
-                      height: 40,
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                          color: ThemeModel.of(context).font3,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(start: 8),
-                            child: Icon(
-                              CupertinoIcons.search,
-                              color: ThemeModel.of(context).font1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                backgroundColor: ThemeModel.of(context).backgroundColor,
-                surfaceTintColor: ThemeModel.of(context).backgroundColor,
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppTextWidget(
-                        Strings.other.tr(context),
-                        style: TextStyleHelper.of(context)
-                            .bold20
-                            .copyWith(color: ThemeModel.of(context).font2),
-                      ),
-                      8.0.heightBox,
-                      ListView.separated(
-                          itemBuilder: (context, index) => OtherWidget(
-                                item: menu?.CategoriesItemsData?.firstOrNull
-                                    ?.items?[index],
-                              ),
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          separatorBuilder: (context, index) => 10.h.heightBox,
-                          itemCount: menu?.CategoriesItemsData?.firstOrNull
-                                  ?.items?.length ??
-                              0)
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(15),
-            child: bottom(Strings.showCart.tr(context), () async {}),
-          ),
-          /* body:  SafeArea(
+          body:  SafeArea(
         bottom: false,
         child: Stack(
           children: [
@@ -238,7 +88,7 @@ class _ProviderPage extends State<ProviderPage>
                                 child:
                                 menu!=null&&state is !GetProviderFoodLoading?Row(
                                   children: [
-                                    IconButton(icon: Icon(Icons.search,size: 25,color: isDark??false ? floatActionColor:brownColor,),onPressed: (){setState(() {
+                                    IconButton(icon: Icon(Icons.search,size: 25,),onPressed: (){setState(() {
                                       showSearchProvider=true;
                                     });},),
                                     Expanded(
@@ -250,8 +100,8 @@ class _ProviderPage extends State<ProviderPage>
                                           itemCount: menu.CategoriesItemsData!.length,
                                           itemBuilder: (context, index) => InkWell(
                                             onTap: (){DeliveryCubit.get(context).scrollToIndex(index);},
-                                            child: topBar(menu.CategoriesItemsData![index].name,index == DeliveryCubit.get(context).currentIndex ? mainColor.shade400 : isDark??false? Colors.black87:floatActionColor,
-                                                index == DeliveryCubit.get(context).currentIndex ? mainColor.shade300:isDark??false? floatActionColor:brownColor),
+                                            child: topBar(menu.CategoriesItemsData![index].name,index == DeliveryCubit.get(context).currentIndex ?ThemeModel.mainColor : isDark??false? Colors.black87:floatActionColor,
+                                                index == DeliveryCubit.get(context).currentIndex ? ThemeModel.mainColor:isDark??false? floatActionColor:brownColor),
                                           ),
                                           itemScrollController: DeliveryCubit.get(context).itemScrollController,
                                         ),
@@ -444,9 +294,7 @@ class _ProviderPage extends State<ProviderPage>
                                                       .CategoriesItemsData![index]
                                                       .items![indexNew].id,
                                                       null);
-                                                }
-
-                                                ,
+                                                },
                                                 menu.CategoriesItemsData![index]
                                                     .items![indexNew]
                                                     .optionGroups!.length != 0
@@ -577,8 +425,7 @@ class _ProviderPage extends State<ProviderPage>
               searchProvider(context),
           ],
         ),
-      )*/
-        );
+      ));
       },
     );
   }
@@ -681,7 +528,6 @@ class OtherWidget extends StatelessWidget {
               ],
             ).expand,
             15.w.widthBox,
-            //hi mostfa
             Stack(
               children: [
                 image(item?.image, 144.0, 130.w, 20.0, BoxFit.cover),
