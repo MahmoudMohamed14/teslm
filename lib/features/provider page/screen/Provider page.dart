@@ -12,11 +12,19 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
 import '../../../models/provider items model.dart';
+import '../../cart/screen/cart.dart';
+import '../../cart/widgets/add_or_remove.dart';
+import '../widget/loading_widget.dart';
+import '../widget/menu_items.dart';
+import '../widget/resturant_card.dart';
+import '../widget/search_provider_page.dart';
+import 'extra_items_class.dart';
 
 
 class ProviderPage extends StatefulWidget {
@@ -80,10 +88,30 @@ class _ProviderPage extends State<ProviderPage>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
-                    child: Container(
-                      height: 60,
-                      color: Colors.red,
-                      width: double.maxFinite,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          height: 60,
+                          //color: Colors.red,
+                          width: double.maxFinite,
+
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            image: const DecorationImage(image: AssetImage(ImagesApp.panner),fit: BoxFit.fill),
+                          ),
+                        ),
+                        Positioned(
+                          left: 20,
+                           // bottom: 8,
+                            child: image(widget.providerImage, 52.0, 52.0, 200.0, BoxFit.fill)),
+                         Positioned(
+                          left: 120,
+                            //end: 20,
+                          // right: 20,
+                            // bottom: 8,
+                            child: AppTextWidget(widget.providerName,style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).backgroundColor,fontSize: 20),)),
+                      ],
                     ),
                   ),
                 ),
@@ -143,7 +171,7 @@ class _ProviderPage extends State<ProviderPage>
                 pinned: true,
                 leading: const SizedBox.shrink(),
                 flexibleSpace: PreferredSize(
-                  preferredSize: const Size.fromHeight(40),
+                  preferredSize: const Size.fromHeight(25),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
@@ -171,38 +199,299 @@ class _ProviderPage extends State<ProviderPage>
                 surfaceTintColor: ThemeModel.of(context).backgroundColor,
               ),
               SliverToBoxAdapter(
-                child: ListView.separated(
-                    itemBuilder: (context, index1) {
-                      return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                      AppTextWidget(
-                        menu?.CategoriesItemsData?[index1].name ?? '',
-                      style: TextStyleHelper.of(context)
-                          .bold20
-                          .copyWith(color: ThemeModel.of(context).font2),
-                      ),
-                      8.0.heightBox,
-                      ListView.separated(
-                      itemBuilder: (context, index) =>OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
+                child:menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.separated(
+                      itemBuilder: (context, index1) {
+                        return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                        AppTextWidget(
+                          menu?.CategoriesItemsData?[index1].name ?? '',
+                        style: TextStyleHelper.of(context)
+                            .bold20
+                            .copyWith(color: ThemeModel.of(context).font2),
+                        ),
+                        8.0.heightBox,
+                        ListView.separated(
+                        itemBuilder: (context, index) =>OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],controller: controller,),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        separatorBuilder: (context, index) => 10.h.heightBox,
+                    itemCount: menu?.CategoriesItemsData?[index1].items?.length ??0)
+                  ],
+                  );
+                      } ,//OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       separatorBuilder: (context, index) => 10.h.heightBox,
-                  itemCount: menu?.CategoriesItemsData?[index1].items?.length ??0)
-                ],
-                );
-                    } ,//OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) => 10.h.heightBox,
-                    itemCount:menu?.CategoriesItemsData?.length ??0),
+                      itemCount:menu?.CategoriesItemsData?.length ??0),
+                ):Padding(
+        padding: const EdgeInsets.only(top: 150.0),
+        child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
+        ):Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.separated(
+          itemBuilder: (context, index) =>const CategoryShimmer(),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          separatorBuilder: (context, index) => 10.h.heightBox,
+          itemCount: 4),
+        ),
               ),
+           /*   DecoratedSliver(
+                decoration: BoxDecoration(
+                  color: isDark??false? Colors.black87:floatActionColor,
+                ),
+                sliver: menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty?SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                      return ListTile(  horizontalTitleGap: 0,
+                        title:Text('${menu.CategoriesItemsData![index].name}',style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: isDark??false ? Colors.white:brownColor),),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListView.separated(
+                              shrinkWrap: true,
+                              padding: EdgeInsets.zero,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context,indexNew) {
+                                print("new Index $indexNew" "index $index");
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .start,
+                                  children: [
+                                    InkWell(
+                                        onTap: () {
+                                          bottomSheet(context,
+                                              ExtraItemsBottomSheet(
+                                                extra: menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .optionGroups,
+                                                itemImage: '${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .image}',
+                                                name: language == 'en'
+                                                    ? '${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew].name!
+                                                    .en}'
+                                                    : '${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew].name!
+                                                    .ar}',
+                                                description: language ==
+                                                    'en'
+                                                    ? '${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .description!.en}'
+                                                    : '${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .description!.ar}',
+                                                price: menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew].price,
+                                                id: '${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .id}',),
+                                              controller: controller);
+                                        },
+                                        child: menuItems(
+                                            menu.CategoriesItemsData?[index]
+                                                .items?[indexNew]
+                                                .optionGroups?.isNotEmpty??false
+                                                ? () {
+                                              bottomSheet(context,
+                                                  ExtraItemsBottomSheet(
+                                                      extra: menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .optionGroups
+                                                      ,
+                                                      itemImage: '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .image}',
+                                                      name: language == 'en'
+                                                          ? '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.en}'
+                                                          : '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.ar}',
+                                                      description: language ==
+                                                          'en' ?
+                                                      '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .description!.en}'
+                                                          : '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .description!
+                                                          .ar}',
+                                                      price:
+                                                      menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .price,
+                                                      id:
+                                                      '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .id}'),
+                                                  controller: controller);
+                                            }
+                                                : () {
+                                              DeliveryCubit.get(context)
+                                                  .addValue(
+                                                  language == 'en' ? '${menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew]
+                                                      .name!.en}' : '${menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew]
+                                                      .name!.ar}', 1, menu
+                                                  .CategoriesItemsData![index]
+                                                  .items![indexNew].image,
+                                                  menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew]
+                                                      .price ?? 0, menu
+                                                  .CategoriesItemsData![index]
+                                                  .items![indexNew].id,
+                                                  null);
+                                            }
+
+                                            ,
+                                            menu.CategoriesItemsData?[index]
+                                                .items?[indexNew]
+                                                .optionGroups?.isNotEmpty??false
+                                                ? true
+                                                : false,
+                                            menu.CategoriesItemsData![index]
+                                                .items![indexNew], context,
+                                            DeliveryCubit.get(context)
+                                                .getValueById('${menu
+                                                .CategoriesItemsData![index]
+                                                .items![indexNew].id}') != 0
+                                                ? addOrRemoveOne(
+                                                DeliveryCubit.get(context)
+                                                    .getValueById('${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew].id}'),
+                                                context, menu
+                                                .CategoriesItemsData![index]
+                                                .items![indexNew]
+                                                .optionGroups!.isNotEmpty
+                                                ? () {
+                                              bottomSheet(context,
+                                                ExtraItemsBottomSheet(
+                                                    extra: menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .optionGroups,
+                                                    itemImage: '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .image}',
+                                                    name: language == 'en'
+                                                        ? '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .name!.en}'
+                                                        : '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .name!.ar}',
+                                                    description: language ==
+                                                        'en'
+                                                        ? '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .description!.en}'
+                                                        : '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .description!.ar}',
+                                                    price: menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .price,
+                                                    id: '${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew]
+                                                        .id}'),
+                                                controller: controller,);
+                                            }
+                                                : () {
+                                              DeliveryCubit.get(context)
+                                                  .addValue(
+                                                  language == 'en' ? '${menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew]
+                                                      .name!.en}' : '${menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew]
+                                                      .name!.ar}', 1, menu
+                                                  .CategoriesItemsData![index]
+                                                  .items![indexNew].image,
+                                                  menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew]
+                                                      .price ?? 0, menu
+                                                  .CategoriesItemsData![index]
+                                                  .items![indexNew].id,
+                                                  null);
+                                            },
+                                                    () {
+                                                  DeliveryCubit.get(context)
+                                                      .minusValue(
+                                                      language == 'en'
+                                                          ? '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.en}'
+                                                          : '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.ar}', 1,
+                                                      menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .image, menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew]
+                                                      .price ?? 0, menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew].id);
+                                                }, false)
+                                                : null)),
+                                  ],
+                                );}
+                              ,itemCount: menu.CategoriesItemsData![index].items!.length, separatorBuilder: (BuildContext context, int index) =>seperate(),),
+                            if(index!=menu.CategoriesItemsData!.length-1&&index!=0)
+                              seperate(),
+                          ],
+                        ),
+                      );
+                    }, childCount: menu.CategoriesItemsData!.length,
+                  ), ):SliverList(delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {return Padding(
+                      padding: const EdgeInsets.only(top: 150.0),
+                      child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
+                    );},childCount: 1)):providerLoading(),
+              ),*/
             ],
           ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(15),
-            child: bottom(Strings.showCart.tr(context), () async {}),
-          ),
+          bottomNavigationBar:  values.isNotEmpty?cartPaymentBottom(Strings.showCart.tr(context), (){navigate(context, Cart());}, true,context):null
           /* body:  SafeArea(
         bottom: false,
         child: Stack(
@@ -560,8 +849,7 @@ class _ProviderPage extends State<ProviderPage>
                   ),
                 ),
               ),
-                 if(values.isNotEmpty)
-                   cartPaymentBottom(Strings.showCart.tr(context), (){navigate(context, Cart());}, true,context)
+                 if(values.isNotEmpty)cartPaymentBottom(Strings.showCart.tr(context), (){navigate(context, Cart());}, true,context)
               ]
             ),
             if(showSearchProvider)
@@ -576,18 +864,30 @@ class _ProviderPage extends State<ProviderPage>
 }
 
 class OtherWidget extends StatelessWidget {
-  const OtherWidget({super.key, this.item});
+  const OtherWidget({super.key, this.item, this.controller, });
 
   final Items? item;
+  final AnimationController ?controller;
+
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showBottomSheet1(
-          context,
-          widget: const BottomSheetWidget(),
-        );
+        bottomSheet(context,
+            ExtraItemsBottomSheet(
+              extra: item?.optionGroups,
+              itemImage: '${item?.image}',
+              name: language == 'en'
+                  ? '${item?.name?.en}'
+                  : '${item?.name?.ar}',
+              description: language ==
+                  'en'
+                  ? '${item?.description?.en}'
+                  : '${item?.description?.ar}',
+              price: item?.price,
+              id: '${item?.id}',),
+            controller: controller);
       },
       child: Container(
         height:144,
@@ -605,7 +905,8 @@ class OtherWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppTextWidget(
+
+                   if (item?.optionGroups?.isNotEmpty??false)  AppTextWidget(
                         'Cusomizable',
                         style: TextStyleHelper.of(context)
                             .regular15
@@ -687,11 +988,36 @@ class OtherWidget extends StatelessWidget {
                 PositionedDirectional(
                     bottom: 2,
                     end: 3,
-                    child: CircleAvatar(
-                      backgroundColor: ThemeModel.of(context).font1,
-                      radius: 15,
-                      child: Icon(CupertinoIcons.add,
-                          color: ThemeModel.of(context).backgroundColor),
+                    child: InkWell(
+                      onTap: (){
+                        ( item?.optionGroups?.isNotEmpty??false)?  bottomSheet(context,
+                        ExtraItemsBottomSheet(
+                            extra:item?.optionGroups
+                            ,
+                            itemImage: '${item?.image}',
+                            name: language == 'en'
+                                ? '${item?.name?.en}'
+                                : '${item?.name?.ar}',
+                            description: language ==
+                                'en' ?
+                            '${item?.description?.en}'
+                                : '${item?.description?.ar}',
+                            price: item?.price,
+                            id:
+                            '${item?.id}'),
+                        controller: controller): DeliveryCubit.get(context)
+                            .addValue(
+                            language == 'en' ? '${item?.name!.en}' :
+                            '${item?.name!.ar}', 1, item?.image,
+                            item?.price ?? 0,item?.id,
+                            null);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: ThemeModel.of(context).font1,
+                        radius: 15,
+                        child: Icon(CupertinoIcons.add,
+                            color: ThemeModel.of(context).backgroundColor),
+                      ),
                     ))
               ],
             )
@@ -749,34 +1075,44 @@ class CategoryShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 175.h,
-      // padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          color: isDark??false? ColorsApp.cardBottomColor:Colors.grey.shade200
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Skeleton(width: 140.w,height: 179.h,radius: 18.0),
-          Column(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+       // Skeleton(width: 200.w,height: 30.h,radius: 16.0),
+        20.h.heightBox,
+        Skeleton(width: 100.w,height: 15.h,),
+        10.h.heightBox,
+        Container(
+          height: 175.h,
+          // padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              color: isDark??false? ColorsApp.cardBottomColor:Colors.grey.shade200
+          ),
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              10.h.heightBox,
-              Skeleton(width: 100.w,height: 15.h,),
-              12.h.heightBox,
-              Skeleton(width: 200.w,height: 20.h,),
-              // 5.h.heightBox,
-              Skeleton(width: 200.w,height: 5.h,),
-              Skeleton(width: 200.w,height: 5.h,),
-              12.h.heightBox,
-              Skeleton(width: 200.w,height: 30.h,radius: 16.0),
-            ],)
+              Skeleton(width: 140.w,height: 179.h,radius: 18.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  10.h.heightBox,
+                  Skeleton(width: 100.w,height: 15.h,),
+                  12.h.heightBox,
+                  Skeleton(width: 200.w,height: 20.h,),
+                  // 5.h.heightBox,
+                  Skeleton(width: 200.w,height: 5.h,),
+                  Skeleton(width: 200.w,height: 5.h,),
+                  12.h.heightBox,
+                  Skeleton(width: 200.w,height: 30.h,radius: 16.0),
+                ],)
 
 
-        ],
-      ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
