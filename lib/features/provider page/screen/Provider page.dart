@@ -1088,7 +1088,7 @@ class CategoryShimmer extends StatelessWidget {
           // padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
-              color: isDark??false? ColorsApp.cardBottomColor:Colors.grey.shade200
+              color: ThemeModel.of(context).cardsColor
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
