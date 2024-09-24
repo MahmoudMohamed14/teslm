@@ -67,24 +67,29 @@ class _ProviderPage extends State<ProviderPage>
               SliverAppBar(
                 backgroundColor: ThemeModel.of(context).backgroundColor,
                 surfaceTintColor: ThemeModel.of(context).backgroundColor,
-                toolbarHeight: 120.h,
+                toolbarHeight: 100.h,
                 pinned: true,
                 // floating: true, // Set to true
                 // snap: true,
-                leading: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    backgroundColor: ThemeModel.of(context).backgroundColor,
-                    radius: 10,
-                    child: Icon(
-                      CupertinoIcons.xmark,
-                      color: ThemeModel.of(context).font1,
-                      size: 22,
+                leading: InkWell(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundColor: ThemeModel.of(context).backgroundColor,
+                      radius: 10,
+                      child: Icon(
+                        CupertinoIcons.xmark,
+                        color: ThemeModel.of(context).font1,
+                        size: 22,
+                      ),
                     ),
                   ),
                 ),
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(95.h),
+                  preferredSize: Size.fromHeight(80.h),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
@@ -102,11 +107,11 @@ class _ProviderPage extends State<ProviderPage>
                           ),
                         ),
                         Positioned(
-                          left: 20,
+                          left: 25.w,
                            // bottom: 8,
                             child: image(widget.providerImage, 52.0, 52.0, 200.0, BoxFit.fill)),
                          Positioned(
-                          left: 120,
+                          left: 150.w,
                             //end: 20,
                           // right: 20,
                             // bottom: 8,
@@ -168,15 +173,17 @@ class _ProviderPage extends State<ProviderPage>
                 surfaceTintColor: ThemeModel.of(context).backgroundColor,
               ),
               SliverAppBar(
+                expandedHeight: 0.h,
+                toolbarHeight: 30,
                 pinned: true,
                 leading: const SizedBox.shrink(),
                 flexibleSpace: PreferredSize(
-                  preferredSize: const Size.fromHeight(25),
+                  preferredSize: const Size.fromHeight(0),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 15),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 15,vertical: 10.h),
                     child: Container(
-                      height: 40,
+                     padding:  EdgeInsets.symmetric(vertical: 10.h),
                       width: double.maxFinite,
                       decoration: BoxDecoration(
                           color: ThemeModel.of(context).font3,
@@ -184,7 +191,7 @@ class _ProviderPage extends State<ProviderPage>
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.only(start: 8),
+                            padding: const EdgeInsetsDirectional.only(start: 15),
                             child: Icon(
                               CupertinoIcons.search,
                               color: ThemeModel.of(context).font1,
@@ -226,7 +233,8 @@ class _ProviderPage extends State<ProviderPage>
                       shrinkWrap: true,
                       separatorBuilder: (context, index) => 10.h.heightBox,
                       itemCount:menu?.CategoriesItemsData?.length ??0),
-                ):Padding(
+                ):
+                Padding(
         padding: const EdgeInsets.only(top: 150.0),
         child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
         ):Padding(
@@ -239,7 +247,7 @@ class _ProviderPage extends State<ProviderPage>
           itemCount: 4),
         ),
               ),
-           /*   DecoratedSliver(
+             /* DecoratedSliver(
                 decoration: BoxDecoration(
                   color: isDark??false? Colors.black87:floatActionColor,
                 ),
@@ -382,7 +390,8 @@ class _ProviderPage extends State<ProviderPage>
                                                 .getValueById('${menu
                                                 .CategoriesItemsData![index]
                                                 .items![indexNew].id}') != 0
-                                                ? addOrRemoveOne(
+                                                ?
+                                            addOrRemoveOne(
                                                 DeliveryCubit.get(context)
                                                     .getValueById('${menu
                                                     .CategoriesItemsData![index]
@@ -391,7 +400,8 @@ class _ProviderPage extends State<ProviderPage>
                                                 .CategoriesItemsData![index]
                                                 .items![indexNew]
                                                 .optionGroups!.isNotEmpty
-                                                ? () {
+                                                ?
+                                                () {
                                               bottomSheet(context,
                                                 ExtraItemsBottomSheet(
                                                     extra: menu
@@ -988,24 +998,61 @@ class OtherWidget extends StatelessWidget {
                 PositionedDirectional(
                     bottom: 2,
                     end: 3,
-                    child: InkWell(
-                      onTap: (){
-                        ( item?.optionGroups?.isNotEmpty??false)?  bottomSheet(context,
+                    child: (DeliveryCubit.get(context).getValueById(item?.id??"")!=0)? addOrRemoveOne(
+                        DeliveryCubit.get(context)
+                            .getValueById('${item?.id}'),
+                        context, item?.optionGroups?.isNotEmpty??false ?
+                        () {
+                      bottomSheet(context,
                         ExtraItemsBottomSheet(
-                            extra:item?.optionGroups
-                            ,
+                            extra: item?.optionGroups,
                             itemImage: '${item?.image}',
                             name: language == 'en'
-                                ? '${item?.name?.en}'
-                                : '${item?.name?.ar}',
+                                ? '${item?.name!.en}'
+                                : '${item?.name!.ar}',
                             description: language ==
-                                'en' ?
-                            '${item?.description?.en}'
-                                : '${item?.description?.ar}',
+                                'en'
+                                ? '${item?.description!.en}'
+                                : '${item?.description!.ar}',
                             price: item?.price,
-                            id:
-                            '${item?.id}'),
-                        controller: controller): DeliveryCubit.get(context)
+                            id: '${item?.id}'),
+                        controller: controller,);
+                    }
+                        : () {
+                      DeliveryCubit.get(context)
+                          .addValue(
+                          language == 'en' ? '${item?.name!.en}' :
+                          '${item?.name!.ar}', 1, item?.image,
+                          item?.price ?? 0,item?.id,
+                          null);
+                    },
+                            () {
+                          DeliveryCubit.get(context)
+                              .minusValue(
+                              language == 'en'
+                                  ? '${item?.name!.en}'
+                                  : '${item?.name!.ar}'
+                              , 1, item?.image, item?.price ?? 0,
+                              item?.id);
+                        }, false): InkWell(
+                      onTap:
+                          (){
+                        ( item?.optionGroups?.isNotEmpty??false)?  bottomSheet(context,
+                            ExtraItemsBottomSheet(
+                                extra:item?.optionGroups
+                                ,
+                                itemImage: '${item?.image}',
+                                name: language == 'en'
+                                    ? '${item?.name?.en}'
+                                    : '${item?.name?.ar}',
+                                description: language ==
+                                    'en' ?
+                                '${item?.description?.en}'
+                                    : '${item?.description?.ar}',
+                                price: item?.price,
+                                id:
+                                '${item?.id}'),
+                            controller: controller): DeliveryCubit.get(context)
                             .addValue(
                             language == 'en' ? '${item?.name!.en}' :
                             '${item?.name!.ar}', 1, item?.image,
@@ -1013,7 +1060,7 @@ class OtherWidget extends StatelessWidget {
                             null);
                       },
                       child: CircleAvatar(
-                        backgroundColor: ThemeModel.of(context).font1,
+                        backgroundColor: ThemeModel.of(context).primary,
                         radius: 15,
                         child: Icon(CupertinoIcons.add,
                             color: ThemeModel.of(context).backgroundColor),
