@@ -992,8 +992,7 @@ class OtherWidget extends StatelessWidget {
                       onTap: (){
                         ( item?.optionGroups?.isNotEmpty??false)?  bottomSheet(context,
                         ExtraItemsBottomSheet(
-                            extra:item?.optionGroups
-                            ,
+                            extra:item?.optionGroups,
                             itemImage: '${item?.image}',
                             name: language == 'en'
                                 ? '${item?.name?.en}'
@@ -1013,7 +1012,7 @@ class OtherWidget extends StatelessWidget {
                             null);
                       },
                       child: CircleAvatar(
-                        backgroundColor: ThemeModel.of(context).font1,
+                        backgroundColor: ThemeModel.mainColor,
                         radius: 15,
                         child: Icon(CupertinoIcons.add,
                             color: ThemeModel.of(context).backgroundColor),
