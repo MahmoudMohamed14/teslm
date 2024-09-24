@@ -13,16 +13,16 @@ Widget messages(message)=>ListView.builder(
   // reverse: true,
   padding:const EdgeInsets.only(top: 10, bottom: 10),
   itemBuilder: (context, index) {
-    var messageEnd=message.messages!.length-1-index;
+    var messageEnd= message.messages!.length-1-index;
     // Get the current message's date
     DateTime currentMessageDate = DateTime.parse(
         '${message.messages![messageEnd].createdAt}');
     bool showDate = false;
-    if (index == 0) {
+    if (index == message.messages!.length-1) {
       showDate = true; // Show date for the first message
     } else {
       DateTime previousMessageDate = DateTime.parse(
-          '${message.messages![messageEnd + 1].createdAt}');
+          '${message.messages![messageEnd==0?0:messageEnd - 1].createdAt}');
       showDate = currentMessageDate.day != previousMessageDate.day ||
           currentMessageDate.month != previousMessageDate.month ||
           currentMessageDate.year != previousMessageDate.year;
