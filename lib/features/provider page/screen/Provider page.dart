@@ -1038,31 +1038,29 @@ class OtherWidget extends StatelessWidget {
                       onTap:
                           (){
                         ( item?.optionGroups?.isNotEmpty??false)?  bottomSheet(context,
-                            ExtraItemsBottomSheet(
-                                extra:item?.optionGroups
-                                ,
-                                itemImage: '${item?.image}'
-                                ,categoryId: categoryId??'',
-                                name: language == 'en'
-                                    ? '${item?.name?.en}'
-                                    : '${item?.name?.ar}',
-                                description: language ==
-                                    'en' ?
-                                '${item?.description?.en}'
-                                    : '${item?.description?.ar}',
-                                price: item?.price,
-                                id:
-                                '${item?.id}'),
-                            controller: controller): DeliveryCubit.get(context)
+                        ExtraItemsBottomSheet(
+                            extra:item?.optionGroups,
+                            itemImage: '${item?.image}',
+                            name: language == 'en'
+                                ? '${item?.name?.en}'
+                                : '${item?.name?.ar}',
+                            description: language ==
+                                'en' ?
+                            '${item?.description?.en}'
+                                : '${item?.description?.ar}',
+                            price: item?.price,
+                            id:
+                            '${item?.id}', categoryId: '',),
+                        controller: controller): DeliveryCubit.get(context)
                             .addValue(
                             language == 'en' ? '${item?.name!.en}' :
                             '${item?.name!.ar}', 1, item?.image,
-                            item?.price ?? 0,item?.id,
-                            categoryId??'',
+                            item?.price ?? 0,item?.id,language == 'en' ? '${item?.description!.en}' :
+                        '${item?.description!.ar}',
                             null);
                       },
                       child: CircleAvatar(
-                        backgroundColor: ThemeModel.of(context).primary,
+                        backgroundColor: ThemeModel.mainColor,
                         radius: 15,
                         child: Icon(CupertinoIcons.add,
                             color: ThemeModel.of(context).backgroundColor),

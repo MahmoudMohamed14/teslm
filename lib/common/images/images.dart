@@ -6,7 +6,7 @@ class ImagesApp {
   static const String logoAppImage = 'assets/images/appLogo.svg';
   static const String bagImage = 'assets/images/bag.png';
   static const String giftImage = 'assets/images/gift.png';
-  static const String pinMap = 'assets/images/pin.png';
+  static const String pinMap = 'assets/images/pin.svg';
   static const String englishLanguage = 'assets/images/english.png';
   static const String arabicLanguage = 'assets/images/arabic.png';
   static const String pointImage = 'assets/images/giftBox.png';
@@ -42,5 +42,7 @@ class ImagesApp {
   static const String backgroundImageSplash = 'assets/images/background_image_splash.svg';
   static const String circleImageSplash = 'assets/images/circle_splash.svg';
   static const String panner = 'assets/images/panner.png';
-
+  static const String cartAppbar = 'assets/images/cart_appbar.svg';
+  static const String cartShop = 'assets/images/cart_shop.svg';
+  static const String clockImage = 'assets/images/clock.svg';
 }

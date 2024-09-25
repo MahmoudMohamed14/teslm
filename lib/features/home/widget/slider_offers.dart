@@ -37,10 +37,9 @@ Widget slider(market,controller,context)=>CarouselSlider(
       onPageChanged: (index, reason) {
         DeliveryCubit.get(context).changeAdds(index);
       },
-      enlargeFactor:0.3,
       aspectRatio: 9.0 / 16.0,
       enlargeCenterPage: true,
-      viewportFraction: 0.6,
-      initialPage:DeliveryCubit.get(context).offersData!.data!.length,height: 220,autoPlay: true,autoPlayInterval:const Duration(seconds: 3),
-      autoPlayAnimationDuration: const Duration(seconds: 3),enableInfiniteScroll: true,
+      viewportFraction: 0.35,
+      initialPage:DeliveryCubit.get(context).offersData!.data!.length,height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
+      autoPlayAnimationDuration: const Duration(seconds: 2),enableInfiniteScroll: true,
     ));
