@@ -1,3 +1,4 @@
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,12 @@ Widget addNotes(noteTextController)=>StatefulBuilder(
     maxLines: 4,
     minLines: 4,
     decoration: InputDecoration(
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0),),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0),
+      borderSide: BorderSide.none),
       labelText:Strings.addNotes.tr(context),
       alignLabelWithHint: true,
+      filled: true, // Fills the background color for better visibility
+      fillColor: ThemeModel.of(context).cardsColor,
     ),
     controller: noteTextController,
     onChanged: (text) {

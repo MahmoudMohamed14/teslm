@@ -69,7 +69,7 @@ Widget actionAppbar(context)=>Padding(
                 const Icon(
                   Icons.location_on,
                   size: 25.0, color: Colors.red,),
-                Flexible(child: Text( DeliveryCubit.get(context).currentLocationName!=''?'${DeliveryCubit.get(context).currentLocationName}':language=='English Language'?'Current Location':'عنوانك الحالى',maxLines: 1, overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,color:isDark??false? floatActionColor:brownColor),)),
+                Flexible(child: Text( DeliveryCubit.get(context).currentLocationName!=''?'${DeliveryCubit.get(context).currentLocationName}':Strings.currentLocation.tr(context),maxLines: 1, overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,color:isDark??false? floatActionColor:brownColor),)),
               ],),
             Spacer(),
             bottom(Strings.changeOrderLocation.tr(context), (){
@@ -121,10 +121,11 @@ void navigateAndFinish(context , Widget) => Navigator.pushAndRemoveUntil(context
   return
 }*/
 class bottom extends StatelessWidget {
-  bottom(this.title,this.onTap,{super.key,this.width,this.color,this.radius});
+  bottom(this.title,this.onTap,{super.key,this.width,this.color,this.radius,this.height});
   Function()? onTap;
   String ?title;
   double? width;
+  double? height;
   double? radius;
   Color? color;
   @override
@@ -133,7 +134,7 @@ class bottom extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width??double.infinity,
-        height: 46,
+        height: height??46,
         padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
             color: color??ThemeModel.mainColor,

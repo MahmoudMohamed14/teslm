@@ -4,6 +4,7 @@ import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -119,10 +120,10 @@ class _MapsState extends State<Maps> {
       _centerIcon = Positioned(
         left: MediaQuery.of(context).size.width / 2 - 22,
         top: MediaQuery.of(context).size.height / 2 - 160,
-        child: Image.asset(
+        child: SvgPicture.asset(
           ImagesApp.pinMap,
-          width: 48,
-          height: 48,
+          width: 40, // You can set width and height as needed
+          height: 40,
         ),
       );
     });

@@ -18,6 +18,7 @@
   "my_orders": "My Orders",
   "home": "Home",
   "point": "Points",
+  "save":"Save",
   "no_orders_founded": "No Orders Founded",
   "what_discount":"Collect 10,000 points and get a 10 riyal discount",
   "redeem_your_points":"Redeem your points",
@@ -106,5 +107,7 @@
   "other": "Other",
   "duration": "Duration",
   "deliveryPrice": "Delivery Price",
-  "minimumCharge": "Minimum Charge"
+  "minimumCharge": "Minimum Charge",
+  "current_location":"Current Location"
+
 }

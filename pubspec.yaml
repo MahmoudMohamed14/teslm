@@ -85,7 +85,6 @@ flutter:
     - assets/images/
     - assets/images/icons/
     - assets/language/
-    - assets/images/background_image_splash.svg
 
 
   # The following line ensures that the Material Icons font is
@@ -99,7 +98,7 @@ flutter:
         - asset: assets/fonts/mainFont.ttf
     - family: fontEnglish
       fonts:
-        - asset: assets/fonts/fontEn.ttf
+        - asset: assets/fonts/Roboto.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

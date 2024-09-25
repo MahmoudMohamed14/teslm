@@ -11,7 +11,9 @@ Widget paymentMethodCard(context) {
   List<String> listPaymentMethod =[ Strings.payVisa.tr(context),Strings.payApple.tr(context),Strings.payTeslmCash.tr(context)];
   return Container(
   padding: const EdgeInsets.all(10),
-  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(width: 0.9,color: borderColor)),
+  decoration: BoxDecoration(
+      color: ThemeModel.of(context).cardsColor,
+      borderRadius: BorderRadius.circular(10)),
   child: ListView.separated(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
@@ -26,7 +28,7 @@ Widget paymentMethodCard(context) {
               Icon(listIcons[index]),
               const SizedBox(width: 8,),
               Column(children: [
-                Text(listPaymentMethod[index],style:const TextStyle(fontSize: 17),),
+                Text(listPaymentMethod[index],style:const TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
                 if(index==2)
                   Row(
                     children: [

@@ -79,7 +79,7 @@ class ThemeModel {
     this.pendingColor =const Color(0xFFEAEAEA),
     this.iconMainColor =const Color(0xFFF78C2E),
     this.bottomNavigationBarColor =const Color(0xFFFFFFFF),
-    this.bigCardBottomColor =const Color(0xEEEEEEFF),
+    this.bigCardBottomColor =const Color(0xFFF1F1F1),
     this.myAccountBackgroundDarkColor =const Color(0xFFFFFFFF),
     this.smallCardIconsColor =const Color(0xFF5B5B5B),
 

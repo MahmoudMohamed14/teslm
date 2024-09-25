@@ -32,6 +32,7 @@
   "search_restaurant_stores": "ابحث عن المطاعم او المتاجر",
   "sar": "ريال",
   "calories": "سعره حراريه",
+  "save":"حفظ",
   "delivery_time":"مدة التوصيل",
   "time_minutes": "30 - 40 دقيقة",
   "delivery_fee":"رسوم التوصيل",
@@ -105,6 +106,6 @@
   "sure_logout": "هل تريد تسجيل الخروج",
   "enter_text_search":"ادخل نص للبحث",
   "logout_miss_customer_message":"سنفتقدك كثيرا اذا قمت بتسجيل الخروج ننتظر عودتك لنا مجددا",
-  "my_coupons":"قسائمى"
-
+  "my_coupons":"قسائمى",
+  "current_location": "عنوانك الحالى"
 }

@@ -3,6 +3,7 @@ import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
@@ -10,7 +11,9 @@ import 'order_money.dart';
 
 Widget orderBrief(context)=>Container(
   padding: const EdgeInsets.all(10),
-  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(width: 0.9,color: borderColor)),
+  decoration: BoxDecoration(
+      color: ThemeModel.of(context).cardsColor,
+      borderRadius: BorderRadius.circular(10)),
   height: 210,
   child: Column(children: [
     orderMoney(Strings.totalOrder.tr(context),DeliveryCubit.get(context).couponData!=null?DeliveryCubit.get(context).couponData!.appliedOn=='ORDER'?'${price-(DeliveryCubit.get(context).couponData!.discount)!.toInt()}':price:price,

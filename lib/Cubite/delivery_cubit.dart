@@ -158,7 +158,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     );
     emit(Reload());
   }
-  void addValue(String name, int value,image,int foodPrice,id,extraId) {
+  void addValue(String name, int value,image,int foodPrice,id,description,extraId) {
     bool valueExists = false;
     for (var map in values) {
       if (map['name'] == name) {
@@ -174,6 +174,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
         'image': image,
         'price': foodPrice,
         'itemId': id,
+        'description':description,
         'selectedOptionGroups': extraId??[]
       });
       print(values);

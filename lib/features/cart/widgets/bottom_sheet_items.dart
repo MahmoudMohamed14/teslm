@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:delivery/common/components.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
@@ -33,11 +34,12 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>  with SingleTicke
       child: Column(
         children: [
           const SizedBox(height: 10,),
-          Text(Strings.itemUnavailable.tr(context),style: const TextStyle(fontFamily: 'fontTop',fontWeight: FontWeight.w500,fontSize: 18),),
+          Text(Strings.itemUnavailable.tr(context),style: const TextStyle(fontWeight: FontWeight.w700,fontSize: 18),),
           const SizedBox(height: 10,),
           SizedBox(
             height: 100,
             child: ListView.builder(
+              physics:const NeverScrollableScrollPhysics(),
               itemCount: 2,
               itemBuilder: (context,index)=> ListTile(
                 leading: AnimatedContainer(
@@ -55,7 +57,8 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>  with SingleTicke
                     ),
                   ),
                 ),
-                title: Text(listUnavailableItems[index],style:const TextStyle(fontSize: 17),),
+                title: Text(listUnavailableItems[index],style:const TextStyle(fontSize: 16,fontWeight:
+                FontWeight.w500),),
                 onTap: (){
                   setState((){
                     if(index==1){_isCheckedList=[false,true];choose=true;}
@@ -65,16 +68,20 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>  with SingleTicke
                   setState(() {
                     containerPadding =false;
                   });
-
                   Timer(const Duration(milliseconds: 350), () {
-                    setState(() {
-                      containerPadding = true;
-                    });
-                  });
+                  setState(() {
+                  containerPadding = true;
+                  });});
                 },
               ),
             ),
           ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0,right: 15),
+            child: bottom(Strings.save.tr(context), (){Navigator.pop(context);}),
+          ),
+          SizedBox(height: 20,)
         ],
       ),
     );

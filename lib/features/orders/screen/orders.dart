@@ -29,9 +29,7 @@ class Orders extends StatelessWidget {
     return Scaffold(
       appBar:PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
-
         child: appBarWithIcons(Strings.myOrders.tr(context),ImagesApp.myOrdersAppBarImage,false,context),
-
       ),
         body: DeliveryCubit.get(context).customerOrders != null && state is! GetOrdersLoading ? SafeArea(
             child: DeliveryCubit.get(context).customerOrders!.data!.isNotEmpty ?

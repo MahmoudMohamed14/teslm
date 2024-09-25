@@ -1008,7 +1008,8 @@ class OtherWidget extends StatelessWidget {
                             .addValue(
                             language == 'en' ? '${item?.name!.en}' :
                             '${item?.name!.ar}', 1, item?.image,
-                            item?.price ?? 0,item?.id,
+                            item?.price ?? 0,item?.id,language == 'en' ? '${item?.description!.en}' :
+                        '${item?.description!.ar}',
                             null);
                       },
                       child: CircleAvatar(

@@ -101,6 +101,7 @@ class Strings {
   static const String duration= "duration";
   static const String deliveryPrice= "deliveryPrice";
   static const String minimumCharge= "minimumCharge";
-
+  static const String save= "save";
+  static const String currentLocation= "current_location";
 
 }

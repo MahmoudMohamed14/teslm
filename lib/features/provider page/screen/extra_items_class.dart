@@ -339,7 +339,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                         DeliveryCubit.get(context).addValue(widget.name +
                             ExtraName, itemsNumber, widget.itemImage, price *
                             itemsNumber + totalExtraPrice * itemsNumber, widget
-                            .id, addExtra);
+                            .id,widget.description ,addExtra);
                         DeliveryCubit.get(context).submitValue(itemsNumber);
                         Navigator.pop(context);
                       });
