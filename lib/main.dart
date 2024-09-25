@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<DeliveryCubit>(
-          create: (context) => DeliveryCubit()..getNewCustomer()..offers()..category()..getProviderData()..getPointsAndBalance()..getCouponsData()..getCustomerOrders(),
+          create: (context) => DeliveryCubit()..getNewCustomer()..offers()..category()..getProviderData()..getPointsAndBalance()..getCouponsData()..getCustomerOrders()..getCartList(),
         ),
         BlocProvider<AppDarkLightCubit>(
           create: (context) => AppDarkLightCubit()..changeLang(fromCache: language??'ar'),

@@ -9,6 +9,21 @@ Widget category(model,index,context){return InkWell(
   onTap: (){
     DeliveryCubit.get(context).categoryProvider(id:model.id);
     navigate(context, MainCategories(categoryName:language=='en'? '${model.name.en}':'${model.name.ar}'));
+    print(" name???${model.name.en} ");
+    DeliveryCubit.get(context).categoryId=model.id;
+    if(model.name?.en?.toLowerCase()=='restaurants'){
+      values=[];
+      DeliveryCubit.get(context).isRestaurant=true;
+    }else{
+      DeliveryCubit.get(context).isRestaurant=false;
+      DeliveryCubit.get(context).cardList.forEach((action){
+        if(DeliveryCubit.get(context).categoryId==action['categoryId']){
+          values.add(action);
+
+        }
+      });
+
+    }
   },
   child: Column(
     children: [ClipRRect(

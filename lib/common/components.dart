@@ -173,7 +173,7 @@ Widget cartPaymentBottom(text,onTap,isProvider,context)=>BlocListener<DeliveryCu
               Text(Strings.sar.tr(context),maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
               SizedBox(width: 5,),
               if(isProvider)
-              Text('$price',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
+              Text('${DeliveryCubit.get(context).getPrice()}',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
               if(!isProvider)
               Text(DeliveryCubit.get(context).couponData!=null? "${totalPrice-(DeliveryCubit.get(context).couponData!.discount)!.toInt()}":'$totalPrice',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
               if(DeliveryCubit.get(context).couponData!=null&&!isProvider)

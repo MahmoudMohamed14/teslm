@@ -20,10 +20,7 @@ import '../../../common/translate/strings.dart';
 import '../../../models/provider items model.dart';
 import '../../cart/screen/cart.dart';
 import '../../cart/widgets/add_or_remove.dart';
-import '../widget/loading_widget.dart';
-import '../widget/menu_items.dart';
-import '../widget/resturant_card.dart';
-import '../widget/search_provider_page.dart';
+
 import 'extra_items_class.dart';
 
 
@@ -221,7 +218,7 @@ class _ProviderPage extends State<ProviderPage>
                         ),
                         8.0.heightBox,
                         ListView.separated(
-                        itemBuilder: (context, index) =>OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],controller: controller,),
+                        itemBuilder: (context, index) =>OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],categoryId:menu.CategoriesItemsData?[index1].id,controller: controller,),
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         separatorBuilder: (context, index) => 10.h.heightBox,
@@ -874,10 +871,11 @@ class _ProviderPage extends State<ProviderPage>
 }
 
 class OtherWidget extends StatelessWidget {
-  const OtherWidget({super.key, this.item, this.controller, });
+  const OtherWidget({super.key, this.item, this.controller, this.categoryId, });
 
   final Items? item;
   final AnimationController ?controller;
+ final String? categoryId;
 
 
   @override
@@ -896,7 +894,7 @@ class OtherWidget extends StatelessWidget {
                   ? '${item?.description?.en}'
                   : '${item?.description?.ar}',
               price: item?.price,
-              id: '${item?.id}',),
+              id: '${item?.id}',categoryId: categoryId??'',),
             controller: controller);
       },
       child: Container(
@@ -1006,7 +1004,8 @@ class OtherWidget extends StatelessWidget {
                       bottomSheet(context,
                         ExtraItemsBottomSheet(
                             extra: item?.optionGroups,
-                            itemImage: '${item?.image}',
+                            itemImage: '${item?.image}'
+                            ,categoryId: categoryId??'',
                             name: language == 'en'
                                 ? '${item?.name!.en}'
                                 : '${item?.name!.ar}',
@@ -1024,6 +1023,7 @@ class OtherWidget extends StatelessWidget {
                           language == 'en' ? '${item?.name!.en}' :
                           '${item?.name!.ar}', 1, item?.image,
                           item?.price ?? 0,item?.id,
+                          categoryId??'',
                           null);
                     },
                             () {
@@ -1041,7 +1041,8 @@ class OtherWidget extends StatelessWidget {
                             ExtraItemsBottomSheet(
                                 extra:item?.optionGroups
                                 ,
-                                itemImage: '${item?.image}',
+                                itemImage: '${item?.image}'
+                                ,categoryId: categoryId??'',
                                 name: language == 'en'
                                     ? '${item?.name?.en}'
                                     : '${item?.name?.ar}',
@@ -1057,6 +1058,7 @@ class OtherWidget extends StatelessWidget {
                             language == 'en' ? '${item?.name!.en}' :
                             '${item?.name!.ar}', 1, item?.image,
                             item?.price ?? 0,item?.id,
+                            categoryId??'',
                             null);
                       },
                       child: CircleAvatar(

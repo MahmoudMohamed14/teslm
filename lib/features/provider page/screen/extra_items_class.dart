@@ -13,11 +13,12 @@ class ExtraItemsBottomSheet extends StatefulWidget {
   String itemImage;
   String name;
   String id;
+  String categoryId;
   dynamic price;
   String description;
   var extra;
   @override
-  ExtraItemsBottomSheet({required this.extra,required this.itemImage,required this.name,required this.description,required this.price,required this.id});
+  ExtraItemsBottomSheet({required this.extra,required this.itemImage,required this.name,required this.description,required this.price,required this.id,required this.categoryId});
   _ExtraItemsBottomSheetState createState() => _ExtraItemsBottomSheetState();
 }
 
@@ -339,7 +340,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                         DeliveryCubit.get(context).addValue(widget.name +
                             ExtraName, itemsNumber, widget.itemImage, price *
                             itemsNumber + totalExtraPrice * itemsNumber, widget
-                            .id, addExtra);
+                            .id,widget.categoryId, addExtra);
                         DeliveryCubit.get(context).submitValue(itemsNumber);
                         Navigator.pop(context);
                       });

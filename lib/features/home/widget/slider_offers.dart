@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:delivery/shared_preference/shared%20preference.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
@@ -12,6 +13,9 @@ Widget slider(market,controller,context)=>CarouselSlider(
       padding: const EdgeInsets.only(top: 10.0,right: 10),
       child:InkWell(
         onTap: (){
+        //  Save.remove(key: 'MyCart');
+
+
           DeliveryCubit.get(context).getProviderFoodData('${e.provider!.id}');
           navigate(context, ProviderPage(
               providerDescription:language=='en'? '${e.provider!.description!.en}':'${e.provider!.description!.ar}',

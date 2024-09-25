@@ -158,7 +158,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     );
     emit(Reload());
   }
-  void addValue(String name, int value,image,int foodPrice,id,extraId) {
+  void addValue(String name, int value,image,int foodPrice,id,String category,extraId) {
     bool valueExists = false;
     for (var map in values) {
       if (map['name'] == name) {
@@ -167,24 +167,80 @@ class DeliveryCubit extends Cubit<DeliveryState> {
         break;
       }
     }
+    if(!isRestaurant){
+      for (var map in cardList) {
+        if (map['name'] == name) {
+          map['quantity'] = (map['quantity']! + 1);
+          valueExists = true;
+          break;
+        }
+      }
+    }
+
     if (!valueExists) {
       values.add({
         'name': name,
         'quantity': value,
         'image': image,
+        "categoryId":categoryId,
         'price': foodPrice,
         'itemId': id,
         'selectedOptionGroups': extraId??[]
       });
+      if(!isRestaurant) {
+        cardList.add({
+        'name': name,
+        'quantity': value,
+        'image': image,
+        "categoryId":categoryId,
+        'price': foodPrice,
+        'itemId': id,
+        'selectedOptionGroups': extraId??[]
+      });
+      }
+
+
+
       print(values);
     }
     getValueById('${id}');
     price+=foodPrice;
     emit(Reload());
     print(values);
+    saveCardList();
+  }
+  bool isRestaurant=false;
+  String ?categoryId;
+  List<Map<String, dynamic>> cardList = [];
+  double getPrice(){
+
+    double total = 0.0;
+   values.forEach((action){
+    total+= action['price']! * action['quantity']!;
+   });
+    return total;
 
   }
+  void saveCardList() {
 
+
+   Save.savedata(key: 'myCart', value: jsonEncode(cardList)).then((onValue){
+     if(onValue){
+       getCartList();
+
+     }
+   });
+  }
+  void getCartList(){
+    cardList=[];
+    String? json = Save.getdata(key: 'myCart');
+    if(json!=null){
+      cardList =  (jsonDecode(json) as List<dynamic>)
+          .map((item) => Map<String, dynamic>.from(item))
+          .toList();
+      print(" myCart=${cardList}");
+    }
+  }
   void minusValue(String name, int value, image, int foodPrice, id) {
     bool valueExists = false;
     List<Map<String, dynamic>> valuesCopy = List.from(values.reversed);
@@ -199,20 +255,36 @@ class DeliveryCubit extends Cubit<DeliveryState> {
         break;
       }
     }
+    if(!isRestaurant){
+      for (var map in cardList) {
+        if (map['name'] == name) {
+          map['quantity'] = (map['quantity']! - 1);
+          if (map['quantity'] == 0) {
+            cardList.remove(map);
+          }
+          valueExists = true;
+          break;
+        }
+      }
+    }
 
     if (valueExists) {
       values = List.from(valuesCopy.reversed);
       price -= foodPrice;
       emit(Reload());
     }
+    saveCardList();
   }
   void RemoveValue(index) {
       if (index >= 0 && index < values.length) {
         int productPrice = values[index]['price'].toInt();
         price -= productPrice;
+       if(!isRestaurant) cardList.remove(values[index]);
         values.removeAt(index);
+
         emit(Reload());
       }
+      saveCardList();
   }
   bool isNameInList(String name) {
     for (var map in values) {

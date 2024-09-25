@@ -70,12 +70,28 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<DeliveryCubit
                   margin: const EdgeInsets.all(5),
                   child: bigCardHome(providers.categories![categoryIndex].providers![index],
                           (){
+
                         DeliveryCubit.get(context).expandedHeight = 345.0;DeliveryCubit.get(context).imageHeight = 200.0;
                         DeliveryCubit.get(context).containerHeight=180.0;DeliveryCubit.get(context).currentIndex=0;DeliveryCubit.get(context).opecity=1;
                         DeliveryCubit.get(context).containerPadding=100;DeliveryCubit.get(context).rowItems=150;
                         DeliveryCubit.get(context).getProviderFoodData(providers.categories![categoryIndex].providers![index].id);
                         values=[];//todo انا عايز لما يخش ميفضلش يمسح الكارت لو هو كان ضايف قبل كدة متتمسحش الا لو خرج من التطبيق
                         price=0;
+                        DeliveryCubit.get(context).categoryId=providers.categories![categoryIndex].id;
+                        if(providers.categories![categoryIndex].name?.en?.toLowerCase()=='restaurants'){
+                          values=[];
+                          DeliveryCubit.get(context).isRestaurant=true;
+                        }else{
+                          DeliveryCubit.get(context).isRestaurant=false;
+                          DeliveryCubit.get(context).cardList.forEach((action){
+                            if(DeliveryCubit.get(context).categoryId==action['categoryId']){
+                              values.add(action);
+
+                            }
+                          });
+
+                        }
+                        print(" name???${providers.categories![categoryIndex].name?.en} ");
                         Navigator.push(
                           context,
                           PageTransition(

@@ -33,7 +33,7 @@ Widget itemsCart(index,context)=>Dismissible(
         child: addOrRemoveOne(
             values[index]['quantity'],
             context,
-                (){ DeliveryCubit.get(context).addValue(values[index]['name'],1,values[index]['image'],values[index]['price'],values[index]['id'],values[index]['extraId']);},
+                (){ DeliveryCubit.get(context).addValue(values[index]['name'],1,values[index]['image'],values[index]['price'],values[index]['id'],values[index]['categoryId'],values[index]['extraId']);},
                 (){ DeliveryCubit.get(context).minusValue(values[index]['name'],1,values[index]['image'],values[index]['price'],values[index]['id']);
             if(values.isEmpty){Navigator.pop(context);}
             },

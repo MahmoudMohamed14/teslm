@@ -17,10 +17,18 @@ class Save{
     required String key,
     required dynamic value,
   })async {
-    if(value is bool)  return await sharedPrefrences!.setBool(key,value);
-    if(value is String)  return await sharedPrefrences!.setString(key,value);
-    if(value is int)  return await sharedPrefrences!.setInt(key,value);
-    return await sharedPrefrences!.setDouble(key,value);
+    if(value is bool) {
+      return await sharedPrefrences!.setBool(key,value);
+    } else if (value is String)  {return await sharedPrefrences!.setString(key,value);}
+   else if(value is int) {
+      return await sharedPrefrences!.setInt(key, value);
+    }
+    else if(value is List<String>) {
+      return await sharedPrefrences!.setStringList(key, value);
+    }
+    else {
+      return await sharedPrefrences!.setDouble(key, value);
+    }
   }
   static Future<bool> remove({required String key})async
   {
