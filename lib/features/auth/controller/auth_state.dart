@@ -28,3 +28,4 @@ class LoginError extends AuthState{
   final error;
   LoginError(this.error);
 }
+

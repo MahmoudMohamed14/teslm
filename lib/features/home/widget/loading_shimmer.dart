@@ -3,9 +3,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../common/colors/colors.dart';
 import '../../../common/components.dart';
-import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
 
 Widget loadingMainPage(scrollController,context)=>Padding(

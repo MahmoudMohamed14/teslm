@@ -15,49 +15,49 @@ class Advertising {
 
 class Data {
   String? id;
-  Name? name;
+  DataTranslate? name;
   String? image;
-  ProviderOffer? provider;
+  ProvidersOffer? provider;
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'] != null ? new Name.fromJson(json['name']) : null;
+    name = json['name'] != null ? new DataTranslate.fromJson(json['name']) : null;
     image = json['image'];
     provider = json['provider'] != null
-        ? new ProviderOffer.fromJson(json['provider'])
+        ? new ProvidersOffer.fromJson(json['provider'])
         : null;
   }
 }
 
-class Name {
+class DataTranslate {
   String? ar;
   String? en;
 
-  Name.fromJson(Map<String, dynamic> json) {
+  DataTranslate.fromJson(Map<String, dynamic> json) {
     ar = json['ar'];
     en = json['en'];
   }
 }
 
-class ProviderOffer {
+class ProvidersOffer {
   String? id;
-  Name? providerName;
+  DataTranslate? providerName;
   String? providerImage;
   String? providerCover;
-  Name? description;
+  DataTranslate? description;
   String? createdAt;
   int? totalReviews;
   int? reviewCount;
 
-  ProviderOffer.fromJson(Map<String, dynamic> json) {
+  ProvidersOffer.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     providerName = json['provider_name'] != null
-        ? new Name.fromJson(json['provider_name'])
+        ? new DataTranslate.fromJson(json['provider_name'])
         : null;
     providerImage = json['provider_image'];
     providerCover = json['provider_cover'];
     description = json['description'] != null
-        ? new Name.fromJson(json['description'])
+        ? new DataTranslate.fromJson(json['description'])
         : null;
     createdAt = json['createdAt'];
     totalReviews = json['totalReviews'];

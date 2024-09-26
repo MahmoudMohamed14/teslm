@@ -2,6 +2,7 @@ import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/point/controller/point_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -32,9 +33,9 @@ class Points extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0,right: 20,top: 10,bottom: 10),
             child: Row(children: [
-              if(DeliveryCubit.get(context).balanceAndPointsData!=null)
-                Text('${DeliveryCubit.get(context).balanceAndPointsData!.points} ',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
-              if(DeliveryCubit.get(context).balanceAndPointsData==null)
+              if(PointCubit.get(context).balanceAndPointsData!=null)
+                Text('${PointCubit.get(context).balanceAndPointsData!.points} ',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+              if(PointCubit.get(context).balanceAndPointsData==null)
                 Skeleton(height: 15.0,width: 50.0),
               Text(Strings.point.tr(context),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
             ],),
@@ -59,7 +60,7 @@ class Points extends StatelessWidget {
                     color:isDark??false? Colors.white:borderColor,
                     size: 25.0,
                   ): InkWell(
-                    onTap: (){DeliveryCubit.get(context).redeemPointsCustomer(context);},
+                    onTap: (){PointCubit.get(context).redeemPointsCustomer(context);},
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(color: ThemeModel.of(context).iconMainColor,borderRadius: BorderRadius.circular(20)),

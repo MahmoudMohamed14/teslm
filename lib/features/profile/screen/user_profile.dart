@@ -4,6 +4,7 @@ import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/profile/navigator/chat/controller/chat_controller_cubit.dart';
+import 'package:delivery/features/profile/navigator/my_account/controller/account_cubit.dart';
 import 'package:delivery/features/profile/navigator/setting/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,8 +53,8 @@ class UserProfile extends StatelessWidget {
                     hasNavigation: true,
                     onTap: (){
                       ChatControllerCubit.get(context).getChat();
-                      if(DeliveryCubit.get(context).getUserData==null) {
-                        DeliveryCubit.get(context).getNewCustomer();
+                      if(AccountCubit.get(context).getUserData==null) {
+                        AccountCubit.get(context).getNewCustomer(context);
                       }
                       navigate(context,const EditInformation());},
                   ),

@@ -3,22 +3,23 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../Dio/Dio.dart';
-import '../../common/colors/theme_model.dart';
-import '../../common/components.dart';
-import '../../common/constant/constant values.dart';
-import '../../common/images/images.dart';
-import '../../common/text_style_helper.dart';
-import '../../common/translate/strings.dart';
-import '../../features/auth/screen/otp number.dart';
-import '../../features/home/screens/home.dart';
-import '../../features/payment page/screen/payment.dart';
-import '../../models/login model.dart';
-import '../../models/otpModel.dart';
-import '../../shared_preference/shared preference.dart';
-import '../../widgets/app_text_widget.dart';
-import '../delivery_cubit.dart';
-
+import '../../../Dio/Dio.dart';
+import '../../../common/colors/theme_model.dart';
+import '../../../common/components.dart';
+import '../../../common/constant/constant values.dart';
+import '../../../common/images/images.dart';
+import '../../../common/text_style_helper.dart';
+import '../../../common/translate/strings.dart';
+import '../screen/otp number.dart';
+import '../../home/controller/home_cubit.dart';
+import '../../home/screens/home.dart';
+import '../../payment page/screen/payment.dart';
+import '../../point/controller/point_cubit.dart';
+import '../../../models/login model.dart';
+import '../../../models/otpModel.dart';
+import '../../../shared_preference/shared preference.dart';
+import '../../../widgets/app_text_widget.dart';
+import '../../../Cubite/delivery_cubit.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -60,12 +61,12 @@ class AuthCubit extends Cubit<AuthState> {
       loginOTP= LoginOTP.fromJson(value.data);
       print(value.data);
       token=loginOTP!.token;
-      DeliveryCubit.get(context). changeNavigator(3);
+      HomeCubit.get(context). changeNavigator(3);
       customerId=loginOTP!.id;
       Save.savedata(key: 'customerId',value:loginOTP!.id).then((value){
-        DeliveryCubit.get(context). getPointsCustomer();
-        DeliveryCubit.get(context). getCouponsData();
-        DeliveryCubit.get(context). getPointsAndBalance();
+        PointCubit.get(context).getPointsCustomer();
+        PointCubit.get(context).getCouponsData();
+        PointCubit.get(context).getPointsAndBalance();
       }) ;
       Save.savedata(key: 'token', value: token).then((value){
         loginFromCart? navigate(context, Payment(customerNotes: '')): navigateAndFinish(context,const Home());
@@ -100,3 +101,4 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 }
+

@@ -5,30 +5,30 @@ import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/colors/theme_model.dart';
-import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../widget/add_or_remove_in_provider.dart';
 
 class ExtraItemsBottomSheet extends StatefulWidget {
-  String itemImage;
-  String name;
-  String id;
-  String categoryId;
+  final String itemImage;
+  final String name;
+  final String id;
+  final String categoryId;
   dynamic price;
-  String description;
+  final String description;
   var extra;
   @override
   ExtraItemsBottomSheet({required this.extra,required this.itemImage,required this.name,required this.description,required this.price,required this.id,required this.categoryId});
+  @override
   _ExtraItemsBottomSheetState createState() => _ExtraItemsBottomSheetState();
 }
 
 class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
   Color containerColor = Colors.white;
-  ScrollController _bottomSheetController = ScrollController();
+  final ScrollController _bottomSheetController = ScrollController();
   late AnimationController controller;
   int itemsNumber = 1;
   int totalExtraPrice = 0;
-  String ExtraName = '';
+  String extraName = '';
   late double imageBottomSheetHeight = MediaQuery
       .sizeOf(context)
       .height / 4;
@@ -121,7 +121,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                 widget.name, maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 20,
+                style: const TextStyle(fontSize: 20,
                     fontWeight: FontWeight.bold,),
               ),
             ),
@@ -150,11 +150,11 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                             children: [
                               Text('${getTrueCountAtIndex(index)}/${widget
                                   .extra[index].maxSelections}',
-                                style: TextStyle(fontSize: 17,
+                                style:const TextStyle(fontSize: 17,
                                     fontWeight: FontWeight.bold,),),
                               Text(language == 'English Language' ? '${widget
                                   .extra[index].name.en}' : '${widget
-                                  .extra[index].name.ar}', style: TextStyle(
+                                  .extra[index].name.ar}', style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold, ),),
                             ],
@@ -208,7 +208,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                       totalExtraPrice -= (itemsNumber *
                                           widget.extra[index].options[i].price)
                                           .toInt();
-                                      ExtraName = ExtraName.replaceAll(
+                                      extraName = extraName.replaceAll(
                                           language == 'English Language'
                                               ? '+${widget.extra[index]
                                               .options[i].name.en}'
@@ -227,13 +227,13 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                             widget.extra[index]
                                                 .options[otherIndex].price)
                                             .toInt();
-                                        if (!ExtraName.contains(
+                                        if (!extraName.contains(
                                             language == 'English Language'
                                                 ? widget.extra[index]
                                                 .options[otherIndex].name.en
                                                 : widget.extra[index]
                                                 .options[otherIndex].name.ar)) {
-                                          ExtraName +=
+                                          extraName +=
                                           language == 'English Language'
                                               ? '+${widget.extra[index]
                                               .options[otherIndex].name.en}'
@@ -248,7 +248,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                         totalExtraPrice -= (itemsNumber *
                                             widget.extra[index].options[i]
                                                 .price).toInt();
-                                        ExtraName = ExtraName.replaceAll(
+                                        extraName = extraName.replaceAll(
                                             language == 'English Language'
                                                 ? '+${widget.extra[index]
                                                 .options[i].name.en}'
@@ -272,12 +272,12 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                   totalExtraPrice += (itemsNumber *
                                       widget.extra[index].options[otherIndex]
                                           .price).toInt();
-                                  if (!ExtraName.contains(
+                                  if (!extraName.contains(
                                       language == 'English Language' ? widget
                                           .extra[index].options[otherIndex].name
                                           .en : widget.extra[index]
                                           .options[otherIndex].name.ar)) {
-                                    ExtraName +=
+                                    extraName +=
                                     language == 'English Language' ? '+${widget
                                         .extra[index].options[otherIndex].name
                                         .en}' : '+${widget.extra[index]
@@ -292,7 +292,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                   totalExtraPrice -= (itemsNumber *
                                       widget.extra[index].options[otherIndex]
                                           .price).toInt();
-                                  ExtraName = ExtraName.replaceAll(
+                                  extraName = extraName.replaceAll(
                                       language == 'English Language'
                                           ? '+${widget.extra[index]
                                           .options[otherIndex].name.en}'
@@ -330,15 +330,15 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                       .sizeOf(context)
                       .width / 2,
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration:const BoxDecoration(
                       color: ThemeModel.mainColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10))
+                      borderRadius: BorderRadius.all(Radius.circular(10))
                   ),
                   child: InkWell(
                     onTap: () {
                       setState(() {
                         DeliveryCubit.get(context).addValue(widget.name +
-                            ExtraName, itemsNumber, widget.itemImage, DeliveryCubit.get(context).getPrice().toInt() +((widget.price as int)*itemsNumber) + (totalExtraPrice * itemsNumber ) , widget
+                            extraName, itemsNumber, widget.itemImage, DeliveryCubit.get(context).getPrice().toInt() +((widget.price as int)*itemsNumber) + (totalExtraPrice * itemsNumber ) , widget
                             .id,widget.description ,addExtra);
                         DeliveryCubit.get(context).submitValue(itemsNumber);
                         Navigator.pop(context);

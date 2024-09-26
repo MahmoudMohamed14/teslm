@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/components.dart';
+import 'package:delivery/features/home/controller/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widget/home_body.dart';
@@ -11,7 +12,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
     // TODO: implement listener
   },
@@ -23,8 +24,8 @@ class MainPage extends StatelessWidget {
           preferredSize: const Size.fromHeight(200.0),
           child:appBar(context,true),
         ),
-        body: (DeliveryCubit.get(context).offersData != null&&DeliveryCubit.get(context).providerData!=null&&state is !GetUserLoading
-            &&DeliveryCubit.get(context).categoryData!=null) ?homeBody(scrollController,controller,context):loadingMainPage(scrollController,context),
+        body: (HomeCubit.get(context).offersData != null&&HomeCubit.get(context).providerData!=null
+            &&HomeCubit.get(context).categoryData!=null) ?homeBody(scrollController,controller,context):loadingMainPage(scrollController,context),
       ),
     );
   },

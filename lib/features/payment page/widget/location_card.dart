@@ -10,6 +10,7 @@ import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
 import '../../home/screens/home.dart';
+import '../../map_page/controller/map_cubit.dart';
 
 Widget locationCard(context)=>Container(
   padding:const EdgeInsets.all(10),
@@ -28,7 +29,7 @@ Widget locationCard(context)=>Container(
               zoomControlsEnabled: false,
               initialCameraPosition: CameraPosition(
                   bearing: 193.8334901395799,
-                  target: LatLng(DeliveryCubit.get(context).position1??0, DeliveryCubit.get(context).position2??0),
+                  target: LatLng(MapCubit.get(context).position1??0, MapCubit.get(context).position2??0),
                   tilt: 59.440717697143555,
                   zoom: 14.4746),),
           ),
@@ -59,7 +60,7 @@ Widget locationCard(context)=>Container(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(Strings.orderLocation.tr(context),style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                Text( DeliveryCubit.get(context).currentLocationName!=''?DeliveryCubit.get(context).currentLocationName:Strings.currentLocation.tr(context),maxLines: 1,
+                Text( MapCubit.get(context).currentLocationName!=''?MapCubit.get(context).currentLocationName:Strings.currentLocation.tr(context),maxLines: 1,
                   overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400),),
               ],
             )),

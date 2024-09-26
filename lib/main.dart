@@ -1,7 +1,12 @@
-import 'package:delivery/Cubite/material_cubit/auth_cubit.dart';
+import 'package:delivery/features/auth/controller/auth_cubit.dart';
 import 'package:delivery/Dio/Dio.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/features/home/controller/home_cubit.dart';
+import 'package:delivery/features/map_page/controller/map_cubit.dart';
+import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
+import 'package:delivery/features/point/controller/point_cubit.dart';
 import 'package:delivery/features/profile/navigator/chat/controller/chat_controller_cubit.dart';
+import 'package:delivery/features/profile/navigator/my_account/controller/account_cubit.dart';
 import 'package:delivery/shared_preference/shared%20preference.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +55,19 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<DeliveryCubit>(
-          create: (context) => DeliveryCubit()..getNewCustomer()..offers()..category()..getProviderData()..getPointsAndBalance()..getCouponsData()..getCustomerOrders()..getCartList(),
+          create: (context) => DeliveryCubit()..getCustomerOrders()..getCartList(),
+        ),
+        BlocProvider<HomeCubit>(
+          create: (context) => HomeCubit()..offers()..category()..getProviderData(),
+        ),
+        BlocProvider<AccountCubit>(
+          create: (context) => AccountCubit()..getNewCustomer(context),
+        ),
+        BlocProvider<MapCubit>(
+          create: (context) => MapCubit()
+        ),
+        BlocProvider<OrderCubit>(
+            create: (context) => OrderCubit()
         ),
         BlocProvider<AppDarkLightCubit>(
           create: (context) => AppDarkLightCubit()..changeLang(fromCache: language??'ar'),
@@ -60,6 +77,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(),
+        ),
+        BlocProvider<PointCubit>(
+          create: (context) => PointCubit()..getPointsAndBalance()..getCouponsData(),
         ),
       ],
       child: ScreenUtilInit(

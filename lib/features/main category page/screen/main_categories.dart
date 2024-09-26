@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery/Cubite/delivery_cubit.dart';
-import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/images/images.dart';
@@ -12,7 +11,9 @@ import 'package:delivery/features/main%20category%20page/widget/filter_loading.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/components.dart';
+import '../../home/controller/home_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
+import '../controller/category_cubit.dart';
 import '../widget/category_shimmer_loading.dart';
 import '../widget/change_view.dart';
 import '../widget/filter.dart';
@@ -31,10 +32,10 @@ class MainCategories extends StatelessWidget {
       },
       builder: (context, state) {
         final scaffoldKey = GlobalKey<ScaffoldState>();
-        var newOffers = DeliveryCubit.get(context).offersData;
-        var view = DeliveryCubit.get(context).changeViewNew;
-        var providers = DeliveryCubit.get(context).categoryProvideData;
-        var filter = DeliveryCubit.get(context).filterProvideData;
+        var newOffers = HomeCubit.get(context).offersData;
+        var view = CategoryCubit.get(context).changeViewNew;
+        var providers = CategoryCubit.get(context).categoryProvideData;
+        var filter = CategoryCubit.get(context).filterProvideData;
         return Scaffold(
           key: scaffoldKey,
           appBar: PreferredSize(

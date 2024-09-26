@@ -6,6 +6,7 @@ import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../models/provider model.dart';
+import '../controller/map_cubit.dart';
 
 Widget bottomMap(selectedLocationName,locationName,firstLatLng,secondLatLng,currentLocationMainPage,context)=>Container(
   height: 130,
@@ -53,7 +54,7 @@ Widget bottomMap(selectedLocationName,locationName,firstLatLng,secondLatLng,curr
           firstLatLng = locations.first.latitude;
           secondLatLng = locations.first.longitude;
         }
-        DeliveryCubit.get(context).changeLocation(currentLocationMainPage,firstLatLng,secondLatLng);
+        MapCubit.get(context).changeLocation(currentLocationMainPage,firstLatLng,secondLatLng);
         Navigator.pop(context);
         Navigator.pop(context);})
     ],

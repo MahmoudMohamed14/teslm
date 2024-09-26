@@ -6,10 +6,11 @@ import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../provider page/screen/Provider page.dart';
+import '../controller/home_cubit.dart';
 
 Widget slider(market,controller,context)=>CarouselSlider(
     carouselController: controller,
-    items: DeliveryCubit.get(context).offersData!.data!.map((e) => Padding(
+    items: HomeCubit.get(context).offersData!.data!.map((e) => Padding(
       padding: const EdgeInsets.only(top: 10.0,right: 10),
       child:InkWell(
         onTap: (){
@@ -34,12 +35,9 @@ Widget slider(market,controller,context)=>CarouselSlider(
       ),
     )).toList(),
     options: CarouselOptions(
-      onPageChanged: (index, reason) {
-        DeliveryCubit.get(context).changeAdds(index);
-      },
       aspectRatio: 9.0 / 16.0,
       enlargeCenterPage: true,
       viewportFraction: 0.35,
-      initialPage:DeliveryCubit.get(context).offersData!.data!.length,height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
+      initialPage:HomeCubit.get(context).offersData!.data!.length,height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
       autoPlayAnimationDuration: const Duration(seconds: 2),enableInfiniteScroll: true,
     ));

@@ -7,6 +7,7 @@ import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
+import '../controller/order_cubit.dart';
 import 'order_money.dart';
 
 Widget orderBrief(context)=>Container(
@@ -16,15 +17,15 @@ Widget orderBrief(context)=>Container(
       borderRadius: BorderRadius.circular(10)),
   height: 210,
   child: Column(children: [
-    orderMoney(Strings.totalOrder.tr(context),DeliveryCubit.get(context).couponData!=null?DeliveryCubit.get(context).couponData!.appliedOn=='ORDER'?'${price-(DeliveryCubit.get(context).couponData!.discount)!.toInt()}':price:price,
-        '$price' ,DeliveryCubit.get(context).couponData!=null?DeliveryCubit.get(context).couponData!.appliedOn=='ORDER':false,context),
+    orderMoney(Strings.totalOrder.tr(context),OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='ORDER'?'${price-(OrderCubit.get(context).couponData!.discount)!.toInt()}':price:price,
+        '$price' ,OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='ORDER':false,context),
     seperate(),
-    orderMoney(Strings.deliveryFee.tr(context),DeliveryCubit.get(context).couponData!=null?DeliveryCubit.get(context).couponData!.appliedOn=='SHIPPING'?
-    '${shippingPrice-(DeliveryCubit.get(context).couponData!.discount)!.toInt()}':shippingPrice:shippingPrice,
-        '$shippingPrice',  DeliveryCubit.get(context).couponData!=null?DeliveryCubit.get(context).couponData!.appliedOn=='SHIPPING':false,context),
+    orderMoney(Strings.deliveryFee.tr(context),OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='SHIPPING'?
+    '${shippingPrice-(OrderCubit.get(context).couponData!.discount)!.toInt()}':shippingPrice:shippingPrice,
+        '$shippingPrice',  OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='SHIPPING':false,context),
     seperate(),
-    if(DeliveryCubit.get(context).couponData!=null)
-      orderMoney(Strings.youSaved.tr(context),DeliveryCubit.get(context).couponData!.discount,0,false,context),
+    if(OrderCubit.get(context).couponData!=null)
+      orderMoney(Strings.youSaved.tr(context),OrderCubit.get(context).couponData!.discount,0,false,context),
     Row(
       children: [
         const Image(image: AssetImage(ImagesApp.pointImage),height: 20,width: 20,),
@@ -34,6 +35,6 @@ Widget orderBrief(context)=>Container(
       ],
     ),
     seperate(),
-    orderMoney(Strings.total.tr(context),DeliveryCubit.get(context).couponData!=null?'${totalPrice-(DeliveryCubit.get(context).couponData!.discount)!.toInt()}':totalPrice,
-        DeliveryCubit.get(context).couponData!=null?'$totalPrice':totalPrice,DeliveryCubit.get(context).couponData!=null?true:false,context),
+    orderMoney(Strings.total.tr(context),OrderCubit.get(context).couponData!=null?'${totalPrice-(OrderCubit.get(context).couponData!.discount)!.toInt()}':totalPrice,
+        OrderCubit.get(context).couponData!=null?'$totalPrice':totalPrice,OrderCubit.get(context).couponData!=null?true:false,context),
   ],),);

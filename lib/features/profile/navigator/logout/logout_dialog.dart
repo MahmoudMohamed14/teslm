@@ -9,6 +9,7 @@ import '../../../../common/components.dart';
 import '../../../../common/constant/constant values.dart';
 import '../../../../common/images/images.dart';
 import '../../../../shared_preference/shared preference.dart';
+import '../../../home/controller/home_cubit.dart';
 import '../../../home/screens/home.dart';
 
 Future<void> logoutAccount(context,) async {
@@ -53,7 +54,7 @@ Future<void> logoutAccount(context,) async {
                           Save.remove(key: 'token');
                           Save.remove(key: 'balance');
                           Save.remove(key: 'customerId');
-                          DeliveryCubit.get(context).current=3;
+                          HomeCubit.get(context).current=3;
                           navigateAndFinish(context,const Home());
                         },
                       ),

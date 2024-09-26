@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/features/map_page/controller/map_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
@@ -256,7 +256,7 @@ class _MapsState extends State<Maps> {
                         firstLatLng = locations.first.latitude;
                         secondLatLng = locations.first.longitude;
                     }
-                    DeliveryCubit.get(context).changeLocation(currentLocationMainPage,firstLatLng,secondLatLng);
+                      MapCubit.get(context).changeLocation(currentLocationMainPage,firstLatLng,secondLatLng);
                     Navigator.pop(context);
                     Navigator.pop(context);})
                 ],

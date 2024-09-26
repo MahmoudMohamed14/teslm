@@ -4,6 +4,7 @@ import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/translate/strings.dart';
+import '../controller/order_cubit.dart';
 
 Widget orderMoney(text,price,oldPrice,check,context)=>Padding(
   padding: const EdgeInsets.only(left: 8.0,right: 8),
@@ -12,7 +13,7 @@ Widget orderMoney(text,price,oldPrice,check,context)=>Padding(
     Row(children: [
       if(check)
         Text('$oldPrice',style: TextStyle(fontSize: 16 ,decoration: TextDecoration.lineThrough,color: isDark??false?Colors.white:borderColor),),
-      if(DeliveryCubit.get(context).couponData!=null)
+      if(OrderCubit.get(context).couponData!=null)
         const SizedBox(width: 5,),
       Text('$price',style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
       const SizedBox(width: 3,),

@@ -1,3 +1,4 @@
+import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -16,7 +17,7 @@ Future<void> enterCoupon(context,couponController) async {
           couponController.clear();
           return true;
         },
-        child: BlocConsumer<DeliveryCubit, DeliveryState>(
+        child: BlocConsumer<OrderCubit, OrderState>(
           listener: (context, state) {},
           builder: (context, state) {
             List<Widget> actions = [];
@@ -32,7 +33,7 @@ Future<void> enterCoupon(context,couponController) async {
                 bottom(
                   language == 'English Language' ? 'Add' : 'اضافه',
                       () {
-                    DeliveryCubit.get(context).postCoupon(
+                    OrderCubit.get(context).postCoupon(
                       coupon: couponController.text,
                       subtotal: price,
                       shippingPrice: 10,

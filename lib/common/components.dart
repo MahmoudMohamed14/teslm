@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shimmer/shimmer.dart';
+import '../features/map_page/controller/map_cubit.dart';
 import '../features/map_page/screen/maps.dart';
+import '../features/payment page/controller/order_cubit.dart';
 import '../features/search/screen/search_page.dart';
 import 'colors/colors.dart';
 import 'colors/theme_model.dart';
@@ -53,7 +55,12 @@ void showDialogHelper(BuildContext context,
         content: contentWidget,
       ));
 }
-Widget actionAppbar(context)=>Padding(
+Widget actionAppbar(context)=>BlocConsumer<MapCubit, MapState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return Padding(
   padding: const EdgeInsets.all(10.0),
   child: InkWell(
     onTap: (){
@@ -69,12 +76,12 @@ Widget actionAppbar(context)=>Padding(
                 const Icon(
                   Icons.location_on,
                   size: 25.0, color: Colors.red,),
-                Flexible(child: Text( DeliveryCubit.get(context).currentLocationName!=''?'${DeliveryCubit.get(context).currentLocationName}':Strings.currentLocation.tr(context),maxLines: 1, overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,color:isDark??false? floatActionColor:brownColor),)),
+                Flexible(child: Text( MapCubit.get(context).currentLocationName!=''?'${MapCubit.get(context).currentLocationName}':Strings.currentLocation.tr(context),maxLines: 1, overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,color:isDark??false? floatActionColor:brownColor),)),
               ],),
             Spacer(),
             bottom(Strings.changeOrderLocation.tr(context), (){
                   navigate(context,
-                      Maps(initialLocationName: '${DeliveryCubit.get(context).currentLocationName}',firstPosition: DeliveryCubit.get(context).position1??0,secondPosition:DeliveryCubit.get(context).position2??0 ,
+                      Maps(initialLocationName: '${MapCubit.get(context).currentLocationName}',firstPosition: MapCubit.get(context).position1??0,secondPosition:MapCubit.get(context).position2??0 ,
                       ));})
           ],),);});
     },
@@ -83,13 +90,15 @@ Widget actionAppbar(context)=>Padding(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Flexible(child: Text(DeliveryCubit.get(context).currentLocationName!=''?'${DeliveryCubit.get(context).currentLocationName}':language=='English Language'?'Current Location':'عنوانك الحالى',maxLines: 1, overflow: TextOverflow.ellipsis,style: TextStyle(color:floatActionColor),)),
+          Flexible(child: Text(MapCubit.get(context).currentLocationName!=''?'${MapCubit.get(context).currentLocationName}':language=='English Language'?'Current Location':'عنوانك الحالى',maxLines: 1, overflow: TextOverflow.ellipsis,style: TextStyle(color:floatActionColor),)),
           const Icon(
             Icons.location_on,
             size: 25.0, color: Colors.white,),
         ],),
     ),
   ),
+);
+  },
 );
 Widget container(context)=>Padding(
   padding: const EdgeInsets.all(10.0),);
@@ -176,10 +185,10 @@ Widget cartPaymentBottom(text,onTap,isProvider,context)=>BlocListener<DeliveryCu
               if(isProvider)
               Text('${DeliveryCubit.get(context).getPrice()}',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
               if(!isProvider)
-              Text(DeliveryCubit.get(context).couponData!=null? "${totalPrice-(DeliveryCubit.get(context).couponData!.discount)!.toInt()}":'$totalPrice',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
-              if(DeliveryCubit.get(context).couponData!=null&&!isProvider)
+              Text(OrderCubit.get(context).couponData!=null? "${totalPrice-(OrderCubit.get(context).couponData!.discount)!.toInt()}":'$totalPrice',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
+              if(OrderCubit.get(context).couponData!=null&&!isProvider)
               SizedBox(width: 5,),
-              if(DeliveryCubit.get(context).couponData!=null&&!isProvider)
+              if(OrderCubit.get(context).couponData!=null&&!isProvider)
               Text('$totalPrice',style: TextStyle(fontSize: 16 ,decoration: TextDecoration.lineThrough,color:Colors.white),),
             ],
           ),

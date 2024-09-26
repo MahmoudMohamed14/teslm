@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../Cubite/delivery_cubit.dart';
+import '../controller/category_cubit.dart';
 
 Widget viewNew(icon,view,context)=>InkWell(
-  onTap:(){DeliveryCubit.get(context).changeView();},
+  onTap:(){CategoryCubit.get(context).changeView();},
   child: Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(7),),
       padding: const EdgeInsets.all(4),

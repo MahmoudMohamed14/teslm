@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../common/colors/theme_model.dart';
+import '../../map_page/controller/map_cubit.dart';
 import '../widgets/body_order_data.dart';
 
 class OrderDetails extends StatelessWidget {
@@ -25,7 +26,7 @@ class OrderDetails extends StatelessWidget {
         children: [
           GoogleMap(
             initialCameraPosition: CameraPosition(
-                target: LatLng(DeliveryCubit.get(context).position1??0, DeliveryCubit.get(context).position2??0),
+                target: LatLng(MapCubit.get(context).position1??0, MapCubit.get(context).position2??0),
                 zoom: 12.4746),),
           SafeArea(
             child: Padding(

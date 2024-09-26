@@ -1,9 +1,9 @@
-import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
+import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -21,7 +21,7 @@ class Payment extends StatelessWidget {
   final String customerNotes;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<OrderCubit, OrderState>(
   listener: (context, state) {
     // TODO: implement listener
   },
@@ -37,7 +37,7 @@ class Payment extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0,right: 10),
                 child: ListView(children: [
-                  Text(Strings.orderDetails.tr(context),style: TextStyle(fontSize: 19,fontWeight: FontWeight.w700,),),
+                  Text(Strings.orderDetails.tr(context),style: const TextStyle(fontSize: 19,fontWeight: FontWeight.w700,),),
                   const SizedBox(height: 8,),
                   Container(
                     height: 50,
@@ -54,34 +54,34 @@ class Payment extends StatelessWidget {
                             child: SvgPicture.asset(
                               ImagesApp.clockImage,
                             )),
-                      Text(Strings.expectedTimer.tr(context),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w700,),),
-                      Text(Strings.arrivalTime.tr(context),style: TextStyle(fontSize: 17,fontWeight: FontWeight.w700,),),
+                      Text(Strings.expectedTimer.tr(context),style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w700,),),
+                      Text(Strings.arrivalTime.tr(context),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.w700,),),
                     ],),
                   ),const SizedBox(height: 15,),
                   locationCard(context),
                   const SizedBox(height: 10,),
-                  Text(Strings.paymentDetails.tr(context),style: TextStyle(fontSize: 19,fontWeight: FontWeight.w700,),),
+                  Text(Strings.paymentDetails.tr(context),style:const TextStyle(fontSize: 19,fontWeight: FontWeight.w700,),),
                   const SizedBox(height: 10,),
                   paymentMethodCard(context),
                   const SizedBox(height: 10,),
-                  Text(Strings.orderSummary.tr(context),style: TextStyle(fontSize: 19,fontWeight: FontWeight.w700,),),
-                  Text(Strings.confirmVat.tr(context),style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
+                  Text(Strings.orderSummary.tr(context),style:const TextStyle(fontSize: 19,fontWeight: FontWeight.w700,),),
+                  Text(Strings.confirmVat.tr(context),style:const TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
                   const SizedBox(height: 10,),
                   orderBrief(context),
                   const SizedBox(height: 5,),
                 ],),
               ),
             ),
-            bottom(Strings.addCoupon.tr(context),  DeliveryCubit.get(context).couponData!=null? null:(){enterCoupon(context,_couponController);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
+            bottom(Strings.addCoupon.tr(context),  OrderCubit.get(context).couponData!=null? null:(){enterCoupon(context,_couponController);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
             const SizedBox(height: 10,),
             state is PostOrderLoading?
             SpinKitWave(
               color:isDark??false? Colors.white:borderColor,
               size: 30.0,
             ) : bottom(Strings.confirmOrder.tr(context), (){
-              DeliveryCubit.get(context).postOrder(items: values, customerId: '$customerId',coupon: _couponController.text ,deliveryPartnerId: 'trhygfdgfdh', customerNotes: customerNotes,context: context);
+              OrderCubit.get(context).postOrder(items: values, customerId: '$customerId',coupon: _couponController.text ,deliveryPartnerId: 'trhygfdgfdh', customerNotes: customerNotes,context: context);
             },radius: 20,),
-            SizedBox(height: 20,)
+            const SizedBox(height: 20,)
           ],
         )
     );

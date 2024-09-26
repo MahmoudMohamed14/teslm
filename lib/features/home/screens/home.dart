@@ -5,6 +5,7 @@ import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/auth/screen/login.dart';
+import 'package:delivery/features/home/controller/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Cubite/delivery_cubit.dart';
@@ -18,7 +19,7 @@ class Home extends StatelessWidget {
   const Home({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
     // TODO: implement listener
   },
@@ -43,14 +44,14 @@ class Home extends StatelessWidget {
           backgroundColor: ThemeModel.of(context).bottomNavigationBarColor,
           selectedItemColor: ThemeModel.of(context).iconMainColor,
           unselectedItemColor:isDark??false?Colors.white:Colors.grey,
-        currentIndex: DeliveryCubit.get(context).current,
+        currentIndex: HomeCubit.get(context).current,
         items:navBar,
-          onPressed: (index) {   DeliveryCubit.get(context).changeNavigator(index);
+          onPressed: (index) {   HomeCubit.get(context).changeNavigator(index);
           pageController.jumpToPage(index);},),
         body:PageView(
           controller: pageController,
           onPageChanged: (index) {
-            DeliveryCubit.get(context).changeNavigator(index);
+            HomeCubit.get(context).changeNavigator(index);
           },
           children: <Widget>
           [

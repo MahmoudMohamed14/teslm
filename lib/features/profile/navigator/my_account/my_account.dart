@@ -4,6 +4,7 @@ import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/profile/navigator/my_account/controller/account_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../common/images/images.dart';
@@ -21,14 +22,14 @@ class EditInformation extends StatelessWidget {
 
       },
       builder: (context, state) {
-        var user=DeliveryCubit.get(context).getUserData;
-        TextEditingController nameController=TextEditingController(text: '${DeliveryCubit.get(context).getUserData?.name}');
-        TextEditingController gmailController=TextEditingController(text:'${DeliveryCubit.get(context).getUserData?.email}');
+        var user=AccountCubit.get(context).getUserData;
+        TextEditingController nameController=TextEditingController(text: '${AccountCubit.get(context).getUserData?.name}');
+        TextEditingController gmailController=TextEditingController(text:'${AccountCubit.get(context).getUserData?.email}');
         return Scaffold(
           appBar:  PreferredSize(
               preferredSize: const Size.fromHeight(70.0),
               child: appBarWithIcons(Strings.editInformation.tr(context),ImagesApp.myAccountImage,true,context)),
-          body:DeliveryCubit.get(context).getUserData!=null?Padding(
+          body:AccountCubit.get(context).getUserData!=null?Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
@@ -43,7 +44,7 @@ class EditInformation extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      profile(Strings.myPhoneNumber.tr(context),true,TextEditingController(text: '${DeliveryCubit.get(context).getUserData?.phoneNumber}',),Icons.phone,context),
+                      profile(Strings.myPhoneNumber.tr(context),true,TextEditingController(text: '${AccountCubit.get(context).getUserData?.phoneNumber}',),Icons.phone,context),
                       profile(Strings.myName.tr(context),false,nameController,Icons.person,context),
                       profile(Strings.myGmail.tr(context),false,gmailController,Icons.email,context,
                           validate: (value){
@@ -81,7 +82,7 @@ class EditInformation extends StatelessWidget {
                 () {
                 if (gmailController.text.isNotEmpty) {
                 if(emailRegex.hasMatch(gmailController.text)) {
-                  DeliveryCubit.get(context).userUpdate(email: gmailController.text);
+                  AccountCubit.get(context).userUpdate(email: gmailController.text);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     backgroundColor: Colors.red.shade400,
@@ -90,10 +91,10 @@ class EditInformation extends StatelessWidget {
                 }
                 }
                 if (nameController.text.isNotEmpty) {
-                  DeliveryCubit.get(context).userUpdate(username: nameController.text);
+                  AccountCubit.get(context).userUpdate(username: nameController.text);
                 }
                 if (birthDate != null) {
-                  DeliveryCubit.get(context).userUpdate(
+                  AccountCubit.get(context).userUpdate(
                     birthdate: '${birthDate!.year}-${birthDate!.month}-${birthDate!.day}',
                   );
                 }

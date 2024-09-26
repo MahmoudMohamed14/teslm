@@ -1,17 +1,12 @@
-import 'package:delivery/Cubite/delivery_cubit.dart';
-import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/colors/theme_model.dart';
-import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/widgets/flip_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-
-import '../../../Cubite/material_cubit/auth_cubit.dart';
+import '../controller/auth_cubit.dart';
 import '../../../common/components.dart';
 import '../../../common/images/images.dart';
 import '../../../common/text_style_helper.dart';
@@ -201,7 +196,7 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
                      /* final otpCubit = context.read<DeliveryCubit>();
                       // otpCubit.verifyOtpCode('mostafa1021999', 'D0A33FB434111DFE02585FF2394D3AB7','$country$phoneNumber',_otpController.text,'c6e0d3b0-ff3b-42a7-9e37-599da8811f2f','Ar');
                */
-                      DeliveryCubit.get(context).userLoginOTP(phoneNumber: "$country$phoneNumber", otp: _otpController.text, context: context);
+                      AuthCubit.get(context).userLoginOTP(phoneNumber: "$country$phoneNumber", otp: _otpController.text, context: context);
                     }
                     else{}
                   },

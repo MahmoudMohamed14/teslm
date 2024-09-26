@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../common/colors/theme_model.dart';
+import 'home/controller/home_cubit.dart';
 import 'home/widget/slider_offers.dart';
 
 class Market extends StatelessWidget {
@@ -19,7 +20,7 @@ class Market extends StatelessWidget {
           CarouselController controller = CarouselController();
           return Scaffold(
             appBar: AppBar(  toolbarHeight: 100,backgroundColor:ThemeModel.mainColor,title: search(MediaQuery.sizeOf(context).width/1.4,language=='English Language'?'Search for a restaurant or stores':'ابحث عن المطاعم او المتاجر',(){}),),
-            body: DeliveryCubit.get(context).offersData != null?ListView(children: [
+            body: HomeCubit.get(context).offersData != null?ListView(children: [
               Row(
                 children: [
                 image('https://images.deliveryhero.io/image/hungerstation/restaurant/android_cover_photo/99995897a8808d19a4cafb0be3677cec.jpg',75.0, 75.0,15.0,BoxFit.fill),

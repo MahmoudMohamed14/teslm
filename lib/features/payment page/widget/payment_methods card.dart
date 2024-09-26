@@ -6,6 +6,7 @@ import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/translate/strings.dart';
+import '../../point/controller/point_cubit.dart';
 Widget paymentMethodCard(context) {
   List<IconData> listIcons=[Icons.credit_card,Icons.apple_outlined,Icons.account_balance_wallet_rounded];
   List<String> listPaymentMethod =[ Strings.payVisa.tr(context),Strings.payApple.tr(context),Strings.payTeslmCash.tr(context)];
@@ -34,7 +35,7 @@ Widget paymentMethodCard(context) {
                     children: [
                       Text(Strings.sr.tr(context),style:const TextStyle(fontSize: 16),),
                       const SizedBox(width: 5,),
-                      Text(DeliveryCubit.get(context).balanceAndPointsData!=null?'${DeliveryCubit.get(context).balanceAndPointsData!.balance}':'0.0',maxLines: 1,overflow: TextOverflow.ellipsis,
+                      Text(PointCubit.get(context).balanceAndPointsData!=null?'${PointCubit.get(context).balanceAndPointsData!.balance}':'0.0',maxLines: 1,overflow: TextOverflow.ellipsis,
                         style:const TextStyle(fontSize: 16),),
                     ],
                   )

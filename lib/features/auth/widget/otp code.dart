@@ -1,8 +1,7 @@
+import 'package:delivery/features/auth/controller/auth_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-
-import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/constant/constant values.dart';
@@ -30,7 +29,7 @@ Widget otpCode(state,otpController,pinFocusNode,country,phoneNumber,context,otp1
     },
     onCodeChanged: (code) {
       if(code!.length==6){
-        final otpCubit = context.read<DeliveryCubit>();
+        final otpCubit = context.read<AuthCubit>();
         // otpCubit.verifyOtpCode('mostafa1021999', 'D0A33FB434111DFE02585FF2394D3AB7','$country$phoneNumber',_otpController.text,'c6e0d3b0-ff3b-42a7-9e37-599da8811f2f','Ar');
       }else{}
     },
@@ -39,7 +38,7 @@ Widget otpCode(state,otpController,pinFocusNode,country,phoneNumber,context,otp1
 );
 Future<void> checkOtp(context,country,phoneNumber,otp1)async{
   try{
-    DeliveryCubit.get(context).userLoginOTP(
+    AuthCubit.get(context).userLoginOTP(
       phoneNumber: '$country$phoneNumber',
       context: context, otp: otp1,
     );

@@ -1,8 +1,8 @@
-class Provider {
+class ProviderHome {
   List<Providers>? providers;
   List<CategoriesHome>? categories;
 
-  Provider.fromJson(Map<String, dynamic> json) {
+  ProviderHome.fromJson(Map<String, dynamic> json) {
     if (json['providers'] != null) {
       providers = <Providers>[];
       json['providers'].forEach((v) {
@@ -55,18 +55,9 @@ class ProviderName {
   String? ar;
   String? en;
 
-  ProviderName({this.ar, this.en});
-
   ProviderName.fromJson(Map<String, dynamic> json) {
     ar = json['ar'];
     en = json['en'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ar'] = this.ar;
-    data['en'] = this.en;
-    return data;
   }
 }
 

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
+import '../../main category page/controller/category_cubit.dart';
 import '../../main category page/screen/main_categories.dart';
 
 Widget category(model,index,context){return InkWell(
   onTap: (){
-    DeliveryCubit.get(context).categoryProvider(id:model.id);
+    CategoryCubit.get(context).categoryProvider(id:model.id);
     navigate(context, MainCategories(categoryName:language=='en'? '${model.name.en}':'${model.name.ar}'));
     print(" name???${model.name.en} ");
     DeliveryCubit.get(context).categoryId=model.id;
