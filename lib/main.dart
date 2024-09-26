@@ -17,7 +17,9 @@ import 'Cubite/delivery_cubit.dart';
 import 'bloc_observer.dart';
 import 'common/translate/app_local.dart';
 import 'features/home/screens/home.dart';
+import 'features/main category page/controller/category_cubit.dart';
 import 'features/onboarding/screen/onboarding.dart';
+import 'features/provider page/controller/provider_cubit.dart';
 import 'features/splash/screen/splash.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<DeliveryCubit>(
-          create: (context) => DeliveryCubit()..getCustomerOrders()..getCartList(),
+          create: (context) => DeliveryCubit()..getCustomerOrders(),
         ),
         BlocProvider<HomeCubit>(
           create: (context) => HomeCubit()..offers()..category()..getProviderData(),
@@ -80,6 +82,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<PointCubit>(
           create: (context) => PointCubit()..getPointsAndBalance()..getCouponsData(),
+        ),
+        BlocProvider<ProviderCubit>(
+          create: (context) => ProviderCubit()..getCartList(),
+        ),
+        BlocProvider<CategoryCubit>(
+          create: (context) => CategoryCubit(),
         ),
       ],
       child: ScreenUtilInit(

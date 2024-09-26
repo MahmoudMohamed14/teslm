@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
@@ -11,14 +12,14 @@ Widget category(model,index,context){return InkWell(
     CategoryCubit.get(context).categoryProvider(id:model.id);
     navigate(context, MainCategories(categoryName:language=='en'? '${model.name.en}':'${model.name.ar}'));
     print(" name???${model.name.en} ");
-    DeliveryCubit.get(context).categoryId=model.id;
+    ProviderCubit.get(context).categoryId=model.id;
     if(model.name?.en?.toLowerCase()=='restaurants'){
       values=[];
-      DeliveryCubit.get(context).isRestaurant=true;
+      ProviderCubit.get(context).isRestaurant=true;
     }else{
-      DeliveryCubit.get(context).isRestaurant=false;
-      DeliveryCubit.get(context).cardList.forEach((action){
-        if(DeliveryCubit.get(context).categoryId==action['categoryId']){
+      ProviderCubit.get(context).isRestaurant=false;
+      ProviderCubit.get(context).cardList.forEach((action){
+        if(ProviderCubit.get(context).categoryId==action['categoryId']){
           values.add(action);
 
         }

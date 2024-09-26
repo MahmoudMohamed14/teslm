@@ -11,6 +11,7 @@ import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/translate/strings.dart';
 import '../../point/controller/point_cubit.dart';
+import '../../provider page/controller/provider_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
 import '../controller/home_cubit.dart';
 import 'category_card.dart';
@@ -72,17 +73,17 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
                   margin: const EdgeInsets.all(5),
                   child: bigCardHome(providers.categories![categoryIndex].providers![index],
                           (){
-                        DeliveryCubit.get(context).getProviderFoodData(providers.categories![categoryIndex].providers![index].id);
+                            ProviderCubit.get(context).getProviderFoodData(providers.categories![categoryIndex].providers![index].id);
                         values=[];//todo انا عايز لما يخش ميفضلش يمسح الكارت لو هو كان ضايف قبل كدة متتمسحش الا لو خرج من التطبيق
                         price=0;
-                        DeliveryCubit.get(context).categoryId=providers.categories![categoryIndex].id;
+                            ProviderCubit.get(context).categoryId=providers.categories![categoryIndex].id;
                         if(providers.categories![categoryIndex].name?.en?.toLowerCase()=='restaurants'){
                           values=[];
-                          DeliveryCubit.get(context).isRestaurant=true;
+                          ProviderCubit.get(context).isRestaurant=true;
                         }else{
-                          DeliveryCubit.get(context).isRestaurant=false;
-                          DeliveryCubit.get(context).cardList.forEach((action){
-                            if(DeliveryCubit.get(context).categoryId==action['categoryId']){
+                          ProviderCubit.get(context).isRestaurant=false;
+                          ProviderCubit.get(context).cardList.forEach((action){
+                            if(ProviderCubit.get(context).categoryId==action['categoryId']){
                               values.add(action);
 
                             }

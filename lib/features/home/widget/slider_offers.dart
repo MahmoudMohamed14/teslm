@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
+import '../../provider page/controller/provider_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
 import '../controller/home_cubit.dart';
 
@@ -17,7 +18,7 @@ Widget slider(market,controller,context)=>CarouselSlider(
         //  Save.remove(key: 'MyCart');
 
 
-          DeliveryCubit.get(context).getProviderFoodData('${e.provider!.id}');
+          ProviderCubit.get(context).getProviderFoodData('${e.provider!.id}');
           navigate(context, ProviderPage(
               providerDescription:language=='en'? '${e.provider!.description!.en}':'${e.provider!.description!.ar}',
               providerName: language=='en'?'${e.provider!.providerName!.en}':'${e.provider!.providerName!.ar}',

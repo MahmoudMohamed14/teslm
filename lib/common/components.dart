@@ -3,6 +3,7 @@ import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -183,7 +184,7 @@ Widget cartPaymentBottom(text,onTap,isProvider,context)=>BlocListener<DeliveryCu
               Text(Strings.sar.tr(context),maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
               SizedBox(width: 5,),
               if(isProvider)
-              Text('${DeliveryCubit.get(context).getPrice()}',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
+              Text('${ProviderCubit.get(context).getPrice()}',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
               if(!isProvider)
               Text(OrderCubit.get(context).couponData!=null? "${totalPrice-(OrderCubit.get(context).couponData!.discount)!.toInt()}":'$totalPrice',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),),
               if(OrderCubit.get(context).couponData!=null&&!isProvider)
