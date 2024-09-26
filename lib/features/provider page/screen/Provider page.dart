@@ -12,15 +12,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import '../../../common/colors/colors.dart';
+
 import '../../../common/constant/constant values.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
 import '../../../models/provider items model.dart';
-import '../../cart/screen/cart.dart';
-import '../../cart/widgets/add_or_remove.dart';
 
+
+
+import '../../cart/screen/cart.dart';
 import 'extra_items_class.dart';
 
 
@@ -900,7 +900,7 @@ class OtherWidget extends StatelessWidget {
       child: Container(
         height:144,
         decoration: BoxDecoration(
-            color: ThemeModel.of(context).font4,
+            color: ThemeModel.of(context).cardsColor,
             borderRadius: BorderRadius.circular(20)),
         child: Row(
           children: [
@@ -1164,3 +1164,24 @@ class CategoryShimmer extends StatelessWidget {
   }
 }
 
+Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
+    margin: mainPage?EdgeInsets.only(left: 20,bottom: 10):EdgeInsets.zero,
+    padding: EdgeInsets.all(mainPage?10:5),
+    width: mainPage? MediaQuery.sizeOf(context).width/3:100,
+    height:mainPage? 50:30,
+    decoration: const BoxDecoration(
+        color: ThemeModel.mainColor,
+        borderRadius: BorderRadius.all(Radius.circular(20))
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+    InkWell(child: Icon(Icons.add,color: Colors.white,),onTap: add),
+Text(
+'$itemsNumber', maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
+style:TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),
+),
+InkWell(child:itemsNumber==1&&mainPage==false? Icon(Icons.restore_from_trash_outlined,color: Colors.white,):Icon(Icons.remove,color: Colors.white,),onTap: remove,),
+],
+),
+);
