@@ -1,3 +1,5 @@
+import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Dio/Dio.dart';
@@ -40,8 +42,8 @@ class PointCubit extends Cubit<PointState> {
     emit(RedeemPointsLoading());
     DioHelper.postData(url: 'wallet/$customerId/redeem-points',).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
-          alignment: Alignment.center,child: Text(language=='English Language'?'Your points has been redeemed successfully':"تم استبدال نقاطك بنجتح",
-        style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
+          alignment: Alignment.center,child: Text(Strings.pointsRedeemedSuccessfully.tr(context),
+        style:const TextStyle(color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
       getPointsAndBalance();
       getCouponsData();
       emit(RedeemPointsSuccess());
@@ -50,14 +52,14 @@ class PointCubit extends Cubit<PointState> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.red.shade600,
           content:  Align(
-              alignment: Alignment.center,child: Text(language=='English Language'?"Your points less than 10,000":'نقاطك اقل من 10,000',
-            style:const TextStyle(color: Colors.white,fontSize: 17),)),
+              alignment: Alignment.center,child: Text(Strings.yourPointsLess.tr(context),
+            style:const TextStyle(color: Colors.white,),)),
         ));}else{
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.red.shade400,
           content:  Align(
-              alignment: Alignment.center,child: Text(language=='English Language'?"Failed to redeem your points":'فشلت عملية استبدال نقاطك',
-            style:const TextStyle(color: Colors.white,fontSize: 17),)),
+              alignment: Alignment.center,child: Text(Strings.failedRedeemPoints.tr(context),
+            style:const TextStyle(color: Colors.white,),)),
         ));
       }
       emit(RedeemPointsError());

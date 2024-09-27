@@ -107,5 +107,12 @@
   "enter_text_search":"ادخل نص للبحث",
   "logout_miss_customer_message":"سنفتقدك كثيرا اذا قمت بتسجيل الخروج ننتظر عودتك لنا مجددا",
   "my_coupons":"قسائمى",
-  "current_location": "عنوانك الحالى"
+  "current_location": "عنوانك الحالى",
+  "coupon_not_valid": "الكوبون ليس صحيح",
+  "coupon_add_successfully": "تم اضافه الكوبون بنجاح",
+  "order_done_successfully":"تم تنفيذ الطلب بنجاح",
+  "failed_execute_order": "فشل تنفيذ الاوردر",
+  "failed_redeem_points": "فشلت عملية استبدال نقاطك",
+  "your_points_less": "نقاطك اقل من 10,000",
+  "points_redeemed_successfully":"تم استبدال نقاطك بنجاح"
 }

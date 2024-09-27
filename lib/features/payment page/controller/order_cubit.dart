@@ -1,3 +1,5 @@
+import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Cubite/delivery_cubit.dart';
@@ -32,7 +34,7 @@ class OrderCubit extends Cubit<OrderState> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.green.shade400,
         content:  Align(
-            alignment: Alignment.center,child: Text(language=='English Language'?"Coupon add successfully":'تم اضافه الكوبون بنجاح',
+            alignment: Alignment.center,child: Text(Strings.couponAddSuccessfully.tr(context),
           style:const TextStyle(color: Colors.white,fontSize: 17),)),
       ));
       Navigator.pop(context);
@@ -41,7 +43,7 @@ class OrderCubit extends Cubit<OrderState> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.red.shade400,
         content:  Align(
-            alignment: Alignment.center,child: Text(language=='English Language'?"Coupon is not valid":'الكوبون ليس صحيح',
+            alignment: Alignment.center,child: Text(Strings.couponNotValid.tr(context),
           style:const TextStyle(color: Colors.white,fontSize: 17),)),
       ));
       Navigator.pop(context);
@@ -71,14 +73,14 @@ class OrderCubit extends Cubit<OrderState> {
       couponData=null;
       navigateAndFinish(context,const Home());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
-          alignment: Alignment.center,child: Text(language=='English Language'?'Order has been done successfully':"تم تنفيذ الطلب بنجتح",
+          alignment: Alignment.center,child: Text(Strings.orderDoneSuccessfully.tr(context),
         style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
       emit(PostOrderSuccess());
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.red.shade400,
         content:  Align(
-            alignment: Alignment.center,child: Text(language=='English Language'?"Failed to execute the order":'فشل تنفيذ الاوردر',style:const TextStyle(color: Colors.white,fontSize: 17),)),
+            alignment: Alignment.center,child: Text(Strings.failedExecuteOrder.tr(context),style:const TextStyle(color: Colors.white,fontSize: 17),)),
       ));
       emit(PostOrderError());
     });
