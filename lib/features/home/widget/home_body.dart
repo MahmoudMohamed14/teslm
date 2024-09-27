@@ -34,7 +34,7 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
     physics: const BouncingScrollPhysics(),
     controller: scrollController,
     children: [
-      slider(false,controller,context),
+      if(HomeCubit.get(context).offersData != null) slider(false,controller,context),
       const SizedBox(height:15,),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
