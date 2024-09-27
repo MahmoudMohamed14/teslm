@@ -24,7 +24,7 @@ class MainPage extends StatelessWidget {
           preferredSize: const Size.fromHeight(200.0),
           child:appBar(context,true),
         ),
-        body: (HomeCubit.get(context).offersData != null&&HomeCubit.get(context).providerData!=null
+        body: (HomeCubit.get(context).providerData!=null//&&HomeCubit.get(context).offersData != null
             &&HomeCubit.get(context).categoryData!=null) ?homeBody(scrollController,controller,context):loadingMainPage(scrollController,context),
       ),
     );
