@@ -33,14 +33,12 @@ class AuthCubit extends Cubit<AuthState> {
   }){
     emit(LoginLoading());
     DioHelper.postData(url: 'customers/generate-otp', data: {
-      'phoneNumber' : "$code${phoneNumber}",
+      'phoneNumber' : "$code$phoneNumber",
     }).then((value) {
       loginUser= LoginUser.fromJson(value.data);
       navigate(context, OtpNumber(phoneNumber: phoneNumber, country: code,));
       emit(LoginSuccess());
-      print("Done ${phoneNumber}");
     }).catchError((error) {
-      print('error=============');
       emit(LoginError(error.toString()));
     });
   }
@@ -56,10 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
       'phoneNumber' : phoneNumber,
     }).then((value)
     async{
-
-      print("Succussfull");
       loginOTP= LoginOTP.fromJson(value.data);
-      print(value.data);
       token=loginOTP!.token;
       HomeCubit.get(context). changeNavigator(3);
       customerId=loginOTP!.id;
@@ -69,14 +64,15 @@ class AuthCubit extends Cubit<AuthState> {
         PointCubit.get(context).getPointsAndBalance();
       }) ;
       Save.savedata(key: 'token', value: token).then((value){
-        loginFromCart? navigate(context, Payment(customerNotes: '')): navigateAndFinish(context,const Home());
+        loginFromCart? navigate(context,const Payment(customerNotes: '')): navigateAndFinish(context,const Home());
       });
       DeliveryCubit.get(context).getCustomerOrders();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.green.shade400,
+        duration: const Duration(seconds: 2),
         content: Align(
             alignment: Alignment.center,
-            child: Text(language=='English Language'?"Login successfully":'تم تسجيل الدخول بنجاح',style: TextStyle(color: Colors.white,fontSize: 17),)),
+            child: Text(Strings.loginSuccessfully.tr(context),style: const TextStyle(color: Colors.white,),)),
       ));
       emit(LoginOTPSuccess());
     }).catchError((error) {
@@ -84,7 +80,6 @@ class AuthCubit extends Cubit<AuthState> {
         showDialogHelper(context,contentWidget:
         Column(
           mainAxisSize: MainAxisSize.min,
-
           children: [
             Image.asset(ImagesApp.messageCode,fit: BoxFit.cover,height: 120.h,width: 130.w,),
             16.h.heightBox,
@@ -92,11 +87,9 @@ class AuthCubit extends Cubit<AuthState> {
             5.h.heightBox,
             Center(child: AppTextWidget( Strings.resendCode.tr(context)
                 ,style: TextStyleHelper.of(context).regular14.copyWith(color: ThemeModel.of(context).primary,fontWeight: FontWeight.w900))),
-
           ],
         ),);
       }
-      print('eeeeeeeeeeeeeeeeeeeeee ${error.toString()}');
       emit(LoginOTPError(error:error.toString() ));
     });
   }

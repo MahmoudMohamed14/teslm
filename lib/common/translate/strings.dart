@@ -103,5 +103,11 @@ class Strings {
   static const String minimumCharge= "minimumCharge";
   static const String save= "save";
   static const String currentLocation= "current_location";
-
+  static const String couponNotValid= "coupon_not_valid";
+  static const String couponAddSuccessfully= "coupon_add_successfully";
+  static const String orderDoneSuccessfully= "order_done_successfully";
+  static const String failedExecuteOrder= "failed_execute_order";
+  static const String failedRedeemPoints= "failed_redeem_points";
+  static const String yourPointsLess= "Your_points_less";
+  static const String pointsRedeemedSuccessfully= "points_redeemed_successfully";
 }
