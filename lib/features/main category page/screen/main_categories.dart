@@ -27,7 +27,7 @@ class MainCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<CategoryCubit, CategoryState>(
       listener: (context, state) {
         // Handle state changes
       },
@@ -56,14 +56,14 @@ class MainCategories extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                          newOffers!.data!.length,
+                          newOffers?.data?.length??0,
                               (index) => InkWell(
                                 onTap: (){
-                                  ProviderCubit.get(context).getProviderFoodData('${newOffers.data![index].provider?.id}');
+                                  ProviderCubit.get(context).getProviderFoodData('${newOffers?.data?[index].provider?.id}');
                                   navigate(context, ProviderPage(
-                                      providerDescription:language=='en'? '${newOffers.data![index].provider?.description!.en}':'${newOffers.data![index].provider?.description!.ar}',
-                                      providerName: language=='en'?'${newOffers.data![index].provider?.providerName!.en}':'${newOffers.data![index].provider?.providerName!.ar}',
-                                      providerCover: '${newOffers.data![index].provider?.providerCover}', providerImage: '${newOffers.data![index].provider?.providerImage}'));
+                                      providerDescription:language=='en'? '${newOffers?.data?[index].provider?.description?.en}':'${newOffers?.data![index].provider?.description?.ar}',
+                                      providerName: language=='en'?'${newOffers?.data?[index].provider?.providerName!.en}':'${newOffers?.data?[index].provider?.providerName?.ar}',
+                                      providerCover: '${newOffers?.data?[index].provider?.providerCover}', providerImage: '${newOffers?.data?[index].provider?.providerImage}'));
                                 },
                                 child: Stack(
                                   children: [
@@ -78,7 +78,7 @@ class MainCategories extends StatelessWidget {
                                       const Center(child: CircularProgressIndicator()),
                                       errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
-                                      imageUrl: '${newOffers.data![index].image}',
+                                      imageUrl: '${newOffers?.data?[index].image}',
                                       width: double.infinity,
                                       fit: BoxFit.fill,
                                     ),
@@ -95,8 +95,8 @@ class MainCategories extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Text(
-                                          language=='en'?'${newOffers.data![index].provider!.providerName!.en}':
-                                          '${newOffers.data![index].provider!.providerName!.ar}',
+                                          language=='en'?'${newOffers?.data?[index].provider?.providerName?.en}':
+                                          '${newOffers?.data?[index].provider?.providerName?.ar}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16.58,

@@ -1169,14 +1169,14 @@ class CategoryShimmer extends StatelessWidget {
 Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
     margin: mainPage?EdgeInsets.only(left: 20,bottom: 10):EdgeInsets.zero,
     padding: EdgeInsets.all(mainPage?10:5),
-    width: mainPage? MediaQuery.sizeOf(context).width/3:100,
+  width:MediaQuery.sizeOf(context).width/3.5,
     height:mainPage? 50:30,
     decoration: const BoxDecoration(
         color: ThemeModel.mainColor,
         borderRadius: BorderRadius.all(Radius.circular(20))
     ),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
     InkWell(child: Icon(Icons.add,color: Colors.white,),onTap: add),
 Text(
