@@ -49,7 +49,7 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
         crossAxisSpacing: 0.2,
         mainAxisSpacing: 0.2,
         crossAxisCount: 4,children: List.generate(HomeCubit.get(context).categoryData!.length,
-            (index)=> category( HomeCubit.get(context).categoryData![index],index,context))),
+            (index)=> category( HomeCubit.get(context).providerData?.categories?[index],index,context))),
       ListView.builder(
         shrinkWrap: true,
         physics:const NeverScrollableScrollPhysics(),
@@ -60,7 +60,7 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
             if(providers.categories![categoryIndex].providers!.isNotEmpty)
             Padding(
               padding:  const EdgeInsets.only(left: 10.0,right: 10),
-              child: Text(language=='en'? '${providers.categories![categoryIndex].name?.en}':'${providers.categories![categoryIndex].name?.ar}',
+              child: Text(language=='en'? '${providers.categories?[categoryIndex].name?.en}':'${providers.categories?[categoryIndex].name?.ar}',
                 style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18,
               ),),
             ),
@@ -73,7 +73,7 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
                   margin: const EdgeInsets.all(5),
                   child: bigCardHome(providers.categories![categoryIndex].providers![index],
                           (){
-                            ProviderCubit.get(context).getProviderFoodData(providers.categories![categoryIndex].providers![index].id);
+                            ProviderCubit.get(context).getProviderFoodData(providers.categories?[categoryIndex].providers![index].id);
                         values=[];//todo انا عايز لما يخش ميفضلش يمسح الكارت لو هو كان ضايف قبل كدة متتمسحش الا لو خرج من التطبيق
                         price=0;
                             ProviderCubit.get(context).categoryId=providers.categories![categoryIndex].id;
