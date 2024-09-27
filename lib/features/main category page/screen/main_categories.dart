@@ -8,6 +8,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/main%20category%20page/widget/big_card.dart';
 import 'package:delivery/features/main%20category%20page/widget/filter_loading.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/components.dart';
@@ -58,7 +59,7 @@ class MainCategories extends StatelessWidget {
                           newOffers!.data!.length,
                               (index) => InkWell(
                                 onTap: (){
-                                  DeliveryCubit.get(context).getProviderFoodData('${newOffers.data![index].provider?.id}');
+                                  ProviderCubit.get(context).getProviderFoodData('${newOffers.data![index].provider?.id}');
                                   navigate(context, ProviderPage(
                                       providerDescription:language=='en'? '${newOffers.data![index].provider?.description!.en}':'${newOffers.data![index].provider?.description!.ar}',
                                       providerName: language=='en'?'${newOffers.data![index].provider?.providerName!.en}':'${newOffers.data![index].provider?.providerName!.ar}',
@@ -189,7 +190,7 @@ class MainCategories extends StatelessWidget {
                               padding:const EdgeInsets.only(left: 8.0,right: 8.0),
                               child: bigCardCategory(providerItem,
                                 () {
-                              DeliveryCubit.get(context).getProviderFoodData(providerItem.id);
+                              ProviderCubit.get(context).getProviderFoodData(providerItem.id);
                               navigate(
                                 context,
                                 ProviderPage(
@@ -209,7 +210,7 @@ class MainCategories extends StatelessWidget {
                             : Padding(
                               padding: const EdgeInsets.only(left: 8.0,right: 8.0),
                               child: smallCard(providerItem, () {
-                                                        DeliveryCubit.get(context).getProviderFoodData(providerItem.id);
+                                ProviderCubit.get(context).getProviderFoodData(providerItem.id);
                                                         navigate(
                               context,
                               ProviderPage(

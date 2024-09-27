@@ -1,5 +1,6 @@
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:delivery/features/provider%20page/widget/check_list_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
@@ -17,16 +18,18 @@ class ExtraItemsBottomSheet extends StatefulWidget {
   final String description;
   var extra;
   @override
-  ExtraItemsBottomSheet({required this.extra,required this.itemImage,required this.name,required this.description,required this.price,required this.id,required this.categoryId});
+  ExtraItemsBottomSheet({super.key,required this.extra,required this.itemImage,required this.name,required this.description,required this.price,required this.id,required this.categoryId});
   @override
   _ExtraItemsBottomSheetState createState() => _ExtraItemsBottomSheetState();
 }
 
 class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
+
+
   Color containerColor = Colors.white;
   final ScrollController _bottomSheetController = ScrollController();
   late AnimationController controller;
-  int itemsNumber = 1;
+
   int totalExtraPrice = 0;
   String extraName = '';
   late double imageBottomSheetHeight = MediaQuery
@@ -50,10 +53,12 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
   @override
   void initState() {
     super.initState();
+    ProviderCubit.get(context).itemsNumber=1;
+    ProviderCubit.get(context).addExtra=[];
     for (int i = 0; i < widget.extra.length; i++) {
       if (widget.extra[i].isMandatory ?? false) {
-        addIdToSelectedOption(
-            widget.extra[i].id, '${widget.extra[i].options[0].id}');
+        debugPrint("isisMandatory${widget.extra[i].isMandatory}");
+        ProviderCubit.get(context). addIdToSelectedOption(widget.extra[i].id.toString(), '${widget.extra[i].options[0].id}',widget.extra[i].options[0].price);
       }
     }
     _bottomSheetController.addListener(bottomSheetScroll);
@@ -90,6 +95,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = ProviderCubit.get(context);
     return SingleChildScrollView(
       child: Container(
         constraints: BoxConstraints(
@@ -175,10 +181,10 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                       if (i != otherIndex &&
                                           checklist[index][i]) {
                                         changeChecklistValue(index, i, false);
-                                        totalExtraPrice -= (itemsNumber *
+                                        totalExtraPrice -= (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index].options[i]
                                                 .price).toInt();
-                                        addExtra.removeWhere((item) =>
+                                       cubit.addExtra.removeWhere((item) =>
                                             item['selectedOption'].any((
                                                 option) =>
                                             option['id'] ==
@@ -187,14 +193,14 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                       } else if (i == otherIndex) {
                                         changeChecklistValue(
                                             index, otherIndex, isChecked);
-                                        totalExtraPrice += (itemsNumber *
+                                        totalExtraPrice += (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index]
                                                 .options[otherIndex].price)
                                             .toInt();
-                                        addIdToSelectedOption(
+                                        cubit.addIdToSelectedOption(
                                             '${widget.extra[index].id}',
                                             '${widget.extra[index]
-                                                .options[otherIndex].id}');
+                                                .options[otherIndex].id}',widget.extra[index].options[otherIndex].price);
                                       }
                                     }
                                   }
@@ -205,7 +211,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                     if (i != otherIndex &&
                                         checklist[index][i]) {
                                       changeChecklistValue(index, i, isChecked);
-                                      totalExtraPrice -= (itemsNumber *
+                                      totalExtraPrice -= (ProviderCubit.get(context).itemsNumber *
                                           widget.extra[index].options[i].price)
                                           .toInt();
                                       extraName = extraName.replaceAll(
@@ -214,7 +220,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                               .options[i].name.en}'
                                               : '+${widget.extra[index]
                                               .options[i].name.ar}', '');
-                                      addExtra.removeWhere((item) =>
+                                      cubit.addExtra.removeWhere((item) =>
                                           item['selectedOption'].any((option) =>
                                           option['id'] ==
                                               widget.extra[index].options[i]
@@ -223,7 +229,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                       changeChecklistValue(
                                           index, otherIndex, isChecked);
                                       if (!isChecked) {
-                                        totalExtraPrice += (itemsNumber *
+                                        totalExtraPrice += (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index]
                                                 .options[otherIndex].price)
                                             .toInt();
@@ -240,12 +246,12 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                               : '+${widget.extra[index]
                                               .options[otherIndex].name.ar}';
                                         }
-                                        addIdToSelectedOption(
+                                       cubit. addIdToSelectedOption(
                                             widget.extra[index].id,
                                             '${widget.extra[index]
-                                                .options[otherIndex].id}');
+                                                .options[otherIndex].id}',widget.extra[index].options[otherIndex].price.toInt());
                                       } else {
-                                        totalExtraPrice -= (itemsNumber *
+                                        totalExtraPrice -= (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index].options[i]
                                                 .price).toInt();
                                         extraName = extraName.replaceAll(
@@ -254,7 +260,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                                 .options[i].name.en}'
                                                 : '+${widget.extra[index]
                                                 .options[i].name.ar}', '');
-                                        addExtra.removeWhere((item) =>
+                                       cubit. addExtra.removeWhere((item) =>
                                             item['selectedOption'].any((
                                                 option) =>
                                             option['id'] ==
@@ -269,7 +275,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                     widget.extra[index].maxSelections) {
                                   changeChecklistValue(
                                       index, otherIndex, isChecked);
-                                  totalExtraPrice += (itemsNumber *
+                                  totalExtraPrice += (ProviderCubit.get(context).itemsNumber *
                                       widget.extra[index].options[otherIndex]
                                           .price).toInt();
                                   if (!extraName.contains(
@@ -283,13 +289,13 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                         .en}' : '+${widget.extra[index]
                                         .options[otherIndex].name.ar}';
                                   }
-                                  addIdToSelectedOption(widget.extra[index].id,
+                                  ProviderCubit.get(context).addIdToSelectedOption(widget.extra[index].id,
                                       '${widget.extra[index].options[otherIndex]
-                                          .id}');
+                                          .id}',widget.extra[index].options[otherIndex].price);
                                 } else if (isChecked) {
                                   changeChecklistValue(
                                       index, otherIndex, isChecked);
-                                  totalExtraPrice -= (itemsNumber *
+                                  totalExtraPrice -= (ProviderCubit.get(context).itemsNumber *
                                       widget.extra[index].options[otherIndex]
                                           .price).toInt();
                                   extraName = extraName.replaceAll(
@@ -298,7 +304,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                           .options[otherIndex].name.en}'
                                           : '+${widget.extra[index]
                                           .options[otherIndex].name.ar}', '');
-                                  addExtra.removeWhere((item) =>
+                                  cubit.addExtra.removeWhere((item) =>
                                       item['selectedOption'].any((option) =>
                                       option['id'] == widget.extra[index]
                                           .options[otherIndex].id));
@@ -337,10 +343,10 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                   child: InkWell(
                     onTap: () {
                       setState(() {
-                        DeliveryCubit.get(context).addValue(widget.name +
-                            extraName, itemsNumber, widget.itemImage, DeliveryCubit.get(context).getPrice().toInt() +((widget.price as int)*itemsNumber) + (totalExtraPrice * itemsNumber ) , widget
-                            .id,widget.description ,addExtra);
-                        DeliveryCubit.get(context).submitValue(itemsNumber);
+                        ProviderCubit.get(context).addValue(widget.name +
+                            extraName, ProviderCubit.get(context).itemsNumber, widget.itemImage, (widget.price as int) , widget
+                            .id,widget.description ,cubit.addExtra);
+                        ProviderCubit.get(context).submitValue(ProviderCubit.get(context).itemsNumber);
                         Navigator.pop(context);
                       });
                     },
@@ -359,8 +365,8 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                   color: Colors.white),
                             ),
                             Text(
-                              '${widget.price * itemsNumber +
-                                  totalExtraPrice * itemsNumber}', maxLines: 1,
+                              '${widget.price * ProviderCubit.get(context).itemsNumber +
+                                  totalExtraPrice * ProviderCubit.get(context).itemsNumber}', maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.start,
                               style: const TextStyle(fontSize: 17,
@@ -385,22 +391,22 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                     ),
                   ),
                 ),
-                addOrRemoveOne(itemsNumber, context, () {
+                addOrRemoveOne(ProviderCubit.get(context).itemsNumber, context, () {
                   setState(() {
-                    if (itemsNumber >= 30) {
-                      itemsNumber = 30;
+                    if (ProviderCubit.get(context).itemsNumber >= 30) {
+                      ProviderCubit.get(context).  itemsNumber = 30;
                     }
                     else {
-                      itemsNumber += 1;
+                      ProviderCubit.get(context). itemsNumber += 1;
                     }
                   },);
                 }, () {
                   setState(() {
-                    if (itemsNumber <= 1) {
-                      itemsNumber = 1;
+                    if (ProviderCubit.get(context).itemsNumber <= 1) {
+                      ProviderCubit.get(context). itemsNumber = 1;
                     }
                     else {
-                      itemsNumber -= 1;
+                      ProviderCubit.get(context).  itemsNumber -= 1;
                     }
                   });
                 }, true),
@@ -411,26 +417,4 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
     );
   }
 }
-List<Map<String, dynamic>>  addExtra=[];
-void addIdToSelectedOption(optionGroupId,optionId) {
-  bool valueExists = false;
-  for (var group in addExtra) {
-    if (group["id"] == "$optionGroupId") {
-      valueExists=true;
-      group["selectedOption"].add({
-        "id": optionId
-      });
-      break;
-    }
-  }
-  if(!valueExists){
-    addExtra.add({
-      "id": optionGroupId,
-      "selectedOption": [
-        {
-          "id": optionId
-        }
-      ]
-    });
-  }
-}
+

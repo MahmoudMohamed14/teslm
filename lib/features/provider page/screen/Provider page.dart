@@ -5,6 +5,8 @@ import 'package:delivery/common/components.dart';
 import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/images/images.dart';
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
+import 'package:delivery/features/provider%20page/controller/provider_state.dart';
 import 'package:delivery/widgets/app_text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,10 +56,10 @@ class _ProviderPage extends State<ProviderPage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<ProviderCubit, ProviderState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var menu = DeliveryCubit.get(context).providerFoodData;
+        var menu = ProviderCubit.get(context).providerFoodData;
         return Scaffold(
           body: CustomScrollView(
             slivers: [
@@ -996,8 +998,8 @@ class OtherWidget extends StatelessWidget {
                 PositionedDirectional(
                     bottom: 2,
                     end: 3,
-                    child: (DeliveryCubit.get(context).getValueById(item?.id??"")!=0)? addOrRemoveOne(
-                        DeliveryCubit.get(context)
+                    child: (ProviderCubit.get(context).getValueById(item?.id??"")!=0)? addOrRemoveOne(
+                        ProviderCubit.get(context)
                             .getValueById('${item?.id}'),
                         context, item?.optionGroups?.isNotEmpty??false ?
                         () {
@@ -1018,7 +1020,7 @@ class OtherWidget extends StatelessWidget {
                         controller: controller,);
                     }
                         : () {
-                      DeliveryCubit.get(context)
+                      ProviderCubit.get(context)
                           .addValue(
                           language == 'en' ? '${item?.name!.en}' :
                           '${item?.name!.ar}', 1, item?.image,
@@ -1027,7 +1029,7 @@ class OtherWidget extends StatelessWidget {
                           null);
                     },
                             () {
-                          DeliveryCubit.get(context)
+                          ProviderCubit.get(context)
                               .minusValue(
                               language == 'en'
                                   ? '${item?.name!.en}'
@@ -1051,7 +1053,7 @@ class OtherWidget extends StatelessWidget {
                             price: item?.price,
                             id:
                             '${item?.id}', categoryId: '',),
-                        controller: controller): DeliveryCubit.get(context)
+                        controller: controller): ProviderCubit.get(context)
                             .addValue(
                             language == 'en' ? '${item?.name!.en}' :
                             '${item?.name!.ar}', 1, item?.image,
@@ -1076,7 +1078,7 @@ class OtherWidget extends StatelessWidget {
 }
 
 class PriceWidget extends StatelessWidget {
-  const PriceWidget({super.key, this.value, this.title});
+  const PriceWidget({c, this.value, this.title});
 
   final String? value;
   final String? title;
