@@ -3,6 +3,7 @@ import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Dio/Dio.dart';
+import '../../../common/constant/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../models/get coupons model.dart';
 import '../../../models/get user data.dart';
@@ -16,7 +17,7 @@ class PointCubit extends Cubit<PointState> {
   Points ?balanceAndPointsData;
   void getPointsAndBalance(){
     emit(GetPointsLoading());
-    DioHelper.getData(url: 'wallet/$customerId',myapp: true).then((newValue) async {
+    DioHelper.getData(url: '${ApiEndPoint.wallet}/$customerId',myapp: true).then((newValue) async {
       balanceAndPointsData=Points.fromJson(newValue.data);
       balances=await Save.savedata(key: 'balance',value:balanceAndPointsData!.balance);
       emit(GetPointsSuccess());
@@ -28,7 +29,7 @@ class PointCubit extends Cubit<PointState> {
   GetCoupons ?couponsData;
   void getCouponsData(){
     emit(GetCouponsLoading());
-    DioHelper.getData(url: 'coupons',myapp: true,query: {
+    DioHelper.getData(url:ApiEndPoint.coupons,myapp: true,query: {
       "customerId":"$customerId"
     }).then((value) async {
       couponsData=GetCoupons.fromJson(value.data);
@@ -40,7 +41,7 @@ class PointCubit extends Cubit<PointState> {
 
   void redeemPointsCustomer(context){
     emit(RedeemPointsLoading());
-    DioHelper.postData(url: 'wallet/$customerId/redeem-points',).then((value) {
+    DioHelper.postData(url: '${ApiEndPoint.wallet}/$customerId/${ApiEndPoint.redeemPoints}',).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
           alignment: Alignment.center,child: Text(Strings.pointsRedeemedSuccessfully.tr(context),
         style:const TextStyle(color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
@@ -67,7 +68,7 @@ class PointCubit extends Cubit<PointState> {
   }
   void getPointsCustomer(){
     emit(GetUserPointsLoading());
-    DioHelper.getData(url: 'coupons/$customerId',
+    DioHelper.getData(url: '${ApiEndPoint.coupons}/$customerId',
         token: token,
         myapp: true
     ).then((value) async{

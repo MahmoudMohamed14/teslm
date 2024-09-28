@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Dio/Dio.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
+import '../../../common/constant/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
 import '../../../common/text_style_helper.dart';
@@ -32,7 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
     required BuildContext context,
   }){
     emit(LoginLoading());
-    DioHelper.postData(url: 'customers/generate-otp', data: {
+    DioHelper.postData(url: ApiEndPoint.generateOtp, data: {
       'phoneNumber' : "$code$phoneNumber",
     }).then((value) {
       loginUser= LoginUser.fromJson(value.data);
@@ -49,7 +50,7 @@ class AuthCubit extends Cubit<AuthState> {
     required context
   }){
     emit(LoginOTPLoading());
-    DioHelper.postData(url: 'customers/verify-otp', data: {
+    DioHelper.postData(url: ApiEndPoint.verifyOtp, data: {
       'otp':otp,
       'phoneNumber' : phoneNumber,
     }).then((value)

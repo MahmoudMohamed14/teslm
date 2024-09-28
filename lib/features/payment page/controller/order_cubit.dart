@@ -1,3 +1,4 @@
+import 'package:delivery/common/constant/api_end_points.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class OrderCubit extends Cubit<OrderState> {
     context
   }){
     emit(CouponLoading());
-    DioHelper.postData(url: 'coupons/validate', data: {
+    DioHelper.postData(url: ApiEndPoint.couponsValidate, data: {
       'code' : coupon,
       'subtotal':subtotal,
       'shippingPrice':shippingPrice
@@ -65,7 +66,7 @@ class OrderCubit extends Cubit<OrderState> {
       "customerId": customerId,
       "customerNotes": customerNotes
     };
-    DioHelper.postData(url: 'orders', data:postdata).then((value) {
+    DioHelper.postData(url: ApiEndPoint.orders, data:postdata).then((value) {
       pageController=PageController(initialPage: 2);
       HomeCubit.get(context).changeNavigator(2);
       PointCubit.get(context).getPointsAndBalance();

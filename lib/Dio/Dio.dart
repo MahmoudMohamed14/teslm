@@ -33,6 +33,7 @@ class DioHelper {
       'lang' : language=='English Language'?'en':'ar',
       'Authorization': token
     };
+
     return await myapp? dio!.get(url, queryParameters: query):dioTry!.get(url, queryParameters: query);
   }
 

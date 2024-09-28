@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Dio/Dio.dart';
 import '../../../common/components.dart';
+import '../../../common/constant/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../models/provider items model.dart';
 import '../../../shared_preference/shared preference.dart';
@@ -69,7 +70,7 @@ class ProviderCubit extends Cubit<ProviderState> {
   ProviderItemsMenu? providerFoodData;
   void getProviderFoodData(id) {
     emit(GetProviderFoodLoading());
-    DioHelper.getData(url: 'providers/$id', myapp: true,)
+    DioHelper.getData(url: '${ApiEndPoint.providers}/$id', myapp: true,)
         .then((value) {
       providerFoodData=ProviderItemsMenu.fromJson(value.data);
       print(value.data);

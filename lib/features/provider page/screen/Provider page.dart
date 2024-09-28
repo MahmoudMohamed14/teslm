@@ -1,4 +1,4 @@
-import 'package:delivery/Cubite/delivery_cubit.dart';
+
 
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
@@ -8,9 +8,10 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:delivery/features/provider%20page/controller/provider_state.dart';
 import 'package:delivery/widgets/app_text_widget.dart';
+import 'package:delivery/widgets/flip_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -95,22 +96,25 @@ class _ProviderPage extends State<ProviderPage>
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        Container(
-                          height: 60,
-                          //color: Colors.red,
-                          width: double.maxFinite,
+                        CustomFlip(
+                          child: Container(
+                            height: 60,
+                            //color: Colors.red,
+                            width: double.maxFinite,
 
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
-                            image: const DecorationImage(image: AssetImage(ImagesApp.panner),fit: BoxFit.fill),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              image: const DecorationImage(image: AssetImage(ImagesApp.panner),fit: BoxFit.fill),
+                            ),
                           ),
+                            flipX: language=='en'? false:true
                         ),
-                        Positioned(
-                          left: 25.w,
+                        PositionedDirectional(
+                          start: 25.w,
                            // bottom: 8,
                             child: image(widget.providerImage, 52.0, 52.0, 200.0, BoxFit.fill)),
-                         Positioned(
-                          left: 150.w,
+                        PositionedDirectional(
+                          start: 150.w,
                             //end: 20,
                           // right: 20,
                             // bottom: 8,
@@ -1078,7 +1082,7 @@ class OtherWidget extends StatelessWidget {
 }
 
 class PriceWidget extends StatelessWidget {
-  const PriceWidget({c, this.value, this.title});
+  const PriceWidget({super.key, c, this.value, this.title});
 
   final String? value;
   final String? title;

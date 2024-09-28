@@ -38,8 +38,36 @@ class Home extends StatelessWidget {
         title: Strings.more.tr(context),
       ),
     ];
+    List<BottomNavigationBarItem> items = [
+    BottomNavigationBarItem(
+        icon:const Icon(Icons.home),
+        label: Strings.home.tr(context),
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.apps_outlined),
+        label: Strings.myOrders.tr(context),
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.card_giftcard),
+        label: Strings.points.tr(context),
+      ),
+       BottomNavigationBarItem(
+        icon: const Icon(Icons.more_horiz),
+        label:Strings.more.tr(context),
+      ),
+    ];
     return Scaffold(
-        bottomNavigationBar:BluredNavigationBarX(
+        bottomNavigationBar:BottomNavigationBar(items: items
+          ,onTap:
+              (index) {   HomeCubit.get(context).changeNavigator(index);
+        pageController.jumpToPage(index);}
+          ,unselectedLabelStyle:  TextStyle(color:  isDark??false?Colors.white:Colors.grey)
+          ,selectedLabelStyle:  TextStyle(color:  ThemeModel.of(context).iconMainColor)
+          ,type: BottomNavigationBarType.fixed
+          ,currentIndex: HomeCubit.get(context).current,selectedItemColor: ThemeModel.of(context).iconMainColor
+          ,unselectedItemColor: isDark??false?Colors.white:Colors.grey
+          ,backgroundColor: ThemeModel.of(context).bottomNavigationBarColor,),
+       /* BluredNavigationBarX(
             browColor: ThemeModel.of(context).iconMainColor,
           backgroundColor: ThemeModel.of(context).bottomNavigationBarColor,
           selectedItemColor: ThemeModel.of(context).iconMainColor,
@@ -47,7 +75,8 @@ class Home extends StatelessWidget {
         currentIndex: HomeCubit.get(context).current,
         items:navBar,
           onPressed: (index) {   HomeCubit.get(context).changeNavigator(index);
-          pageController.jumpToPage(index);},),
+          pageController.jumpToPage(index);
+          },),*/
         body:PageView(
           controller: pageController,
           onPageChanged: (index) {
