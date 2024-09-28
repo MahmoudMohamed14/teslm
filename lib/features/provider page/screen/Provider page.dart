@@ -95,7 +95,7 @@ class _ProviderPage extends State<ProviderPage>
                       ),
                     ),
                     bottom: PreferredSize(
-                      preferredSize: Size.fromHeight(80.h),
+                      preferredSize: Size.fromHeight(ProviderCubit.get(context).expandedHeight.h),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 15),
