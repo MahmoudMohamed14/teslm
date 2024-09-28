@@ -205,22 +205,22 @@ Future bottomSheet(context,widget,{controller})=>showModalBottomSheet(
     isScrollControlled: true,
     builder: (BuildContext context) {
       return widget;});
-Widget search(width,data,onTap)=>Padding(
+Widget search(width,data,onTap,context)=>Padding(
   padding: const EdgeInsets.only(top: 20.0,left: 20,right: 20),
   child: InkWell(
     onTap: onTap,
     child: Container(
       width: width,
-      height: 40,decoration: const BoxDecoration(color: Colors.white,
+      height: 40,decoration: BoxDecoration(color: ThemeModel.of(context).cardsColor,
       borderRadius: BorderRadius.all(Radius.circular(5)),
     ),
       child:  Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(width: 5,),
-          Icon(Icons.search,size: 25,color: brownColor,),
+          Icon(Icons.search,size: 25,color: ThemeModel.of(context).font1,),
           const SizedBox(width: 15,),
-          Text(data,style: TextStyle(fontSize: 15,color: Colors.grey),),
+          Text(data,style: TextStyle(fontSize: 15,color: ThemeModel.of(context).font2),),
         ],
       ),),
   ),
@@ -338,7 +338,7 @@ Widget appBar(BuildContext context, bool mainPage) => SizedBox(
         child: search(
           double.infinity,
           Strings.searchRestaurantStores.tr(context),
-              () => navigate(context, SearchPage()),
+              () => navigate(context, SearchPage()),context
         ),
       ),
     ],

@@ -19,7 +19,7 @@ class Market extends StatelessWidget {
         builder: (context, state) {
           CarouselController controller = CarouselController();
           return Scaffold(
-            appBar: AppBar(  toolbarHeight: 100,backgroundColor:ThemeModel.mainColor,title: search(MediaQuery.sizeOf(context).width/1.4,language=='English Language'?'Search for a restaurant or stores':'ابحث عن المطاعم او المتاجر',(){}),),
+            appBar: AppBar(  toolbarHeight: 100,backgroundColor:ThemeModel.mainColor,title: search(MediaQuery.sizeOf(context).width/1.4,language=='English Language'?'Search for a restaurant or stores':'ابحث عن المطاعم او المتاجر',(){},context),),
             body: HomeCubit.get(context).offersData != null?ListView(children: [
               Row(
                 children: [

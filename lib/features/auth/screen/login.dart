@@ -1,5 +1,6 @@
 
 
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
@@ -86,7 +87,7 @@ class LoginState extends State<Login> {
                             const SizedBox(height: 20,),
                             Text(widget.fromOrder?Strings.youDontOrder.tr(context):Strings.youDontPointer.tr(context),style:const TextStyle(fontFamily: 'Roboto',fontSize: 20,fontWeight: FontWeight.w700,),textAlign: TextAlign.center,),
                             const SizedBox(height: 7,),
-                            Text(Strings.pleaseAddYourPhone.tr(context),style:const TextStyle(fontFamily: 'Roboto',fontSize: 14,fontWeight: FontWeight.w500,color: color747581),),
+                            Text(Strings.pleaseAddYourPhone.tr(context),style: TextStyle(fontFamily: 'Roboto',fontSize: 14,fontWeight: FontWeight.w500,color: ThemeModel.of(context).font2),),
                           ],
                         ),
                       ),
@@ -95,7 +96,7 @@ class LoginState extends State<Login> {
 
                      // Text(Strings.phoneNumber.tr(context),style:const TextStyle(fontFamily: 'Roboto',fontSize: 14,fontWeight: FontWeight.w300),),
                      // const SizedBox(height: 6,),
-                   PhoneFieldWidget(isError: false,controller: numberController,title: Strings.phoneNumber.tr(context),onCountryChanged: (code){
+                   PhoneFieldWidget(isError: false,controller: numberController,backGroundColor: ThemeModel.of(context).cardsColor,title: Strings.phoneNumber.tr(context),onCountryChanged: (code){
                           countryCode=code.fullCountryCode;
                                  },validator:(value){
                      

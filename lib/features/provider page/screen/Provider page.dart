@@ -103,6 +103,7 @@ class _ProviderPage extends State<ProviderPage>
                           alignment: Alignment.center,
                           children: [
                             CustomFlip(
+                              flipX: language=='en'? false:true,
                               child: Container(
                                 height: 60,
                                 //color: Colors.red,
@@ -112,8 +113,7 @@ class _ProviderPage extends State<ProviderPage>
                                   borderRadius: BorderRadius.circular(24),
                                   image: const DecorationImage(image: AssetImage(ImagesApp.panner),fit: BoxFit.fill),
                                 ),
-                              ),
-                                flipX: language=='en'? false:true
+                              )
                             ),
                             PositionedDirectional(
                               start: 25.w,
@@ -124,7 +124,7 @@ class _ProviderPage extends State<ProviderPage>
                                 //end: 20,
                               // right: 20,
                                 // bottom: 8,
-                                child: AppTextWidget(widget.providerName,style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).backgroundColor,fontSize: 20),)),
+                                child: AppTextWidget(widget.providerName,style: TextStyleHelper.of(context).medium14.copyWith(color: Colors.white,fontSize: 20),)),
                           ],
                         ),
                       ),
@@ -224,35 +224,84 @@ class _ProviderPage extends State<ProviderPage>
                     backgroundColor: ThemeModel.of(context).backgroundColor,
                     surfaceTintColor: ThemeModel.of(context).backgroundColor,
                   ),
-                  SliverToBoxAdapter(
+             SliverList(
+               delegate: SliverChildBuilderDelegate(
+                 (context, index) {
+                   return  menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty? Padding(
+                     padding: const EdgeInsets.only(bottom: 8.0,left: 8,right: 8, top: 0,),
+                     child: ListView.separated(
+                         itemBuilder: (context, index1) {
+                           return Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               AppTextWidget(
+                                 menu.CategoriesItemsData?[index1].name ?? '',
+                                 style: TextStyleHelper.of(context)
+                                     .bold20
+                                     .copyWith(color: ThemeModel.of(context).font2),
+                               ),
+                               8.0.heightBox,
+                               ListView.separated(
+                                   itemBuilder: (context, index) =>OtherWidget(item: menu.CategoriesItemsData?.firstOrNull?.items?[index]
+                                     ,categoryId:menu.CategoriesItemsData?[index1].id,controller: ProviderCubit.get(context).controller,),
+                                   physics: const NeverScrollableScrollPhysics(),
+                                   shrinkWrap: true,
+                                   separatorBuilder: (context, index) => 10.h.heightBox,
+                                   itemCount: menu.CategoriesItemsData?[index1].items?.length ??0)
+                             ],
+                           );
+                         } ,//OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
+                         physics: const NeverScrollableScrollPhysics(),
+                         shrinkWrap: true,
+                         separatorBuilder: (context, index) => 10.h.heightBox,
+                         itemCount:menu.CategoriesItemsData?.length ??0),
+                   ):
+                   Padding(
+                     padding: const EdgeInsets.only(top: 150.0),
+                     child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
+                   ):Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: ListView.separated(
+                         itemBuilder: (context, index) =>const CategoryShimmer(),
+                         physics: const NeverScrollableScrollPhysics(),
+                         shrinkWrap: true,
+                         separatorBuilder: (context, index) => 10.h.heightBox,
+                         itemCount: 4),
+                   );
+                 },
+                 childCount: 1
+             ),)
+
+                 /* SliverToBoxAdapter(
+
                     child:menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty? Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(bottom: 8.0,left: 8,right: 8, top: 0,),
                       child: ListView.separated(
                           itemBuilder: (context, index1) {
                             return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                             AppTextWidget(
-                              menu?.CategoriesItemsData?[index1].name ?? '',
+                              menu.CategoriesItemsData?[index1].name ?? '',
                             style: TextStyleHelper.of(context)
                                 .bold20
                                 .copyWith(color: ThemeModel.of(context).font2),
                             ),
                             8.0.heightBox,
                             ListView.separated(
-                            itemBuilder: (context, index) =>OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index]
+                            itemBuilder: (context, index) =>OtherWidget(item: menu.CategoriesItemsData?.firstOrNull?.items?[index]
                               ,categoryId:menu.CategoriesItemsData?[index1].id,controller: ProviderCubit.get(context).controller,),
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             separatorBuilder: (context, index) => 10.h.heightBox,
-                        itemCount: menu?.CategoriesItemsData?[index1].items?.length ??0)
+                        itemCount: menu.CategoriesItemsData?[index1].items?.length ??0)
                       ],
                       );
                           } ,//OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           separatorBuilder: (context, index) => 10.h.heightBox,
-                          itemCount:menu?.CategoriesItemsData?.length ??0),
+                          itemCount:menu.CategoriesItemsData?.length ??0),
                     ):
                     Padding(
                       padding: const EdgeInsets.only(top: 150.0),
@@ -266,7 +315,8 @@ class _ProviderPage extends State<ProviderPage>
               separatorBuilder: (context, index) => 10.h.heightBox,
               itemCount: 4),
                       ),
-                  ),
+
+                  ),*/
                  /* DecoratedSliver(
                     decoration: BoxDecoration(
                       color: isDark??false? Colors.black87:floatActionColor,
@@ -1002,7 +1052,7 @@ class OtherWidget extends StatelessWidget {
                         ' ${item?.price} ${Strings.sar.tr(context)}',
                         style: TextStyleHelper.of(context)
                             .regular15
-                            .copyWith(color: ThemeModel.of(context).font3),
+                            .copyWith(color: ThemeModel.of(context).font1),
                       ),
                       5.w.widthBox,
                       Row(
@@ -1014,7 +1064,7 @@ class OtherWidget extends StatelessWidget {
                             '${item?.calories} ${Strings.calories.tr(context)}',
                             style: TextStyleHelper.of(context)
                                 .regular15
-                                .copyWith(color: ThemeModel.of(context).font3,),
+                                .copyWith(color: ThemeModel.of(context).font1,),
                           ),
                         ],
                       )
@@ -1103,11 +1153,11 @@ class OtherWidget extends StatelessWidget {
                         '${item?.description!.ar}',
                             null);
                       },
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                         backgroundColor: ThemeModel.mainColor,
                         radius: 15,
                         child: Icon(CupertinoIcons.add,
-                            color: ThemeModel.of(context).backgroundColor),
+                            color: Colors.white),
                       ),
                     ))
               ],
@@ -1145,7 +1195,7 @@ class PriceWidget extends StatelessWidget {
             '${value ?? ''} ${Strings.sar.tr(context)}',
             style: TextStyleHelper.of(context)
                 .medium14
-                .copyWith(color: ThemeModel.of(context).backgroundColor),
+                .copyWith(color: Colors.white),
           ),
         )
       ],
