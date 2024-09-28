@@ -16,7 +16,27 @@ Widget smallCard(providerData,onTap,context)=>InkWell(
         children: [
           Row(
             children: [
-              image(providerData.providerImage, 102.0, 105.0,50.0,BoxFit.fill),
+              Stack(
+                children: [
+                  image(providerData.providerCover, 120.0, 110.0,8.0,BoxFit.fill),
+                  PositionedDirectional(
+                    top: 5,
+                    start:5,
+                      child: image(providerData.providerImage, 35.0, 35.0,10.0,BoxFit.fill)),
+                  Positioned(
+                      bottom: 0,
+                      child: Container(
+                        width: 110,
+                        decoration: BoxDecoration(color: ThemeModel.mainColor,borderRadius: BorderRadius.circular(5)),
+                        child: Center(
+                          child: Text(
+                            Strings.deliveryFree.tr(context),
+                            style:const TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ))
+                ],
+              ),
               const SizedBox(width: 10,),
               Expanded(
                 child: Column(
@@ -64,31 +84,7 @@ Widget smallCard(providerData,onTap,context)=>InkWell(
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              height: 24,
-              padding: EdgeInsets.symmetric(horizontal: 8.w),
-              decoration: BoxDecoration(
-                  color:ThemeModel.mainColor,
-                  borderRadius: BorderRadius.circular(7)
-              ),
-              child:  Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.add,color: Colors.white,size: 25,),
-                  const SizedBox(width: 5,),
-                  Flexible(
 
-                    child: Text(
-                      Strings.freeDelivery.tr(context),
-                      style:const TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
         ],
       ),
     ),),

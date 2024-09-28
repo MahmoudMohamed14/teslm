@@ -36,6 +36,7 @@
   "delivery_time":"مدة التوصيل",
   "time_minutes": "30 - 40 دقيقة",
   "delivery_fee":"رسوم التوصيل",
+  "delivery_free":"توصيل مجانى",
   "minimum_order":"الحد الادنى للطلب",
   "customizable":"قابل للتخصيص",
   "order_notes": "ملاحظات الطلب",
