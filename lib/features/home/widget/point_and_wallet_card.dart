@@ -17,6 +17,7 @@ Widget pointsAndWalletCard(context,textData,quantity,image)=>SizedBox(
               '$image',
               height: 20.0,  // Adjust the size as needed
               width: 20.0,
+              colorFilter: ColorFilter.mode(ThemeModel.of(context).font2, BlendMode.srcIn),
             ),
           ),
         Column(

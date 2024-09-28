@@ -49,36 +49,63 @@ void main() async {
   runApp(MyApp(Splash(home: widget)));
 }
 
-class MyApp extends StatefulWidget  with WidgetsBindingObserver {
+class MyApp extends StatefulWidget   {
   const MyApp(this.start, {Key? key}) : super(key: key);
   final Widget start;
 
- @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-   if (state == AppLifecycleState.detached) {
-     print('detached>>>>>>>>>>>>>');
 
-   }
-   if (state == AppLifecycleState.resumed) {
-     print('resumed>>>>>>>>>>>>>>>>>>');
-   }
-   if (state == AppLifecycleState.inactive) {
-     print('inactive>>>>>>>>>>>>>>');
-   }
-   if (state == AppLifecycleState.paused) {
-     print('paused>>>>>>>>>>>>>>>>>');
-   }
-   if (state == AppLifecycleState.hidden) {
-     print('hidden>>>>>>>>>>>>>>>>>');
-   }
-
- }
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    print("initState>>>>>>>>>>>>>>>>>>>");
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+  @override
+  void activate() {
+    // TODO: implement activate
+    super.activate();
+    print('active>>>>>>>>>>>>>>');
+  }
+
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+    print('deactivate>>>>>>>>>>>>>');
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    if (state == AppLifecycleState.detached) {
+      print('detached>>>>>>>>>>>>>');
+
+    }
+    if (state == AppLifecycleState.resumed) {
+      print('resumed>>>>>>>>>>>>>>>>>>');
+    }
+    if (state == AppLifecycleState.inactive) {
+      print('inactive>>>>>>>>>>>>>>');
+    }
+    if (state == AppLifecycleState.paused) {
+      print('paused>>>>>>>>>>>>>>>>>');
+    }
+    if (state == AppLifecycleState.hidden) {
+      print('hidden>>>>>>>>>>>>>>>>>');
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,6 @@ import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:delivery/features/provider%20page/widget/check_list_widget.dart';
 import 'package:flutter/material.dart';
-import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/constant/constant values.dart';
@@ -58,8 +57,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
     for (int i = 0; i < widget.extra.length; i++) {
       if (widget.extra[i].isMandatory ?? false) {
         debugPrint("isisMandatory${widget.extra[i].isMandatory}");
-       // ProviderCubit.get(context). addIdToSelectedOption(widget.extra[i].id.toString(), '${widget.extra[i].options[0].id}',widget.extra[i].options[0].price,widget.extra,checklist);
-      }
+          }
     }
     _bottomSheetController.addListener(bottomSheetScroll);
     checklist = List.generate(
@@ -183,19 +181,14 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
 
                                         totalExtraPrice -= (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index].options[i].price).toInt();
-                  /*                     cubit.addExtra.removeWhere((item) =>
-                                            item['selectedOption'].any((
-                                                option) => option['id'] == widget.extra[index].options[i].id));*/
+
                                       } else if (i == otherIndex) {
                                         changeChecklistValue(index, otherIndex, isChecked);
                                         totalExtraPrice += (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index]
                                                 .options[otherIndex].price)
                                             .toInt();
-                         /*               cubit.addIdToSelectedOption(
-                                            '${widget.extra[index].id}',
-                                            '${widget.extra[index]
-                                                .options[otherIndex].id}',widget.extra[index].options[otherIndex].price);*/
+
                                       }
                                     }
                                   }
@@ -241,10 +234,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                               : '+${widget.extra[index]
                                               .options[otherIndex].name.ar}';
                                         }
-                                    /*   cubit. addIdToSelectedOption(
-                                            widget.extra[index].id,
-                                            '${widget.extra[index]
-                                                .options[otherIndex].id}',widget.extra[index].options[otherIndex].price.toInt(),widget.extra,checklist);*/
+
                                       } else {
                                         totalExtraPrice -= (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index].options[i]
@@ -255,12 +245,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                                 .options[i].name.en}'
                                                 : '+${widget.extra[index]
                                                 .options[i].name.ar}', '');
-                                      /* cubit. addExtra.removeWhere((item) =>
-                                            item['selectedOption'].any((
-                                                option) =>
-                                            option['id'] ==
-                                                widget.extra[index].options[i]
-                                                    .id));*/
+
                                       }
                                     }
                                   }
@@ -284,9 +269,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                         .en}' : '+${widget.extra[index]
                                         .options[otherIndex].name.ar}';
                                   }
-                                 /* ProviderCubit.get(context).addIdToSelectedOption(widget.extra[index].id,
-                                      '${widget.extra[index].options[otherIndex]
-                                          .id}',widget.extra[index].options[otherIndex].price,widget.extra,checklist);*/
+
                                 } else if (isChecked) {
                                   changeChecklistValue(
                                       index, otherIndex, isChecked);
@@ -299,10 +282,6 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                           .options[otherIndex].name.en}'
                                           : '+${widget.extra[index]
                                           .options[otherIndex].name.ar}', '');
-                             /*     cubit.addExtra.removeWhere((item) =>
-                                      item['selectedOption'].any((option) =>
-                                      option['id'] == widget.extra[index]
-                                          .options[otherIndex].id));*/
                                 }
                               }
                               print("${cubit.addExtra} here extra");
