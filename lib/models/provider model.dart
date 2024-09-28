@@ -1,6 +1,7 @@
 class ProviderHome {
   List<Providers>? providers;
   List<CategoriesHome>? categories;
+  List<Ads>? ads;
 
   ProviderHome.fromJson(Map<String, dynamic> json) {
     if (json['providers'] != null) {
@@ -212,5 +213,16 @@ class ProvidersHome {
     reviewCount = json['reviewCount'];
     orderCount = json['orderCount'];
   }
+}
+class Ads {
+  String? id;
+  ProviderName? name;
+  String? image;
 
+  Ads.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name =
+    json['name'] != null ? new ProviderName.fromJson(json['name']) : null;
+    image = json['image'];
+  }
 }

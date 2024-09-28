@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Dio/Dio.dart';
-import '../../../common/constant/api_end_points.dart';
+import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/Categories model.dart';
 import '../../../models/offers model.dart';
 import '../../../models/provider model.dart';
@@ -21,7 +21,6 @@ class HomeCubit extends Cubit<HomeState> {
   void offers(){
     emit(OffersLoading());
     DioHelper.getData(url: ApiEndPoint.ads,
-      myapp: true,
     ).then((value) {
       offersData=Advertising.fromJson(value.data);
       emit(OffersSuccess());
@@ -33,7 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<Categories> ?categoryData;
   void category() {
     emit(CategoriesLoading());
-    DioHelper.getData(url: ApiEndPoint.categories, myapp: true)
+    DioHelper.getData(url: ApiEndPoint.categories,)
         .then((value) {
       final List<dynamic> categories = value.data;
       categoryData = categories.map((item) => Categories.fromJson(item)).toList();
@@ -47,7 +46,6 @@ class HomeCubit extends Cubit<HomeState> {
   void getProviderData(){
     emit(GetProviderLoading());
     DioHelper.getData(url:ApiEndPoint.providersHome,
-        myapp: true
     ).then((value) {
       providerData = ProviderHome.fromJson(value.data);
       emit(GetProviderSuccess());

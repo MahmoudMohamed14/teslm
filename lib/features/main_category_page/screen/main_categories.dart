@@ -1,13 +1,10 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/images/images.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
-import 'package:delivery/features/main%20category%20page/widget/big_card.dart';
-import 'package:delivery/features/main%20category%20page/widget/filter_loading.dart';
 import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,9 +12,11 @@ import '../../../common/components.dart';
 import '../../home/controller/home_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
 import '../controller/category_cubit.dart';
+import '../widget/big_card.dart';
 import '../widget/category_shimmer_loading.dart';
 import '../widget/change_view.dart';
 import '../widget/filter.dart';
+import '../widget/filter_loading.dart';
 import '../widget/small_card.dart';
 
 class MainCategories extends StatelessWidget {

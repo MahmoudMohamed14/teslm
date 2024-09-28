@@ -6,11 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Dio/Dio.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
-import '../../../common/constant/api_end_points.dart';
+import '../../../common/end_points_api/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
+import '../../orders/controller/my_orders_cubit.dart';
 import '../screen/otp number.dart';
 import '../../home/controller/home_cubit.dart';
 import '../../home/screens/home.dart';
@@ -67,7 +68,7 @@ class AuthCubit extends Cubit<AuthState> {
       Save.savedata(key: 'token', value: token).then((value){
         loginFromCart? navigate(context,const Payment(customerNotes: '')): navigateAndFinish(context,const Home());
       });
-      DeliveryCubit.get(context).getCustomerOrders();
+      MyOrdersCubit.get(context).getCustomerOrders();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.green.shade400,
         duration: const Duration(seconds: 2),

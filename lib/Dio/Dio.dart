@@ -1,3 +1,4 @@
+import 'package:delivery/common/end_points_api/api_end_points.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:dio/dio.dart';
 
@@ -7,13 +8,7 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://hunger-station-clone.vercel.app/',
-        receiveDataWhenStatusError: true,
-      ),
-    );
-    dioTry = Dio(
-      BaseOptions(
-        baseUrl: 'https://student.valuxapps.com/api/',
+        baseUrl: ApiEndPoint.baseUrl,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -22,19 +17,14 @@ class DioHelper {
     required String url,
     Map<String, dynamic>? query,
     String? token,
-    myapp
   }) async {
 
-    myapp? dio!.options.headers = {
+    dio!.options.headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token'
-    }:dioTry!.options.headers = {
-      'Content-Type': 'application/json',
-      'lang' : language=='English Language'?'en':'ar',
-      'Authorization': token
     };
 
-    return await myapp? dio!.get(url, queryParameters: query):dioTry!.get(url, queryParameters: query);
+    return await dio!.get(url, queryParameters: query);
   }
 
   static Future<Response> postData({

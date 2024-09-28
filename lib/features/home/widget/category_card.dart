@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:flutter/material.dart';
-import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
-import '../../main category page/controller/category_cubit.dart';
-import '../../main category page/screen/main_categories.dart';
+import '../../main_category_page/controller/category_cubit.dart';
+import '../../main_category_page/screen/main_categories.dart';
 
 Widget category(model,index,context){return InkWell(
   onTap: (){

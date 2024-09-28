@@ -15,7 +15,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
   Chat? chatsCallCenter;
   void getChat() {
     emit(GetChatCallCenterLoading());
-    DioHelper.getData(url: 'chats/me', myapp: true,token: token)
+    DioHelper.getData(url: 'chats/me',token: token)
         .then((value) {
       chatsCallCenter=Chat.fromJson(value.data);
       print(value.data);

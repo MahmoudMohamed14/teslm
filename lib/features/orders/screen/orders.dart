@@ -2,6 +2,7 @@ import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/orders/controller/my_orders_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ class Orders extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
       statusBarColor: ThemeModel.of(context).greenAppBar, // Set the status bar color
     ));
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<MyOrdersCubit, MyOrdersState>(
   listener: (context, state) {
     // TODO: implement listener
   },
@@ -31,8 +32,8 @@ class Orders extends StatelessWidget {
         preferredSize: const Size.fromHeight(70.0),
         child: appBarWithIcons(Strings.myOrders.tr(context),ImagesApp.myOrdersAppBarImage,false,context),
       ),
-        body: DeliveryCubit.get(context).customerOrders != null && state is! GetOrdersLoading ? SafeArea(
-            child: DeliveryCubit.get(context).customerOrders!.data!.isNotEmpty ?
+        body: MyOrdersCubit.get(context).customerOrders != null && state is! GetOrdersLoading ? SafeArea(
+            child: MyOrdersCubit.get(context).customerOrders!.data!.isNotEmpty ?
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -41,21 +42,21 @@ class Orders extends StatelessWidget {
                   RefreshIndicator(
                     onRefresh: ()async {
                       await Future.delayed(const Duration(milliseconds: 500), () {
-                        DeliveryCubit.get(context).customerOrders=null;
-                        DeliveryCubit.get(context).getCustomerOrders();
+                        MyOrdersCubit.get(context).customerOrders=null;
+                        MyOrdersCubit.get(context).getCustomerOrders();
                       });
                     },
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       reverse: true,
-                        itemCount: DeliveryCubit.get(context).customerOrders?.data?.length,
+                        itemCount: MyOrdersCubit.get(context).customerOrders?.data?.length,
                         itemBuilder: (context, index) =>
                             InkWell(
                                 onTap: () {
                                   navigate(context, OrderDetails(orderIndex: index,));
                                 },
-                                child: orderCard(DeliveryCubit.get(context).customerOrders!.data![index],context))),
+                                child: orderCard(MyOrdersCubit.get(context).customerOrders!.data![index],context))),
                   )
                 ],),
             ) : Center(

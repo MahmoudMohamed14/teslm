@@ -16,8 +16,6 @@ Widget slider(market,controller,context)=>CarouselSlider(
       child:InkWell(
         onTap: (){
         //  Save.remove(key: 'MyCart');
-
-
           ProviderCubit.get(context).getProviderFoodData('${e.provider!.id}');
           navigate(context, ProviderPage(
               providerDescription:language=='en'? '${e.provider!.description!.en}':'${e.provider!.description!.ar}',
