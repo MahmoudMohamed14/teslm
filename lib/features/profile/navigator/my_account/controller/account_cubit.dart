@@ -42,7 +42,6 @@ class AccountCubit extends Cubit<AccountState> {
     emit(GetUserLoading());
     DioHelper.getData(url: 'customers/auth/me',
         token: token,
-        myapp: true
     ).then((value) async{
       getUserData=GetUserData.fromJson(value.data);
       PointCubit.get(context).getPointsAndBalance();

@@ -904,7 +904,7 @@ class OtherWidget extends StatelessWidget {
             controller: controller);
       },
       child: Container(
-        height:144,
+        height:155,
         decoration: BoxDecoration(
             color: ThemeModel.of(context).cardsColor,
             borderRadius: BorderRadius.circular(20)),
@@ -919,13 +919,28 @@ class OtherWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
-                   if (item?.optionGroups?.isNotEmpty??false)  AppTextWidget(
-                        'Cusomizable',
-                        style: TextStyleHelper.of(context)
-                            .regular15
-                            .copyWith(color: ThemeModel.of(context).font2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.star,color: Colors.amber,),
+                          Text(
+                            item?.reviewCount == 0
+                                ? "0 (${item?.reviewCount})"
+                                : "${((item?.totalReviews??0) / (item?.reviewCount??1)).isNaN ? 0 : ((item?.totalReviews??0) / (item!.reviewCount??1)).toInt()} (${item?.reviewCount})",
+                            style:const TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        ],
                       ),
+                        if (item?.optionGroups?.isNotEmpty??false)  AppTextWidget(
+                          'Cusomizable',
+                          style: TextStyleHelper.of(context)
+                              .regular15
+                              .copyWith(color: ThemeModel.of(context).font2),
+                        ),
+                    ],),
                       5.h.heightBox,
                       AppTextWidget(
                         language == 'en'
@@ -990,7 +1005,7 @@ class OtherWidget extends StatelessWidget {
             //hi mostfa
             Stack(
               children: [
-                image(item?.image, 144.0, 130.w, 20.0, BoxFit.cover),
+                image(item?.image, 155.0, 140.w, 20.0, BoxFit.cover),
                 /* Container(
                   height:147.h ,
                 width: 130.w,

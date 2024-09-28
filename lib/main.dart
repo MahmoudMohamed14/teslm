@@ -3,6 +3,7 @@ import 'package:delivery/Dio/Dio.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/features/home/controller/home_cubit.dart';
 import 'package:delivery/features/map_page/controller/map_cubit.dart';
+import 'package:delivery/features/orders/controller/my_orders_cubit.dart';
 import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
 import 'package:delivery/features/point/controller/point_cubit.dart';
 import 'package:delivery/features/profile/navigator/chat/controller/chat_controller_cubit.dart';
@@ -17,7 +18,7 @@ import 'Cubite/delivery_cubit.dart';
 import 'bloc_observer.dart';
 import 'common/translate/app_local.dart';
 import 'features/home/screens/home.dart';
-import 'features/main category page/controller/category_cubit.dart';
+import 'features/main_category_page/controller/category_cubit.dart';
 import 'features/onboarding/screen/onboarding.dart';
 import 'features/provider page/controller/provider_cubit.dart';
 import 'features/splash/screen/splash.dart';
@@ -57,7 +58,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<DeliveryCubit>(
-          create: (context) => DeliveryCubit()..getCustomerOrders(),
+          create: (context) => DeliveryCubit(),
+        ),
+        BlocProvider<MyOrdersCubit>(
+          create: (context) => MyOrdersCubit()..getCustomerOrders(),
         ),
         BlocProvider<HomeCubit>(
           create: (context) => HomeCubit()..offers()..category()..getProviderData(),

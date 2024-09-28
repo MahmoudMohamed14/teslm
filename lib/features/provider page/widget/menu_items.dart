@@ -15,6 +15,15 @@ Widget menuItems(onTap,canAdd,provider,context,onTheImage)
         child: Column(
           crossAxisAlignment:  CrossAxisAlignment.start,
           children: [
+            Row(children: [
+              const Icon(Icons.star,color: Colors.amber,),
+              Text(
+                provider.reviewCount == 0
+                    ? "0 (${provider.reviewCount})"
+                    : "${(provider.totalReviews / provider.reviewCount).isNaN ? 0 : (provider.totalReviews / provider.reviewCount).toInt()} (${provider.reviewCount})",
+                style:const TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ],),
             Padding(
               padding: const EdgeInsets.only(left:8.0,right: 8),
               child: Text(

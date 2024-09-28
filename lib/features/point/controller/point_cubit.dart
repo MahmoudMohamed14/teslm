@@ -3,7 +3,7 @@ import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Dio/Dio.dart';
-import '../../../common/constant/api_end_points.dart';
+import '../../../common/end_points_api/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../models/get coupons model.dart';
 import '../../../models/get user data.dart';
@@ -17,7 +17,7 @@ class PointCubit extends Cubit<PointState> {
   Points ?balanceAndPointsData;
   void getPointsAndBalance(){
     emit(GetPointsLoading());
-    DioHelper.getData(url: '${ApiEndPoint.wallet}/$customerId',myapp: true).then((newValue) async {
+    DioHelper.getData(url: '${ApiEndPoint.wallet}/$customerId',).then((newValue) async {
       balanceAndPointsData=Points.fromJson(newValue.data);
       balances=await Save.savedata(key: 'balance',value:balanceAndPointsData!.balance);
       emit(GetPointsSuccess());
@@ -29,7 +29,7 @@ class PointCubit extends Cubit<PointState> {
   GetCoupons ?couponsData;
   void getCouponsData(){
     emit(GetCouponsLoading());
-    DioHelper.getData(url:ApiEndPoint.coupons,myapp: true,query: {
+    DioHelper.getData(url:ApiEndPoint.coupons,query: {
       "customerId":"$customerId"
     }).then((value) async {
       couponsData=GetCoupons.fromJson(value.data);
@@ -70,7 +70,6 @@ class PointCubit extends Cubit<PointState> {
     emit(GetUserPointsLoading());
     DioHelper.getData(url: '${ApiEndPoint.coupons}/$customerId',
         token: token,
-        myapp: true
     ).then((value) async{
       emit(GetUserPointsSuccess());
     }).catchError((error) {

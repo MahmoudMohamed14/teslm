@@ -1,7 +1,7 @@
 class ApiEndPoint {
   ApiEndPoint._();
 
-  static String baseUrl = "https://hawya.noouh.online/api";
+  static String baseUrl = "https://hunger-station-clone.vercel.app/";
   static String generateOtp = 'customers/generate-otp';
   static String verifyOtp =  'customers/verify-otp';
   static String ads = 'ads';
@@ -14,11 +14,6 @@ class ApiEndPoint {
   static String coupons = 'coupons';
   static String redeemPoints = 'redeem-points';
   static String providers = 'providers';
-
-
-
-
-
-
+  static String myOrders = 'orders/customer';
 
 }

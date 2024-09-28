@@ -14,25 +14,11 @@ part 'delivery_state.dart';
 class DeliveryCubit extends Cubit<DeliveryState> {
   DeliveryCubit() : super(DeliveryInitial()){}
   double opecity=1;
-  /*  scrollControllerColumn.addListener(_onScroll);
-    scrollControllerColumn.addListener(_scrollAnimation);*/
-   /* if(providerFoodData!=null)
-    _calculateListOffsets();
-  }*/
-  //============Resturant=================
-/*  final ScrollController scrollControllerColumn = ScrollController();
-  ScrollController get scrollController => scrollControllerColumn;
-  final ItemScrollController itemScrollController = ItemScrollController();
-
-  int currentIndex = 0;*/
-  //======================================
   static DeliveryCubit get(context) => BlocProvider.of(context);
   void increment(){
     emit(Reload());
   }
   //===============resturant=============
-
-
 
   List<bool> isCheckedList =[ true,false,false];
   bool choosePadding =true;
@@ -62,21 +48,5 @@ class DeliveryCubit extends Cubit<DeliveryState> {
   }*/
 
 
-
-  CustomerOrders? customerOrders;
-  void getCustomerOrders(){
-    emit(GetOrdersLoading());
-    DioHelper.getData(url: 'orders/customer',
-      token: token,
-      myapp: true,
-    ).then((value) {
-      customerOrders=CustomerOrders.fromJson(value.data);
-      print(value.data);
-      emit(GetOrdersSuccess());
-    }).catchError((error) {
-      print('tttttttttttttttttttttt ${error.toString()}');
-      emit(GetOrdersError());
-    });
-  }
 }
 

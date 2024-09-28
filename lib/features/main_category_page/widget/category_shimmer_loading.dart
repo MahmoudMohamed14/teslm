@@ -1,8 +1,8 @@
-import 'package:delivery/features/main%20category%20page/widget/filter_loading.dart';
 import 'package:flutter/material.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import 'change_view.dart';
+import 'filter_loading.dart';
 
 Widget categoryLoading(categoryName,view,context)=>ListView(children: [
   SizedBox(

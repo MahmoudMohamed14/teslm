@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Dio/Dio.dart';
-import '../../../common/constant/api_end_points.dart';
+import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/categories provider.dart';
 import '../../../models/filter model.dart';
 
@@ -15,7 +15,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   FilterProviders? filterProvideData;
   void filterProvider({id,sortField,sortBy}) {
     emit(FilterProviderLoading());
-    DioHelper.getData(url: '${ApiEndPoint.providersCustomers}?sortOrder=$sortField&sortField=$sortBy', myapp: true)
+    DioHelper.getData(url: '${ApiEndPoint.providersCustomers}?sortOrder=$sortField&sortField=$sortBy',)
         .then((value) {
       filterProvideData = FilterProviders.fromJson(value.data);
       emit(CategoryProviderSuccess());
@@ -28,7 +28,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   CategoryProviderModel? categoryProvideData;
   void categoryProvider({id}) {
     emit(CategoryProviderLoading());
-    DioHelper.getData(url: '${ApiEndPoint.categories}/$id', myapp: true)
+    DioHelper.getData(url: '${ApiEndPoint.categories}/$id',)
         .then((value) {
       categoryProvideData = CategoryProviderModel.fromJson(value.data);
       emit(CategoryProviderSuccess());

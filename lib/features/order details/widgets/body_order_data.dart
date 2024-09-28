@@ -7,6 +7,7 @@ import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
+import '../../orders/controller/my_orders_cubit.dart';
 import 'delivery_man_details.dart';
 import 'location_data.dart';
 import 'order_details.dart';
@@ -26,12 +27,12 @@ class MyDraggableSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int index = 3;
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<MyOrdersCubit, MyOrdersState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var order=DeliveryCubit.get(context).customerOrders;
+        var order=MyOrdersCubit.get(context).customerOrders;
         return LayoutBuilder(builder: (context, constraints) {
           return DraggableScrollableSheet(
             key: sheet,

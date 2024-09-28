@@ -1,4 +1,4 @@
-import 'package:delivery/common/constant/api_end_points.dart';
+import 'package:delivery/common/end_points_api/api_end_points.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import '../../../common/constant/constant values.dart';
 import '../../../models/coupon model.dart';
 import '../../home/controller/home_cubit.dart';
 import '../../home/screens/home.dart';
+import '../../orders/controller/my_orders_cubit.dart';
 import '../../point/controller/point_cubit.dart';
 
 part 'order_state.dart';
@@ -70,7 +71,7 @@ class OrderCubit extends Cubit<OrderState> {
       pageController=PageController(initialPage: 2);
       HomeCubit.get(context).changeNavigator(2);
       PointCubit.get(context).getPointsAndBalance();
-      DeliveryCubit.get(context).getCustomerOrders();
+      MyOrdersCubit.get(context).getCustomerOrders();
       couponData=null;
       navigateAndFinish(context,const Home());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(

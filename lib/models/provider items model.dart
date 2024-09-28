@@ -99,6 +99,9 @@ class Items {
   int? discount;
   bool? topItem;
   String? image;
+  int? reviewCount;
+  int? totalReviews;
+  List<Reviews>? reviews;
   ItemsLanguage? description;
   List<Null>? categories;
   List<OptionGroups>? optionGroups;
@@ -111,6 +114,14 @@ class Items {
     discount = json['discount'];
     topItem = json['top_item'];
     image = json['image'];
+    totalReviews = json['totalReviews'];
+    reviewCount = json['reviewCount'];
+    if (json['reviews'] != null) {
+      reviews = <Reviews>[];
+      json['reviews'].forEach((v) {
+        reviews!.add(new Reviews.fromJson(v));
+      });
+    }
     description = json['description'] != null
         ? new ItemsLanguage.fromJson(json['description'])
         : null;
@@ -122,6 +133,21 @@ class Items {
     } else {
       optionGroups = [];
     }
+  }
+}
+class ReviewsItems {
+  String? id;
+  String? content;
+  int? rating;
+  String? createdAt;
+  String? author;
+
+  ReviewsItems.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    content = json['content'];
+    rating = json['rating'];
+    createdAt = json['createdAt'];
+    author = json['author'];
   }
 }
 class ItemsCategory {
