@@ -4,6 +4,7 @@ import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/auth/screen/login.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/colors/theme_model.dart';
@@ -64,7 +65,7 @@ class Cart extends StatelessWidget{
                         Text('${Strings.totalOrder.tr(context)}: ',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,
                           style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w400,),),
                       const SizedBox(width: 5,),
-                      Text('$price ' ,maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,
+                      Text('${ProviderCubit.get(context).getPrice()}' ,maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,
                         style:const TextStyle(fontSize: 18,fontWeight: FontWeight.w900,),),
                         Text(Strings.sr.tr(context),style:const TextStyle(fontSize: 18,fontWeight: FontWeight.w900,),),
                       ],),
@@ -78,7 +79,7 @@ class Cart extends StatelessWidget{
                         const SizedBox(height: 10,),
                         bottom(Strings.payNow.tr(context), (){navigate(context,(token!=''&&token!=null)? Payment(customerNotes: noteTextController.text,)
                             :const Login());if(token==''||token==null)loginFromCart=true;
-                        totalPrice=price+shippingPrice;},radius: 20,),
+                        totalPrice=ProviderCubit.get(context).getPrice().toInt()+shippingPrice;},radius: 20,),
                       ],
                     ),
                   ),

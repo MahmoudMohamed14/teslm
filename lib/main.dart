@@ -56,18 +56,22 @@ class MyApp extends StatefulWidget  with WidgetsBindingObserver {
  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
    if (state == AppLifecycleState.detached) {
-     print('detached');
+     print('detached>>>>>>>>>>>>>');
 
    }
    if (state == AppLifecycleState.resumed) {
-     print('resumed');
+     print('resumed>>>>>>>>>>>>>>>>>>');
    }
    if (state == AppLifecycleState.inactive) {
-     print('inactive');
+     print('inactive>>>>>>>>>>>>>>');
    }
    if (state == AppLifecycleState.paused) {
-     print('paused');
+     print('paused>>>>>>>>>>>>>>>>>');
    }
+   if (state == AppLifecycleState.hidden) {
+     print('hidden>>>>>>>>>>>>>>>>>');
+   }
+
  }
 
   @override

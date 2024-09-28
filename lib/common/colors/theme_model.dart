@@ -3,11 +3,12 @@ import 'package:flutter/scheduler.dart';
 
 
 import '../../Cubite/them/app_dark_light_cubit.dart';
+import '../../shared_preference/shared preference.dart';
 
 
 class ThemeModel {
   static ThemeModel of(BuildContext context) =>
-      AppDarkLightCubit.get(context).isDark
+      Save.getdata(key: 'isDark')??false
           ? ThemeModel.dark()
           : ThemeModel.light();
   static ThemeModel get defaultTheme {
@@ -88,7 +89,7 @@ class ThemeModel {
   ThemeModel.dark({
     this.primary = const Color(0xff3C9AA6),
     this.greenAppBar= const Color(0xff33C072),
-    this.backgroundColor = const Color(0xffFCFFFF),
+    this.backgroundColor = const Color(0xff000000),
     this.blackWhiteColor = const Color(0xffffffff),
     this.textMainColor = const Color(0xfff1f1f1),
     this.card = const Color(0xFF1B1E28),

@@ -1,11 +1,12 @@
+import 'package:delivery/common/colors/theme_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-Widget pointsAndWalletCard(textData,quantity,image)=>SizedBox(
+Widget pointsAndWalletCard(context,textData,quantity,image)=>SizedBox(
   width: 171,
   height: 71,
   child: Card(
-    color: Colors.white,
+    color: ThemeModel.of(context).cardsColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -22,8 +23,8 @@ Widget pointsAndWalletCard(textData,quantity,image)=>SizedBox(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Text('$textData',style:const TextStyle(color: Colors.black),),
-          Text('$quantity',style:const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),)
+          Text('$textData',style: TextStyle(color: ThemeModel.of(context).font1),),
+          Text('$quantity',style: TextStyle(fontWeight: FontWeight.bold,color:  ThemeModel.of(context).font1),)
         ],),
       ],),
   ),

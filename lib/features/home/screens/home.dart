@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../Cubite/delivery_cubit.dart';
+import '../../../Cubite/them/app_dark_light_cubit.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
 import '../../orders/screen/orders.dart';
@@ -59,16 +60,22 @@ class Home extends StatelessWidget {
       ),
     ];
     return Scaffold(
-        bottomNavigationBar:BottomNavigationBar(items: items
-          ,onTap:
-              (index) {   HomeCubit.get(context).changeNavigator(index);
-        pageController.jumpToPage(index);}
-          ,unselectedLabelStyle:  TextStyle(color:  isDark??false?Colors.white:Colors.grey)
-          ,selectedLabelStyle:  TextStyle(color:  ThemeModel.of(context).iconMainColor)
-          ,type: BottomNavigationBarType.fixed
-          ,currentIndex: HomeCubit.get(context).current,selectedItemColor: ThemeModel.of(context).iconMainColor
-          ,unselectedItemColor: isDark??false?Colors.white:Colors.grey
-          ,backgroundColor: ThemeModel.of(context).bottomNavigationBarColor,),
+        bottomNavigationBar:BlocConsumer<AppDarkLightCubit, AppDarkLightState>(
+          builder:(context, state){
+            return BottomNavigationBar(items: items
+              ,onTap:
+                  (index) {   HomeCubit.get(context).changeNavigator(index);
+              pageController.jumpToPage(index);}
+              ,unselectedLabelStyle:  TextStyle(color:  isDark??false?Colors.white:Colors.grey)
+              ,selectedLabelStyle:  TextStyle(color:  ThemeModel.of(context).iconMainColor)
+              ,type: BottomNavigationBarType.fixed
+              ,currentIndex: HomeCubit.get(context).current,selectedItemColor: ThemeModel.of(context).iconMainColor
+              ,unselectedItemColor: isDark??false?Colors.white:Colors.grey
+              ,backgroundColor: ThemeModel.of(context).bottomNavigationBarColor,);
+    },
+
+          listener: (context, state) {}
+        ),
        /* BluredNavigationBarX(
             browColor: ThemeModel.of(context).iconMainColor,
           backgroundColor: ThemeModel.of(context).bottomNavigationBarColor,

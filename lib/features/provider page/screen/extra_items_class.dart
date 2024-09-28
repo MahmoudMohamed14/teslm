@@ -58,7 +58,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
     for (int i = 0; i < widget.extra.length; i++) {
       if (widget.extra[i].isMandatory ?? false) {
         debugPrint("isisMandatory${widget.extra[i].isMandatory}");
-        ProviderCubit.get(context). addIdToSelectedOption(widget.extra[i].id.toString(), '${widget.extra[i].options[0].id}',widget.extra[i].options[0].price);
+       // ProviderCubit.get(context). addIdToSelectedOption(widget.extra[i].id.toString(), '${widget.extra[i].options[0].id}',widget.extra[i].options[0].price,widget.extra,checklist);
       }
     }
     _bottomSheetController.addListener(bottomSheetScroll);
@@ -176,31 +176,26 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                 if (widget.extra[index].isMandatory) {
                                   if (!isChecked) {
                                     for (int i = 0; i <
-                                        widget.extra[index].options
-                                            .length; i++) {
+                                        widget.extra[index].options.length; i++) {
                                       if (i != otherIndex &&
                                           checklist[index][i]) {
                                         changeChecklistValue(index, i, false);
+
                                         totalExtraPrice -= (ProviderCubit.get(context).itemsNumber *
-                                            widget.extra[index].options[i]
-                                                .price).toInt();
-                                       cubit.addExtra.removeWhere((item) =>
+                                            widget.extra[index].options[i].price).toInt();
+                  /*                     cubit.addExtra.removeWhere((item) =>
                                             item['selectedOption'].any((
-                                                option) =>
-                                            option['id'] ==
-                                                widget.extra[index].options[i]
-                                                    .id));
+                                                option) => option['id'] == widget.extra[index].options[i].id));*/
                                       } else if (i == otherIndex) {
-                                        changeChecklistValue(
-                                            index, otherIndex, isChecked);
+                                        changeChecklistValue(index, otherIndex, isChecked);
                                         totalExtraPrice += (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index]
                                                 .options[otherIndex].price)
                                             .toInt();
-                                        cubit.addIdToSelectedOption(
+                         /*               cubit.addIdToSelectedOption(
                                             '${widget.extra[index].id}',
                                             '${widget.extra[index]
-                                                .options[otherIndex].id}',widget.extra[index].options[otherIndex].price);
+                                                .options[otherIndex].id}',widget.extra[index].options[otherIndex].price);*/
                                       }
                                     }
                                   }
@@ -220,11 +215,11 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                               .options[i].name.en}'
                                               : '+${widget.extra[index]
                                               .options[i].name.ar}', '');
-                                      cubit.addExtra.removeWhere((item) =>
+                                     /* cubit.addExtra.removeWhere((item) =>
                                           item['selectedOption'].any((option) =>
                                           option['id'] ==
                                               widget.extra[index].options[i]
-                                                  .id));
+                                                  .id));*/
                                     } else if (i == otherIndex) {
                                       changeChecklistValue(
                                           index, otherIndex, isChecked);
@@ -246,10 +241,10 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                               : '+${widget.extra[index]
                                               .options[otherIndex].name.ar}';
                                         }
-                                       cubit. addIdToSelectedOption(
+                                    /*   cubit. addIdToSelectedOption(
                                             widget.extra[index].id,
                                             '${widget.extra[index]
-                                                .options[otherIndex].id}',widget.extra[index].options[otherIndex].price.toInt());
+                                                .options[otherIndex].id}',widget.extra[index].options[otherIndex].price.toInt(),widget.extra,checklist);*/
                                       } else {
                                         totalExtraPrice -= (ProviderCubit.get(context).itemsNumber *
                                             widget.extra[index].options[i]
@@ -260,12 +255,12 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                                 .options[i].name.en}'
                                                 : '+${widget.extra[index]
                                                 .options[i].name.ar}', '');
-                                       cubit. addExtra.removeWhere((item) =>
+                                      /* cubit. addExtra.removeWhere((item) =>
                                             item['selectedOption'].any((
                                                 option) =>
                                             option['id'] ==
                                                 widget.extra[index].options[i]
-                                                    .id));
+                                                    .id));*/
                                       }
                                     }
                                   }
@@ -289,9 +284,9 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                         .en}' : '+${widget.extra[index]
                                         .options[otherIndex].name.ar}';
                                   }
-                                  ProviderCubit.get(context).addIdToSelectedOption(widget.extra[index].id,
+                                 /* ProviderCubit.get(context).addIdToSelectedOption(widget.extra[index].id,
                                       '${widget.extra[index].options[otherIndex]
-                                          .id}',widget.extra[index].options[otherIndex].price);
+                                          .id}',widget.extra[index].options[otherIndex].price,widget.extra,checklist);*/
                                 } else if (isChecked) {
                                   changeChecklistValue(
                                       index, otherIndex, isChecked);
@@ -304,12 +299,13 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                           .options[otherIndex].name.en}'
                                           : '+${widget.extra[index]
                                           .options[otherIndex].name.ar}', '');
-                                  cubit.addExtra.removeWhere((item) =>
+                             /*     cubit.addExtra.removeWhere((item) =>
                                       item['selectedOption'].any((option) =>
                                       option['id'] == widget.extra[index]
-                                          .options[otherIndex].id));
+                                          .options[otherIndex].id));*/
                                 }
                               }
+                              print("${cubit.addExtra} here extra");
                             }, language == 'English Language'
                                 ? '${widget.extra[index].options[otherIndex]
                                 .name.en}'
@@ -343,12 +339,15 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                   child: InkWell(
                     onTap: () {
                       setState(() {
+                        ProviderCubit.get(context).addIdToSelectedOption(widget.extra,checklist);
                         ProviderCubit.get(context).addValue(widget.name +
                             extraName, ProviderCubit.get(context).itemsNumber, widget.itemImage, (widget.price as int) , widget
                             .id,widget.description ,cubit.addExtra);
                         ProviderCubit.get(context).submitValue(ProviderCubit.get(context).itemsNumber);
                         Navigator.pop(context);
                       });
+
+                      print("${cubit.addExtra} add extra");
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
