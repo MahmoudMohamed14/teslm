@@ -39,8 +39,8 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          pointsAndWalletCard(Strings.points.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData!.points:0,ImagesApp.pointsHomeImage),
-          pointsAndWalletCard(Strings.wallet.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData!.balance:0.0,ImagesApp.walletHomeImage)
+          pointsAndWalletCard(context,Strings.points.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData!.points:0,ImagesApp.pointsHomeImage),
+          pointsAndWalletCard(context,Strings.wallet.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData!.balance:0.0,ImagesApp.walletHomeImage)
       ],),
       const SizedBox(height: 15,),
       if(HomeCubit.get(context).categoryData != null)

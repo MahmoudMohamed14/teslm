@@ -208,29 +208,43 @@ class ProviderCubit extends Cubit<ProviderState> {
     emit(SubmitValueEvent(value));
   }
   List<Map<String, dynamic>>  addExtra=[];
-  void addIdToSelectedOption(optionGroupId,optionId,int price) {
+  void addIdToSelectedOption(List<OptionGroups> optionsGroups,List<List<bool>> checklist) {
     bool valueExists = false;
-    for (var group in addExtra) {
-      if (group["id"] == "$optionGroupId") {
-        valueExists=true;
-        group["selectedOption"].add({
-          "id": optionId,
-          "price": price
-        });
-        break;
+    for(int i=0;i<optionsGroups.length;i++){
+      for(int j=0;j<(optionsGroups[i].options?.length??0);j++){
+       if(checklist[i][j]==true){
+         for (var group in addExtra) {
+           if (group["id"] == "${optionsGroups[i].id}") {
+             valueExists=true;
+             group["selectedOption"].add({
+               "id": optionsGroups[i].options?[j].id,
+               "price": optionsGroups[i].options?[j].price
+             });
+             break;
+           }
+         }
+         if(!valueExists){
+           addExtra.add({
+             "id":optionsGroups[i].id,
+             "selectedOption": [
+               {
+                 "id": optionsGroups[i].options?[j].id,
+                 "price": optionsGroups[i].options?[j].price
+               }
+             ]
+           });
+         }
+       }
+
+
+
       }
+
     }
-    if(!valueExists){
-      addExtra.add({
-        "id": optionGroupId,
-        "selectedOption": [
-          {
-            "id": optionId,
-            "price": price
-          }
-        ]
-      });
-    }
+
+
+
+
   }
   bool showSearchProvider=false;
   void showSearch(){

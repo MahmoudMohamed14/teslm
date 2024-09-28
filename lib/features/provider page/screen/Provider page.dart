@@ -1211,7 +1211,7 @@ class CategoryShimmer extends StatelessWidget {
 Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
     margin: mainPage?EdgeInsets.only(left: 20,bottom: 10):EdgeInsets.zero,
     padding: EdgeInsets.all(mainPage?10:5),
-  width:MediaQuery.sizeOf(context).width/3.5,
+  width:MediaQuery.sizeOf(context).width/3.20,
     height:mainPage? 50:30,
     decoration: const BoxDecoration(
         color: ThemeModel.mainColor,
