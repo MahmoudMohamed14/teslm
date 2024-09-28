@@ -43,13 +43,14 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
           pointsAndWalletCard(Strings.wallet.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData!.balance:0.0,ImagesApp.walletHomeImage)
       ],),
       const SizedBox(height: 15,),
+      if(HomeCubit.get(context).categoryData != null)
       GridView.count(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         crossAxisSpacing: 0.2,
         mainAxisSpacing: 0.2,
         crossAxisCount: 4,children: List.generate(HomeCubit.get(context).categoryData!.length,
-            (index)=> category( HomeCubit.get(context).providerData?.categories?[index],index,context))),
+            (index)=> category( HomeCubit.get(context).providerData!.categories?[index],index,context))),
       ListView.builder(
         shrinkWrap: true,
         physics:const NeverScrollableScrollPhysics(),
