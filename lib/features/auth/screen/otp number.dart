@@ -108,14 +108,14 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
             PositionedDirectional(
               end: 0,
                 bottom: 0,
-                child: CustomFlip(widget: Image.asset(ImagesApp.codeVerity),)),
+                child: CustomFlip(child: Image.asset(ImagesApp.codeVerity),)),
             PositionedDirectional(
                 start: 17.w,
                 bottom: 32.h,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CustomFlip(widget: Icon(Icons.arrow_back_ios_new,color: ThemeModel.of(context).backgroundColor,),flipX: false,),
+                    CustomFlip(child: Icon(Icons.arrow_back_ios_new,color: ThemeModel.of(context).backgroundColor,),flipX: false,),
                     6.w.widthBox,
                     SizedBox(
                       width: 200,

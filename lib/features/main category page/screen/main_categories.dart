@@ -47,7 +47,6 @@ class MainCategories extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0,right: 8),
             child: CustomScrollView(
               slivers: [
-                if(HomeCubit.get(context).offersData!=null)
                 SliverAppBar(
                   leading: Container(),
                   bottom: PreferredSize(
@@ -57,14 +56,14 @@ class MainCategories extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                          newOffers!.data!.length,
+                          newOffers?.data?.length??0,
                               (index) => InkWell(
                                 onTap: (){
-                                  ProviderCubit.get(context).getProviderFoodData('${newOffers.data?[index].provider?.id}');
+                                  ProviderCubit.get(context).getProviderFoodData('${newOffers?.data?[index].provider?.id}');
                                   navigate(context, ProviderPage(
-                                      providerDescription:language=='en'? '${newOffers.data?[index].provider?.description?.en}':'${newOffers.data?[index].provider?.description?.ar}',
-                                      providerName: language=='en'?'${newOffers.data?[index].provider?.providerName?.en}':'${newOffers.data?[index].provider?.providerName?.ar}',
-                                      providerCover: '${newOffers.data?[index].provider?.providerCover}', providerImage: '${newOffers.data?[index].provider?.providerImage}'));
+                                      providerDescription:language=='en'? '${newOffers?.data?[index].provider?.description?.en}':'${newOffers?.data![index].provider?.description?.ar}',
+                                      providerName: language=='en'?'${newOffers?.data?[index].provider?.providerName!.en}':'${newOffers?.data?[index].provider?.providerName?.ar}',
+                                      providerCover: '${newOffers?.data?[index].provider?.providerCover}', providerImage: '${newOffers?.data?[index].provider?.providerImage}'));
                                 },
                                 child: Stack(
                                   children: [
@@ -79,7 +78,7 @@ class MainCategories extends StatelessWidget {
                                       const Center(child: CircularProgressIndicator()),
                                       errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
-                                      imageUrl: '${newOffers.data?[index].image}',
+                                      imageUrl: '${newOffers?.data?[index].image}',
                                       width: double.infinity,
                                       fit: BoxFit.fill,
                                     ),
@@ -96,8 +95,8 @@ class MainCategories extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Text(
-                                          language=='en'?'${newOffers.data?[index].provider?.providerName?.en}':
-                                          '${newOffers.data?[index].provider?.providerName?.ar}',
+                                          language=='en'?'${newOffers?.data?[index].provider?.providerName?.en}':
+                                          '${newOffers?.data?[index].provider?.providerName?.ar}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16.58,
@@ -182,9 +181,9 @@ class MainCategories extends StatelessWidget {
                           (context, index) {
                         var providerItem;
                         if (filter != null) {
-                          providerItem = filter.data?[index];
+                          providerItem = filter.data![index];
                         } else {
-                          providerItem = providers.providers?[index];
+                          providerItem = providers.providers![index];
                         }
                         return view
                             ? Padding(
