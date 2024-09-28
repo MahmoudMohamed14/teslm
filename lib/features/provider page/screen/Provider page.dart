@@ -24,6 +24,7 @@ import '../../../models/provider items model.dart';
 
 
 import '../../cart/screen/cart.dart';
+import '../widget/search_provider_page.dart';
 import 'extra_items_class.dart';
 
 
@@ -46,13 +47,15 @@ class ProviderPage extends StatefulWidget {
 
 class _ProviderPage extends State<ProviderPage>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
+
 
   @override
   void initState() {
     super.initState();
-    controller = BottomSheet.createAnimationController(this);
-    controller.duration = const Duration(milliseconds: 700);
+    ProviderCubit.get(context).showSearchProvider=false;
+
+    ProviderCubit.get(context). controller = BottomSheet.createAnimationController(this);
+    ProviderCubit.get(context). controller.duration = const Duration(milliseconds: 700);
   }
 
   @override
@@ -62,351 +65,234 @@ class _ProviderPage extends State<ProviderPage>
       builder: (context, state) {
         var menu = ProviderCubit.get(context).providerFoodData;
         return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                backgroundColor: ThemeModel.of(context).backgroundColor,
-                surfaceTintColor: ThemeModel.of(context).backgroundColor,
-                toolbarHeight: 100.h,
-                pinned: true,
-                // floating: true, // Set to true
-                // snap: true,
-                leading: InkWell(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundColor: ThemeModel.of(context).backgroundColor,
-                      radius: 10,
-                      child: Icon(
-                        CupertinoIcons.xmark,
-                        color: ThemeModel.of(context).font1,
-                        size: 22,
-                      ),
-                    ),
-                  ),
-                ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(80.h),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 15),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        CustomFlip(
-                          child: Container(
-                            height: 60,
-                            //color: Colors.red,
-                            width: double.maxFinite,
-
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              image: const DecorationImage(image: AssetImage(ImagesApp.panner),fit: BoxFit.fill),
-                            ),
+          body: Stack(
+            children: [
+              CustomScrollView(
+                controller:  ProviderCubit.get(context).scrollControllerColumn,
+                slivers: [
+                  SliverAppBar(
+                    backgroundColor: ThemeModel.of(context).backgroundColor,
+                    surfaceTintColor: ThemeModel.of(context).backgroundColor,
+                    toolbarHeight: 100.h,
+                    pinned: true,
+                    // floating: true, // Set to true
+                    // snap: true,
+                    leading: InkWell(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircleAvatar(
+                          backgroundColor: ThemeModel.of(context).backgroundColor,
+                          radius: 10,
+                          child: Icon(
+                            CupertinoIcons.xmark,
+                            color: ThemeModel.of(context).font1,
+                            size: 22,
                           ),
-                            flipX: language=='en'? false:true
                         ),
-                        PositionedDirectional(
-                          start: 25.w,
-                           // bottom: 8,
-                            child: image(widget.providerImage, 52.0, 52.0, 200.0, BoxFit.fill)),
-                        PositionedDirectional(
-                          start: 150.w,
-                            //end: 20,
-                          // right: 20,
-                            // bottom: 8,
-                            child: AppTextWidget(widget.providerName,style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).backgroundColor,fontSize: 20),)),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                flexibleSpace: FlexibleSpaceBar(
-                  title: AppTextWidget(
-                    Strings.other.tr(context),
-                    style: TextStyleHelper.of(context)
-                        .bold20
-                        .copyWith(color: ThemeModel.of(context).font2),
-                  ),
-                  background: Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(18),
-                          bottomRight: Radius.circular(18),
-                        ),
+                    bottom: PreferredSize(
+                      preferredSize: Size.fromHeight(80.h),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 15),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CustomFlip(
+                              child: Container(
+                                height: 60,
+                                //color: Colors.red,
+                                width: double.maxFinite,
 
-                    ),
-                    child: image(widget.providerCover, 120.h, double.maxFinite, 0.0, BoxFit.cover
-                        ,borderRadius:const BorderRadius.only(
-                          bottomLeft: Radius.circular(18),
-                          bottomRight: Radius.circular(18),
-                        )
-                    ),
-                    /*// child: Image.network("https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
-                width: double.maxFinite,fit: BoxFit.cover,),*/
-                  ),
-                ),
-                //expandedHeight: 200.h,
-              ),
-              SliverAppBar(
-                expandedHeight: 60,
-                // pinned: true,
-                leading: const SizedBox.shrink(),
-                flexibleSpace: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      PriceWidget(
-                        title: Strings.duration.tr(context),
-                        value: '55-21',
-                      ),
-                      PriceWidget(
-                          title: Strings.deliveryPrice.tr(context),
-                          value: '55-21'),
-                      PriceWidget(
-                          title: Strings.minimumCharge.tr(context),
-                          value: '55-21'),
-                    ],
-                  ),
-                ),
-                backgroundColor: ThemeModel.of(context).backgroundColor,
-                surfaceTintColor: ThemeModel.of(context).backgroundColor,
-              ),
-              SliverAppBar(
-                expandedHeight: 0.h,
-                toolbarHeight: 30,
-                pinned: true,
-                leading: const SizedBox.shrink(),
-                flexibleSpace: PreferredSize(
-                  preferredSize: const Size.fromHeight(0),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 15,vertical: 10.h),
-                    child: Container(
-                     padding:  EdgeInsets.symmetric(vertical: 10.h),
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                          color: ThemeModel.of(context).font3,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(start: 15),
-                            child: Icon(
-                              CupertinoIcons.search,
-                              color: ThemeModel.of(context).font1,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24),
+                                  image: const DecorationImage(image: AssetImage(ImagesApp.panner),fit: BoxFit.fill),
+                                ),
+                              ),
+                                flipX: language=='en'? false:true
                             ),
-                          ),
-                        ],
+                            PositionedDirectional(
+                              start: 25.w,
+                               // bottom: 8,
+                                child: image(widget.providerImage, 52.0, 52.0, 200.0, BoxFit.fill)),
+                            PositionedDirectional(
+                              start: 150.w,
+                                //end: 20,
+                              // right: 20,
+                                // bottom: 8,
+                                child: AppTextWidget(widget.providerName,style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).backgroundColor,fontSize: 20),)),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                backgroundColor: ThemeModel.of(context).backgroundColor,
-                surfaceTintColor: ThemeModel.of(context).backgroundColor,
-              ),
-              SliverToBoxAdapter(
-                child:menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.separated(
-                      itemBuilder: (context, index1) {
-                        return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                        AppTextWidget(
-                          menu?.CategoriesItemsData?[index1].name ?? '',
+                    flexibleSpace: FlexibleSpaceBar(
+                      title: AppTextWidget(
+                        Strings.other.tr(context),
                         style: TextStyleHelper.of(context)
                             .bold20
                             .copyWith(color: ThemeModel.of(context).font2),
+                      ),
+                      background: Container(
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(18),
+                              bottomRight: Radius.circular(18),
+                            ),
+
                         ),
-                        8.0.heightBox,
-                        ListView.separated(
-                        itemBuilder: (context, index) =>OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],categoryId:menu.CategoriesItemsData?[index1].id,controller: controller,),
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        separatorBuilder: (context, index) => 10.h.heightBox,
-                    itemCount: menu?.CategoriesItemsData?[index1].items?.length ??0)
-                  ],
-                  );
-                      } ,//OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) => 10.h.heightBox,
-                      itemCount:menu?.CategoriesItemsData?.length ??0),
-                ):
-                Padding(
-        padding: const EdgeInsets.only(top: 150.0),
-        child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
-        ):Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.separated(
-          itemBuilder: (context, index) =>const CategoryShimmer(),
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          separatorBuilder: (context, index) => 10.h.heightBox,
-          itemCount: 4),
-        ),
-              ),
-             /* DecoratedSliver(
-                decoration: BoxDecoration(
-                  color: isDark??false? Colors.black87:floatActionColor,
-                ),
-                sliver: menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty?SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      return ListTile(  horizontalTitleGap: 0,
-                        title:Text('${menu.CategoriesItemsData![index].name}',style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: isDark??false ? Colors.white:brownColor),),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: image(widget.providerCover, 120.h, double.maxFinite, 0.0, BoxFit.cover
+                            ,borderRadius:const BorderRadius.only(
+                              bottomLeft: Radius.circular(18),
+                              bottomRight: Radius.circular(18),
+                            )
+                        ),
+                        /*// child: Image.network("https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+                    width: double.maxFinite,fit: BoxFit.cover,),*/
+                      ),
+                    ),
+                    //expandedHeight: 200.h,
+                  ),
+                  SliverAppBar(
+
+                    expandedHeight: 60,
+                    // pinned: true,
+                    leading: const SizedBox.shrink(),
+                    flexibleSpace: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: AnimatedOpacity(
+                        opacity: ProviderCubit.get(context).opecity,
+                        duration:   const Duration(milliseconds: 500),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            PriceWidget(
+                              title: Strings.duration.tr(context),
+                              value: '55-21',
+                            ),
+                            PriceWidget(
+                                title: Strings.deliveryPrice.tr(context),
+                                value: '55-21'),
+                            PriceWidget(
+                                title: Strings.minimumCharge.tr(context),
+                                value: '55-21'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    backgroundColor: ThemeModel.of(context).backgroundColor,
+                    surfaceTintColor: ThemeModel.of(context).backgroundColor,
+                  ),
+                  SliverAppBar(
+                    expandedHeight: 0.h,
+                    toolbarHeight: 30,
+                    pinned: true,
+                    leading: const SizedBox.shrink(),
+                    flexibleSpace: PreferredSize(
+                      preferredSize: const Size.fromHeight(0),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15,vertical: 10.h),
+                        child: GestureDetector(
+                          onTap: (){
+                            ProviderCubit.get(context).showSearch();
+                          },
+                          child: Container(
+                           padding:  EdgeInsets.symmetric(vertical: 10.h),
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                                color: ThemeModel.of(context).font3,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.only(start: 15),
+                                  child: Icon(
+                                    CupertinoIcons.search,
+                                    color: ThemeModel.of(context).font1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    backgroundColor: ThemeModel.of(context).backgroundColor,
+                    surfaceTintColor: ThemeModel.of(context).backgroundColor,
+                  ),
+                  SliverToBoxAdapter(
+                    child:menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView.separated(
+                          itemBuilder: (context, index1) {
+                            return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                            AppTextWidget(
+                              menu?.CategoriesItemsData?[index1].name ?? '',
+                            style: TextStyleHelper.of(context)
+                                .bold20
+                                .copyWith(color: ThemeModel.of(context).font2),
+                            ),
+                            8.0.heightBox,
                             ListView.separated(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.zero,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context,indexNew) {
-                                print("new Index $indexNew" "index $index");
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .start,
-                                  children: [
-                                    InkWell(
-                                        onTap: () {
-                                          bottomSheet(context,
-                                              ExtraItemsBottomSheet(
-                                                extra: menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew]
-                                                    .optionGroups,
-                                                itemImage: '${menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew]
-                                                    .image}',
-                                                name: language == 'en'
-                                                    ? '${menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew].name!
-                                                    .en}'
-                                                    : '${menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew].name!
-                                                    .ar}',
-                                                description: language ==
-                                                    'en'
-                                                    ? '${menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew]
-                                                    .description!.en}'
-                                                    : '${menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew]
-                                                    .description!.ar}',
-                                                price: menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew].price,
-                                                id: '${menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew]
-                                                    .id}',),
-                                              controller: controller);
-                                        },
-                                        child: menuItems(
-                                            menu.CategoriesItemsData?[index]
-                                                .items?[indexNew]
-                                                .optionGroups?.isNotEmpty??false
-                                                ? () {
+                            itemBuilder: (context, index) =>OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index]
+                              ,categoryId:menu.CategoriesItemsData?[index1].id,controller: ProviderCubit.get(context).controller,),
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) => 10.h.heightBox,
+                        itemCount: menu?.CategoriesItemsData?[index1].items?.length ??0)
+                      ],
+                      );
+                          } ,//OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          separatorBuilder: (context, index) => 10.h.heightBox,
+                          itemCount:menu?.CategoriesItemsData?.length ??0),
+                    ):
+                    Padding(
+                      padding: const EdgeInsets.only(top: 150.0),
+                      child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
+                      ):Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.separated(
+              itemBuilder: (context, index) =>const CategoryShimmer(),
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => 10.h.heightBox,
+              itemCount: 4),
+                      ),
+                  ),
+                 /* DecoratedSliver(
+                    decoration: BoxDecoration(
+                      color: isDark??false? Colors.black87:floatActionColor,
+                    ),
+                    sliver: menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty?SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                          return ListTile(  horizontalTitleGap: 0,
+                            title:Text('${menu.CategoriesItemsData![index].name}',style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: isDark??false ? Colors.white:brownColor),),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ListView.separated(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.zero,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context,indexNew) {
+                                    print("new Index $indexNew" "index $index");
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      children: [
+                                        InkWell(
+                                            onTap: () {
                                               bottomSheet(context,
                                                   ExtraItemsBottomSheet(
-                                                      extra: menu
-                                                          .CategoriesItemsData![index]
-                                                          .items![indexNew]
-                                                          .optionGroups
-                                                      ,
-                                                      itemImage: '${menu
-                                                          .CategoriesItemsData![index]
-                                                          .items![indexNew]
-                                                          .image}',
-                                                      name: language == 'en'
-                                                          ? '${menu
-                                                          .CategoriesItemsData![index]
-                                                          .items![indexNew]
-                                                          .name!.en}'
-                                                          : '${menu
-                                                          .CategoriesItemsData![index]
-                                                          .items![indexNew]
-                                                          .name!.ar}',
-                                                      description: language ==
-                                                          'en' ?
-                                                      '${menu
-                                                          .CategoriesItemsData![index]
-                                                          .items![indexNew]
-                                                          .description!.en}'
-                                                          : '${menu
-                                                          .CategoriesItemsData![index]
-                                                          .items![indexNew]
-                                                          .description!
-                                                          .ar}',
-                                                      price:
-                                                      menu
-                                                          .CategoriesItemsData![index]
-                                                          .items![indexNew]
-                                                          .price,
-                                                      id:
-                                                      '${menu
-                                                          .CategoriesItemsData![index]
-                                                          .items![indexNew]
-                                                          .id}'),
-                                                  controller: controller);
-                                            }
-                                                : () {
-                                              DeliveryCubit.get(context)
-                                                  .addValue(
-                                                  language == 'en' ? '${menu
-                                                      .CategoriesItemsData![index]
-                                                      .items![indexNew]
-                                                      .name!.en}' : '${menu
-                                                      .CategoriesItemsData![index]
-                                                      .items![indexNew]
-                                                      .name!.ar}', 1, menu
-                                                  .CategoriesItemsData![index]
-                                                  .items![indexNew].image,
-                                                  menu
-                                                      .CategoriesItemsData![index]
-                                                      .items![indexNew]
-                                                      .price ?? 0, menu
-                                                  .CategoriesItemsData![index]
-                                                  .items![indexNew].id,
-                                                  null);
-                                            }
-
-                                            ,
-                                            menu.CategoriesItemsData?[index]
-                                                .items?[indexNew]
-                                                .optionGroups?.isNotEmpty??false
-                                                ? true
-                                                : false,
-                                            menu.CategoriesItemsData![index]
-                                                .items![indexNew], context,
-                                            DeliveryCubit.get(context)
-                                                .getValueById('${menu
-                                                .CategoriesItemsData![index]
-                                                .items![indexNew].id}') != 0
-                                                ?
-                                            addOrRemoveOne(
-                                                DeliveryCubit.get(context)
-                                                    .getValueById('${menu
-                                                    .CategoriesItemsData![index]
-                                                    .items![indexNew].id}'),
-                                                context, menu
-                                                .CategoriesItemsData![index]
-                                                .items![indexNew]
-                                                .optionGroups!.isNotEmpty
-                                                ?
-                                                () {
-                                              bottomSheet(context,
-                                                ExtraItemsBottomSheet(
                                                     extra: menu
                                                         .CategoriesItemsData![index]
                                                         .items![indexNew]
@@ -418,12 +304,12 @@ class _ProviderPage extends State<ProviderPage>
                                                     name: language == 'en'
                                                         ? '${menu
                                                         .CategoriesItemsData![index]
-                                                        .items![indexNew]
-                                                        .name!.en}'
+                                                        .items![indexNew].name!
+                                                        .en}'
                                                         : '${menu
                                                         .CategoriesItemsData![index]
-                                                        .items![indexNew]
-                                                        .name!.ar}',
+                                                        .items![indexNew].name!
+                                                        .ar}',
                                                     description: language ==
                                                         'en'
                                                         ? '${menu
@@ -436,75 +322,211 @@ class _ProviderPage extends State<ProviderPage>
                                                         .description!.ar}',
                                                     price: menu
                                                         .CategoriesItemsData![index]
-                                                        .items![indexNew]
-                                                        .price,
+                                                        .items![indexNew].price,
                                                     id: '${menu
                                                         .CategoriesItemsData![index]
                                                         .items![indexNew]
-                                                        .id}'),
-                                                controller: controller,);
-                                            }
-                                                : () {
-                                              DeliveryCubit.get(context)
-                                                  .addValue(
-                                                  language == 'en' ? '${menu
-                                                      .CategoriesItemsData![index]
-                                                      .items![indexNew]
-                                                      .name!.en}' : '${menu
-                                                      .CategoriesItemsData![index]
-                                                      .items![indexNew]
-                                                      .name!.ar}', 1, menu
-                                                  .CategoriesItemsData![index]
-                                                  .items![indexNew].image,
-                                                  menu
-                                                      .CategoriesItemsData![index]
-                                                      .items![indexNew]
-                                                      .price ?? 0, menu
-                                                  .CategoriesItemsData![index]
-                                                  .items![indexNew].id,
-                                                  null);
+                                                        .id}',),
+                                                  controller: controller);
                                             },
-                                                    () {
+                                            child: menuItems(
+                                                menu.CategoriesItemsData?[index]
+                                                    .items?[indexNew]
+                                                    .optionGroups?.isNotEmpty??false
+                                                    ? () {
+                                                  bottomSheet(context,
+                                                      ExtraItemsBottomSheet(
+                                                          extra: menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .optionGroups
+                                                          ,
+                                                          itemImage: '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .image}',
+                                                          name: language == 'en'
+                                                              ? '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .name!.en}'
+                                                              : '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .name!.ar}',
+                                                          description: language ==
+                                                              'en' ?
+                                                          '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .description!.en}'
+                                                              : '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .description!
+                                                              .ar}',
+                                                          price:
+                                                          menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .price,
+                                                          id:
+                                                          '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .id}'),
+                                                      controller: controller);
+                                                }
+                                                    : () {
                                                   DeliveryCubit.get(context)
-                                                      .minusValue(
-                                                      language == 'en'
-                                                          ? '${menu
+                                                      .addValue(
+                                                      language == 'en' ? '${menu
                                                           .CategoriesItemsData![index]
                                                           .items![indexNew]
-                                                          .name!.en}'
-                                                          : '${menu
+                                                          .name!.en}' : '${menu
                                                           .CategoriesItemsData![index]
                                                           .items![indexNew]
-                                                          .name!.ar}', 1,
+                                                          .name!.ar}', 1, menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew].image,
                                                       menu
                                                           .CategoriesItemsData![index]
                                                           .items![indexNew]
-                                                          .image, menu
+                                                          .price ?? 0, menu
                                                       .CategoriesItemsData![index]
-                                                      .items![indexNew]
-                                                      .price ?? 0, menu
+                                                      .items![indexNew].id,
+                                                      null);
+                                                }
+
+                                                ,
+                                                menu.CategoriesItemsData?[index]
+                                                    .items?[indexNew]
+                                                    .optionGroups?.isNotEmpty??false
+                                                    ? true
+                                                    : false,
+                                                menu.CategoriesItemsData![index]
+                                                    .items![indexNew], context,
+                                                DeliveryCubit.get(context)
+                                                    .getValueById('${menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew].id}') != 0
+                                                    ?
+                                                addOrRemoveOne(
+                                                    DeliveryCubit.get(context)
+                                                        .getValueById('${menu
+                                                        .CategoriesItemsData![index]
+                                                        .items![indexNew].id}'),
+                                                    context, menu
+                                                    .CategoriesItemsData![index]
+                                                    .items![indexNew]
+                                                    .optionGroups!.isNotEmpty
+                                                    ?
+                                                    () {
+                                                  bottomSheet(context,
+                                                    ExtraItemsBottomSheet(
+                                                        extra: menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .optionGroups,
+                                                        itemImage: '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .image}',
+                                                        name: language == 'en'
+                                                            ? '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .name!.en}'
+                                                            : '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .name!.ar}',
+                                                        description: language ==
+                                                            'en'
+                                                            ? '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .description!.en}'
+                                                            : '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .description!.ar}',
+                                                        price: menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .price,
+                                                        id: '${menu
+                                                            .CategoriesItemsData![index]
+                                                            .items![indexNew]
+                                                            .id}'),
+                                                    controller: controller,);
+                                                }
+                                                    : () {
+                                                  DeliveryCubit.get(context)
+                                                      .addValue(
+                                                      language == 'en' ? '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.en}' : '${menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .name!.ar}', 1, menu
                                                       .CategoriesItemsData![index]
-                                                      .items![indexNew].id);
-                                                }, false)
-                                                : null)),
-                                  ],
-                                );}
-                              ,itemCount: menu.CategoriesItemsData![index].items!.length, separatorBuilder: (BuildContext context, int index) =>seperate(),),
-                            if(index!=menu.CategoriesItemsData!.length-1&&index!=0)
-                              seperate(),
-                          ],
-                        ),
-                      );
-                    }, childCount: menu.CategoriesItemsData!.length,
-                  ), ):SliverList(delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {return Padding(
-                      padding: const EdgeInsets.only(top: 150.0),
-                      child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
-                    );},childCount: 1)):providerLoading(),
-              ),*/
+                                                      .items![indexNew].image,
+                                                      menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .price ?? 0, menu
+                                                      .CategoriesItemsData![index]
+                                                      .items![indexNew].id,
+                                                      null);
+                                                },
+                                                        () {
+                                                      DeliveryCubit.get(context)
+                                                          .minusValue(
+                                                          language == 'en'
+                                                              ? '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .name!.en}'
+                                                              : '${menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .name!.ar}', 1,
+                                                          menu
+                                                              .CategoriesItemsData![index]
+                                                              .items![indexNew]
+                                                              .image, menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew]
+                                                          .price ?? 0, menu
+                                                          .CategoriesItemsData![index]
+                                                          .items![indexNew].id);
+                                                    }, false)
+                                                    : null)),
+                                      ],
+                                    );}
+                                  ,itemCount: menu.CategoriesItemsData![index].items!.length, separatorBuilder: (BuildContext context, int index) =>seperate(),),
+                                if(index!=menu.CategoriesItemsData!.length-1&&index!=0)
+                                  seperate(),
+                              ],
+                            ),
+                          );
+                        }, childCount: menu.CategoriesItemsData!.length,
+                      ), ):SliverList(delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {return Padding(
+                          padding: const EdgeInsets.only(top: 150.0),
+                          child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
+                        );},childCount: 1)):providerLoading(),
+                  ),*/
+                ],
+              ),
+              if(ProviderCubit.get(context).showSearchProvider)
+                searchProvider(context),
             ],
           ),
           bottomNavigationBar:  values.isNotEmpty?cartPaymentBottom(Strings.showCart.tr(context), (){navigate(context, Cart());}, true,context):null
+
           /* body:  SafeArea(
         bottom: false,
         child: Stack(
@@ -946,7 +968,8 @@ class OtherWidget extends StatelessWidget {
                         language == 'en'
                             ? item?.name?.en ?? ''
                             : '${item?.name?.ar}',
-                        style: TextStyleHelper.of(context).bold19,
+                        style: TextStyleHelper.of(context).bold19.copyWith(fontSize: 16,overflow: TextOverflow.ellipsis),
+                        maxLines: 1,
                       ),
                       10.h.heightBox,
                       AppTextWidget(
