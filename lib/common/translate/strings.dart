@@ -110,4 +110,5 @@ class Strings {
   static const String failedRedeemPoints= "failed_redeem_points";
   static const String yourPointsLess= "Your_points_less";
   static const String pointsRedeemedSuccessfully= "points_redeemed_successfully";
+  static const String deliveryFree= "delivery_free";
 }

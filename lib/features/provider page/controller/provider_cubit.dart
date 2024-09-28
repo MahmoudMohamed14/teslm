@@ -298,22 +298,14 @@ class ProviderCubit extends Cubit<ProviderState> {
   double opecity=1;
   final ItemScrollController itemScrollController = ItemScrollController();
   double expandedHeight = 80.0;
-  double imageHeight=200.0;
-  double containerHeight=180.0;
-  double containerPadding = 100.0;
-  double rowItems=150;
    ScrollController scrollControllerColumn = ScrollController();
   ScrollController get scrollController => scrollControllerColumn;
   _scrollAnimation(){
     final double offset = scrollControllerColumn.offset;
     if (offset > 20 && offset < 50) {
-      imageHeight = 200 - offset;
-      containerPadding = 100 - offset * 0.0002;
-      containerHeight = 180 - offset * 2.5;
       if (expandedHeight > 30) {
         expandedHeight -= offset * 0.1;
       }
-      rowItems = 150 - offset;
       if (opecity > 0.2) {
         opecity -= 0.2;
       } else {
@@ -321,16 +313,11 @@ class ProviderCubit extends Cubit<ProviderState> {
       }
     }
     else if (offset <= 20) {
-      imageHeight = 200 - offset * 0.002;
-      containerPadding = 100.0;
-      containerHeight = 180 - offset * 1.9;
-      rowItems = 150.0;
       opecity = 1.0;
       expandedHeight = 80.0;
     } else {
       opecity = 0;
       expandedHeight = 30;
-      containerHeight = 64;
     }
     emit(Reload());
   }
