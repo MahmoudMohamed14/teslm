@@ -8,7 +8,9 @@ import 'package:delivery/features/auth/screen/login.dart';
 import 'package:delivery/features/home/controller/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../Cubite/delivery_cubit.dart';
+import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
 import '../../orders/screen/orders.dart';
 import '../../point/screen/points.dart';
@@ -24,7 +26,7 @@ class Home extends StatelessWidget {
     // TODO: implement listener
   },
   builder: (context, state) {
-    List<BluredNavBarXItem> navBar = [
+   /* List<BluredNavBarXItem> navBar = [
       BluredNavBarXItem(icon:  Icons.home,
         title: Strings.home.tr(context),
       ),
@@ -37,22 +39,22 @@ class Home extends StatelessWidget {
       BluredNavBarXItem(icon: Icons.more_horiz,
         title: Strings.more.tr(context),
       ),
-    ];
+    ];*/
     List<BottomNavigationBarItem> items = [
     BottomNavigationBarItem(
-        icon:const Icon(Icons.home),
+        icon:SvgPicture.asset(ImagesApp.homeIcon,colorFilter:HomeCubit.get(context).current==0? ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),
         label: Strings.home.tr(context),
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.apps_outlined),
+        icon:SvgPicture.asset(ImagesApp.ordersIcon,colorFilter: HomeCubit.get(context).current==1?ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),
         label: Strings.myOrders.tr(context),
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.card_giftcard),
+        icon:SvgPicture.asset(ImagesApp.pointsIcon,colorFilter: HomeCubit.get(context).current==2?ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),
         label: Strings.points.tr(context),
       ),
        BottomNavigationBarItem(
-        icon: const Icon(Icons.more_horiz),
+         icon:SvgPicture.asset(ImagesApp.moreIcon,colorFilter:HomeCubit.get(context).current==3? ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),
         label:Strings.more.tr(context),
       ),
     ];

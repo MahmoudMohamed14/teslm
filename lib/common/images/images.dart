@@ -45,4 +45,8 @@ class ImagesApp {
   static const String cartAppbar = 'assets/images/cart_appbar.svg';
   static const String cartShop = 'assets/images/cart_shop.svg';
   static const String clockImage = 'assets/images/clock.svg';
+  static const String homeIcon = '$_iconPath/home.svg';
+  static const String moreIcon = '$_iconPath/more.svg';
+  static const String pointsIcon = '$_iconPath/points.svg';
+  static const String ordersIcon = '$_iconPath/myOrders.svg';
 }
