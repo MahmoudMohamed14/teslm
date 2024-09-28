@@ -9,6 +9,7 @@ import '../../../common/constant/constant values.dart';
 Widget checkList(isChecked,onChange,addNewName,price,extraImage,context)=> InkWell(
   onTap: onChange,
   child: Card(
+    color: ThemeModel.of(context).cardsColor,
     child: Container(
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(border: isChecked?Border.all(color: ThemeModel.mainColor,width:1.5):null,borderRadius: BorderRadius.circular(7)),
@@ -19,12 +20,12 @@ Widget checkList(isChecked,onChange,addNewName,price,extraImage,context)=> InkWe
             children: [
               Text(
                 Strings.sar.tr(context), maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
-                style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: isDark??false? floatActionColor:brownColor),
+                style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold,),
               ),
               const SizedBox(width: 5,),
               Text(
                 '$price+', maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
-                style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: isDark??false? floatActionColor:brownColor),
+                style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold,),
               ),
             ],
           ),
@@ -32,7 +33,7 @@ Widget checkList(isChecked,onChange,addNewName,price,extraImage,context)=> InkWe
             children: [
               Text(
                 addNewName, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
-                style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: isDark??false? floatActionColor:brownColor),
+                style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold,),
               ),
               const SizedBox(width: 7,),
               image('$extraImage', 30.0, 30.0, 30.0,BoxFit.fill),

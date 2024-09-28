@@ -58,6 +58,8 @@ class MainCategories extends StatelessWidget {
                           newOffers?.data?.length??0,
                               (index) => InkWell(
                                 onTap: (){
+                                  ProviderCubit.get(context).expandedHeight=80;
+                                  ProviderCubit.get(context).opecity=1;
                                   ProviderCubit.get(context).getProviderFoodData('${newOffers?.data?[index].provider?.id}');
                                   navigate(context, ProviderPage(
                                       providerDescription:language=='en'? '${newOffers?.data?[index].provider?.description?.en}':'${newOffers?.data![index].provider?.description?.ar}',
@@ -189,6 +191,8 @@ class MainCategories extends StatelessWidget {
                               padding:const EdgeInsets.only(left: 8.0,right: 8.0),
                               child: bigCardCategory(providerItem,
                                 () {
+                                  ProviderCubit.get(context).expandedHeight=80;
+                                  ProviderCubit.get(context).opecity=1;
                               ProviderCubit.get(context).getProviderFoodData(providerItem.id);
                               navigate(
                                 context,
@@ -209,6 +213,8 @@ class MainCategories extends StatelessWidget {
                             : Padding(
                               padding: const EdgeInsets.only(left: 8.0,right: 8.0),
                               child: smallCard(providerItem, () {
+                                ProviderCubit.get(context).expandedHeight=80;
+                                ProviderCubit.get(context).opecity=1;
                                 ProviderCubit.get(context).getProviderFoodData(providerItem.id);
                                                         navigate(
                               context,
