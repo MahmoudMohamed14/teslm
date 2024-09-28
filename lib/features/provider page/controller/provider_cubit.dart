@@ -2,7 +2,10 @@
 import 'dart:convert';
 
 import 'package:delivery/features/provider%20page/controller/provider_state.dart';
+import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../Dio/Dio.dart';
 import '../../../common/components.dart';
@@ -13,7 +16,10 @@ import '../../../shared_preference/shared preference.dart';
 
 
 class ProviderCubit extends Cubit<ProviderState> {
-  ProviderCubit() : super(ProviderInitial());
+  ProviderCubit() : super(ProviderInitial()){
+    _scrollAnimation();
+  }
+
   static ProviderCubit get(context) => BlocProvider.of(context);
   void addValue(String name, int value,image,int foodPrice,id,description,extraId) {
     bool valueExists = false;
@@ -68,6 +74,7 @@ class ProviderCubit extends Cubit<ProviderState> {
     saveCardList();
   }
   ProviderItemsMenu? providerFoodData;
+  late AnimationController controller;
   void getProviderFoodData(id) {
     emit(GetProviderFoodLoading());
     DioHelper.getData(url: '${ApiEndPoint.providers}/$id', myapp: true,)
@@ -225,6 +232,95 @@ class ProviderCubit extends Cubit<ProviderState> {
       });
     }
   }
+  bool showSearchProvider=false;
+  void showSearch(){
+    showSearchProvider= true;
+    print(showSearchProvider);
+    emit(Reload());
+
+  }
+  void hideSearch(){
+    showSearchProvider= false;
+    print(showSearchProvider);
+    emit(Reload());
+  }
+  List<Items>allItems=[];
+  List<Items>searchedItems=[];
+  final RegExp english = RegExp(r'^[a-zA-Z]+');
+  bool langEn=true;
+  void changeLang(String text){
+    if (english.hasMatch(text)) {
+      langEn = true;
+    } else {
+      langEn = false;
+    }
+  }
+  void searchProvider(String name){
+
+    changeLang(name);
+   allItems=[];
+   searchedItems=[];
+   if(name.isNotEmpty) {
+     providerFoodData?.CategoriesItemsData?.forEach((element) {
+       element.items?.forEach((element1) {
+         allItems.add(element1);
+       });
+     });
+     searchedItems = allItems.where((element) =>
+     (langEn ? element.name?.en?.toLowerCase().contains(name.toLowerCase()) ??
+         false : element.name?.ar?.toLowerCase().contains(name.toLowerCase()) ??
+         false) ||
+         (langEn ? element.description?.en?.toLowerCase().contains(
+             name.toLowerCase()) ?? false : element.description?.ar
+             ?.toLowerCase().contains(name.toLowerCase()) ?? false) ||
+         (element.price.toString().contains(name))
+     ).toList();
+     print('Search: $searchedItems');
+     print(searchedItems.lastOrNull?.name?.en??''+"SEARCH HERE"+"${searchedItems.firstOrNull?.price}");
+   }
+
+    emit(Reload());
+  }
+  double opecity=1;
+  final ItemScrollController itemScrollController = ItemScrollController();
+  double expandedHeight = 345.0;
+  double imageHeight=200.0;
+  double containerHeight=180.0;
+  double containerPadding = 100.0;
+  double rowItems=150;
+   ScrollController scrollControllerColumn = ScrollController();
+  ScrollController get scrollController => scrollControllerColumn;
+  _scrollAnimation(){
+    final double offset = scrollControllerColumn.offset;
+    if (offset > 20 && offset < 50) {
+      imageHeight = 200 - offset;
+      containerPadding = 100 - offset * 0.0002;
+      containerHeight = 180 - offset * 2.5;
+      if (expandedHeight > 150) {
+        expandedHeight -= offset * 0.1;
+      }
+      rowItems = 150 - offset;
+      if (opecity > 0.2) {
+        opecity -= 0.2;
+      } else {
+        opecity = 0;
+      }
+    }
+    else if (offset <= 20) {
+      imageHeight = 200 - offset * 0.002;
+      containerPadding = 100.0;
+      containerHeight = 180 - offset * 1.9;
+      rowItems = 150.0;
+      opecity = 1.0;
+      expandedHeight = 345.0;
+    } else {
+      opecity = 0;
+      expandedHeight = 150;
+      containerHeight = 64;
+    }
+    emit(Reload());
+  }
+
 
  /* void scrollToIndex(int index) {
     int items = calculateItemsBeforeIndex(index);
