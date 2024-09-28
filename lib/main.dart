@@ -49,9 +49,32 @@ void main() async {
   runApp(MyApp(Splash(home: widget)));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget  with WidgetsBindingObserver {
   const MyApp(this.start, {Key? key}) : super(key: key);
   final Widget start;
+
+ @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+   if (state == AppLifecycleState.detached) {
+     print('detached');
+
+   }
+   if (state == AppLifecycleState.resumed) {
+     print('resumed');
+   }
+   if (state == AppLifecycleState.inactive) {
+     print('inactive');
+   }
+   if (state == AppLifecycleState.paused) {
+     print('paused');
+   }
+ }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +128,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               darkTheme: darkMode,
               themeMode: isDark??false ? ThemeMode.dark : ThemeMode.light,
-              home: start,
+              home: widget.start,
               locale:Locale(AppDarkLightCubit.get(context).lang),
 
              localizationsDelegates:const  [
