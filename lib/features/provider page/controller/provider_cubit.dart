@@ -21,47 +21,49 @@ class ProviderCubit extends Cubit<ProviderState> {
   }
 
   static ProviderCubit get(context) => BlocProvider.of(context);
-  void addValue(String name, int value,image,int foodPrice,id,description,extraId) {
+  void addValue(String name, int value,image,int foodPrice,id,description,extraId,providerId) {
     bool valueExists = false;
     for (var map in values) {
-      if (map['name'] == name) {
+      if (map['itemId'] == id) {
         map['quantity'] = (map['quantity']! + 1);
         valueExists = true;
         break;
       }
     }
-    if(!isRestaurant){
+
       for (var map in cardList) {
-        if (map['name'] == name) {
+        if (map['itemId'] == id) {
           map['quantity'] = (map['quantity']! + 1);
           valueExists = true;
           break;
         }
       }
-    }
+
 
     if (!valueExists) {
       values.add({
         'name': name,
         'quantity': value,
         'image': image,
-        "categoryId":categoryId,
+        "ProviderId":providerId,
+        "isRestaurant":isRestaurant,
         'price': foodPrice,
         'itemId': id,
         'description':description,
         'selectedOptionGroups': extraId??[]
       });
-      if(!isRestaurant) {
+
         cardList.add({
           'name': name,
           'quantity': value,
           'image': image,
-          "categoryId":categoryId,
+          "ProviderId":providerId,
+          "isRestaurant":isRestaurant,
           'price': foodPrice,
           'itemId': id,
           'selectedOptionGroups': extraId??[]
         });
-      }
+
 
 
 
@@ -130,14 +132,14 @@ class ProviderCubit extends Cubit<ProviderState> {
     }
   }
   void minusValue(String name, int value, image, int foodPrice, id) {
-    print("هي");
+
     bool valueExists = false;
    // List<Map<String, dynamic>> valuesCopy = List.from(values.reversed);
 
     for (var map in values) {
-      print("before1 = ${map}");
+
       if (map['itemId'] == id) {
-        print("before = ${map}") ;
+
         map['quantity'] = (map['quantity']! - 1);
         if (map['quantity'] == 0) {
           values.remove(map);
@@ -146,9 +148,9 @@ class ProviderCubit extends Cubit<ProviderState> {
         break;
       }
     }
-    if(!isRestaurant){
+
       for (var map in cardList) {
-        if (map['name'] == name) {
+        if (map['itemId'] == id) {
 
           map['quantity'] = (map['quantity']! - 1);
           if (map['quantity'] == 0) {
@@ -157,7 +159,7 @@ class ProviderCubit extends Cubit<ProviderState> {
           valueExists = true;
           break;
         }
-      }
+
     }
 
     if (valueExists) {
@@ -165,14 +167,15 @@ class ProviderCubit extends Cubit<ProviderState> {
       price -= foodPrice;
       emit(Reload());
     }
+    saveCardList();
     emit(Reload());
-    if(!isRestaurant) saveCardList();
+
   }
   void RemoveValue(index) {
     if (index >= 0 && index < values.length) {
       int productPrice = values[index]['price'].toInt();
       price -= productPrice;
-      if(!isRestaurant) cardList.remove(values[index]);
+       cardList.remove(values[index]);
       values.removeAt(index);
 
       emit(Reload());

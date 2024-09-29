@@ -61,10 +61,21 @@ class MainCategories extends StatelessWidget {
                                   ProviderCubit.get(context).expandedHeight=80;
                                   ProviderCubit.get(context).opecity=1;
                                   ProviderCubit.get(context).getProviderFoodData('${newOffers?.data?[index].provider?.id}');
+
+                                    values=[];
+                                    ProviderCubit.get(context).cardList.forEach((action){
+                                      if(newOffers?.data?[index].provider?.id==action['ProviderId']){
+                                        values.add(action);
+
+                                      }
+                                    });
+
+
+
                                   navigate(context, ProviderPage(
                                       providerDescription:language=='en'? '${newOffers?.data?[index].provider?.description?.en}':'${newOffers?.data![index].provider?.description?.ar}',
                                       providerName: language=='en'?'${newOffers?.data?[index].provider?.providerName!.en}':'${newOffers?.data?[index].provider?.providerName?.ar}',
-                                      providerCover: '${newOffers?.data?[index].provider?.providerCover}', providerImage: '${newOffers?.data?[index].provider?.providerImage}'));
+                                      providerCover: '${newOffers?.data?[index].provider?.providerCover}', providerImage: '${newOffers?.data?[index].provider?.providerImage}',providerId: newOffers?.data?[index].provider?.id??'',));
                                 },
                                 child: Stack(
                                   children: [
@@ -194,6 +205,14 @@ class MainCategories extends StatelessWidget {
                                   ProviderCubit.get(context).expandedHeight=80;
                                   ProviderCubit.get(context).opecity=1;
                               ProviderCubit.get(context).getProviderFoodData(providerItem.id);
+                                  values=[];
+                                  ProviderCubit.get(context).cardList.forEach((action){
+                                    if(providerItem?.id==action['ProviderId']){
+                                      values.add(action);
+
+                                    }
+                                  });
+
                               navigate(
                                 context,
                                 ProviderPage(
@@ -205,6 +224,7 @@ class MainCategories extends StatelessWidget {
                                       : providerItem.providerName!.ar,
                                   providerCover: providerItem.providerCover,
                                   providerImage: providerItem.providerImage,
+                                  providerId: providerItem.id,
                                 ),
                               );
                               },context
@@ -213,11 +233,18 @@ class MainCategories extends StatelessWidget {
                             : Padding(
                               padding: const EdgeInsets.only(left: 8.0,right: 8.0),
                               child: smallCard(providerItem, () {
+
                                 ProviderCubit.get(context).expandedHeight=80;
                                 ProviderCubit.get(context).opecity=1;
                                 ProviderCubit.get(context).getProviderFoodData(providerItem.id);
-                                                        navigate(
-                              context,
+                                values=[];
+                                ProviderCubit.get(context).cardList.forEach((action){
+                                  if(providerItem?.id==action['ProviderId']){
+                                    values.add(action);
+
+                                  }
+                                });
+                                                        navigate(context,
                               ProviderPage(
                                 providerDescription: language == 'en'
                                     ? providerItem.description!.en
@@ -227,6 +254,7 @@ class MainCategories extends StatelessWidget {
                                     : providerItem.providerName!.ar,
                                 providerCover: providerItem.providerCover,
                                 providerImage: providerItem.providerImage,
+                                providerId: providerItem.id,
                               ),
                                                         );
                                                       },context),

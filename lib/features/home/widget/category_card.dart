@@ -9,22 +9,18 @@ import '../../main_category_page/screen/main_categories.dart';
 Widget category(model,index,context){return InkWell(
   onTap: (){
     CategoryCubit.get(context).categoryProvider(id:model.id);
+
     navigate(context, MainCategories(categoryName:language=='en'? '${model.name.en}':'${model.name.ar}'));
     print(" name???${model.name.en} ");
-    ProviderCubit.get(context).categoryId=model.id;
-    if(model.name?.en?.toLowerCase()=='restaurants'){
+    if(model.name.en?.toLowerCase()=='restaurants'){
       values=[];
       ProviderCubit.get(context).isRestaurant=true;
     }else{
+      values=[];
       ProviderCubit.get(context).isRestaurant=false;
-      ProviderCubit.get(context).cardList.forEach((action){
-        if(ProviderCubit.get(context).categoryId==action['categoryId']){
-          values.add(action);
-
-        }
-      });
-
     }
+  //  ProviderCubit.get(context).categoryId=model.id;
+
   },
   child: Column(
     children: [ClipRRect(

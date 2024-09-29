@@ -321,7 +321,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                         ProviderCubit.get(context).addIdToSelectedOption(widget.extra,checklist);
                         ProviderCubit.get(context).addValue(widget.name +
                             extraName, ProviderCubit.get(context).itemsNumber, widget.itemImage, (widget.price as int) , widget
-                            .id,widget.description ,cubit.addExtra,widget.categoryId);
+                            .id,widget.description ,cubit.addExtra);
                         ProviderCubit.get(context).submitValue(ProviderCubit.get(context).itemsNumber);
                         Navigator.pop(context);
                       });

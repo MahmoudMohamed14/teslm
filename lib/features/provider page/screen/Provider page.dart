@@ -33,12 +33,14 @@ class ProviderPage extends StatefulWidget {
   String providerName;
   String providerCover;
   String providerImage;
+  String providerId;
 
   ProviderPage(
       {super.key,
       required this.providerDescription,
       required this.providerName,
       required this.providerCover,
+        required this.providerId,
       required this.providerImage});
 
   @override
@@ -243,7 +245,7 @@ class _ProviderPage extends State<ProviderPage>
                                8.0.heightBox,
                                ListView.separated(
                                    itemBuilder: (context, index) =>OtherWidget(item: menu.CategoriesItemsData?.firstOrNull?.items?[index]
-                                     ,categoryId:menu.CategoriesItemsData?[index1].id,controller: ProviderCubit.get(context).controller,),
+                                     ,provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),
                                    physics: const NeverScrollableScrollPhysics(),
                                    shrinkWrap: true,
                                    separatorBuilder: (context, index) => 10.h.heightBox,
@@ -949,11 +951,11 @@ class _ProviderPage extends State<ProviderPage>
 }
 
 class OtherWidget extends StatelessWidget {
-  const OtherWidget({super.key, this.item, this.controller, this.categoryId, });
+  const OtherWidget({super.key, this.item, this.controller, this.provederId, });
 
   final Items? item;
   final AnimationController ?controller;
- final String? categoryId;
+ final String? provederId;
 
 
   @override
@@ -972,7 +974,7 @@ class OtherWidget extends StatelessWidget {
                   ? '${item?.description?.en}'
                   : '${item?.description?.ar}',
               price: item?.price,
-              id: '${item?.id}',categoryId: categoryId??'',),
+              id: '${item?.id}',categoryId: provederId??'',),
             controller: controller);
       },
       child: Container(
@@ -1099,10 +1101,11 @@ class OtherWidget extends StatelessWidget {
                         ExtraItemsBottomSheet(
                             extra: item?.optionGroups,
                             itemImage: '${item?.image}'
-                            ,categoryId: categoryId??'',
+                            ,categoryId: provederId??'',
                             name: language == 'en'
                                 ? '${item?.name!.en}'
                                 : '${item?.name!.ar}',
+
                             description: language ==
                                 'en'
                                 ? '${item?.description!.en}'
@@ -1117,8 +1120,8 @@ class OtherWidget extends StatelessWidget {
                           language == 'en' ? '${item?.name!.en}' :
                           '${item?.name!.ar}', 1, item?.image,
                           item?.price ?? 0,item?.id,
-                          categoryId??'',
-                          null);
+                          language == 'en' ?  item?.description?.en??'':item?.description?.ar??'',
+                          null,provederId??'');
                     },
                             () {
                           ProviderCubit.get(context)
@@ -1144,14 +1147,14 @@ class OtherWidget extends StatelessWidget {
                                 : '${item?.description?.ar}',
                             price: item?.price,
                             id:
-                            '${item?.id}', categoryId: '',),
+                            '${item?.id}', categoryId: provederId??'',),
                         controller: controller): ProviderCubit.get(context)
                             .addValue(
                             language == 'en' ? '${item?.name!.en}' :
                             '${item?.name!.ar}', 1, item?.image,
                             item?.price ?? 0,item?.id,language == 'en' ? '${item?.description!.en}' :
                         '${item?.description!.ar}',
-                            null);
+                            null,provederId??'');
                       },
                       child: const CircleAvatar(
                         backgroundColor: ThemeModel.mainColor,

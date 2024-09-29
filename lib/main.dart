@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:delivery/features/auth/controller/auth_cubit.dart';
 import 'package:delivery/Dio/Dio.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
@@ -65,6 +67,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     print("initState>>>>>>>>>>>>>>>>>>>");
+  Save.remove(key: 'myCart');
   }
 
   @override
@@ -72,25 +75,33 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-  @override
-  void activate() {
-    // TODO: implement activate
-    super.activate();
-    print('active>>>>>>>>>>>>>>');
-  }
 
-  @override
-  void deactivate() {
-    // TODO: implement deactivate
-    super.deactivate();
-    print('deactivate>>>>>>>>>>>>>');
-  }
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
 
     if (state == AppLifecycleState.detached) {
+
       print('detached>>>>>>>>>>>>>');
 
+      /*String? json = Save.getdata(key: 'myCart');
+      print('after>>>>>>>>>>>>>>>>>>');
+      List<Map<String, dynamic>>  cardList=[];
+      if(json!=null){
+        print('if>>>>>>>>>>>>>>>>>>');
+        cardList =  (jsonDecode(json) as List<dynamic>)
+            .map((item) => Map<String, dynamic>.from(item))
+            .toList();
+        print(" myCart=${cardList}");
+        for(int i=0;i<cardList.length;i++){
+          print("isRestaurant= ${cardList[i]["isRestaurant"]==true}");
+          if((cardList[i]["isRestaurant"]??false)){
+
+          //  cardList.remove(cardList[i]);
+          }
+        }
+      }
+      Save.savedata(key: 'myCart', value: jsonEncode(cardList));
+      print('done>>>>>>>>>>>>>>>>>>');*/
     }
     if (state == AppLifecycleState.resumed) {
       print('resumed>>>>>>>>>>>>>>>>>>');
