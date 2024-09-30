@@ -79,6 +79,7 @@ class OrderCubit extends Cubit<OrderState> {
         style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
       emit(PostOrderSuccess());
     }).catchError((error) {
+      print(error.toString());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.red.shade400,
         content:  Align(

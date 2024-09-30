@@ -16,7 +16,7 @@ class AccountCubit extends Cubit<AccountState> {
     String ?username ,
     String ?email ,
     String ?birthdate ,
-    context
+    required BuildContext context
   }){
     emit(UpdateUserLoading());
     Map<String, dynamic> data = {}; // Create an empty map to hold the updated data
@@ -38,7 +38,7 @@ class AccountCubit extends Cubit<AccountState> {
     });
   }
   GetUserData ?getUserData;
-  void getNewCustomer(context){
+  void getNewCustomer(BuildContext context){
     emit(GetUserLoading());
     DioHelper.getData(url: 'customers/auth/me',
         token: token,
@@ -48,6 +48,7 @@ class AccountCubit extends Cubit<AccountState> {
       PointCubit.get(context).getCouponsData();
       emit(GetUserSuccess());
     }).catchError((error) {
+      print(error.toString());
       emit(GetUserError());
     });
   }

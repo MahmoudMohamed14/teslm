@@ -1,5 +1,7 @@
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/colors/theme_model.dart';
@@ -10,7 +12,12 @@ import '../../point/controller/point_cubit.dart';
 Widget paymentMethodCard(context) {
   List<IconData> listIcons=[Icons.credit_card,Icons.apple_outlined,Icons.account_balance_wallet_rounded];
   List<String> listPaymentMethod =[ Strings.payVisa.tr(context),Strings.payApple.tr(context),Strings.payTeslmCash.tr(context)];
-  return Container(
+  return BlocConsumer<OrderCubit, OrderState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return Container(
   padding: const EdgeInsets.all(10),
   decoration: BoxDecoration(
       color: ThemeModel.of(context).cardsColor,
@@ -63,5 +70,7 @@ Widget paymentMethodCard(context) {
     ),
     separatorBuilder:(context,index)=> seperate(),
   ),
+);
+  },
 );
 }

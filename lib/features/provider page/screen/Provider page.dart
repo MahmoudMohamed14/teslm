@@ -1009,7 +1009,7 @@ class OtherWidget extends StatelessWidget {
                         ],
                       ),
                         if (item?.optionGroups?.isNotEmpty??false)  AppTextWidget(
-                          'Cusomizable',
+                          Strings.customizable.tr(context),
                           style: TextStyleHelper.of(context)
                               .regular15
                               .copyWith(color: ThemeModel.of(context).font2),
@@ -1042,7 +1042,7 @@ class OtherWidget extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                   decoration: BoxDecoration(
-                    color: ThemeModel.of(context).font2,
+                    color: ThemeModel.of(context).priceAndCaloriesColor,
                     borderRadius: const BorderRadiusDirectional.only(
                         topEnd: Radius.circular(30),
                         bottomEnd: Radius.circular(30)),
@@ -1237,7 +1237,6 @@ class CategoryShimmer extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Skeleton(width: 140.w,height: 179.h,radius: 18.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -1250,8 +1249,9 @@ class CategoryShimmer extends StatelessWidget {
                   Skeleton(width: 200.w,height: 5.h,),
                   12.h.heightBox,
                   Skeleton(width: 200.w,height: 30.h,radius: 16.0),
-                ],)
-
+                ],),
+              Spacer(),
+              Skeleton(width: 140.w,height: 179.h,radius: 18.0),
 
             ],
           ),

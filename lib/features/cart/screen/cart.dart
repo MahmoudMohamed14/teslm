@@ -1,10 +1,10 @@
-import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/auth/screen/login.dart';
 import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
+import 'package:delivery/features/provider%20page/controller/provider_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/colors/theme_model.dart';
@@ -19,7 +19,7 @@ class Cart extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     TextEditingController noteTextController = TextEditingController();
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<ProviderCubit, ProviderState>(
   listener: (context, state) {
     // TODO: implement listener
   },
@@ -78,7 +78,7 @@ class Cart extends StatelessWidget{
                         bottom(Strings.addNew.tr(context), (){Navigator.pop(context);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
                         const SizedBox(height: 10,),
                         bottom(Strings.payNow.tr(context), (){navigate(context,(token!=''&&token!=null)? Payment(customerNotes: noteTextController.text,)
-                            :const Login());if(token==''||token==null)loginFromCart=true;
+                            :const Login(fromOrder: true,));if(token==''||token==null)loginFromCart=true;
                         totalPrice=ProviderCubit.get(context).getPrice().toInt()+shippingPrice;},radius: 20,),
                       ],
                     ),

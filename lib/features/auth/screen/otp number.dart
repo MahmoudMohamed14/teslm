@@ -15,22 +15,20 @@ import '../../../widgets/app_text_widget.dart';
 
 
 class OtpNumber extends StatefulWidget {
-  String phoneNumber;
-  String country;
+  final String phoneNumber;
+  final String country;
   //String verificationID;
-  OtpNumber({super.key,required this.phoneNumber,required this.country});
+  const OtpNumber({super.key,required this.phoneNumber,required this.country});
   @override
-  State<OtpNumber> createState() => OtpNumberState(phoneNumber: phoneNumber, country: country);
+  State<OtpNumber> createState() => OtpNumberState();
 }
 
 class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMixin{
-  String phoneNumber;
-  String country;
   AnimationController? _animationController;
   int levelClock = 2 * 60;
   final FocusNode _pinFocusNode = FocusNode();
   final TextEditingController _otpController=TextEditingController();
-  OtpNumberState({required this.phoneNumber,required this.country});
+  OtpNumberState();
   @override
   void initState() {
     super.initState();
@@ -42,22 +40,6 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
       FocusScope.of(context).requestFocus(_pinFocusNode);
     });
   }
- /* Future<void> checkOtp()async{
-    try{
-      DeliveryCubit.get(context).userLoginOTP(
-        phoneNumber: '$country$phoneNumber',
-        context: context, otp: _otpController.text.trim(),
-      );
-    }catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.red.shade400,
-        content: Align(
-            alignment: Alignment.center,
-            child: Text(language=='English Language'?"OTP entered is not valid":'الكود المدخل ليس صحيح',style: TextStyle(color: Colors.white,fontSize: 17),)),
-      ));
-      print(e.toString());
-    }
-  }*/
   Future<void> listenSmsCode() async {
     try {
       await SmsAutoFill().listenForCode();
@@ -72,27 +54,11 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
-  listener: (context, state) {
-   /* if (state is OtpVerifySuccess) {
-      DeliveryCubit.get(context).userLoginOTP(
-        phoneNumber: '$country$phoneNumber',
-        context: context, otp: _otpController.text.trim(),
-      );
-      DeliveryCubit.get(context).getPointsCustomer();
-      DeliveryCubit.get(context).getCouponsData();
-    } else if (state is OtpVerifyFailure) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.red.shade400,
-        content: Align(
-            alignment: Alignment.center,
-            child: Text(language=='English Language'?"OTP entered is not valid":'الكود المدخل ليس صحيح',style: TextStyle(color: Colors.white,fontSize: 17),)),
-      ));
-    }*/
-  },
+  listener: (context, state) {},
   builder: (context, state) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(120),
+        preferredSize: const Size.fromHeight(120),
         child: Stack(
           children: [
             Container(
@@ -115,7 +81,7 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CustomFlip(child: Icon(Icons.arrow_back_ios_new,color: ThemeModel.of(context).backgroundColor,),flipX: false,),
+                    CustomFlip(flipX: false,child: Icon(Icons.arrow_back_ios_new,color: ThemeModel.of(context).backgroundColor,),),
                     6.w.widthBox,
                     SizedBox(
                       width: 200,
@@ -139,35 +105,6 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
               Image.asset(ImagesApp.codeImage,fit: BoxFit.cover,height: 250,width: 250,),
              24.h.heightBox,
               AppTextWidget( Strings.codeYouEnteredInvalid.tr(context),style: TextStyleHelper.of(context).regular14,),
-               /*Text(
-                language=='English Language'?"Verification":"تحقق من رقمك",
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                child:  Text(
-                  language=='English Language'?"Enter the code sent to your number":'ادخل الكود المرسل لهاتفك',
-                  style: TextStyle(
-                    color: isDark??false? Colors.white:Colors.grey,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  '+$country *******${phoneNumber[7]}${phoneNumber[8]}',
-                  style:const TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              */
-
-             // otpCode(state,_otpController,_pinFocusNode,country,phoneNumber,context,_otpController.text.trim()),
               16.h.heightBox,
               Padding(
                 padding: const EdgeInsets.only(left: 10.0,right: 10),
@@ -189,14 +126,11 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
                   cursor: Cursor(color: ThemeModel.mainColor, enabled: true, width: 1),
                   onCodeSubmitted: (code) {
                    // checkOtp(context,country,phoneNumber,_otpController);
-                    AuthCubit.get(context).userLoginOTP(phoneNumber: "$country$phoneNumber", otp: _otpController.text, context: context);
+                    AuthCubit.get(context).userLoginOTP(phoneNumber: "${widget.country}${widget.phoneNumber}", otp: _otpController.text, context: context);
                   },
                   onCodeChanged: (code) {
                     if(code?.length==6){
-                     /* final otpCubit = context.read<DeliveryCubit>();
-                      // otpCubit.verifyOtpCode('mostafa1021999', 'D0A33FB434111DFE02585FF2394D3AB7','$country$phoneNumber',_otpController.text,'c6e0d3b0-ff3b-42a7-9e37-599da8811f2f','Ar');
-               */
-                      AuthCubit.get(context).userLoginOTP(phoneNumber: "$country$phoneNumber", otp: _otpController.text, context: context);
+                      AuthCubit.get(context).userLoginOTP(phoneNumber: "${widget.country}${widget.phoneNumber}", otp: _otpController.text, context: context);
                     }
                     else{}
                   },
@@ -204,32 +138,13 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
                 ),
               ),
               const SizedBox(height: 8,),
-           /*   Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(language=='English Language'?"No get message: ":'لم تصلك رساله'),
-                  _animationController!.value == 0?Countdown(
-                    animation: StepTween(
-                      begin: levelClock, // THIS IS A USER ENTERED NUMBER
-                      end: 0,
-                    ).animate(_animationController!),
-                  ):InkWell(onTap: (){}, child: Text(language=='English Language'?'Resnd Code':'اعارة الارسال',style: TextStyle(color: mainColor),)),
-                ],
-              ),*/
               Center(child: AppTextWidget( "didNotReceiveCode".tr(context),style: TextStyleHelper.of(context).regular14,)),
               16.h.heightBox,
               Center(child: AppTextWidget( "resendCode".tr(context)
                 ,style: TextStyleHelper.of(context).regular14.copyWith(color: ThemeModel.of(context).primary,fontWeight: FontWeight.w900))),
               45.h.heightBox,
               bottom(Strings.verity.tr(context), () async {
-
-
               },radius: 30,)
-             /* if (state is OtpCheckLoading)
-               const Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: CircularProgressIndicator(),
-                )*/
             ],
           ),
         ),
@@ -240,9 +155,9 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
   }
 }
 class Countdown extends AnimatedWidget {
-  Countdown({Key? key, required this.animation})
+  const Countdown({Key? key, required this.animation})
       : super(key: key, listenable: animation);
-  Animation<int> animation;
+  final Animation<int> animation;
 
   @override
   build(BuildContext context) {

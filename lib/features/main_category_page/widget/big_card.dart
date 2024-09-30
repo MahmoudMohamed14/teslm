@@ -47,22 +47,28 @@ Widget bigCardCategory(providerData,onTap,context)=>InkWell(
                     Positioned(
                         bottom: 0, left: 0, height:25,
                         child:Container(
-                            width: MediaQuery.sizeOf(context).width/1.2,
-                            decoration: BoxDecoration(color:Colors.black26,borderRadius:BorderRadius.circular(5)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(Icons.stars_rounded,color: Colors.white,),Text(language=='English Language'?'Best in 2023':"الافضل فى 2023",
-                                      style: const TextStyle(color: Colors.white),),
-                                  ],
+                          width: MediaQuery.sizeOf(context).width/1.2,
+                          height: 24,
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          decoration: const BoxDecoration(
+                              color:ThemeModel.mainColor,
+                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(7),bottomRight: Radius.circular(7))
+                          ),
+                          child:  Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.add,color: Colors.white,size: 25,),
+                              const SizedBox(width: 5,),
+                              Flexible(
+
+                                child: Text(
+                                  Strings.freeDelivery.tr(context),
+                                  style: const TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w700),
                                 ),
-                                Text(language=='English Language'?'Advertisement':"اعلان",style:const TextStyle(color: Colors.white,fontWeight: FontWeight.w400),),
-                              ],
-                            )
-                        )),
+                              ),
+                            ],
+                          ),
+                        ),),
                   ],
                 )
             ),
@@ -88,31 +94,6 @@ Widget bigCardCategory(providerData,onTap,context)=>InkWell(
                             ],
                           )
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 24,
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
-                        decoration: BoxDecoration(
-                            color:ThemeModel.mainColor,
-                            borderRadius: BorderRadius.circular(7)
-                        ),
-                        child:  Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.add,color: Colors.white,size: 25,),
-                            const SizedBox(width: 5,),
-                            Flexible(
-
-                              child: Text(
-                                Strings.freeDelivery.tr(context),
-                                style: const TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                   ],
                 ),
