@@ -31,8 +31,9 @@ class MainCategories extends StatelessWidget {
         // Handle state changes
       },
       builder: (context, state) {
+       var cubit=CategoryCubit.get(context);
         final scaffoldKey = GlobalKey<ScaffoldState>();
-        var newOffers = HomeCubit.get(context).offersData;
+        //var newOffers = HomeCubit.get(context).offersData;
         var view = CategoryCubit.get(context).changeViewNew;
         var providers = CategoryCubit.get(context).categoryProvideData;
         var filter = CategoryCubit.get(context).filterProvideData;
@@ -55,16 +56,17 @@ class MainCategories extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                          newOffers?.data?.length??0,
+                          cubit.offersData?.data?.length??0,
                               (index) => InkWell(
                                 onTap: (){
+                                  print('this ok');
                                   ProviderCubit.get(context).expandedHeight=80;
                                   ProviderCubit.get(context).opecity=1;
-                                  ProviderCubit.get(context).getProviderFoodData('${newOffers?.data?[index].provider?.id}');
+                                  ProviderCubit.get(context).getProviderFoodData('${cubit.offersData?.data?[index].provider?.id}');
 
                                     values=[];
                                     ProviderCubit.get(context).cardList.forEach((action){
-                                      if(newOffers?.data?[index].provider?.id==action['ProviderId']){
+                                      if(cubit.offersData?.data?[index].provider?.id==action['ProviderId']){
                                         values.add(action);
 
                                       }
@@ -73,9 +75,10 @@ class MainCategories extends StatelessWidget {
 
 
                                   navigate(context, ProviderPage(
-                                      providerDescription:language=='en'? '${newOffers?.data?[index].provider?.description?.en}':'${newOffers?.data![index].provider?.description?.ar}',
-                                      providerName: language=='en'?'${newOffers?.data?[index].provider?.providerName!.en}':'${newOffers?.data?[index].provider?.providerName?.ar}',
-                                      providerCover: '${newOffers?.data?[index].provider?.providerCover}', providerImage: '${newOffers?.data?[index].provider?.providerImage}',providerId: newOffers?.data?[index].provider?.id??'',));
+                                      providerDescription:language=='en'? '${cubit.offersData?.data?[index].provider?.description?.en}':'${cubit.offersData?.data![index].provider?.description?.ar}',
+                                      providerName: language=='en'?'${cubit.offersData?.data?[index].provider?.providerName!.en}':'${cubit.offersData?.data?[index].provider?.providerName?.ar}',
+                                      providerCover: '${cubit.offersData?.data?[index].provider?.providerCover}', providerImage: '${cubit.offersData?.data?[index].provider?.providerImage}',providerId: cubit.offersData?.data?[index].provider?.id??'',));
+
                                 },
                                 child: Stack(
                                   children: [
@@ -90,7 +93,7 @@ class MainCategories extends StatelessWidget {
                                       const Center(child: CircularProgressIndicator()),
                                       errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
-                                      imageUrl: '${newOffers?.data?[index].image}',
+                                      imageUrl: '${cubit.offersData?.data?[index].image}',
                                       width: double.infinity,
                                       fit: BoxFit.fill,
                                     ),
@@ -107,8 +110,8 @@ class MainCategories extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Text(
-                                          language=='en'?'${newOffers?.data?[index].provider?.providerName?.en}':
-                                          '${newOffers?.data?[index].provider?.providerName?.ar}',
+                                          language=='en'?'${cubit.offersData?.data?[index].provider?.providerName?.en}':
+                                          '${cubit.offersData?.data?[index].provider?.providerName?.ar}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16.58,
