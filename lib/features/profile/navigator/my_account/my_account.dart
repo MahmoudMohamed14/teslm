@@ -17,7 +17,7 @@ class EditInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime ?birthDate;
     bool dateSelected=false;
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
 
       },
@@ -82,7 +82,7 @@ class EditInformation extends StatelessWidget {
                 () {
                 if (gmailController.text.isNotEmpty) {
                 if(emailRegex.hasMatch(gmailController.text)) {
-                  AccountCubit.get(context).userUpdate(email: gmailController.text);
+                  AccountCubit.get(context).userUpdate(email: gmailController.text,context: context);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     backgroundColor: Colors.red.shade400,
@@ -91,11 +91,11 @@ class EditInformation extends StatelessWidget {
                 }
                 }
                 if (nameController.text.isNotEmpty) {
-                  AccountCubit.get(context).userUpdate(username: nameController.text);
+                  AccountCubit.get(context).userUpdate(username: nameController.text,context: context);
                 }
                 if (birthDate != null) {
                   AccountCubit.get(context).userUpdate(
-                    birthdate: '${birthDate!.year}-${birthDate!.month}-${birthDate!.day}',
+                    birthdate: '${birthDate!.year}-${birthDate!.month}-${birthDate!.day}',context: context
                   );
                 }
             },

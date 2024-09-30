@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
+import '../../../common/images/images.dart';
 import 'change_view.dart';
 import 'filter_loading.dart';
 
@@ -18,27 +19,30 @@ Widget categoryLoading(categoryName,view,context)=>ListView(children: [
   ),
   const SizedBox(height: 5,),
   Padding(
-    padding: const EdgeInsets.only(right:15.0,left: 15),
+    padding: const EdgeInsets.only(left: 10.0,right: 10),
     child: Row(
       children: [
         Text('$categoryName',style:const TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
         const Spacer(),
         Row(
           children: [
-            viewNew(Icons.laptop_mac_rounded,view?ThemeModel.mainColor:Colors.blue, context),
-            viewNew(Icons.dehaze_rounded,view?ThemeModel.mainColor:Colors.blue,context,),
+            viewNew(ImagesApp.categoryBigViewImage, view ? ThemeModel.of(context).greenAppBar :  ThemeModel.of(context).greenAppBar.withOpacity(0.4), context),
+            viewNew(ImagesApp.categorySmallViewImage, view ?  ThemeModel.of(context).greenAppBar.withOpacity(0.4) : ThemeModel.of(context).greenAppBar, context),
           ],
-        )
+        ),
       ],
     ),
   ),
-  Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      Skeleton(height: 30.0,width:70.0,radius: 15.0 ),
-      Skeleton(height: 30.0,width:70.0,radius: 15.0 ),
-      Skeleton(height: 30.0,width:70.0 ,radius: 15.0),
-    ],
+  Padding(
+    padding: const EdgeInsets.only(left: 20.0,right: 20),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Skeleton(height: 30.0,width:70.0,radius: 15.0 ),
+        Skeleton(height: 30.0,width:70.0,radius: 15.0 ),
+        Skeleton(height: 30.0,width:70.0 ,radius: 15.0),
+      ],
+    ),
   ),
 view ?filterBigViewLoading():filterSmallViewLoading()
 ],);

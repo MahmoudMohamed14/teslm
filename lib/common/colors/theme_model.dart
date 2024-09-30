@@ -49,6 +49,8 @@ class ThemeModel {
   final Color bigCardBottomColor;
   final Color myAccountBackgroundDarkColor;
   final Color smallCardIconsColor;
+  final Color pointIconBackgroundColor;
+  final Color priceAndCaloriesColor;
   ThemeModel.light( {
     this.primary = const Color(0xffF78C2E),
     this.greenAppBar= const Color(0xff33C072),
@@ -80,7 +82,8 @@ class ThemeModel {
     this.bigCardBottomColor =const Color(0xFFF1F1F1),
     this.myAccountBackgroundDarkColor =const Color(0xFFFFFFFF),
     this.smallCardIconsColor =const Color(0xFF5B5B5B),
-
+    this.pointIconBackgroundColor =const Color(0x6BD9D9D9),
+    this.priceAndCaloriesColor =const Color(0x6BEDEDED)
   }); // Safety check
 
   ThemeModel.dark({
@@ -114,6 +117,7 @@ class ThemeModel {
     this.bigCardBottomColor =const Color(0xFF393A4A),
     this.myAccountBackgroundDarkColor =const Color(0xFF4F4F5C),
     this.smallCardIconsColor =const Color(0xFFFFFFFF),
-
+    this.pointIconBackgroundColor =const Color(0XFFD9D9D9),
+    this.priceAndCaloriesColor =const Color(0XFF212125)
   }); // Safety check
 }

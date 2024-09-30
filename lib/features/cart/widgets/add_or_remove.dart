@@ -40,7 +40,7 @@ Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
              width: 2.0,        // Set the thickness of the border
            ),
          ),
-         child: CircleAvatar(
+         child: const CircleAvatar(
              backgroundColor: Colors.transparent,
              radius: 10,
              child: const Icon(Icons.add,size: 15,color: ThemeModel.mainColor,)),

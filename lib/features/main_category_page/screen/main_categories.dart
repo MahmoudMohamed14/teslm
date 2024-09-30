@@ -122,23 +122,20 @@ class MainCategories extends StatelessWidget {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 15.0, left: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          categoryName,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                        ),
-                        Row(
-                          children: [
-                            viewNew(ImagesApp.categoryBigViewImage, view ? ThemeModel.of(context).greenAppBar :  ThemeModel.of(context).greenAppBar.withOpacity(0.4), context),
-                            viewNew(ImagesApp.categorySmallViewImage, view ?  ThemeModel.of(context).greenAppBar.withOpacity(0.4) : ThemeModel.of(context).greenAppBar, context),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        categoryName,
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                      ),
+                      Row(
+                        children: [
+                          viewNew(ImagesApp.categoryBigViewImage, view ? ThemeModel.of(context).greenAppBar :  ThemeModel.of(context).greenAppBar.withOpacity(0.4), context),
+                          viewNew(ImagesApp.categorySmallViewImage, view ?  ThemeModel.of(context).greenAppBar.withOpacity(0.4) : ThemeModel.of(context).greenAppBar, context),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 SliverPersistentHeader(
@@ -147,7 +144,7 @@ class MainCategories extends StatelessWidget {
                     minHeight: 50.0,
                     maxHeight: 50.0,
                     child: Container(
-                      color: Colors.white,
+                      color: ThemeModel.of(context).cardsColor,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(

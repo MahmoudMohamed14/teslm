@@ -14,7 +14,7 @@ class Chat {
 }
 
 class Messages {
-  int? id;
+  String? id;
   String? content;
   String? createdAt;
   String? from;

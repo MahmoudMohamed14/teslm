@@ -1,7 +1,6 @@
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';

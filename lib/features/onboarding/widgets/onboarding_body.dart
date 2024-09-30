@@ -40,16 +40,12 @@ Widget onBoardingBody(context,currentPage,onTap) {
                 children: [
                   Image(image: AssetImage(items.image)),
                   Text(items.headText,style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      color: brownColor,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'fontTop',
                       fontSize: 25
                   ),),
                   Text(items.mainText,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        fontFamily: 'fontTop',
-                        color: Colors.black,
                         fontSize: 18
                     ),),
                 ],);

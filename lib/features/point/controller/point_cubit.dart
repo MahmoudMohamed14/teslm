@@ -19,9 +19,9 @@ class PointCubit extends Cubit<PointState> {
     emit(GetPointsLoading());
     DioHelper.getData(url: '${ApiEndPoint.wallet}/$customerId',).then((newValue) async {
       balanceAndPointsData=Points.fromJson(newValue.data);
-      balances=await Save.savedata(key: 'balance',value:balanceAndPointsData!.balance);
       emit(GetPointsSuccess());
     }).catchError((error){
+      print( "eeeeeeeeeeeeeeeeeeee ${error.toString()}");
       emit(GetPointsError());
     });
   }

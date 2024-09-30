@@ -72,16 +72,24 @@ class Payment extends StatelessWidget {
                 ],),
               ),
             ),
-            bottom(Strings.addCoupon.tr(context),  OrderCubit.get(context).couponData!=null? null:(){enterCoupon(context,_couponController);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
-            const SizedBox(height: 10,),
-            state is PostOrderLoading?
-            SpinKitWave(
-              color:isDark??false? Colors.white:borderColor,
-              size: 30.0,
-            ) : bottom(Strings.confirmOrder.tr(context), (){
-              OrderCubit.get(context).postOrder(items: values, customerId: '$customerId',coupon: _couponController.text ,deliveryPartnerId: 'trhygfdgfdh', customerNotes: customerNotes,context: context);
-            },radius: 20,),
-            const SizedBox(height: 20,)
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0,bottom: 10,right: 15,left: 15),
+              child: Column(
+                children: [
+                  bottom(Strings.addCoupon.tr(context),  OrderCubit.get(context).couponData!=null? null:(){enterCoupon(context,_couponController);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
+                  const SizedBox(height: 10,),
+                  state is PostOrderLoading?
+                  SpinKitWave(
+                    color:isDark??false? Colors.white:borderColor,
+                    size: 30.0,
+                  ) : bottom(Strings.confirmOrder.tr(context), (){
+                    print(values);
+                    OrderCubit.get(context).postOrder(items: values, customerId: '$customerId',coupon: _couponController.text ,deliveryPartnerId: 'trhygfdgfdh', customerNotes: customerNotes,context: context);
+                  },radius: 20,),
+                  const SizedBox(height: 10,),
+                ],
+              ),
+            )
           ],
         )
     );
