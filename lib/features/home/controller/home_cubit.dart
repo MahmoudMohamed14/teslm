@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Dio/Dio.dart';
 import '../../../common/end_points_api/api_end_points.dart';
-import '../../../models/Categories model.dart';
-import '../../../models/offers model.dart';
-import '../../../models/provider model.dart';
+import '../../../models/categories_model.dart';
+import '../../../models/offers_model.dart';
+import '../../../models/provider_model.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {

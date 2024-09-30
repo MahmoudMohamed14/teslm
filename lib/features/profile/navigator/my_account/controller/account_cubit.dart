@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../Dio/Dio.dart';
 import '../../../../../common/constant/constant values.dart';
-import '../../../../../models/get user data.dart';
+import '../../../../../models/get_user_data.dart';
 import '../../../../point/controller/point_cubit.dart';
 
 part 'account_state.dart';

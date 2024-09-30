@@ -7,7 +7,7 @@ import '../../../Cubite/delivery_cubit.dart';
 import '../../../Dio/Dio.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
-import '../../../models/coupon model.dart';
+import '../../../models/coupon_model.dart';
 import '../../home/controller/home_cubit.dart';
 import '../../home/screens/home.dart';
 import '../../orders/controller/my_orders_cubit.dart';

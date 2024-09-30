@@ -8,15 +8,16 @@ import '../../provider page/controller/provider_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
 
 Widget categorySlider(context)=>CarouselSlider(
-    items: HomeCubit.get(context).offersData!.data!.map((e) => Padding(
+    items: HomeCubit.get(context).offersData?.data?.map((e) => Padding(
       padding: const EdgeInsets.only(top: 10.0,right: 10),
       child:InkWell(
         onTap: (){
-          ProviderCubit.get(context).getProviderFoodData('${e.provider!.id}');
+          ProviderCubit.get(context).getProviderFoodData('${e.provider?.id}');
           navigate(context, ProviderPage(
-              providerDescription:language=='en'? '${e.provider!.description!.en}':'${e.provider!.description!.ar}',
-              providerName: language=='en'?'${e.provider!.providerName!.en}':'${e.provider!.providerName!.ar}',
-              providerCover: '${e.provider!.providerCover}', providerImage: '${e.provider!.providerImage}'));
+              providerDescription:language=='en'? '${e.provider?.description?.en}':'${e.provider?.description?.ar}',
+              providerName: language=='en'?'${e.provider?.providerName?.en}':'${e.provider?.providerName?.ar}',
+              providerCover: '${e.provider?.providerCover}', providerImage: '${e.provider?.providerImage}',
+          providerId: '${e.provider?.id}',));
         },
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -32,6 +33,6 @@ Widget categorySlider(context)=>CarouselSlider(
     options: CarouselOptions(
       aspectRatio: 9.0 / 16.0,
       viewportFraction: 0.35,
-      initialPage:HomeCubit.get(context).offersData!.data!.length,height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
+      initialPage:(HomeCubit.get(context).offersData?.data?.length??0),height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
       autoPlayAnimationDuration: const Duration(seconds: 2),enableInfiniteScroll: true,
     ));

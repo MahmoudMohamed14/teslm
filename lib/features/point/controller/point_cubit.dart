@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Dio/Dio.dart';
 import '../../../common/end_points_api/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
-import '../../../models/get coupons model.dart';
-import '../../../models/get user data.dart';
+import '../../../models/get_coupons_model.dart';
+import '../../../models/get_user_data.dart';
 import '../../../shared_preference/shared preference.dart';
 
 part 'point_state.dart';

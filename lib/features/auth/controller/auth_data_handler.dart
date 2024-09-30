@@ -4,7 +4,7 @@ import '../../../Core/Error/exceptions.dart';
 import '../../../Core/Error/failures.dart';
 import '../../../Core/Network/custom_either.dart';
 import '../../../common/end_points_api/api_end_points.dart';
-import '../../../models/otpModel.dart';
+import '../../../models/otp_model.dart';
 
 class AuthDataHandler {
   static Future<Either<Failure, bool>> generateOTP({

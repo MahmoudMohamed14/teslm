@@ -11,7 +11,7 @@ import '../../../Dio/Dio.dart';
 import '../../../common/components.dart';
 import '../../../common/end_points_api/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
-import '../../../models/provider items model.dart';
+import '../../../models/provider_items_model.dart';
 import '../../../shared_preference/shared preference.dart';
 
 
@@ -200,9 +200,9 @@ class ProviderCubit extends Cubit<ProviderState> {
   }
   int calculateItemsBeforeIndex(int foodIndex) {
     int totalItems = 0;
-    if (providerFoodData!.CategoriesItemsData!.isNotEmpty && foodIndex >= 0 && foodIndex < providerFoodData!.CategoriesItemsData!.length) {
+    if (providerFoodData!.categoriesItemsData!.isNotEmpty && foodIndex >= 0 && foodIndex < providerFoodData!.categoriesItemsData!.length) {
       for (int i = 0; i < foodIndex; i++) {
-        totalItems += providerFoodData!.CategoriesItemsData![i].items!.length;
+        totalItems += providerFoodData!.categoriesItemsData![i].items!.length;
       }
     }
     return totalItems;
@@ -278,7 +278,7 @@ class ProviderCubit extends Cubit<ProviderState> {
    allItems=[];
    searchedItems=[];
    if(name.isNotEmpty) {
-     providerFoodData?.CategoriesItemsData?.forEach((element) {
+     providerFoodData?.categoriesItemsData?.forEach((element) {
        element.items?.forEach((element1) {
          allItems.add(element1);
        });

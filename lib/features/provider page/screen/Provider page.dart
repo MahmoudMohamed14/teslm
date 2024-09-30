@@ -19,7 +19,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
-import '../../../models/provider items model.dart';
+import '../../../models/provider_items_model.dart';
 
 
 
@@ -229,7 +229,7 @@ class _ProviderPage extends State<ProviderPage>
              SliverList(
                delegate: SliverChildBuilderDelegate(
                  (context, index) {
-                   return  menu!=null&&state is !GetProviderFoodLoading?menu.CategoriesItemsData!.isNotEmpty? Padding(
+                   return  menu!=null&&state is !GetProviderFoodLoading?menu.categoriesItemsData!.isNotEmpty? Padding(
                      padding: const EdgeInsets.only(bottom: 8.0,left: 8,right: 8, top: 0,),
                      child: ListView.separated(
                          itemBuilder: (context, index1) {
@@ -237,26 +237,26 @@ class _ProviderPage extends State<ProviderPage>
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                AppTextWidget(
-                                 menu.CategoriesItemsData?[index1].name ?? '',
+                                 menu.categoriesItemsData?[index1].name ?? '',
                                  style: TextStyleHelper.of(context)
                                      .bold20
                                      .copyWith(color: ThemeModel.of(context).font2),
                                ),
                                8.0.heightBox,
                                ListView.separated(
-                                   itemBuilder: (context, index) =>OtherWidget(item: menu.CategoriesItemsData?.firstOrNull?.items?[index]
+                                   itemBuilder: (context, index) =>OtherWidget(item: menu.categoriesItemsData?.firstOrNull?.items?[index]
                                      ,provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),
                                    physics: const NeverScrollableScrollPhysics(),
                                    shrinkWrap: true,
                                    separatorBuilder: (context, index) => 10.h.heightBox,
-                                   itemCount: menu.CategoriesItemsData?[index1].items?.length ??0)
+                                   itemCount: menu.categoriesItemsData?[index1].items?.length ??0)
                              ],
                            );
                          } ,//OtherWidget(item: menu?.CategoriesItemsData?.firstOrNull?.items?[index],),
                          physics: const NeverScrollableScrollPhysics(),
                          shrinkWrap: true,
                          separatorBuilder: (context, index) => 10.h.heightBox,
-                         itemCount:menu.CategoriesItemsData?.length ??0),
+                         itemCount:menu.categoriesItemsData?.length ??0),
                    ):
                    Padding(
                      padding: const EdgeInsets.only(top: 150.0),
