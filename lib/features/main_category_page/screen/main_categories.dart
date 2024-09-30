@@ -60,7 +60,7 @@ class MainCategories extends StatelessWidget {
                     children: [
                       Text(
                         categoryName,
-                        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                       ),
                       Row(
                         children: [
@@ -77,7 +77,7 @@ class MainCategories extends StatelessWidget {
                     minHeight: 50.0,
                     maxHeight: 50.0,
                     child: Container(
-                      color: isDark??false? ThemeModel.of(context).cardsColor:Colors.grey.shade100,
+                      color: ThemeModel.of(context).cardsColor,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -124,6 +124,14 @@ class MainCategories extends StatelessWidget {
                                   ProviderCubit.get(context).expandedHeight=80;
                                   ProviderCubit.get(context).opecity=1;
                               ProviderCubit.get(context).getProviderFoodData(providerItem.id);
+                                  values=[];
+                                  ProviderCubit.get(context).cardList.forEach((action){
+                                    if(providerItem?.id==action['ProviderId']){
+                                      values.add(action);
+
+                                    }
+                                  });
+
                               navigate(
                                 context,
                                 ProviderPage(
@@ -135,6 +143,7 @@ class MainCategories extends StatelessWidget {
                                       : providerItem.providerName!.ar,
                                   providerCover: providerItem.providerCover,
                                   providerImage: providerItem.providerImage,
+                                  providerId: providerItem.id,
                                 ),
                               );
                               },context
@@ -143,11 +152,18 @@ class MainCategories extends StatelessWidget {
                             : Padding(
                               padding: const EdgeInsets.only(left: 8.0,right: 8.0),
                               child: smallCard(providerItem, () {
+
                                 ProviderCubit.get(context).expandedHeight=80;
                                 ProviderCubit.get(context).opecity=1;
                                 ProviderCubit.get(context).getProviderFoodData(providerItem.id);
-                                                        navigate(
-                              context,
+                                values=[];
+                                ProviderCubit.get(context).cardList.forEach((action){
+                                  if(providerItem?.id==action['ProviderId']){
+                                    values.add(action);
+
+                                  }
+                                });
+                                                        navigate(context,
                               ProviderPage(
                                 providerDescription: language == 'en'
                                     ? providerItem.description!.en
@@ -157,6 +173,7 @@ class MainCategories extends StatelessWidget {
                                     : providerItem.providerName!.ar,
                                 providerCover: providerItem.providerCover,
                                 providerImage: providerItem.providerImage,
+                                providerId: providerItem.id,
                               ),
                                                         );
                                                       },context),

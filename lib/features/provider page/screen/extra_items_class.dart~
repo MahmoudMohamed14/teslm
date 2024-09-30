@@ -103,7 +103,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
               .height - 120,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
@@ -145,22 +145,22 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                   itemCount: widget.extra.length != 0 ? widget.extra.length : 0,
                   itemBuilder: (context, index) {
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 10.0, right: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(language == 'en' ? '${widget
-                                  .extra[index].name.en}' : '${widget
-                                  .extra[index].name.ar}', style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold, ),),
                               Text('${getTrueCountAtIndex(index)}/${widget
                                   .extra[index].maxSelections}',
                                 style:const TextStyle(fontSize: 17,
-                                  fontWeight: FontWeight.bold,),),
+                                    fontWeight: FontWeight.bold,),),
+                              Text(language == 'English Language' ? '${widget
+                                  .extra[index].name.en}' : '${widget
+                                  .extra[index].name.ar}', style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold, ),),
                             ],
                           ),
                         ),
@@ -203,7 +203,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                           widget.extra[index].options[i].price)
                                           .toInt();
                                       extraName = extraName.replaceAll(
-                                          language == 'en'
+                                          language == 'English Language'
                                               ? '+${widget.extra[index]
                                               .options[i].name.en}'
                                               : '+${widget.extra[index]
@@ -222,13 +222,13 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                                 .options[otherIndex].price)
                                             .toInt();
                                         if (!extraName.contains(
-                                            language == 'en'
+                                            language == 'English Language'
                                                 ? widget.extra[index]
                                                 .options[otherIndex].name.en
                                                 : widget.extra[index]
                                                 .options[otherIndex].name.ar)) {
                                           extraName +=
-                                          language == 'en'
+                                          language == 'English Language'
                                               ? '+${widget.extra[index]
                                               .options[otherIndex].name.en}'
                                               : '+${widget.extra[index]
@@ -240,7 +240,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                             widget.extra[index].options[i]
                                                 .price).toInt();
                                         extraName = extraName.replaceAll(
-                                            language == 'en'
+                                            language == 'English Language'
                                                 ? '+${widget.extra[index]
                                                 .options[i].name.en}'
                                                 : '+${widget.extra[index]
@@ -259,12 +259,12 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                       widget.extra[index].options[otherIndex]
                                           .price).toInt();
                                   if (!extraName.contains(
-                                      language == 'en' ? widget
+                                      language == 'English Language' ? widget
                                           .extra[index].options[otherIndex].name
                                           .en : widget.extra[index]
                                           .options[otherIndex].name.ar)) {
                                     extraName +=
-                                    language == 'en' ? '+${widget
+                                    language == 'English Language' ? '+${widget
                                         .extra[index].options[otherIndex].name
                                         .en}' : '+${widget.extra[index]
                                         .options[otherIndex].name.ar}';
@@ -277,7 +277,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                       widget.extra[index].options[otherIndex]
                                           .price).toInt();
                                   extraName = extraName.replaceAll(
-                                      language == 'en'
+                                      language == 'English Language'
                                           ? '+${widget.extra[index]
                                           .options[otherIndex].name.en}'
                                           : '+${widget.extra[index]
@@ -285,7 +285,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                 }
                               }
                               print("${cubit.addExtra} here extra");
-                            }, language == 'en'
+                            }, language == 'English Language'
                                 ? '${widget.extra[index].options[otherIndex]
                                 .name.en}'
                                 : '${widget.extra[index].options[otherIndex]
@@ -321,7 +321,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                         ProviderCubit.get(context).addIdToSelectedOption(widget.extra,checklist);
                         ProviderCubit.get(context).addValue(widget.name +
                             extraName, ProviderCubit.get(context).itemsNumber, widget.itemImage, (widget.price as int) , widget
-                            .id,widget.description ,cubit.addExtra,widget.categoryId);
+                            .id,widget.description ,cubit.addExtra);
                         ProviderCubit.get(context).submitValue(ProviderCubit.get(context).itemsNumber);
                         Navigator.pop(context);
                       });

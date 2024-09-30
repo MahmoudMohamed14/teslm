@@ -73,7 +73,7 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
                 style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16,
               ),),
             ),
-            if(providers.categories![categoryIndex].providers!.isNotEmpty)
+            if(providers.categories?[categoryIndex].providers?.isNotEmpty??false)
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -84,29 +84,41 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
                           (){
                             ProviderCubit.get(context).expandedHeight=80;
                             ProviderCubit.get(context).opecity=1;
-                            ProviderCubit.get(context).getProviderFoodData(providers.categories?[categoryIndex].providers![index].id);
-                        values=[];//todo انا عايز لما يخش ميفضلش يمسح الكارت لو هو كان ضايف قبل كدة متتمسحش الا لو خرج من التطبيق
+                            ProviderCubit.get(context).getProviderFoodData(providers.categories?[categoryIndex].providers?[index].id);
+                       // values=[];//todo انا عايز لما يخش ميفضلش يمسح الكارت لو هو كان ضايف قبل كدة متتمسحش الا لو خرج من التطبيق
                         price=0;
-                            ProviderCubit.get(context).categoryId=providers.categories![categoryIndex].id;
+                            //ProviderCubit.get(context).categoryId=providers.categories![categoryIndex].id;
                         if(providers.categories![categoryIndex].name?.en?.toLowerCase()=='restaurants'){
-                          values=[];
-                          ProviderCubit.get(context).isRestaurant=true;
+                        values=[];
+                            ProviderCubit.get(context).isRestaurant=true;
+                            ProviderCubit.get(context).cardList.forEach((action){
+                            if(providers.categories?[categoryIndex].providers?[index].id==action['ProviderId']){
+                            values.add(action);
+
+                            }
+                            });
                         }else{
+                          values=[];
                           ProviderCubit.get(context).isRestaurant=false;
                           ProviderCubit.get(context).cardList.forEach((action){
-                            if(ProviderCubit.get(context).categoryId==action['categoryId']){
+                            if(providers.categories?[categoryIndex].providers?[index].id==action['ProviderId']){
                               values.add(action);
 
                             }
                           });
 
                         }
-                        print(" name???${providers.categories![categoryIndex].name?.en} ");
+                        print(" providerId???${providers.categories![categoryIndex].providers?[index].id} ");
                         Navigator.push(
                           context,
                           PageTransition(
-                            child: ProviderPage(providerDescription:language=='en'? '${providers.categories![categoryIndex].providers![index].description?.en}':'${providers.categories![categoryIndex].providers![index].description?.ar}' ,
-                              providerName: language=='en'?'${providers.categories![categoryIndex].providers![index].providerName?.en}':'${providers.categories![categoryIndex].providers![index].providerName?.ar}',providerCover: '${providers.categories![categoryIndex].providers![index].providerCover}',providerImage: '${providers.categories![categoryIndex].providers![index].providerImage}',),
+                            child: ProviderPage(providerDescription:language=='en'? '${providers.categories?[categoryIndex].providers?[index].description?.en}':'${providers.categories?[categoryIndex].providers![index].description?.ar}' ,
+                              providerName: language=='en'?'${providers.categories?[categoryIndex].providers![index].providerName?.en}':
+                              '${providers.categories![categoryIndex].providers?[index].providerName?.ar}'
+                              ,providerCover: '${providers.categories?[categoryIndex].providers?[index].providerCover}'
+                              ,providerImage: '${providers.categories?[categoryIndex].providers?[index].providerImage}',
+                              providerId:providers.categories?[categoryIndex].providers?[index].id??'',
+                            ),
                             type: PageTransitionType.downToUp,
                           ),
                         );},context),

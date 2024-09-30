@@ -16,9 +16,11 @@ Widget slider(market,controller,context)=>CarouselSlider(
         //  Save.remove(key: 'MyCart');
           ProviderCubit.get(context).getProviderFoodData('${e.provider!.id}');
           navigate(context, ProviderPage(
-              providerDescription:language=='en'? '${e.provider!.description!.en}':'${e.provider!.description!.ar}',
-              providerName: language=='en'?'${e.provider!.providerName!.en}':'${e.provider!.providerName!.ar}',
-              providerCover: '${e.provider!.providerCover}', providerImage: '${e.provider!.providerImage}'));
+              providerDescription:language=='en'? '${e.provider?.description!.en}':'${e.provider?.description?.ar}',
+              providerName: language=='en'?'${e.provider?.providerName?.en}':'${e.provider?.providerName?.ar}',
+              providerCover: '${e.provider?.providerCover}', providerImage: '${e.provider?.providerImage}',
+            providerId: e.provider?.id??'',
+          ));
         },
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
