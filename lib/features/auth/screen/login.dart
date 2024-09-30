@@ -111,6 +111,13 @@ class LoginState extends State<Login> {
                           : bottom(
                               Strings.continueText.tr(context),
                               () async {
+                                final otpCubit = context.read<AuthCubit>();
+                                print(countryCode + numberController.text);
+                                otpCubit.userLogin(
+                                    phoneNumber: numberController.text,
+                                    code: countryCode,
+                                    context: context);
+                                return;
                                 // navigate(context, OtpNumber(phoneNumber: numberController.text, country: countryCode,));
                                 if (numberController.text.startsWith('5') &&
                                     numberController.text.length == 9) {
