@@ -11,7 +11,7 @@ part 'category_state.dart';
 class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit() : super(CategoryInitial());
   static CategoryCubit get(context) => BlocProvider.of(context);
-  bool changeViewNew=true;
+  bool changeViewNew=false;
   FilterProviders? filterProvideData;
   void filterProvider({id,sortField,sortBy}) {
     emit(FilterProviderLoading());

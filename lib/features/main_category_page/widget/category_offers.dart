@@ -3,17 +3,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
+import '../../home/controller/home_cubit.dart';
 import '../../provider page/controller/provider_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
-import '../controller/home_cubit.dart';
 
-Widget slider(market,controller,context)=>CarouselSlider(
-    carouselController: controller,
+Widget categorySlider(context)=>CarouselSlider(
     items: HomeCubit.get(context).offersData!.data!.map((e) => Padding(
       padding: const EdgeInsets.only(top: 10.0,right: 10),
       child:InkWell(
         onTap: (){
-        //  Save.remove(key: 'MyCart');
           ProviderCubit.get(context).getProviderFoodData('${e.provider!.id}');
           navigate(context, ProviderPage(
               providerDescription:language=='en'? '${e.provider!.description!.en}':'${e.provider!.description!.ar}',
@@ -33,7 +31,6 @@ Widget slider(market,controller,context)=>CarouselSlider(
     )).toList(),
     options: CarouselOptions(
       aspectRatio: 9.0 / 16.0,
-      enlargeCenterPage: true,
       viewportFraction: 0.35,
       initialPage:HomeCubit.get(context).offersData!.data!.length,height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
       autoPlayAnimationDuration: const Duration(seconds: 2),enableInfiniteScroll: true,

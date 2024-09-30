@@ -1155,9 +1155,9 @@ class OtherWidget extends StatelessWidget {
                       },
                       child: const CircleAvatar(
                         backgroundColor: ThemeModel.mainColor,
-                        radius: 15,
+                        radius: 13,
                         child: Icon(CupertinoIcons.add,
-                            color: Colors.white),
+                            color: Colors.white,size: 20,),
                       ),
                     ))
               ],

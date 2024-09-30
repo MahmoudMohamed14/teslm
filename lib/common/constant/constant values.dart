@@ -16,6 +16,7 @@ String? token;
 int price=0;
 String ?language=Save.getdata(key: 'lang')??'ar';
 ThemeData lightMode=ThemeData(
+    scaffoldBackgroundColor: Colors.grey.shade100,
     fontFamily: language=='en'? 'fonten':'fontTop',
     primarySwatch: Colors.deepOrange,
     primaryColor:ThemeModel.mainColor

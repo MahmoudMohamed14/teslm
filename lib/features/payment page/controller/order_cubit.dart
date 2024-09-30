@@ -56,14 +56,12 @@ class OrderCubit extends Cubit<OrderState> {
     String? coupon,
     required List items,
     required String customerId,
-    required String deliveryPartnerId,
     required String customerNotes,
     context
   }){
     emit(PostOrderLoading());
     var postdata={
       "items": items,
-      "deliveryPartnerId": "07cfd32e-7a27-468a-96ea-f527c9cbc496",
       "customerId": customerId,
       "customerNotes": customerNotes
     };

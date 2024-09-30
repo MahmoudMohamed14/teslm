@@ -9,7 +9,7 @@ class ApiEndPoint {
   static String providersHome = 'providers/home';
   static String providersCustomers = 'providers/customers';
   static String couponsValidate = 'coupons/validate';
-  static String orders = 'orders';
+  static String orders = 'orders/customer';
   static String wallet = 'wallet';
   static String coupons = 'coupons';
   static String redeemPoints = 'redeem-points';
