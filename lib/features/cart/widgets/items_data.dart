@@ -42,8 +42,8 @@ Widget itemsCart(index,context)=>Dismissible(
                       addOrRemoveOne(
                           values[index]['quantity'],
                           context,
-                              (){ ProviderCubit.get(context).addValue(values[index]['name'],1,values[index]['image'],values[index]['price'],values[index]['id'],values[index]['description'],values[index]['extraId'],values[index]['ProviderId']);},
-                              (){ ProviderCubit.get(context).minusValue(values[index]['name'],1,values[index]['image'],values[index]['price'],values[index]['id']);
+                              (){ ProviderCubit.get(context).addValue(values[index]['name'],1,values[index]['image'],values[index]['price'],values[index]['itemId'],values[index]['description'],values[index]['extraId'],values[index]['ProviderId']);},
+                              (){ ProviderCubit.get(context).minusValue(values[index]['name'],1,values[index]['image'],values[index]['price'],values[index]['itemId']);
                           if(values.isEmpty){Navigator.pop(context);}
                           },
                           false

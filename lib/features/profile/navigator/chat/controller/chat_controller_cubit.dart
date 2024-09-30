@@ -18,7 +18,6 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     DioHelper.getData(url: 'chats/me',token: token)
         .then((value) {
       chatsCallCenter=Chat.fromJson(value.data);
-      print(value.data);
       emit(GetChatCallCenterSuccess());
     }).catchError((error) {
       print(error.toString());

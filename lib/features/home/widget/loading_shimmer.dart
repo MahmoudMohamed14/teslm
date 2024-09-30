@@ -11,7 +11,14 @@ Widget loadingMainPage(scrollController,context)=>Padding(
   child: ListView(
     controller: scrollController,
     children: [
-      Skeleton(height: 190.0,width: MediaQuery.sizeOf(context).width/1.5,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Skeleton(height: 90.0,width: 100.0,),
+          Skeleton(height: 120.0,width: 100.0,),
+          Skeleton(height: 90.0,width: 100.0,),
+        ],
+      ),
       const SizedBox(height: 15,),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -20,12 +27,12 @@ Widget loadingMainPage(scrollController,context)=>Padding(
           width: 171,
           height: 71,
           child: Card(
-            color: Colors.white,
+            color: ThemeModel.of(context).cardsColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CircleAvatar(
-                  backgroundColor: const Color(0x6BD9D9D9),
+                  backgroundColor: ThemeModel.of(context).pointIconBackgroundColor,
                   radius: 20,
                   child: SvgPicture.asset(
                     ImagesApp.walletHomeImage,
@@ -37,7 +44,7 @@ Widget loadingMainPage(scrollController,context)=>Padding(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(Strings.wallet.tr(context),style:const TextStyle(color: Colors.black),),
+                    Text(Strings.wallet.tr(context),),
                     Skeleton(height: 15.0,width: 20.0,),
                   ],),
               ],),
@@ -47,12 +54,12 @@ Widget loadingMainPage(scrollController,context)=>Padding(
           width: 171,
           height: 71,
           child: Card(
-            color: Colors.white,
+            color:ThemeModel.of(context).cardsColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CircleAvatar(
-                  backgroundColor: const Color(0x6BD9D9D9),
+                  backgroundColor: ThemeModel.of(context).pointIconBackgroundColor,
                   radius: 20,
                   child: SvgPicture.asset(
                     ImagesApp.pointsHomeImage,
@@ -64,7 +71,7 @@ Widget loadingMainPage(scrollController,context)=>Padding(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(Strings.points.tr(context),style:const TextStyle(color: Colors.black),),
+                    Text(Strings.points.tr(context),),
                     Skeleton(height: 15.0,width: 20.0,),
                   ],),
               ],),
@@ -101,18 +108,14 @@ Widget loadingMainPage(scrollController,context)=>Padding(
                   Skeleton(width: MediaQuery.sizeOf(context).width/1.20,height: 150.0),
                   Card(
                     child: Container(
+                       width: MediaQuery.sizeOf(context).width/1.20,
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),
                           color: ThemeModel.of(context).bigCardBottomColor),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Skeleton(width: 100.0,height: 12.0),
-                              Skeleton(width: 100.0,height: 12.0),
-                            ],
-                          ),
-                          Center(child: Skeleton(width: 270.0,height: 17.0,radius: 10.0)),
+                          Skeleton(width: 100.0,height: 12.0),
+                          Skeleton(width: 170.0,height: 12.0),
                         ],
                       ),
                     ),

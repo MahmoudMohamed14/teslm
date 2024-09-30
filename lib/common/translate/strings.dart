@@ -108,7 +108,7 @@ class Strings {
   static const String orderDoneSuccessfully= "order_done_successfully";
   static const String failedExecuteOrder= "failed_execute_order";
   static const String failedRedeemPoints= "failed_redeem_points";
-  static const String yourPointsLess= "Your_points_less";
+  static const String yourPointsLess= "your_points_less";
   static const String pointsRedeemedSuccessfully= "points_redeemed_successfully";
   static const String deliveryFree= "delivery_free";
 }
