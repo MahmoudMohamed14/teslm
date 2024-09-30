@@ -1,26 +1,35 @@
 class Categories {
-  String? id;
-  CategoryLanguage? name;
-  String? image;
+  final String? id;
+  final CategoryLanguage? name;
+  final String? image;
+  const Categories({this.id, this.name, this.image});
 
-  Categories.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'] != null ? new CategoryLanguage.fromJson(json['name']) : null;
-    image = json['image'];
-}}
+  factory Categories.fromJson(Map<String, dynamic> json) {
+    return Categories(
+      id: json['id'],
+      name:
+          json['name'] != null ? CategoryLanguage.fromJson(json['name']) : null,
+      image: json['image'],
+    );
+  }
+}
+
 class CategoryLanguage {
-  String? ar;
-  String? en;
+  final String? ar;
+  final String? en;
 
-  CategoryLanguage.fromJson(Map<String, dynamic> json) {
-    ar = json['ar'];
-    en = json['en'];
+  const CategoryLanguage({this.ar, this.en});
+  factory CategoryLanguage.fromJson(Map<String, dynamic> json) {
+    return CategoryLanguage(
+      ar: json['ar'],
+      en: json['en'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ar'] = this.ar;
-    data['en'] = this.en;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ar'] = ar;
+    data['en'] = en;
     return data;
   }
 }
