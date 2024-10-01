@@ -132,7 +132,7 @@ Widget homeBody(scrollController, controller, context) =>
                                           .expandedHeight = 80;
                                       ProviderCubit.get(context).opecity = 1;
                                       ProviderCubit.get(context)
-                                          .getProviderFoodData(providers
+                                          .getProviderData(providers
                                               ?.categories?[categoryIndex]
                                               .providers?[index]
                                               .id);
