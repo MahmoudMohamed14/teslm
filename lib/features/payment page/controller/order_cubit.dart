@@ -11,7 +11,9 @@ import '../../../models/coupon_model.dart';
 import '../../home/controller/home_cubit.dart';
 import '../../home/screens/home.dart';
 import '../../orders/controller/my_orders_cubit.dart';
+import '../../orders/controller/order_data_handler.dart';
 import '../../point/controller/point_cubit.dart';
+import 'order_data_handler.dart';
 
 part 'order_state.dart';
 
@@ -24,32 +26,33 @@ class OrderCubit extends Cubit<OrderState> {
     required String coupon,
     required int subtotal,
     required int shippingPrice,
-    context
-  }){
+    required BuildContext context,
+  }) async {
     emit(CouponLoading());
-    DioHelper.postData(url: ApiEndPoint.couponsValidate, data: {
-      'code' : coupon,
-      'subtotal':subtotal,
-      'shippingPrice':shippingPrice
-    }).then((value) {
-      couponData=Coupon.fromJson(value.data);
+    final result = await PostOrderDataHandler.postCoupon(
+      coupon: coupon,
+      shippingPrice: shippingPrice,
+      subtotal: subtotal,
+    );
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red.shade500,
+        content:  Align(
+            alignment: Alignment.center,child: Text(Strings.couponNotValid.tr(context),
+          style:const TextStyle(color: Colors.white),)),
+      ));
+      Navigator.pop(context);
+      emit(CouponError());
+    }, (r) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.green.shade400,
         content:  Align(
             alignment: Alignment.center,child: Text(Strings.couponAddSuccessfully.tr(context),
-          style:const TextStyle(color: Colors.white,fontSize: 17),)),
+          style:const TextStyle(color: Colors.white),)),
       ));
       Navigator.pop(context);
       emit(CouponSuccess());
-    }).catchError((error) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.red.shade400,
-        content:  Align(
-            alignment: Alignment.center,child: Text(Strings.couponNotValid.tr(context),
-          style:const TextStyle(color: Colors.white,fontSize: 17),)),
-      ));
-      Navigator.pop(context);
-      emit(CouponError());
     });
   }
   void postOrder({
@@ -57,15 +60,24 @@ class OrderCubit extends Cubit<OrderState> {
     required List items,
     required String customerId,
     required String customerNotes,
-    context
-  }){
+    required BuildContext context,
+  }) async {
     emit(PostOrderLoading());
-    var postdata={
-      "items": items,
-      "customerId": customerId,
-      "customerNotes": customerNotes
-    };
-    DioHelper.postData(url: ApiEndPoint.orders, data:postdata).then((value) {
+    final result = await PostOrderDataHandler.postOrder(
+      coupon: coupon,
+      items: items,
+      customerId: customerId,
+      customerNotes: customerNotes,
+    );
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red.shade500,
+        content:  Align(
+            alignment: Alignment.center,child: Text(Strings.failedExecuteOrder.tr(context),style:const TextStyle(color: Colors.white,fontSize: 17),)),
+      ));
+      emit(PostOrderError());
+    }, (r) {
       pageController=PageController(initialPage: 2);
       HomeCubit.get(context).changeNavigator(2);
       PointCubit.get(context).getPointsAndBalance();
@@ -76,14 +88,6 @@ class OrderCubit extends Cubit<OrderState> {
           alignment: Alignment.center,child: Text(Strings.orderDoneSuccessfully.tr(context),
         style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
       emit(PostOrderSuccess());
-    }).catchError((error) {
-      print(error.toString());
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.red.shade400,
-        content:  Align(
-            alignment: Alignment.center,child: Text(Strings.failedExecuteOrder.tr(context),style:const TextStyle(color: Colors.white,fontSize: 17),)),
-      ));
-      emit(PostOrderError());
     });
   }
 }
