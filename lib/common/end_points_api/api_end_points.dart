@@ -15,9 +15,6 @@ class ApiEndPoint {
   static String redeemPoints = 'redeem-points';
   static String providers = '${baseUrl}providers';
   static String myOrders = '${baseUrl}orders/customer';
-  static String getAdsByCategory = 'ads/category';
-  static String providers = 'providers';
-  static String myOrders = 'orders/customer';
   static String getAdsByCategory = '${baseUrl}ads/category';
   static String getNewCustomer = '${baseUrl}customers/auth/me';
 }
