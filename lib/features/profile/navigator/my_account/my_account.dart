@@ -20,7 +20,6 @@ class EditInformation extends StatelessWidget {
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {},
       builder: (context, state) {
-        print("data of user>>>>>>>  ${AccountCubit.get(context).getUserData}");
         var user = AccountCubit.get(context).getUserData;
         TextEditingController nameController = TextEditingController(
             text: '${AccountCubit.get(context).getUserData?.name}');

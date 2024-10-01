@@ -6,7 +6,7 @@ class GetUserData {
   final String? phoneNumber;
   final String? address;
   final bool? isDeleted;
-  final List<Null>? addresses;
+  final List? addresses;
 
   GetUserData(
       {this.id,

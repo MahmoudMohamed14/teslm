@@ -107,6 +107,9 @@ class GenericRequest<T> {
       }
       return result;
     } catch (e) {
+      if (kDebugMode) {
+        print(" >>>>>>>>>>>>>> ${e.toString()}");
+      }
       throw errorModel(response, e.toString(), ExpectType.other);
     }
   }
