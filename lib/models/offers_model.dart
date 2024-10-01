@@ -1,13 +1,13 @@
-class Advertising {
-  final List<Data>? data;
+class AdvertisingModel {
+  final List<AdvertisingData>? data;
   final int? count;
 
-  Advertising({this.data, this.count});
+  AdvertisingModel({this.data, this.count});
 
-  factory Advertising.fromJson(Map<String, dynamic> json) {
-    return Advertising(
+  factory AdvertisingModel.fromJson(Map<String, dynamic> json) {
+    return AdvertisingModel(
       data: json['data'] != null
-          ? (json['data'] as List).map((i) => Data.fromJson(i)).toList()
+          ? (json['data'] as List).map((i) => AdvertisingData.fromJson(i)).toList()
           : null,
       count: json['count'],
     );
@@ -23,16 +23,16 @@ class Advertising {
   }
 }
 
-class Data {
+class AdvertisingData {
   final String? id;
   final DataTranslate? name;
   final String? image;
   final ProvidersOffer? provider;
 
-  Data({this.id, this.name, this.image, this.provider});
+  AdvertisingData({this.id, this.name, this.image, this.provider});
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory AdvertisingData.fromJson(Map<String, dynamic> json) {
+    return AdvertisingData(
       id: json['id'],
       name: json['name'] != null
           ?  DataTranslate.fromJson(json['name'])

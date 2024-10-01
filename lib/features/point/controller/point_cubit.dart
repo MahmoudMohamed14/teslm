@@ -26,13 +26,13 @@ class PointCubit extends Cubit<PointState> {
     });
   }
 
-  GetCoupons ?couponsData;
+  GetCouponsModel ?couponsData;
   void getCouponsData(){
     emit(GetCouponsLoading());
     DioHelper.getData(url:ApiEndPoint.coupons,query: {
       "customerId":"$customerId"
     }).then((value) async {
-      couponsData=GetCoupons.fromJson(value.data);
+      couponsData=GetCouponsModel.fromJson(value.data);
       emit(GetCouponsSuccess());
     }).catchError((error){
       emit(GetCouponsError());

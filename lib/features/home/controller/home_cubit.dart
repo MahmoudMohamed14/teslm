@@ -19,18 +19,18 @@ class HomeCubit extends Cubit<HomeState> {
     emit(Reload());
   }
 
-  Advertising? offersData;
+  AdvertisingModel? offersData;
   void offers(){
     emit(OffersLoading());
     DioHelper.getData(url: ApiEndPoint.ads,
     ).then((value) {
-      offersData=Advertising.fromJson(value.data);
+      offersData=AdvertisingModel.fromJson(value.data);
       emit(OffersSuccess());
     }).catchError((error) {
       emit(OffersError());
     });
   }
-  List<Categories> ?categoryData;
+  List<CategoriesModel> ?categoryData;
   void category() async {
     emit(CategoriesLoading());
     final result = await HomeDataHandler.getCategoryHome();

@@ -1,12 +1,12 @@
-class Points {
+class PointsAndBalanceModel {
   final String? balance;
   final int? points;
   final String? id;
 
-  Points({this.balance, this.points, this.id});
+  PointsAndBalanceModel({this.balance, this.points, this.id});
 
-  factory Points.fromJson(Map<String, dynamic> json) {
-    return Points(
+  factory PointsAndBalanceModel.fromJson(Map<String, dynamic> json) {
+    return PointsAndBalanceModel(
       balance: json['balance'],
       points: json['points'],
       id: json['id'],

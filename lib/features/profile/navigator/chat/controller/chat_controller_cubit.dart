@@ -12,12 +12,12 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
   }
   static ChatControllerCubit get(context) => BlocProvider.of(context);
 
-  Chat? chatsCallCenter;
+  ChatModel? chatsCallCenter;
   void getChat() {
     emit(GetChatCallCenterLoading());
     DioHelper.getData(url: 'chats/me',token: token)
         .then((value) {
-      chatsCallCenter=Chat.fromJson(value.data);
+      chatsCallCenter=ChatModel.fromJson(value.data);
       emit(GetChatCallCenterSuccess());
     }).catchError((error) {
       print(error.toString());
@@ -26,9 +26,9 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
   }
   Future<void> onNewMessage(dynamic message) async {
     if (chatsCallCenter != null && chatsCallCenter!.messages != null) {
-        chatsCallCenter!.messages!.add(Messages.fromJson(message));
+        chatsCallCenter!.messages!.add(MessagesModel.fromJson(message));
         emit(ReloadChat());
-        print(Messages.fromJson(message));
+        print(MessagesModel.fromJson(message));
     }
   }
   IO.Socket socket = IO.io(
@@ -39,7 +39,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     },
   );
 
-  Chat? chat;
+  ChatModel? chat;
 
   void connectSocket() {
     socket.connect();
@@ -51,7 +51,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
 
     socket.on("joinedChat", (data) {
       print("Joined chat: $data");
-      chat = Chat.fromJson(data); // Assuming you have a Chat model
+      chat = ChatModel.fromJson(data); // Assuming you have a Chat model
     });
 
     socket.on('newMessage', (data) {
