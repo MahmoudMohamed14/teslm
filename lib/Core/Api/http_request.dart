@@ -39,6 +39,15 @@ class HttpRequestHandler {
         files = [],
         body = {};
 
+  HttpRequestHandler.patchJson({
+    required String url,
+    required this.bodyJson,
+    this.headers,
+  })  : method = "PATCH",
+        uri = Uri.parse(url),
+        files = [],
+        body = {};
+
   HttpRequestHandler.put({
     required String url,
     required this.body,

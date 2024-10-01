@@ -26,7 +26,7 @@ class GetUserData {
       phoneNumber: json['phoneNumber'],
       address: json['address'],
       isDeleted: json['isDeleted'],
-      addresses: json['addresses'] ?? [],
+      addresses: json['addresses'] is String ? [] : (json['addresses'] ?? []),
     );
   }
 }

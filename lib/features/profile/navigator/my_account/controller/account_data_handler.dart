@@ -27,4 +27,23 @@ class AccountDataHandler {
       );
     }
   }
+
+  static Future<Either<Failure, GetUserData>> updateUser(
+      {required Map<String, dynamic> bodyJson}) async {
+    try {
+      GetUserData response = await GenericRequest<GetUserData>(
+        method: HttpRequestHandler.patchJson(
+            url: ApiEndPoint.getNewCustomer, bodyJson: bodyJson),
+        fromMap: (data) {
+          print("DATA::::::::<<<< ");
+          return GetUserData.fromJson(data);
+        },
+      ).getResponse(printBody: false);
+      return Either.right(response);
+    } on ServerException catch (failure) {
+      return Either.left(
+        ServerFailure(failure.errorMessageModel),
+      );
+    }
+  }
 }
