@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:delivery/Dio/Dio.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/features/auth/controller/auth_cubit.dart';
@@ -69,9 +71,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     print("initState>>>>>>>>>>>>>>>>>>>");
-  //  String? json = Save.getdata(key: 'myCart');
-  //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
- //Save.remove(key: 'myCart');
+    //  String? json = Save.getdata(key: 'myCart');
+    //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
+    //Save.remove(key: 'myCart');
   }
 
   @override
@@ -92,12 +94,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         print('if>>>>>>>>>>>>>>>>>>');
         Save.remove(key: 'myCart');
 
-        List<Map<String, dynamic>> cardList = (jsonDecode(json) as List<dynamic>)
-            .map((item) => Map<String, dynamic>.from(item))
-            .toList();
+        List<Map<String, dynamic>> cardList =
+            (jsonDecode(json) as List<dynamic>)
+                .map((item) => Map<String, dynamic>.from(item))
+                .toList();
 
         // Use removeWhere to safely remove elements
-        cardList.removeWhere((item) => item["isRestaurant"]== true);
+        cardList.removeWhere((item) => item["isRestaurant"] == true);
         String encodedData = jsonEncode(cardList);
         print('Encoded data to save: $encodedData');
         try {
