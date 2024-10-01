@@ -25,7 +25,7 @@ class HomeCubit extends Cubit<HomeState> {
     DioHelper.getData(url: ApiEndPoint.ads,
     ).then((value) {
       offersData=AdvertisingModel.fromJson(value.data);
-      offersData = Advertising.fromJson(value.data);
+      offersData = AdvertisingModel.fromJson(value.data);
       // print(" offersData${offersData?.data?.firstOrNull?.provider?.categories?.firstOrNull?.name?.ar}");
       emit(OffersSuccess());
     }).catchError((error) {
@@ -33,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  List<Categories>? categoryData;
+  List<CategoriesModel>? categoryData;
   void category() async {
     emit(CategoriesLoading());
     final result = await HomeDataHandler.getCategoryHome();

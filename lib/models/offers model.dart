@@ -51,7 +51,7 @@ class ProvidersOffer {
   String? createdAt;
   int? totalReviews;
   int? reviewCount;
-  List<Categories>? categories; //List<Categories>
+  List<CategoriesModel>? categories; //List<Categories>
 
   ProvidersOffer.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -69,9 +69,9 @@ class ProvidersOffer {
 
 
     if (json['categories'] != null) {
-      categories = <Categories>[];
+      categories = <CategoriesModel>[];
       json['categories'].forEach((v) {
-        categories?.add( Categories.fromJson(v));
+        categories?.add( CategoriesModel.fromJson(v));
       });
     }
   }
