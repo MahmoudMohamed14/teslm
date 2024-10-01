@@ -36,8 +36,8 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Padding(
-                              padding: const EdgeInsets.only(bottom: 6.0),
-                              child: const Icon(Icons.star,color: Colors.amber,size: 15),
+                              padding: EdgeInsets.only(bottom: 6.0),
+                              child: Icon(Icons.star,color: Colors.amber,size: 15),
                             ),
                             Text(
                         "${(providerData.reviewCount != null && providerData.reviewCount != 0 ? (providerData.totalReviews / providerData.reviewCount) : 0).toInt()} (${providerData.reviewCount ?? 0})",
@@ -78,7 +78,7 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(language=='en'?'${providerData.providerName.en??""}':'${providerData.providerName!.ar??''}',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,
+                      Text(language=='en'?'${providerData.providerName.en??""}':'${providerData.providerName.ar??''}',maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.start,
                         style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                     ],
                   ),

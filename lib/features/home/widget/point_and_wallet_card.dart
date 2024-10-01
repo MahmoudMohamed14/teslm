@@ -2,8 +2,6 @@ import 'package:delivery/common/colors/theme_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../common/colors/colors.dart';
-
 Widget pointsAndWalletCard(context,textData,quantity,image)=>SizedBox(
   width: 171,
   height: 71,

@@ -11,7 +11,6 @@ Widget category(model,index,context){return InkWell(
     CategoryCubit.get(context).categoryProvider(id:model.id);
 
     navigate(context, MainCategories(categoryName:language=='en'? '${model.name.en}':'${model.name.ar}'));
-    print(" name???${model.name.en} ");
     if(model.name.en?.toLowerCase()=='restaurants'){
       values=[];
       ProviderCubit.get(context).isRestaurant=true;

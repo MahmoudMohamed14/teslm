@@ -1,6 +1,3 @@
-import 'package:blured_navigation_bar_x/blured_nav_bar_x_item.dart';
-import 'package:blured_navigation_bar_x/blured_navigation_bar_x.dart';
-import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
@@ -9,7 +6,6 @@ import 'package:delivery/features/home/controller/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../Cubite/delivery_cubit.dart';
 import '../../../Cubite/them/app_dark_light_cubit.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
@@ -27,20 +23,6 @@ class Home extends StatelessWidget {
     // TODO: implement listener
   },
   builder: (context, state) {
-   /* List<BluredNavBarXItem> navBar = [
-      BluredNavBarXItem(icon:  Icons.home,
-        title: Strings.home.tr(context),
-      ),
-      BluredNavBarXItem(icon: Icons.apps_outlined,
-        title: Strings.myOrders.tr(context),
-      ),
-      BluredNavBarXItem(icon: Icons.card_giftcard,
-        title: Strings.points.tr(context),
-      ),
-      BluredNavBarXItem(icon: Icons.more_horiz,
-        title: Strings.more.tr(context),
-      ),
-    ];*/
     List<BottomNavigationBarItem> items = [
     BottomNavigationBarItem(
         icon:SvgPicture.asset(ImagesApp.homeIcon,colorFilter:HomeCubit.get(context).current==0? ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),

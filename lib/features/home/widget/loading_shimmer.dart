@@ -14,9 +14,9 @@ Widget loadingMainPage(scrollController,context)=>Padding(
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Skeleton(height: 90.0,width: 100.0,),
-          Skeleton(height: 120.0,width: 100.0,),
-          Skeleton(height: 90.0,width: 100.0,),
+          Skeleton(height: 100.0,width: 100.0,),
+          Skeleton(height: 130.0,width: 100.0,),
+          Skeleton(height: 100.0,width: 100.0,),
         ],
       ),
       const SizedBox(height: 15,),
@@ -79,16 +79,26 @@ Widget loadingMainPage(scrollController,context)=>Padding(
         ),
       ],),
       const SizedBox(height: 15,),
-      GridView.count(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true, childAspectRatio: 1/1.3, crossAxisSpacing: 0, mainAxisSpacing: 0.2,
-        crossAxisCount: 4,children: List.generate(3,
-            (index)=> Column(
-          children: [
-            Skeleton(height: 60.0,width: 60.0,radius: 60.0),
-            Skeleton(height: 15.0,),
-          ],
-        ),), ),
+      SizedBox(
+        height: 150,
+        child: GridView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // 2 items per column
+              childAspectRatio: 1 / 1.5, // Aspect ratio of each item
+              crossAxisSpacing: 0.2,
+              mainAxisSpacing: 0.2,
+            ),
+            itemCount: 6,
+            itemBuilder: (context,index)=> Column(
+              children: [
+                Skeleton(height: 40.0,width: 40.0,radius: 40.0),
+                Skeleton(height: 10.0,width: 50.0),
+              ],
+            )),
+      ),
       Padding(
         padding:  const EdgeInsets.only(left: 10.0,right: 10),
         child: Text(Strings.selections.tr(context),style:  const TextStyle(fontWeight: FontWeight.bold,fontSize: 20,
@@ -101,21 +111,21 @@ Widget loadingMainPage(scrollController,context)=>Padding(
           children: List.generate(2, (index) => Card(
 
             child: SizedBox(
-              width: MediaQuery.sizeOf(context).width/1.3, height: 230,
+              width: MediaQuery.sizeOf(context).width/2.7, height: 170,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Skeleton(width: MediaQuery.sizeOf(context).width/1.20,height: 150.0),
+                  Skeleton(width: MediaQuery.sizeOf(context).width/2.7,height: 100.0),
                   Card(
                     child: Container(
-                       width: MediaQuery.sizeOf(context).width/1.20,
+                       width: MediaQuery.sizeOf(context).width/2.7,
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),
                           color: ThemeModel.of(context).bigCardBottomColor),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Skeleton(width: 100.0,height: 12.0),
-                          Skeleton(width: 170.0,height: 12.0),
+                          Skeleton(width: 80.0,height: 12.0),
+                          Skeleton(width: 120.0,height: 12.0),
                         ],
                       ),
                     ),
