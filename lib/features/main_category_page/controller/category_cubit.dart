@@ -13,12 +13,12 @@ class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit() : super(CategoryInitial());
   static CategoryCubit get(context) => BlocProvider.of(context);
   bool changeViewNew=false;
-  FilterProviders? filterProvideData;
+  FilterProvidersModel? filterProvideData;
   void filterProvider({id,sortField,sortBy}) {
     emit(FilterProviderLoading());
     DioHelper.getData(url: '${ApiEndPoint.providersCustomers}?sortOrder=$sortField&sortField=$sortBy',)
         .then((value) {
-      filterProvideData = FilterProviders.fromJson(value.data);
+      filterProvideData = FilterProvidersModel.fromJson(value.data);
       emit(CategoryProviderSuccess());
     }).catchError((error) {
       print('${ApiEndPoint.providersCustomers}?sortOrder=DESC&sortField=$sortBy');

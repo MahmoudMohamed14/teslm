@@ -1,14 +1,14 @@
-class Chat {
+class ChatModel {
   final String? id;
-  final List<Messages>? messages;
+  final List<MessagesModel>? messages;
 
-  Chat({this.id, this.messages});
-  factory Chat.fromJson(Map<String, dynamic> json) {
-    return Chat(
+  ChatModel({this.id, this.messages});
+  factory ChatModel.fromJson(Map<String, dynamic> json) {
+    return ChatModel(
       id: json['id'],
       messages: json['messages'] != null
           ? (json['messages'] as List)
-              .map((i) => Messages.fromJson(i))
+              .map((i) => MessagesModel.fromJson(i))
               .toList()
           : null,
     );}
@@ -21,16 +21,16 @@ class Chat {
   }
 }
 
-class Messages {
+class MessagesModel {
   final String? id;
   final String? content;
   final String? createdAt;
   final String? from;
 
-  Messages({this.id, this.content, this.createdAt, this.from});
+  MessagesModel({this.id, this.content, this.createdAt, this.from});
 
-  factory Messages.fromJson(Map<String, dynamic> json) {
-    return Messages(
+  factory MessagesModel.fromJson(Map<String, dynamic> json) {
+    return MessagesModel(
       id: json['id'],
       content: json['content'],
       createdAt: json['createdAt'],

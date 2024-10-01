@@ -6,7 +6,6 @@ import 'package:delivery/features/home/widget/providers_card.dart';
 import 'package:delivery/features/home/widget/slider_offers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/translate/strings.dart';
@@ -39,8 +38,8 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          pointsAndWalletCard(context,Strings.points.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData!.points:0,ImagesApp.pointsHomeImage),
-          pointsAndWalletCard(context,Strings.wallet.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData!.balance:0.0,ImagesApp.walletHomeImage)
+          pointsAndWalletCard(context,Strings.points.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData?.points:0,ImagesApp.pointsHomeImage),
+          pointsAndWalletCard(context,Strings.wallet.tr(context),customerId!=null&&PointCubit.get(context).balanceAndPointsData!=null?PointCubit.get(context).balanceAndPointsData?.balance:0.0,ImagesApp.walletHomeImage)
       ],),
       const SizedBox(height: 15,),
       if(HomeCubit.get(context).categoryData != null)
@@ -56,43 +55,42 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
               crossAxisSpacing: 0.2,
               mainAxisSpacing: 0.2,
             ),
-            itemCount: HomeCubit.get(context).categoryData!.length,
-            itemBuilder: (context,index)=> category( HomeCubit.get(context).providerData!.categories?[index],index,context)),
+            itemCount: HomeCubit.get(context).categoryData?.length,
+            itemBuilder: (context,index)=> category( HomeCubit.get(context).providerData?.categories?[index],index,context)),
       ),
       ListView.builder(
         shrinkWrap: true,
         physics:const NeverScrollableScrollPhysics(),
-        itemCount: providers!.categories!.length,
+        itemCount: providers?.categories?.length,
         itemBuilder:(context,categoryIndex)=> Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if(providers.categories![categoryIndex].providers!.isNotEmpty)
+            if(providers?.categories?[categoryIndex].providers?.isNotEmpty??false)
             Padding(
               padding:  const EdgeInsets.only(left: 10.0,right: 10),
-              child: Text(language=='en'? '${providers.categories?[categoryIndex].name?.en}':'${providers.categories?[categoryIndex].name?.ar}',
+              child: Text(language=='en'? '${providers?.categories?[categoryIndex].name?.en}':'${providers?.categories?[categoryIndex].name?.ar}',
                 style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16,
               ),),
             ),
-            if(providers.categories?[categoryIndex].providers?.isNotEmpty??false)
+            if(providers?.categories?[categoryIndex].providers?.isNotEmpty??false)
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(providers.categories![categoryIndex].providers!.length, (index) => Container(
+                children: List.generate(providers?.categories?[categoryIndex].providers?.length??0, (index) => Container(
                   margin: const EdgeInsets.all(5),
-                  child: bigCardHome(providers.categories![categoryIndex].providers![index],
+                  child: bigCardHome(providers?.categories?[categoryIndex].providers?[index],
                           (){
                             ProviderCubit.get(context).expandedHeight=80;
                             ProviderCubit.get(context).opecity=1;
                             ProviderCubit.get(context).getProviderData(providers.categories?[categoryIndex].providers?[index].id);
                        // values=[];//todo انا عايز لما يخش ميفضلش يمسح الكارت لو هو كان ضايف قبل كدة متتمسحش الا لو خرج من التطبيق
                         price=0;
-                            //ProviderCubit.get(context).categoryId=providers.categories![categoryIndex].id;
-                        if(providers.categories![categoryIndex].name?.en?.toLowerCase()=='restaurants'){
+                        if(providers?.categories?[categoryIndex].name?.en?.toLowerCase()=='restaurants'){
                         values=[];
                             ProviderCubit.get(context).isRestaurant=true;
                             ProviderCubit.get(context).cardList.forEach((action){
-                            if(providers.categories?[categoryIndex].providers?[index].id==action['ProviderId']){
+                            if(providers?.categories?[categoryIndex].providers?[index].id==action['ProviderId']){
                             values.add(action);
 
                             }
@@ -101,23 +99,22 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
                           values=[];
                           ProviderCubit.get(context).isRestaurant=false;
                           ProviderCubit.get(context).cardList.forEach((action){
-                            if(providers.categories?[categoryIndex].providers?[index].id==action['ProviderId']){
+                            if(providers?.categories?[categoryIndex].providers?[index].id==action['ProviderId']){
                               values.add(action);
 
                             }
                           });
 
                         }
-                        print(" providerId???${providers.categories![categoryIndex].providers?[index].id} ");
                         Navigator.push(
                           context,
                           PageTransition(
-                            child: ProviderPage(providerDescription:language=='en'? '${providers.categories?[categoryIndex].providers?[index].description?.en}':'${providers.categories?[categoryIndex].providers![index].description?.ar}' ,
-                              providerName: language=='en'?'${providers.categories?[categoryIndex].providers![index].providerName?.en}':
-                              '${providers.categories![categoryIndex].providers?[index].providerName?.ar}'
-                              ,providerCover: '${providers.categories?[categoryIndex].providers?[index].providerCover}'
-                              ,providerImage: '${providers.categories?[categoryIndex].providers?[index].providerImage}',
-                              providerId:providers.categories?[categoryIndex].providers?[index].id??'',
+                            child: ProviderPage(providerDescription:language=='en'? '${providers?.categories?[categoryIndex].providers?[index].description?.en}':'${providers?.categories?[categoryIndex].providers?[index].description?.ar}' ,
+                              providerName: language=='en'?'${providers?.categories?[categoryIndex].providers?[index].providerName?.en}':
+                              '${providers?.categories?[categoryIndex].providers?[index].providerName?.ar}'
+                              ,providerCover: '${providers?.categories?[categoryIndex].providers?[index].providerCover}'
+                              ,providerImage: '${providers?.categories?[categoryIndex].providers?[index].providerImage}',
+                              providerId:providers?.categories?[categoryIndex].providers?[index].id??'',
                             ),
                             type: PageTransitionType.downToUp,
                           ),

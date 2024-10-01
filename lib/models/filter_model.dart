@@ -1,12 +1,12 @@
-class FilterProviders {
-  final List<Data>? data;
+class FilterProvidersModel {
+  final List<FilterDataModel>? data;
   final int? count;
 
-  FilterProviders({this.data, this.count});
-  factory FilterProviders.fromJson(Map<String, dynamic> json) {
-    return FilterProviders(
+  FilterProvidersModel({this.data, this.count});
+  factory FilterProvidersModel.fromJson(Map<String, dynamic> json) {
+    return FilterProvidersModel(
       data: json['data'] != null
-          ? (json['data'] as List).map((i) => Data.fromJson(i)).toList()
+          ? (json['data'] as List).map((i) => FilterDataModel.fromJson(i)).toList()
           : null,
       count: json['count'],
     );
@@ -22,7 +22,7 @@ class FilterProviders {
   }
 }
 
-class Data {
+class FilterDataModel {
   final String? id;
   final FilterProviderLanguage? providerName;
   final String? providerImage;
@@ -37,7 +37,7 @@ class Data {
   final int? branchesCount;
 
 
-  Data(
+  FilterDataModel(
       {this.id,
       this.providerName,
       this.providerImage,
@@ -51,8 +51,8 @@ class Data {
       this.categoryCount,
       this.branchesCount});
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory FilterDataModel.fromJson(Map<String, dynamic> json) {
+    return FilterDataModel(
       id: json['id'],
       providerName: json['provider_name'] != null
           ?  FilterProviderLanguage.fromJson(json['provider_name'])

@@ -9,14 +9,14 @@ import '../controller/home_cubit.dart';
 
 Widget slider(market,controller,context)=>CarouselSlider(
     carouselController: controller,
-    items: HomeCubit.get(context).offersData!.data!.map((e) => Padding(
+    items: HomeCubit.get(context).offersData?.data?.map((e) => Padding(
       padding: const EdgeInsets.only(top: 10.0,right: 10),
       child:InkWell(
         onTap: (){
         //  Save.remove(key: 'MyCart');
           ProviderCubit.get(context).getProviderData('${e.provider!.id}');
           navigate(context, ProviderPage(
-              providerDescription:language=='en'? '${e.provider?.description!.en}':'${e.provider?.description?.ar}',
+              providerDescription:language=='en'? '${e.provider?.description?.en}':'${e.provider?.description?.ar}',
               providerName: language=='en'?'${e.provider?.providerName?.en}':'${e.provider?.providerName?.ar}',
               providerCover: '${e.provider?.providerCover}', providerImage: '${e.provider?.providerImage}',
             providerId: e.provider?.id??'',
@@ -37,6 +37,6 @@ Widget slider(market,controller,context)=>CarouselSlider(
       aspectRatio: 9.0 / 16.0,
       enlargeCenterPage: true,
       viewportFraction: 0.35,
-      initialPage:HomeCubit.get(context).offersData!.data!.length,height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
+      initialPage:HomeCubit.get(context).offersData?.data?.length??0,height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
       autoPlayAnimationDuration: const Duration(seconds: 2),enableInfiniteScroll: true,
     ));

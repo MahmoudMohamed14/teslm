@@ -1,15 +1,15 @@
 import 'package:delivery/models/provider_model.dart';
 
-class GetCoupons {
-  final List<Data>? data;
+class GetCouponsModel {
+  final List<CouponData>? data;
   final int? count;
 
-  GetCoupons({this.data, this.count});
+  GetCouponsModel({this.data, this.count});
 
-  factory GetCoupons.fromJson(Map<String, dynamic> json) {
-    return GetCoupons(
+  factory GetCouponsModel.fromJson(Map<String, dynamic> json) {
+    return GetCouponsModel(
       data: json['data'] != null
-          ? (json['data'] as List).map((i) => Data.fromJson(i)).toList()
+          ? (json['data'] as List).map((i) => CouponData.fromJson(i)).toList()
           : null,
       count: json['count'],
     );
@@ -25,7 +25,7 @@ class GetCoupons {
   }
 }
 
-class Data {
+class CouponData {
   final String? id;
   final String? code;
   final String? type;
@@ -40,7 +40,7 @@ class Data {
   final List<Providers>? providers;
 
 
-  Data(
+  CouponData(
       {this.id,
       this.code,
       this.type,
@@ -54,8 +54,8 @@ class Data {
       this.applyToAllProviders,
       this.providers});
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory CouponData.fromJson(Map<String, dynamic> json) {
+    return CouponData(
       id: json['id'],
       code: json['code'],
       type: json['type'],
