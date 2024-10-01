@@ -15,4 +15,6 @@ class ApiEndPoint {
   static String redeemPoints = 'redeem-points';
   static String providers = 'providers';
   static String myOrders = 'orders/customer';
+  static String getAdsByCategory = 'ads/category';
+
 }

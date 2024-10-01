@@ -1,3 +1,5 @@
+import 'Categories model.dart';
+
 class Advertising {
   List<Data>? data;
   int? count;
@@ -6,7 +8,7 @@ class Advertising {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data?.add( Data.fromJson(v));
       });
     }
     count = json['count'];
@@ -48,6 +50,7 @@ class ProvidersOffer {
   String? createdAt;
   int? totalReviews;
   int? reviewCount;
+  List<Categories>? categories; //List<Categories>
 
   ProvidersOffer.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,5 +65,13 @@ class ProvidersOffer {
     createdAt = json['createdAt'];
     totalReviews = json['totalReviews'];
     reviewCount = json['reviewCount'];
+
+
+    if (json['categories'] != null) {
+      categories = <Categories>[];
+      json['categories'].forEach((v) {
+        categories?.add( Categories.fromJson(v));
+      });
+    }
   }
 }

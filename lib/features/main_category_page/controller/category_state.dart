@@ -16,3 +16,8 @@ class FilterProviderLoading extends CategoryState{}
 class FilterProviderSuccess extends CategoryState{}
 
 class FilterProviderError extends CategoryState{}
+class GetAdsByCategoryLoading extends CategoryState{}
+
+class GetAdsByCategorySuccess extends CategoryState{}
+
+class GetAdsByCategoryError extends CategoryState{}

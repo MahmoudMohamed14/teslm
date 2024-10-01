@@ -9,6 +9,7 @@ import '../../main_category_page/screen/main_categories.dart';
 Widget category(model,index,context){return InkWell(
   onTap: (){
     CategoryCubit.get(context).categoryProvider(id:model.id);
+    CategoryCubit.get(context).getAdsByCategoryId(model.id);
 
     navigate(context, MainCategories(categoryName:language=='en'? '${model.name.en}':'${model.name.ar}'));
     print(" name???${model.name.en} ");
