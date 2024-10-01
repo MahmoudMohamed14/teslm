@@ -5,6 +5,8 @@ import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/categories_model.dart';
 import '../../../models/offers_model.dart';
 import '../../../models/provider_model.dart';
+import '../../auth/controller/auth_data_handler.dart';
+import 'home_data_handler.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -29,9 +31,19 @@ class HomeCubit extends Cubit<HomeState> {
       emit(OffersError());
     });
   }
-
   List<Categories> ?categoryData;
-  void category() {
+  void category() async {
+    emit(CategoriesLoading());
+    final result = await HomeDataHandler.getCategoryHome();
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+      emit(CategoriesError());
+    }, (r) {
+      categoryData=r;
+      emit(CategoriesSuccess());
+    });
+  }
+  /*void category() {
     emit(CategoriesLoading());
     DioHelper.getData(url: ApiEndPoint.categories,)
         .then((value) {
@@ -41,7 +53,8 @@ class HomeCubit extends Cubit<HomeState> {
     }).catchError((error) {
       emit(CategoriesError());
     });
-  }
+  }*/
+
 
   ProviderHome? providerData;
   void getProviderData(){
