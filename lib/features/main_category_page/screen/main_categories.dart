@@ -13,6 +13,7 @@ import '../../home/controller/home_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
 import '../controller/category_cubit.dart';
 import '../widget/big_card.dart';
+import '../widget/category_offers.dart';
 import '../widget/category_shimmer_loading.dart';
 import '../widget/change_view.dart';
 import '../widget/filter.dart';
@@ -50,89 +51,8 @@ class MainCategories extends StatelessWidget {
                 SliverAppBar(
                   leading: Container(),
                   bottom: PreferredSize(
-                    preferredSize:const Size.fromHeight(65.0),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          cubit.offersData?.data?.length??0,
-                              (index) => InkWell(
-                                onTap: (){
-                                  print('this ok');
-                                  ProviderCubit.get(context).expandedHeight=80;
-                                  ProviderCubit.get(context).opecity=1;
-                                  ProviderCubit.get(context).getProviderFoodData('${cubit.offersData?.data?[index].provider?.id}');
-
-                                    values=[];
-                                    ProviderCubit.get(context).cardList.forEach((action){
-                                      if(cubit.offersData?.data?[index].provider?.id==action['ProviderId']){
-                                        values.add(action);
-
-                                      }
-                                    });
-
-
-
-                                  navigate(context, ProviderPage(
-                                      providerDescription:language=='en'? '${cubit.offersData?.data?[index].provider?.description?.en}':'${cubit.offersData?.data![index].provider?.description?.ar}',
-                                      providerName: language=='en'?'${cubit.offersData?.data?[index].provider?.providerName!.en}':'${cubit.offersData?.data?[index].provider?.providerName?.ar}',
-                                      providerCover: '${cubit.offersData?.data?[index].provider?.providerCover}', providerImage: '${cubit.offersData?.data?[index].provider?.providerImage}',providerId: cubit.offersData?.data?[index].provider?.id??'',));
-
-                                },
-                                child: Stack(
-                                  children: [
-                                Container(
-                                  padding:const EdgeInsets.all(10),
-                                  width: MediaQuery.sizeOf(context).width / 1.8,
-                                  height: 117,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: CachedNetworkImage(
-                                      placeholder: (context, url) =>
-                                      const Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                      imageUrl: '${cubit.offersData?.data?[index].image}',
-                                      width: double.infinity,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 20,
-                                  right: 20,
-                                  bottom: 15,
-                                  child: Container(
-                                    width: MediaQuery.sizeOf(context).width / 5,
-                                    padding: const EdgeInsets.only(left: 8, right: 8),
-                                    color: Colors.black45,
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          language=='en'?'${cubit.offersData?.data?[index].provider?.providerName?.en}':
-                                          '${cubit.offersData?.data?[index].provider?.providerName?.ar}',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16.58,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        const Icon(
-                                          Icons.arrow_forward_ios_outlined,
-                                          size: 16,
-                                          color: Colors.white,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                                            ],
-                                                          ),
-                              ),
-                        ),
-                      ),
-                    ),
+                    preferredSize:const Size.fromHeight(100.0),
+                    child: categorySlider(context),
                   ),
                 ),
                 SliverToBoxAdapter(

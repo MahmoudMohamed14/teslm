@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Dio/Dio.dart';
 import '../../../common/end_points_api/api_end_points.dart';
-import '../../../models/categories provider.dart';
-import '../../../models/filter model.dart';
+import '../../../models/categories_provider.dart';
+import '../../../models/filter_model.dart';
 import '../../../models/offers model.dart';
 
 part 'category_state.dart';
@@ -12,7 +12,7 @@ part 'category_state.dart';
 class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit() : super(CategoryInitial());
   static CategoryCubit get(context) => BlocProvider.of(context);
-  bool changeViewNew=true;
+  bool changeViewNew=false;
   FilterProviders? filterProvideData;
   void filterProvider({id,sortField,sortBy}) {
     emit(FilterProviderLoading());

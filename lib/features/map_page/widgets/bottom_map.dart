@@ -5,7 +5,7 @@ import 'package:geocoding/geocoding.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
-import '../../../models/provider model.dart';
+import '../../../models/provider_model.dart';
 import '../controller/map_cubit.dart';
 
 Widget bottomMap(selectedLocationName,locationName,firstLatLng,secondLatLng,currentLocationMainPage,context)=>Container(

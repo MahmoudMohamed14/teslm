@@ -27,15 +27,15 @@ Widget category(model,index,context){return InkWell(
     children: [ClipRRect(
       borderRadius: BorderRadius.circular(40),
       child: CachedNetworkImage(
-        height: 60,fit: BoxFit.cover,
-        width: 60,
+        height: 45,fit: BoxFit.cover,
+        width: 45,
         imageUrl:'${model.image}',
         errorWidget: (context, url, error) => const Icon(Icons.error),
         placeholder: (context,url) => const Center(child: CircularProgressIndicator()),),
     ),
       Flexible(
         child: Text(language=='en'? '${model.name.en}':'${model.name.ar}',maxLines: 1,textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 15),),
+          style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),),
       )
     ],),
 );}

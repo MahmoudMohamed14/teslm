@@ -44,13 +44,21 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
       ],),
       const SizedBox(height: 15,),
       if(HomeCubit.get(context).categoryData != null)
-      GridView.count(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        crossAxisSpacing: 0.2,
-        mainAxisSpacing: 0.2,
-        crossAxisCount: 4,children: List.generate(HomeCubit.get(context).categoryData!.length,
-            (index)=> category( HomeCubit.get(context).providerData!.categories?[index],index,context))),
+      SizedBox(
+        height: 150,
+        child: GridView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // 2 items per column
+              childAspectRatio: 1 / 1.5, // Aspect ratio of each item
+              crossAxisSpacing: 0.2,
+              mainAxisSpacing: 0.2,
+            ),
+            itemCount: HomeCubit.get(context).categoryData!.length,
+            itemBuilder: (context,index)=> category( HomeCubit.get(context).providerData!.categories?[index],index,context)),
+      ),
       ListView.builder(
         shrinkWrap: true,
         physics:const NeverScrollableScrollPhysics(),
@@ -62,7 +70,7 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
             Padding(
               padding:  const EdgeInsets.only(left: 10.0,right: 10),
               child: Text(language=='en'? '${providers.categories?[categoryIndex].name?.en}':'${providers.categories?[categoryIndex].name?.ar}',
-                style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18,
+                style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16,
               ),),
             ),
             if(providers.categories?[categoryIndex].providers?.isNotEmpty??false)

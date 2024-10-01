@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Dio/Dio.dart';
 import '../../../common/constant/constant values.dart';
-import '../../../models/customer orders model.dart';
+import '../../../models/customer_orders model.dart';
 
 part 'my_order_state.dart';
 

@@ -22,7 +22,7 @@ Widget categoryLoading(categoryName,view,context)=>ListView(children: [
     padding: const EdgeInsets.only(left: 10.0,right: 10),
     child: Row(
       children: [
-        Text('$categoryName',style:const TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
+        Text('$categoryName',style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w700),),
         const Spacer(),
         Row(
           children: [

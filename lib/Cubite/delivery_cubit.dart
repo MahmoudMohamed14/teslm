@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../common/components.dart';
-import '../models/customer orders model.dart';
+import '../models/customer_orders model.dart';
 import '../shared_preference/shared preference.dart';
 part 'delivery_state.dart';
 

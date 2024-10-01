@@ -103,7 +103,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
               .height - 120,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
@@ -145,22 +145,22 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                   itemCount: widget.extra.length != 0 ? widget.extra.length : 0,
                   itemBuilder: (context, index) {
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 10.0, right: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('${getTrueCountAtIndex(index)}/${widget
-                                  .extra[index].maxSelections}',
-                                style:const TextStyle(fontSize: 17,
-                                    fontWeight: FontWeight.bold,),),
                               Text(language == 'en' ? '${widget
                                   .extra[index].name.en}' : '${widget
                                   .extra[index].name.ar}', style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.bold, ),),
+                              Text('${getTrueCountAtIndex(index)}/${widget
+                                  .extra[index].maxSelections}',
+                                style:const TextStyle(fontSize: 17,
+                                  fontWeight: FontWeight.bold,),),
                             ],
                           ),
                         ),
