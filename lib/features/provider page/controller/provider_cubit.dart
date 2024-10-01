@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:delivery/features/provider%20page/controller/provider_data_handler.dart';
 import 'package:delivery/features/provider%20page/controller/provider_state.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
@@ -84,9 +85,19 @@ class ProviderCubit extends Cubit<ProviderState> {
   }
   ProviderItemsMenu? providerFoodData;
   late AnimationController controller;
-  void getProviderFoodData(id) {
+  Future<void> getProviderData(id) async {
     emit(GetProviderFoodLoading());
-    DioHelper.getData(url: '${ApiEndPoint.providers}/$id',)
+    final result = await ProviderDataHandler.getProviderData(id: id.toString());
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+
+      emit(GetProviderFoodError());
+    }, (r) {
+      providerFoodData=ProviderItemsMenu.fromJson(r);
+      print(r);
+      emit(GetProviderFoodSuccess());
+    });
+   /* DioHelper.getData(url: '${ApiEndPoint.providers}/$id',)
         .then((value) {
       providerFoodData=ProviderItemsMenu.fromJson(value.data);
       print(value.data);
@@ -94,7 +105,7 @@ class ProviderCubit extends Cubit<ProviderState> {
     }).catchError((error) {
       print(error.toString());
       emit(GetProviderFoodError());
-    });
+    });*/
   }
   int itemsNumber = 1;
   bool isRestaurant=false;

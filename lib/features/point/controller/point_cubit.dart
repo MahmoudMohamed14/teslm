@@ -1,5 +1,6 @@
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
+import 'package:delivery/features/point/controller/point_data_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Dio/Dio.dart';
@@ -15,15 +16,24 @@ class PointCubit extends Cubit<PointState> {
   PointCubit() : super(PointInitial());
   static PointCubit get(context) => BlocProvider.of(context);
   Points ?balanceAndPointsData;
-  void getPointsAndBalance(){
+  Future<void> getPointsAndBalance() async {
     emit(GetPointsLoading());
-    DioHelper.getData(url: '${ApiEndPoint.wallet}/$customerId',).then((newValue) async {
+    final result = await PointDataHandler.getPointsAndBalance();
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+
+      emit(GetPointsError());
+    }, (r) {
+      balanceAndPointsData=Points.fromJson(r);
+      emit(GetPointsSuccess());
+    });
+   /* DioHelper.getData(url: '${ApiEndPoint.wallet}/$customerId',).then((newValue) async {
       balanceAndPointsData=Points.fromJson(newValue.data);
       emit(GetPointsSuccess());
     }).catchError((error){
       print( "eeeeeeeeeeeeeeeeeeee ${error.toString()}");
       emit(GetPointsError());
-    });
+    });*/
   }
 
   GetCoupons ?couponsData;

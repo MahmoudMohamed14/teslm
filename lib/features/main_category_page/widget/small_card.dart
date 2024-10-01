@@ -59,8 +59,8 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                             ),
                             Text(
                               providerData.reviewCount == 0
-                                  ? "0 (${providerData.reviewCount})"
-                                  : "${((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)).isNaN ?? true ? 0 : ((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)).toInt() ?? 1} (${providerData?.reviewCount})",
+                                  ? "0 (${providerData.reviewCount??0})"
+                                  : "${((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)).isNaN ?? true ? 0 : ((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)).toInt() ?? 1} (${providerData?.reviewCount??0})",
                               style:
                                   const TextStyle(fontWeight: FontWeight.w600),
                             ),
@@ -103,7 +103,7 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                                     ThemeModel.of(context).smallCardIconsColor,
                               ),
                               const SizedBox(
-                                width: 5,
+                                width: 3,
                               ),
                               Text(
                                 language == 'en' ? '0.5 KM' : "0.5 كم",
@@ -112,7 +112,7 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                                         .smallCardIconsColor),
                               ),
                               const SizedBox(
-                                width: 10,
+                                width: 9,
                               ),
                               Icon(Icons.more_time_rounded,
                                   color: ThemeModel.of(context)

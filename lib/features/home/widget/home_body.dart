@@ -84,7 +84,7 @@ Widget homeBody(scrollController,controller,context)=>BlocConsumer<HomeCubit, Ho
                           (){
                             ProviderCubit.get(context).expandedHeight=80;
                             ProviderCubit.get(context).opecity=1;
-                            ProviderCubit.get(context).getProviderFoodData(providers.categories?[categoryIndex].providers?[index].id);
+                            ProviderCubit.get(context).getProviderData(providers.categories?[categoryIndex].providers?[index].id);
                        // values=[];//todo انا عايز لما يخش ميفضلش يمسح الكارت لو هو كان ضايف قبل كدة متتمسحش الا لو خرج من التطبيق
                         price=0;
                             //ProviderCubit.get(context).categoryId=providers.categories![categoryIndex].id;
