@@ -8,8 +8,15 @@ class GetUserData {
   final bool? isDeleted;
   final List<Null>? addresses;
 
-
-  GetUserData({this.id, this.name, this.email, this.birthdate, this.phoneNumber, this.address, this.isDeleted, this.addresses});
+  GetUserData(
+      {this.id,
+      this.name,
+      this.email,
+      this.birthdate,
+      this.phoneNumber,
+      this.address,
+      this.isDeleted,
+      this.addresses});
   factory GetUserData.fromJson(Map<String, dynamic> json) {
     return GetUserData(
       id: json['id'],
@@ -19,10 +26,11 @@ class GetUserData {
       phoneNumber: json['phoneNumber'],
       address: json['address'],
       isDeleted: json['isDeleted'],
-      addresses: json['addresses'],
+      addresses: json['addresses'] ?? [],
     );
   }
 }
+
 class Points {
   final String? balance;
   final int? points;

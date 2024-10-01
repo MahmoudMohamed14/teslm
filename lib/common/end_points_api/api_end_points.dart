@@ -16,4 +16,5 @@ class ApiEndPoint {
   static String providers = 'providers';
   static String myOrders = 'orders/customer';
   static String getAdsByCategory = 'ads/category';
+  static String getNewCustomer = '${baseUrl}customers/auth/me';
 }
