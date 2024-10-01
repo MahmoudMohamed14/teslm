@@ -1,4 +1,4 @@
-import 'Categories model.dart';
+
 import 'categories_model.dart';
 
 class Advertising {

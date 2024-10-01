@@ -23,7 +23,7 @@ class HomeCubit extends Cubit<HomeState> {
     DioHelper.getData(url: ApiEndPoint.ads,
     ).then((value) {
       offersData=Advertising.fromJson(value.data);
-     // print(" offersData${offersData?.data?.firstOrNull?.provider?.categories?.firstOrNull?.name?.ar}");
+      print(" offersData${offersData?.data?.firstOrNull?.provider?.categories?.firstOrNull?.name?.ar}");
       emit(OffersSuccess());
     }).catchError((error) {
       emit(OffersError());
