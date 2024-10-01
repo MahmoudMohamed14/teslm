@@ -6,7 +6,7 @@ class GetUserData {
   final String? phoneNumber;
   final String? address;
   final bool? isDeleted;
-  final List<Null>? addresses;
+  final List? addresses;
 
   GetUserData(
       {this.id,
@@ -26,7 +26,7 @@ class GetUserData {
       phoneNumber: json['phoneNumber'],
       address: json['address'],
       isDeleted: json['isDeleted'],
-      addresses: json['addresses'] ?? [],
+      addresses: json['addresses'] is String ? [] : (json['addresses'] ?? []),
     );
   }
 }
