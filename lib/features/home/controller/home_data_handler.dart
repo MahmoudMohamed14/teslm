@@ -9,15 +9,12 @@ import '../../../models/categories_model.dart';
 class HomeDataHandler {
   static Future<Either<Failure, List<Categories>>> getCategoryHome() async {
     try {
-      List<Categories> response = await GenericRequest<List<Categories>>(
+      List<Categories> response = await GenericRequest<Categories>(
         method: HttpRequestHandler.get(
-            url: ApiEndPoint.categories,
-            ),
-        fromMap: (data) {
-          print('dddddddddddddddddddddd $data');
-          return (data as List).map((item) => Categories.fromJson(item)).toList();
-        },
-      ).getResponse(printBody: false);
+          url: ApiEndPoint.categories,
+        ),
+        fromMap: Categories.fromJson,
+      ).getList(printBody: false);
       return Either.right(response);
     } on ServerException catch (failure) {
       return Either.left(
