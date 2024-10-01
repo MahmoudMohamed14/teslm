@@ -1,16 +1,26 @@
-class Categories {
+class CategoriesModel {
   final String? id;
   final CategoryLanguage? name;
   final String? image;
-  const Categories({this.id, this.name, this.image});
+  const CategoriesModel({this.id, this.name, this.image});
 
-  factory Categories.fromJson(Map<String, dynamic> json) {
-    return Categories(
+  factory CategoriesModel.fromJson(Map<String, dynamic> json) {
+    return CategoriesModel(
       id: json['id'],
       name:
           json['name'] != null ? CategoryLanguage.fromJson(json['name']) : null,
       image: json['image'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (name != null) {
+      data['name'] = name!.toJson();
+    }
+    data['image'] = image;
+    return data;
   }
 }
 

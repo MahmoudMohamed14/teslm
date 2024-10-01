@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../Dio/Dio.dart';
 import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/categories_model.dart';
 import '../../../models/offers_model.dart';
 import '../../../models/provider_model.dart';
+import '../../auth/controller/auth_data_handler.dart';
 import 'home_data_handler.dart';
-
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -20,13 +19,13 @@ class HomeCubit extends Cubit<HomeState> {
     emit(Reload());
   }
 
-  Advertising? offersData;
-  void offers() {
+  AdvertisingModel? offersData;
+  void offers(){
     emit(OffersLoading());
-    DioHelper.getData(
-      url: ApiEndPoint.ads,
+    DioHelper.getData(url: ApiEndPoint.ads,
     ).then((value) {
-      offersData = Advertising.fromJson(value.data);
+      offersData=AdvertisingModel.fromJson(value.data);
+      offersData = AdvertisingModel.fromJson(value.data);
       // print(" offersData${offersData?.data?.firstOrNull?.provider?.categories?.firstOrNull?.name?.ar}");
       emit(OffersSuccess());
     }).catchError((error) {
@@ -34,7 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  List<Categories>? categoryData;
+  List<CategoriesModel>? categoryData;
   void category() async {
     emit(CategoriesLoading());
     final result = await HomeDataHandler.getCategoryHome();
@@ -58,6 +57,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(CategoriesError());
     });
   }*/
+
 
   ProviderHome? providerData;
   void getProviderData() {
