@@ -24,7 +24,7 @@ class PointCubit extends Cubit<PointState> {
 
       emit(GetPointsError());
     }, (r) {
-      balanceAndPointsData=Points.fromJson(r);
+      balanceAndPointsData=r;
       emit(GetPointsSuccess());
     });
    /* DioHelper.getData(url: '${ApiEndPoint.wallet}/$customerId',).then((newValue) async {
@@ -37,21 +37,76 @@ class PointCubit extends Cubit<PointState> {
   }
 
   GetCouponsModel ?couponsData;
-  void getCouponsData(){
+  Future<void> getCouponsData() async {
     emit(GetCouponsLoading());
-    DioHelper.getData(url:ApiEndPoint.coupons,query: {
+    final result = await PointDataHandler.getCouponsData();
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+
+      emit(GetCouponsError());
+    }, (r) {
+      couponsData=r;
+      emit(GetCouponsSuccess());
+    });
+   /* DioHelper.getData(url:ApiEndPoint.coupons,query: {
       "customerId":"$customerId"
     }).then((value) async {
       couponsData=GetCouponsModel.fromJson(value.data);
       emit(GetCouponsSuccess());
     }).catchError((error){
       emit(GetCouponsError());
-    });
+    });*/
   }
 
-  void redeemPointsCustomer(context){
+  Future<void> redeemPointsCustomer(context) async {
     emit(RedeemPointsLoading());
-    DioHelper.postData(url: '${ApiEndPoint.wallet}/$customerId/${ApiEndPoint.redeemPoints}',).then((value) {
+    final result = await PointDataHandler.redeemPointsCustomer();
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+      if(balanceAndPointsData!.points!<10000){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red.shade600,
+          content:  Align(
+              alignment: Alignment.center,child: Text(Strings.yourPointsLess.tr(context),
+            style:const TextStyle(color: Colors.white,),)),
+        ));}else{
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red.shade400,
+          content:  Align(
+              alignment: Alignment.center,child: Text(Strings.failedRedeemPoints.tr(context),
+            style:const TextStyle(color: Colors.white,),)),
+        ));
+      }
+
+      emit(RedeemPointsError());
+    }, (r) {
+      if(r){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
+            alignment: Alignment.center,child: Text(Strings.pointsRedeemedSuccessfully.tr(context),
+          style:const TextStyle(color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
+        getPointsAndBalance();
+        getCouponsData();
+        emit(RedeemPointsSuccess());
+      }else{
+        if(balanceAndPointsData!.points!<10000){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red.shade600,
+            content:  Align(
+                alignment: Alignment.center,child: Text(Strings.yourPointsLess.tr(context),
+              style:const TextStyle(color: Colors.white,),)),
+          ));}else{
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red.shade400,
+            content:  Align(
+                alignment: Alignment.center,child: Text(Strings.failedRedeemPoints.tr(context),
+              style:const TextStyle(color: Colors.white,),)),
+          ));
+        }
+      }
+
+
+    });
+   /* DioHelper.postData(url: '${ApiEndPoint.wallet}/$customerId/${ApiEndPoint.redeemPoints}',).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
           alignment: Alignment.center,child: Text(Strings.pointsRedeemedSuccessfully.tr(context),
         style:const TextStyle(color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
@@ -74,13 +129,11 @@ class PointCubit extends Cubit<PointState> {
         ));
       }
       emit(RedeemPointsError());
-    });
+    });*/
   }
   void getPointsCustomer(){
     emit(GetUserPointsLoading());
-    DioHelper.getData(url: '${ApiEndPoint.coupons}/$customerId',
-        token: token,
-    ).then((value) async{
+    DioHelper.getData(url: '${ApiEndPoint.coupons}/$customerId', token: token,).then((value) async{
       emit(GetUserPointsSuccess());
     }).catchError((error) {
       emit(GetUserPointsError());
