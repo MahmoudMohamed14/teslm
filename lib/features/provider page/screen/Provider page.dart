@@ -1001,9 +1001,9 @@ class OtherWidget extends StatelessWidget {
                         children: [
                           const Icon(Icons.star,color: Colors.amber,),
                           Text(
-                            item?.reviewCount == 0
-                                ? "0 (${item?.reviewCount})"
-                                : "${((item?.totalReviews??0) / (item?.reviewCount??1)).isNaN ? 0 : ((item?.totalReviews??0) / (item!.reviewCount??1)).toInt()} (${item?.reviewCount})",
+                            (item?.reviewCount??0) == 0
+                                ? "0 (${item?.reviewCount??0})"
+                                : "${((item?.totalReviews??0) / (item?.reviewCount??1)).isNaN??true ? 0 : ((item?.totalReviews??0) / (item!.reviewCount??1)).toInt()} (${item?.reviewCount??0})",
                             style:const TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ],
