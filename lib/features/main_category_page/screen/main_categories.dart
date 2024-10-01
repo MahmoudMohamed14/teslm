@@ -113,9 +113,9 @@ class MainCategories extends StatelessWidget {
                           (context, index) {
                         var providerItem;
                         if (filter != null) {
-                          providerItem = filter.data![index];
+                          providerItem = filter.data?[index];
                         } else {
-                          providerItem = providers.providers![index];
+                          providerItem = providers.providers?[index];
                         }
                         return view
                             ? Padding(
