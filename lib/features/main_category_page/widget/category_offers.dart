@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:delivery/features/main_category_page/controller/category_cubit.dart';
 import 'package:flutter/material.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
@@ -8,7 +9,7 @@ import '../../provider page/controller/provider_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
 
 Widget categorySlider(context)=>CarouselSlider(
-    items: HomeCubit.get(context).offersData?.data?.map((e) => Padding(
+    items: CategoryCubit.get(context).offersData?.data?.map((e) => Padding(
       padding: const EdgeInsets.only(top: 10.0,right: 10),
       child:InkWell(
         onTap: (){
