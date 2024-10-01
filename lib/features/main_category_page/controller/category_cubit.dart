@@ -6,52 +6,54 @@ import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/categories_provider.dart';
 import '../../../models/filter_model.dart';
 import '../../../models/offers model.dart';
+import 'category_data_handler.dart';
 
 part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit() : super(CategoryInitial());
   static CategoryCubit get(context) => BlocProvider.of(context);
+
+  Advertising? offersData;
+  void getAdsByCategoryId(String categoryId) async {
+    emit(GetAdsByCategoryLoading());
+    final result = await CategoryDataHandler.getCategoryAdvertising(categoryId);
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+      emit(GetAdsByCategoryError());
+    }, (r) {
+      offersData = r;
+      emit(GetAdsByCategorySuccess());
+    });
+  }
+
   bool changeViewNew=false;
   FilterProvidersModel? filterProvideData;
-  void filterProvider({id,sortField,sortBy}) {
+  void filterProvider(String sortField,String sortBy) async {
     emit(FilterProviderLoading());
-    DioHelper.getData(url: '${ApiEndPoint.providersCustomers}?sortOrder=$sortField&sortField=$sortBy',)
-        .then((value) {
-      filterProvideData = FilterProvidersModel.fromJson(value.data);
-      emit(CategoryProviderSuccess());
-    }).catchError((error) {
-      print('${ApiEndPoint.providersCustomers}?sortOrder=DESC&sortField=$sortBy');
-      print(error.toString());
+    final result = await CategoryDataHandler.getFilterProviders(sortField,sortBy);
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
       emit(FilterProviderError());
-    });
-  }
-  Advertising? offersData;
-  void getAdsByCategoryId(String id){
-    offersData=null;
-    emit(GetAdsByCategoryLoading());
-    DioHelper.getData(url: "${ApiEndPoint.getAdsByCategory}/$id",
-    ).then((value) {
-      offersData=Advertising.fromJson(value.data);
-      print(" done${offersData?.data?.firstOrNull?.provider?.categories?.firstOrNull?.name?.ar}");
-      emit(GetAdsByCategorySuccess());
-    }).catchError((error) {
-      emit(GetAdsByCategoryError());
-    });
-  }
-  CategoryProviderModel? categoryProvideData;
-  void categoryProvider({id}) {
-    emit(CategoryProviderLoading());
-    DioHelper.getData(url: '${ApiEndPoint.categories}/$id',)
-        .then((value) {
-      print('CategoryProvider${ApiEndPoint.categories}/$id');
-      categoryProvideData = CategoryProviderModel.fromJson(value.data);
+    }, (r) {
+      filterProvideData = r;
       emit(CategoryProviderSuccess());
-    }).catchError((error) {
-      print(error.toString());
-      emit(CategoryProviderError());
     });
   }
+
+  CategoryProviderModel? categoryProvideData;
+  void categoryProvider(String categoryId) async {
+    emit(CategoryProviderLoading());
+    final result = await CategoryDataHandler.getCategoryProviders(categoryId);
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+      emit(CategoryProviderError());
+    }, (r) {
+      categoryProvideData = r;
+      emit(CategoryProviderSuccess());
+    });
+  }
+
   void changeView() {
     changeViewNew = !changeViewNew;
     emit(CategoryProviderSuccess());

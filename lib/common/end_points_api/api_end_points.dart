@@ -6,8 +6,8 @@ class ApiEndPoint {
   static String verifyOtp = '${baseUrl}customers/verify-otp';
   static String ads = '${baseUrl}ads';
   static String categories = '${baseUrl}categories';
-  static String providersHome = 'providers/home';
-  static String providersCustomers = 'providers/customers';
+  static String providersHome = '${baseUrl}providers/home';
+  static String providersCustomers = '${baseUrl}providers/customers';
   static String couponsValidate = 'coupons/validate';
   static String orders = 'orders/customer';
   static String wallet = 'wallet';
@@ -15,6 +15,6 @@ class ApiEndPoint {
   static String redeemPoints = 'redeem-points';
   static String providers = 'providers';
   static String myOrders = 'orders/customer';
-  static String getAdsByCategory = 'ads/category';
+  static String getAdsByCategory = '${baseUrl}ads/category';
   static String getNewCustomer = '${baseUrl}customers/auth/me';
 }
