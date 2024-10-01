@@ -39,6 +39,15 @@ class HttpRequestHandler {
         files = [],
         body = {};
 
+  HttpRequestHandler.patchJson({
+    required String url,
+    required this.bodyJson,
+    this.headers,
+  })  : method = "PATCH",
+        uri = Uri.parse(url),
+        files = [],
+        body = {};
+
   HttpRequestHandler.put({
     required String url,
     required this.body,
@@ -207,11 +216,9 @@ class _ApiBaseHelper {
         );
 
     try {
-      print("response>>>>>>> : ${jsonDecode(resStream) is List<dynamic>}");
       jsonResponse = jsonDecode(resStream) is List
           ? {"data": jsonDecode(resStream) as List<dynamic>}
           : jsonDecode(resStream) as Map<String, dynamic>;
-      print("::::::::::::::::::::::::::>> ${jsonResponse}");
     } catch (e) {
       throw ServerException(
         errorMessageModel: ErrorMessageModel(

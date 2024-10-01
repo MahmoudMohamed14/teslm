@@ -125,7 +125,7 @@ class MainCategories extends StatelessWidget {
                                 () {
                                   ProviderCubit.get(context).expandedHeight=80;
                                   ProviderCubit.get(context).opecity=1;
-                              ProviderCubit.get(context).getProviderFoodData(providerItem.id);
+                              ProviderCubit.get(context).getProviderData(providerItem.id);
                                   values=[];
                                   ProviderCubit.get(context).cardList.forEach((action){
                                     if(providerItem?.id==action['ProviderId']){
@@ -157,7 +157,7 @@ class MainCategories extends StatelessWidget {
 
                                 ProviderCubit.get(context).expandedHeight=80;
                                 ProviderCubit.get(context).opecity=1;
-                                ProviderCubit.get(context).getProviderFoodData(providerItem.id);
+                                ProviderCubit.get(context).getProviderData(providerItem.id);
                                 values=[];
                                 ProviderCubit.get(context).cardList.forEach((action){
                                   if(providerItem?.id==action['ProviderId']){

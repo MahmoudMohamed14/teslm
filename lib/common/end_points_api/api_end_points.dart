@@ -10,9 +10,12 @@ class ApiEndPoint {
   static String providersCustomers = '${baseUrl}providers/customers';
   static String couponsValidate = 'coupons/validate';
   static String orders = 'orders/customer';
-  static String wallet = 'wallet';
-  static String coupons = 'coupons';
+  static String wallet = '${baseUrl}wallet';
+  static String coupons = '${baseUrl}coupons';
   static String redeemPoints = 'redeem-points';
+  static String providers = '${baseUrl}providers';
+  static String myOrders = '${baseUrl}orders/customer';
+  static String getAdsByCategory = 'ads/category';
   static String providers = 'providers';
   static String myOrders = 'orders/customer';
   static String getAdsByCategory = '${baseUrl}ads/category';

@@ -2,8 +2,6 @@ import 'package:delivery/features/profile/navigator/my_account/controller/accoun
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../Dio/Dio.dart';
-import '../../../../../common/constant/constant values.dart';
 import '../../../../../models/get_user_data.dart';
 import '../../../../point/controller/point_cubit.dart';
 
@@ -18,7 +16,7 @@ class AccountCubit extends Cubit<AccountState> {
       {String? username,
       String? email,
       String? birthdate,
-      required BuildContext context}) {
+      required BuildContext context}) async {
     emit(UpdateUserLoading());
     Map<String, dynamic> data =
         {}; // Create an empty map to hold the updated data
@@ -31,31 +29,24 @@ class AccountCubit extends Cubit<AccountState> {
     if (birthdate != null) {
       data['birthdate'] = birthdate;
     }
-    print(data);
-    DioHelper.patchData(
-      url: 'customers/auth/me',
-      token: token,
-      data: data,
-    ).then((value) {
+    // print(data);
+    final result = await AccountDataHandler.updateUser(bodyJson: data);
+    result.fold((l) {
+      emit(UpdateUserError());
+    }, (r) {
       getNewCustomer(context);
       emit(UpdateUserSuccess());
-    }).catchError((error) {
-      print(error.toString());
-      emit(UpdateUserError());
     });
   }
 
   //   --------------  Get new customer
   GetUserData? getUserData;
   void getNewCustomer(BuildContext context) async {
-    print("TOKEN>>>>>>>>>>>>>> ><<<<<<<<<");
     emit(GetUserLoading());
     final result = await AccountDataHandler.getNewCustomer();
     result.fold((l) {
-      print("MMMMMMMMMMM>> ${l.errorModel.statusMessage.toString()}");
       emit(GetUserError());
     }, (r) {
-      print("RRRRRRRRR>> ${r.name}");
       getUserData = r;
       PointCubit.get(context).getPointsAndBalance();
       PointCubit.get(context).getCouponsData();

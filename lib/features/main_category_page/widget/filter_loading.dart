@@ -15,7 +15,7 @@ Widget filterSmallViewLoading()=>Padding(
         children: [
           Row(
             children: [
-              Skeleton(height: 120.0,width:110.0,radius: 8.0),
+              Skeleton(height: 120.0,width:100.0,radius: 8.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

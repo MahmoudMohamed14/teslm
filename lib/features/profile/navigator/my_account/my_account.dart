@@ -20,7 +20,6 @@ class EditInformation extends StatelessWidget {
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {},
       builder: (context, state) {
-        print("data of user>>>>>>>  ${AccountCubit.get(context).getUserData}");
         var user = AccountCubit.get(context).getUserData;
         TextEditingController nameController = TextEditingController(
             text: '${AccountCubit.get(context).getUserData?.name}');
@@ -115,9 +114,12 @@ class EditInformation extends StatelessWidget {
                         color: ThemeModel.mainColor,
                         () {
                           if (gmailController.text.isNotEmpty) {
-                            if (emailRegex.hasMatch(gmailController.text)) {
+                            if ((emailRegex.hasMatch(gmailController.text) &&
+                                    gmailController.text != user?.email) ||
+                                nameController.text.isNotEmpty) {
                               AccountCubit.get(context).userUpdate(
                                   email: gmailController.text,
+                                  username: nameController.text,
                                   context: context);
                             } else {
                               ScaffoldMessenger.of(context)
@@ -130,11 +132,12 @@ class EditInformation extends StatelessWidget {
                               ));
                             }
                           }
-                          if (nameController.text.isNotEmpty) {
-                            AccountCubit.get(context).userUpdate(
-                                username: nameController.text,
-                                context: context);
-                          }
+                          // if (nameController.text.isNotEmpty) {
+                          //   print("HHERE 11");
+                          //   AccountCubit.get(context).userUpdate(
+                          //       username: nameController.text,
+                          //       context: context);
+                          // }
                           if (birthDate != null) {
                             AccountCubit.get(context).userUpdate(
                                 birthdate:
