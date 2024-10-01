@@ -964,7 +964,7 @@ class OtherWidget extends StatelessWidget {
       onTap: () {
         bottomSheet(context,
             ExtraItemsBottomSheet(
-              extra: item?.optionGroups,
+              extra: item?.optionGroups??[],
               itemImage: '${item?.image}',
               name: language == 'en'
                   ? '${item?.name?.en}'

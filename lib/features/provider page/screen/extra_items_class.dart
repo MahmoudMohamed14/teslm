@@ -13,7 +13,7 @@ class ExtraItemsBottomSheet extends StatefulWidget {
   final String name;
   final String id;
   final String categoryId;
-  dynamic price;
+  int? price;
   final String description;
   var extra;
   @override
@@ -61,13 +61,11 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
     }
     _bottomSheetController.addListener(bottomSheetScroll);
     checklist = List.generate(
-      widget.extra.length,
+      widget.extra.length??0,
           (index) =>
           List.generate(
-              widget.extra[index].options.length,
-                  (optionIndex) =>
-              widget.extra[index].isMandatory && optionIndex == 0
-          ),);
+              widget.extra[index].options.length??0,
+                  (optionIndex) => widget.extra[index].isMandatory && optionIndex == 0),);
   }
 
   void bottomSheetScroll() {
@@ -142,7 +140,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
             Expanded(
               child: ListView.builder(
                   controller: _bottomSheetController,
-                  itemCount: widget.extra.length != 0 ? widget.extra.length : 0,
+                  itemCount: widget.extra.length??0 != 0 ? widget.extra.length : 0,
                   itemBuilder: (context, index) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,7 +293,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                 widget.extra[index].options[otherIndex].image,
                                 context
                             );
-                          }, itemCount: widget.extra[index].options.length,),
+                          }, itemCount: widget.extra[index].options.length??0,),
                       ],
                     );
                   }
@@ -343,7 +341,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                   color: Colors.white),
                             ),
                             Text(
-                              '${widget.price * ProviderCubit.get(context).itemsNumber +
+                              '${widget.price??0 * ProviderCubit.get(context).itemsNumber +
                                   totalExtraPrice * ProviderCubit.get(context).itemsNumber}', maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.start,
