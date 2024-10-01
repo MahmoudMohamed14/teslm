@@ -16,5 +16,4 @@ class ApiEndPoint {
   static String providers = 'providers';
   static String myOrders = 'orders/customer';
   static String getAdsByCategory = 'ads/category';
-
 }
