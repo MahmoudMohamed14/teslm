@@ -138,6 +138,7 @@ class HttpRequestHandler {
   }
 
   Future<Map<String, dynamic>> requestJson({bool printBody = true}) async {
+    print("Start>>>>>>>");
     debugPrint(uri.toString());
     if (printBody) {
       debugPrint(json.encode(bodyJson));
@@ -206,7 +207,11 @@ class _ApiBaseHelper {
         );
 
     try {
-      jsonResponse = jsonDecode(resStream) as Map<String, dynamic>;
+      print("response>>>>>>> : ${jsonDecode(resStream) is List<dynamic>}");
+      jsonResponse = jsonDecode(resStream) is List
+          ? {"data": jsonDecode(resStream) as List<dynamic>}
+          : jsonDecode(resStream) as Map<String, dynamic>;
+      print("::::::::::::::::::::::::::>> ${jsonResponse}");
     } catch (e) {
       throw ServerException(
         errorMessageModel: ErrorMessageModel(

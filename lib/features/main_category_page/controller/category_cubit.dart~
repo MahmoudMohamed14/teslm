@@ -3,9 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Dio/Dio.dart';
 import '../../../common/end_points_api/api_end_points.dart';
+<<<<<<< HEAD
+import '../../../models/categories provider.dart';
+import '../../../models/filter model.dart';
+import '../../../models/offers model.dart';
+=======
 import '../../../models/categories_provider.dart';
 import '../../../models/filter_model.dart';
-import '../../../models/offers model.dart';
+>>>>>>> refs/remotes/origin/mostafa
 
 part 'category_state.dart';
 
@@ -13,12 +18,12 @@ class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit() : super(CategoryInitial());
   static CategoryCubit get(context) => BlocProvider.of(context);
   bool changeViewNew=false;
-  FilterProvidersModel? filterProvideData;
+  FilterProviders? filterProvideData;
   void filterProvider({id,sortField,sortBy}) {
     emit(FilterProviderLoading());
     DioHelper.getData(url: '${ApiEndPoint.providersCustomers}?sortOrder=$sortField&sortField=$sortBy',)
         .then((value) {
-      filterProvideData = FilterProvidersModel.fromJson(value.data);
+      filterProvideData = FilterProviders.fromJson(value.data);
       emit(CategoryProviderSuccess());
     }).catchError((error) {
       print('${ApiEndPoint.providersCustomers}?sortOrder=DESC&sortField=$sortBy');

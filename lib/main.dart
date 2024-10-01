@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:delivery/Dio/Dio.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/features/auth/controller/auth_cubit.dart';
@@ -69,7 +71,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     print("initState>>>>>>>>>>>>>>>>>>>");
-    Save.remove(key: 'myCart');
+  //  String? json = Save.getdata(key: 'myCart');
+  //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
+ //Save.remove(key: 'myCart');
   }
 
   @override
@@ -79,29 +83,35 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.detached) {
-      print('detached>>>>>>>>>>>>>');
+      print('detached>>>>>>>>>>>>>>>');
 
-      /*String? json = Save.getdata(key: 'myCart');
+      String? json = Save.getdata(key: 'myCart');
       print('after>>>>>>>>>>>>>>>>>>');
-      List<Map<String, dynamic>>  cardList=[];
-      if(json!=null){
+
+      if (json != null) {
         print('if>>>>>>>>>>>>>>>>>>');
-        cardList =  (jsonDecode(json) as List<dynamic>)
+        Save.remove(key: 'myCart');
+
+        List<Map<String, dynamic>> cardList = (jsonDecode(json) as List<dynamic>)
             .map((item) => Map<String, dynamic>.from(item))
             .toList();
-        print(" myCart=${cardList}");
-        for(int i=0;i<cardList.length;i++){
-          print("isRestaurant= ${cardList[i]["isRestaurant"]==true}");
-          if((cardList[i]["isRestaurant"]??false)){
 
-          //  cardList.remove(cardList[i]);
+        // Use removeWhere to safely remove elements
+        cardList.removeWhere((item) => item["isRestaurant"]== true);
+        String encodedData = jsonEncode(cardList);
+        print('Encoded data to save: $encodedData');
+        try {
+          bool onSave = await Save.savedata(key: 'myCart', value: encodedData);
+          if (onSave) {
+            print('done>>>>>>>>>>>>>>>>>>');
+            print(" myCart=$cardList");
           }
+        } catch (e) {
+          print('Error saving data: $e');
         }
       }
-      Save.savedata(key: 'myCart', value: jsonEncode(cardList));
-      print('done>>>>>>>>>>>>>>>>>>');*/
     }
     if (state == AppLifecycleState.resumed) {
       print('resumed>>>>>>>>>>>>>>>>>>');

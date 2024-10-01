@@ -7,17 +7,14 @@ import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/categories_model.dart';
 
 class HomeDataHandler {
-  static Future<Either<Failure, List<CategoriesModel>>> getCategoryHome() async {
+  static Future<Either<Failure, List<Categories>>> getCategoryHome() async {
     try {
-      List<CategoriesModel> response = await GenericRequest<List<CategoriesModel>>(
+      List<Categories> response = await GenericRequest<Categories>(
         method: HttpRequestHandler.get(
-            url: ApiEndPoint.categories,
-            ),
-        fromMap: (data) {
-          print('dddddddddddddddddddddd $data');
-          return (data as List).map((item) => CategoriesModel.fromJson(item)).toList();
-        },
-      ).getResponse(printBody: false);
+          url: ApiEndPoint.categories,
+        ),
+        fromMap: Categories.fromJson,
+      ).getList(printBody: false);
       return Either.right(response);
     } on ServerException catch (failure) {
       return Either.left(

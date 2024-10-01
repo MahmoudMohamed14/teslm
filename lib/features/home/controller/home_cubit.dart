@@ -25,12 +25,15 @@ class HomeCubit extends Cubit<HomeState> {
     DioHelper.getData(url: ApiEndPoint.ads,
     ).then((value) {
       offersData=AdvertisingModel.fromJson(value.data);
+      offersData = Advertising.fromJson(value.data);
+      // print(" offersData${offersData?.data?.firstOrNull?.provider?.categories?.firstOrNull?.name?.ar}");
       emit(OffersSuccess());
     }).catchError((error) {
       emit(OffersError());
     });
   }
-  List<CategoriesModel> ?categoryData;
+
+  List<Categories>? categoryData;
   void category() async {
     emit(CategoriesLoading());
     final result = await HomeDataHandler.getCategoryHome();
@@ -38,7 +41,8 @@ class HomeCubit extends Cubit<HomeState> {
       print("error is ${l.errorModel.statusMessage}");
       emit(CategoriesError());
     }, (r) {
-      categoryData=r;
+      print("categories is ${r.first.name?.en}");
+      categoryData = r;
       emit(CategoriesSuccess());
     });
   }
@@ -56,9 +60,10 @@ class HomeCubit extends Cubit<HomeState> {
 
 
   ProviderHome? providerData;
-  void getProviderData(){
+  void getProviderData() {
     emit(GetProviderLoading());
-    DioHelper.getData(url:ApiEndPoint.providersHome,
+    DioHelper.getData(
+      url: ApiEndPoint.providersHome,
     ).then((value) {
       providerData = ProviderHome.fromJson(value.data);
       emit(GetProviderSuccess());

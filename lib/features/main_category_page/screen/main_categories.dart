@@ -32,8 +32,9 @@ class MainCategories extends StatelessWidget {
         // Handle state changes
       },
       builder: (context, state) {
+       var cubit=CategoryCubit.get(context);
         final scaffoldKey = GlobalKey<ScaffoldState>();
-        var newOffers = HomeCubit.get(context).offersData;
+        //var newOffers = HomeCubit.get(context).offersData;
         var view = CategoryCubit.get(context).changeViewNew;
         var providers = CategoryCubit.get(context).categoryProvideData;
         var filter = CategoryCubit.get(context).filterProvideData;
@@ -112,9 +113,9 @@ class MainCategories extends StatelessWidget {
                           (context, index) {
                         var providerItem;
                         if (filter != null) {
-                          providerItem = filter.data![index];
+                          providerItem = filter.data?[index];
                         } else {
-                          providerItem = providers.providers![index];
+                          providerItem = providers.providers?[index];
                         }
                         return view
                             ? Padding(

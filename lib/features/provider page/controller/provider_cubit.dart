@@ -13,6 +13,7 @@ import '../../../common/end_points_api/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../models/provider_items_model.dart';
 import '../../../shared_preference/shared preference.dart';
+import 'package:collection/collection.dart';
 
 
 class ProviderCubit extends Cubit<ProviderState> {
@@ -23,21 +24,28 @@ class ProviderCubit extends Cubit<ProviderState> {
   static ProviderCubit get(context) => BlocProvider.of(context);
   void addValue(String name, int value,image,int foodPrice,id,description,extraId,providerId) {
     bool valueExists = false;
+    int totalItems = 0;
     for (var map in values) {
       if (map['itemId'] == id) {
+        print(" befor${map['quantity']}");
         map['quantity'] = (map['quantity']! + 1);
+        totalItems = map['quantity']!;
+        print(" after${map['quantity']}  $values;");
         valueExists = true;
         break;
       }
     }
+    print(" herre  $values;");
 
-      for (var map in cardList) {
-        if (map['itemId'] == id) {
-          map['quantity'] = (map['quantity']! + 1);
-          valueExists = true;
-          break;
-        }
+    cardList.forEach((action){
+      if (action['itemId'] == id) {
+        action['quantity'] = totalItems;
+        print(" after cardList${action!['quantity']}  $values;");
+
+
       }
+
+    });
 
 
     if (!valueExists) {
@@ -52,27 +60,26 @@ class ProviderCubit extends Cubit<ProviderState> {
         'description':description,
         'selectedOptionGroups': extraId??[]
       });
+      cardList.add({
+        'name': name,
+        'quantity': value,
+        'image': image,
+        "ProviderId":providerId,
+        "isRestaurant":isRestaurant,
+        'price': foodPrice,
+        'itemId': id,
+        'description':description,
+        'selectedOptionGroups': extraId??[]
+      });
+      print(" inside add $values");
 
-        cardList.add({
-          'name': name,
-          'quantity': value,
-          'image': image,
-          "ProviderId":providerId,
-          "isRestaurant":isRestaurant,
-          'price': foodPrice,
-          'itemId': id,
-          'selectedOptionGroups': extraId??[]
-        });
 
-
-
-
-      print(values);
     }
-    getValueById('${id}');
+
+
     price+=foodPrice;
     emit(Reload());
-    print(values);
+    //print(values);
     saveCardList();
   }
   ProviderItemsMenu? providerFoodData;
@@ -191,12 +198,13 @@ class ProviderCubit extends Cubit<ProviderState> {
     return false;
   }
   int getValueById(String itemId) {
-    return values.fold(0, (int total, Map<String, dynamic> item) {
-      if (item['itemId'] == itemId) {
-        return total + item['quantity'] as int;
-      }
-      return total;
-    });
+   // /* return values.fold(0, (int total, Map<String, dynamic> item) {
+   //    if (item['itemId'] == itemId) {
+   //      return total + item['quantity'] as int;
+   //    }
+   //    return total;
+   //  });*/
+    return values.firstWhereOrNull((item) => item['itemId'].toString() == itemId)?['quantity']??0;
   }
   int calculateItemsBeforeIndex(int foodIndex) {
     int totalItems = 0;
