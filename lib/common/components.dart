@@ -222,11 +222,7 @@ class bottom extends StatelessWidget {
 }
 
 Widget cartPaymentBottom(text, onTap, isProvider, context) =>
-    BlocListener<DeliveryCubit, DeliveryState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      child: Container(
+     Container(
         color: isDark ?? false ? Colors.black12 : floatActionColor,
         width: double.infinity,
         padding:
@@ -311,7 +307,6 @@ Widget cartPaymentBottom(text, onTap, isProvider, context) =>
             ),
           ),
         ),
-      ),
     );
 Future bottomSheet(context, widget, {controller}) => showModalBottomSheet(
     transitionAnimationController: controller,

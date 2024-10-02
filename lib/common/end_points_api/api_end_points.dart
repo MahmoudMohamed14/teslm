@@ -8,8 +8,8 @@ class ApiEndPoint {
   static String categories = '${baseUrl}categories';
   static String providersHome = '${baseUrl}providers/home';
   static String providersCustomers = '${baseUrl}providers/customers';
-  static String couponsValidate = 'coupons/validate';
-  static String orders = 'orders/customer';
+  static String couponsValidate = '${baseUrl}coupons/validate';
+  static String orders = '${baseUrl}orders/customer';
   static String wallet = '${baseUrl}wallet';
   static String coupons = '${baseUrl}coupons';
   static String redeemPoints = 'redeem-points';

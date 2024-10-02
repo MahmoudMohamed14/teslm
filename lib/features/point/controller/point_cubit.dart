@@ -27,13 +27,6 @@ class PointCubit extends Cubit<PointState> {
       balanceAndPointsData=r;
       emit(GetPointsSuccess());
     });
-   /* DioHelper.getData(url: '${ApiEndPoint.wallet}/$customerId',).then((newValue) async {
-      balanceAndPointsData=Points.fromJson(newValue.data);
-      emit(GetPointsSuccess());
-    }).catchError((error){
-      print( "eeeeeeeeeeeeeeeeeeee ${error.toString()}");
-      emit(GetPointsError());
-    });*/
   }
 
   GetCouponsModel ?couponsData;
@@ -48,14 +41,6 @@ class PointCubit extends Cubit<PointState> {
       couponsData=r;
       emit(GetCouponsSuccess());
     });
-   /* DioHelper.getData(url:ApiEndPoint.coupons,query: {
-      "customerId":"$customerId"
-    }).then((value) async {
-      couponsData=GetCouponsModel.fromJson(value.data);
-      emit(GetCouponsSuccess());
-    }).catchError((error){
-      emit(GetCouponsError());
-    });*/
   }
 
   Future<void> redeemPointsCustomer(context) async {
@@ -77,7 +62,6 @@ class PointCubit extends Cubit<PointState> {
             style:const TextStyle(color: Colors.white,),)),
         ));
       }
-
       emit(RedeemPointsError());
     }, (r) {
       if(r){
@@ -96,7 +80,7 @@ class PointCubit extends Cubit<PointState> {
               style:const TextStyle(color: Colors.white,),)),
           ));}else{
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red.shade400,
+            backgroundColor: Colors.red.shade500,
             content:  Align(
                 alignment: Alignment.center,child: Text(Strings.failedRedeemPoints.tr(context),
               style:const TextStyle(color: Colors.white,),)),

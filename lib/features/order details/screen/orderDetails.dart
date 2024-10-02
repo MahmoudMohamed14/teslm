@@ -16,11 +16,6 @@ class OrderDetails extends StatelessWidget {
   const OrderDetails({super.key,required this.orderIndex});
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
         return Scaffold(
       body: Stack(
         children: [
@@ -73,8 +68,6 @@ class OrderDetails extends StatelessWidget {
       ),
       bottomSheet:
       MyDraggableSheet(orderIndex: orderIndex,child:const BottomSheetDummyUI(),),);
-      },
-    );
   }
 }
 class BottomSheetDummyUI extends StatelessWidget {

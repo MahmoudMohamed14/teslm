@@ -55,18 +55,18 @@ Widget paymentMethodCard(context) {
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                  color: !DeliveryCubit.get(context).choosePadding&&DeliveryCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor:null,
+                  color: !OrderCubit.get(context).choosePadding&&OrderCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor:null,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: 1.2,color: isDark??false ?DeliveryCubit.get(context).isCheckedList[index]==true? ThemeModel.mainColor:floatActionColor:DeliveryCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor:borderColor)),
+                  border: Border.all(width: 1.2,color: isDark??false ?OrderCubit.get(context).isCheckedList[index]==true? ThemeModel.mainColor:floatActionColor:OrderCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor:borderColor)),
               child: CircleAvatar(
                 radius:5,
-                backgroundColor: DeliveryCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor: isDark??false ?Colors.black12:floatActionColor,
+                backgroundColor: OrderCubit.get(context).isCheckedList[index]==true?ThemeModel.mainColor: isDark??false ?Colors.black12:floatActionColor,
               ),
             ),
           ),
         ],
       ),
-      onTap:(){ DeliveryCubit.get(context).changePaymentMethod(index);},
+      onTap:(){ OrderCubit.get(context).changePaymentMethod(index);},
     ),
     separatorBuilder:(context,index)=> seperate(),
   ),

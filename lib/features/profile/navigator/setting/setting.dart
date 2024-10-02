@@ -10,6 +10,7 @@ import '../../../../common/images/images.dart';
 import '../../../../common/translate/app_local.dart';
 import '../../../../common/translate/strings.dart';
 import '../../../../shared_preference/shared preference.dart';
+import '../chat/controller/chat_controller_cubit.dart';
 
 class Setting extends StatelessWidget {
   const Setting({super.key});
@@ -62,7 +63,7 @@ Widget languageAndThem(them,text,flag,icon,color,onTapLang,textBorderColor,conte
   onTap: them?(){AppDarkLightCubit.get(context).changeAppMode();
   isDark=!isDark!;
   Save.putdata(key: 'isDark', value: isDark??false);
-  DeliveryCubit.get(context).increment();}
+  ChatControllerCubit.get(context).increment();}
       :(){AppDarkLightCubit.get(context).changeLang(lange: onTapLang);},
   child: SizedBox(
     height: 150,

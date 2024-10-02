@@ -133,9 +133,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<DeliveryCubit>(
-          create: (context) => DeliveryCubit(),
-        ),
         BlocProvider<MyOrdersCubit>(
           create: (context) => MyOrdersCubit()..getCustomerOrders(),
         ),

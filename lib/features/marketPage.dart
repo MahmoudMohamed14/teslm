@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_controller.dart';
-import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
@@ -15,11 +14,8 @@ class Market extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          CarouselController controller = CarouselController();
-          return Scaffold(
+    CarouselController controller = CarouselController();
+    return Scaffold(
             appBar: AppBar(
               toolbarHeight: 100,
               backgroundColor: ThemeModel.mainColor,
@@ -233,6 +229,5 @@ class Market extends StatelessWidget {
                   )
                 : Center(child: CircularProgressIndicator()),
           );
-        });
-  }
+        }
 }
