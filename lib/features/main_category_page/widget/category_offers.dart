@@ -14,7 +14,27 @@ Widget categorySlider(context)=>CarouselSlider(
       padding: const EdgeInsets.only(top: 10.0,right: 10),
       child:InkWell(
         onTap: (){
+
+
           ProviderCubit.get(context).getProviderData('${e.provider?.id}');
+          if ((e.provider?.categories?.firstOrNull?.name?.en?.toLowerCase()??'') == 'restaurants') {
+
+            ProviderCubit.get(context)
+                .isRestaurant = true;
+
+          } else {
+
+            ProviderCubit.get(context).isRestaurant = false;
+
+          }
+          values = [];
+          ProviderCubit.get(context)
+              .cardList
+              .forEach((action) {
+            if (e.provider?.id == action['ProviderId']) {
+              values.add(action);
+            }
+          });
           navigate(context, ProviderPage(
               providerDescription:language=='en'? '${e.provider?.description?.en}':'${e.provider?.description?.ar}',
               providerName: language=='en'?'${e.provider?.providerName?.en}':'${e.provider?.providerName?.ar}',

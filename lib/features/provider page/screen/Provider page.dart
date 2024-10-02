@@ -230,7 +230,7 @@ class _ProviderPage extends State<ProviderPage>
                delegate: SliverChildBuilderDelegate(
                  (context, index) {
                    return  menu!=null&&state is !GetProviderFoodLoading?menu.categoriesItemsData!.isNotEmpty? Padding(
-                     padding: const EdgeInsets.only(bottom: 8.0,left: 8,right: 8, top: 0,),
+                     padding:  EdgeInsets.only(bottom: 8.0,left: 8.0.w,right: 8.0.w, top: 0,),
                      child: ListView.separated(
                          itemBuilder: (context, index1) {
                            return Column(
@@ -243,7 +243,14 @@ class _ProviderPage extends State<ProviderPage>
                                      .copyWith(color: ThemeModel.of(context).font2),
                                ),
                                8.0.heightBox,
-                               ListView.separated(
+                            /* todo Wrap(
+                                spacing: 10.w,
+                                runSpacing: 10.w,
+                                children: List.generate(menu.categoriesItemsData?[index1].items?.length ??0, (index)=>OtherWidgetSmall(item: menu.categoriesItemsData?.firstOrNull?.items?[index]
+                                  ,provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),),
+                              )*/
+
+                              ListView.separated(
                                    itemBuilder: (context, index) =>OtherWidget(item: menu.categoriesItemsData?.firstOrNull?.items?[index]
                                      ,provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),
                                    physics: const NeverScrollableScrollPhysics(),
@@ -1048,6 +1055,7 @@ class OtherWidget extends StatelessWidget {
                         bottomEnd: Radius.circular(30)),
                   ),
                   child: Row(
+                    mainAxisSize: ProviderCubit.get(context).isRestaurant?   MainAxisSize.max : MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AppTextWidget(
@@ -1057,7 +1065,7 @@ class OtherWidget extends StatelessWidget {
                             .copyWith(color: ThemeModel.of(context).font1),
                       ),
                       5.w.widthBox,
-                      Row(
+                      ProviderCubit.get(context).isRestaurant?    Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SvgPicture.asset(ImagesApp.fire),
@@ -1069,7 +1077,7 @@ class OtherWidget extends StatelessWidget {
                                 .copyWith(color: ThemeModel.of(context).font1,),
                           ),
                         ],
-                      )
+                      ):const SizedBox.shrink()
                     ],
                   ),
                 ),
@@ -1081,14 +1089,33 @@ class OtherWidget extends StatelessWidget {
             Stack(
               children: [
                 image(item?.image, 155.0, 140.w, 20.0, BoxFit.cover),
-                /* Container(
-                  height:147.h ,
-                width: 130.w,
-                decoration:BoxDecoration(
-                    color: ThemeModel.of(context).red,
-                    borderRadius: BorderRadius.circular(20)
-                )
-              ),*/
+               /* Positioned(
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20.0),
+                        topLeft:Radius.circular(20.0) ,
+
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Discount',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),*/
+
+
                 PositionedDirectional(
                     bottom: 2,
                     end: 3,
@@ -1164,6 +1191,193 @@ class OtherWidget extends StatelessWidget {
                       ),
                     ))
               ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+class OtherWidgetSmall extends StatelessWidget {
+  const OtherWidgetSmall({super.key, this.item, this.controller, this.provederId, });
+
+  final Items? item;
+  final AnimationController ?controller;
+  final String? provederId;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        bottomSheet(context,
+            ExtraItemsBottomSheet(
+              extra: item?.optionGroups??[],
+              itemImage: '${item?.image}',
+              name: language == 'en'
+                  ? '${item?.name?.en}'
+                  : '${item?.name?.ar}',
+              description: language ==
+                  'en'
+                  ? '${item?.description?.en}'
+                  : '${item?.description?.ar}',
+              price: item?.price,
+              id: '${item?.id}',categoryId: provederId??'',),
+            controller: controller);
+      },
+      child: Container(
+       // height:155,
+        width: (MediaQuery.sizeOf(context).width/2)-16.w,
+        decoration: BoxDecoration(
+            color: ThemeModel.of(context).cardsColor,
+            borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                image(item?.image, 155.0, (MediaQuery.sizeOf(context).width/2)-20.w, 16.0, BoxFit.cover),
+               if((item?.discount??0)>0)Positioned(
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(16.0.r),
+                        topLeft:Radius.circular(16.0.r) ,
+                       /* bottomRight: Radius.circular(16.0.r),
+                        bottomLeft: Radius.circular(16.0.r),*/
+
+                      ),
+                    ),
+                    child:  Center(
+                      child: Text(
+                        Strings.discount.tr(context),
+                        style:TextStyleHelper.of(context).medium20.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+
+
+              ],
+            ),
+            8.h.heightBox,
+            Padding(
+              padding: EdgeInsetsDirectional.only(start: 10.w),
+              child: AppTextWidget(
+                language == 'en'
+                    ? item?.name?.en ?? ''
+                    : '${item?.name?.ar}',
+                style: TextStyleHelper.of(context).bold19.copyWith(fontSize: 16,overflow: TextOverflow.ellipsis),
+                maxLines: 1,
+              ),
+            ),
+            8.h.heightBox,
+            Padding(
+              padding: EdgeInsetsDirectional.only(start: 10.w),
+              child: Row(
+                children: [
+                  AppTextWidget(
+                    ' ${item?.price} ${Strings.sar.tr(context)}',
+                    style: TextStyleHelper.of(context)
+                        .regular15
+                        .copyWith(color: ThemeModel.of(context).font1),
+                  ),
+                  SizedBox(width: 10.w,),
+                  AppTextWidget(
+                    ' ${item?.price} ${Strings.sar.tr(context)}',
+                    style: TextStyleHelper.of(context)
+                        .regular14
+                        .copyWith(color: ThemeModel.of(context).font1,decorationStyle: TextDecorationStyle.solid,decorationColor: Colors.red,decoration: TextDecoration.lineThrough),
+                  ),
+                ],
+              ),
+            ),
+            15.h.heightBox,
+            Padding(
+              padding: EdgeInsetsDirectional.only(bottom: 5,start: 3),
+              child: Row(
+                //mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  (ProviderCubit.get(context).getValueById(item?.id??"")!=0)?
+                  addOrRemoveOne(
+                      ProviderCubit.get(context)
+                          .getValueById('${item?.id}'),
+                      context, item?.optionGroups?.isNotEmpty??false ?
+                      () {
+                    bottomSheet(context,
+                      ExtraItemsBottomSheet(
+                          extra: item?.optionGroups,
+                          itemImage: '${item?.image}'
+                          ,categoryId: provederId??'',
+                          name: language == 'en'
+                              ? '${item?.name!.en}'
+                              : '${item?.name!.ar}',
+
+                          description: language ==
+                              'en'
+                              ? '${item?.description!.en}'
+                              : '${item?.description!.ar}',
+                          price: item?.price,
+                          id: '${item?.id}'),
+                      controller: controller,);
+                  }
+                      : () {
+                    ProviderCubit.get(context)
+                        .addValue(
+                        language == 'en' ? '${item?.name!.en}' :
+                        '${item?.name!.ar}', 1, item?.image,
+                        item?.price ?? 0,item?.id,
+                        language == 'en' ?  item?.description?.en??'':item?.description?.ar??'',
+                        null,provederId??'');
+                  },
+                          () {
+                        ProviderCubit.get(context)
+                            .minusValue(
+                            language == 'en'
+                                ? '${item?.name!.en}'
+                                : '${item?.name!.ar}'
+                            , 1, item?.image, item?.price ?? 0,
+                            item?.id);
+                      }, false,width: (MediaQuery.sizeOf(context).width/2)-20.w,fromSmall: true): InkWell(
+                    onTap:
+                        (){
+                      ( item?.optionGroups?.isNotEmpty??false)?  bottomSheet(context,
+                          ExtraItemsBottomSheet(
+                            extra:item?.optionGroups,
+                            itemImage: '${item?.image}',
+                            name: language == 'en'
+                                ? '${item?.name?.en}'
+                                : '${item?.name?.ar}',
+                            description: language ==
+                                'en' ?
+                            '${item?.description?.en}'
+                                : '${item?.description?.ar}',
+                            price: item?.price,
+                            id:
+                            '${item?.id}', categoryId: provederId??'',),
+                          controller: controller): ProviderCubit.get(context)
+                          .addValue(
+                          language == 'en' ? '${item?.name!.en}' :
+                          '${item?.name!.ar}', 1, item?.image,
+                          item?.price ?? 0,item?.id,language == 'en' ? '${item?.description!.en}' :
+                      '${item?.description!.ar}',
+                          null,provederId??'');
+                    },
+                    child: const CircleAvatar(
+                      backgroundColor: ThemeModel.mainColor,
+                      radius: 13,
+                      child: Icon(CupertinoIcons.add,
+                        color: Colors.white,size: 20,),
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),
@@ -1261,10 +1475,10 @@ class CategoryShimmer extends StatelessWidget {
   }
 }
 
-Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
+Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage,{double ?width,fromSmall=false})=>Container(
     margin: mainPage?EdgeInsets.only(left: 20,bottom: 10):EdgeInsets.zero,
     padding: EdgeInsets.all(mainPage?10:5),
-  width:MediaQuery.sizeOf(context).width/3.20,
+    width:width??MediaQuery.sizeOf(context).width/3.20,
     height:mainPage? 50:30,
     decoration: const BoxDecoration(
         color: ThemeModel.mainColor,
@@ -1273,11 +1487,11 @@ Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InkWell(child:itemsNumber==1&&mainPage==false? Icon(Icons.restore_from_trash_outlined,color: Colors.white,):Icon(Icons.remove,color: Colors.white,),onTap: remove,),
+      fromSmall? InkWell(child: Icon(Icons.add,color: Colors.white,),onTap: add):  InkWell(child:itemsNumber==1&&mainPage==false? Icon(Icons.restore_from_trash_outlined,color: Colors.white,):Icon(Icons.remove,color: Colors.white,),onTap: remove,),
         Text(
 '$itemsNumber', maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
 style:TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),
 ),
-        InkWell(child: Icon(Icons.add,color: Colors.white,),onTap: add),],
+      fromSmall?InkWell(child:itemsNumber==1&&mainPage==false? Icon(Icons.restore_from_trash_outlined,color: Colors.white,):Icon(Icons.remove,color: Colors.white,),onTap: remove,):  InkWell(child: Icon(Icons.add,color: Colors.white,),onTap: add),],
 ),
 );
