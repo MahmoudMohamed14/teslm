@@ -1,6 +1,14 @@
 class ApiEndPoint {
   ApiEndPoint._();
-
+  static Uri uri(
+          {required String path, Map<String, dynamic>? queryParameters}) =>
+      Uri(
+        scheme: "https",
+        host: "hunger-station-clone.vercel.app",
+        // port: _apiServer.port,
+        path: path.replaceAll("https://hunger-station-clone.vercel.app", ""),
+        queryParameters: queryParameters,
+      );
   static String baseUrl = "https://hunger-station-clone.vercel.app/";
   static String generateOtp = '${baseUrl}customers/generate-otp';
   static String verifyOtp = '${baseUrl}customers/verify-otp';

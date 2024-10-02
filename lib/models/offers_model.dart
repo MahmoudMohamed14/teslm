@@ -1,3 +1,5 @@
+import 'categories_model.dart';
+
 class AdvertisingModel {
   final List<AdvertisingData>? data;
   final int? count;
@@ -87,6 +89,7 @@ class ProvidersOffer {
   final String? createdAt;
   final int? totalReviews;
   final int? reviewCount;
+ final List<CategoriesModel>? categories;
 
   ProvidersOffer(
       {this.id,
@@ -96,9 +99,11 @@ class ProvidersOffer {
       this.description,
       this.createdAt,
       this.totalReviews,
+        this.categories,
       this.reviewCount});
 
   factory ProvidersOffer.fromJson(Map<String, dynamic> json) {
+
     return ProvidersOffer(
       id: json['id'],
       providerName: json['provider_name'] != null
@@ -112,8 +117,12 @@ class ProvidersOffer {
       createdAt: json['createdAt'],
       totalReviews: json['totalReviews'],
       reviewCount: json['reviewCount'],
-    );
-  }
+      categories:(json['categories'] != null) ? List.from(json['categories']).map((e) => CategoriesModel.fromJson(e)).toList():[],
+
+
+
+    );}
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

@@ -18,7 +18,27 @@ Widget slider(market, controller, context) => CarouselSlider(
               padding: const EdgeInsets.only(top: 10.0, right: 10),
               child: InkWell(
                 onTap: () {
+                  print(e.provider?.categories?.length??'test');
                   //  Save.remove(key: 'MyCart');
+                  if ((e.provider?.categories?.firstOrNull?.name?.en?.toLowerCase()??'') == 'restaurants') {
+
+                    ProviderCubit.get(context)
+                        .isRestaurant = true;
+
+                  } else {
+
+                    ProviderCubit.get(context).isRestaurant = false;
+
+                  }
+                  values = [];
+                  ProviderCubit.get(context)
+                      .cardList
+                      .forEach((action) {
+                    if (e.provider?.id == action['ProviderId']) {
+                      values.add(action);
+                    }
+                  });
+
                   ProviderCubit.get(context)
                       .getProviderData('${e.provider?.id}');
                   navigate(
