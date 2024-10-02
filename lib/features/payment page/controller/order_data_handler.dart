@@ -36,7 +36,6 @@ class PostOrderDataHandler {
   static Future<Either<Failure, bool>> postOrder({
     String? coupon,
     required List items,
-    required String customerId,
     required String customerNotes,
   }) async {
     try {
@@ -46,7 +45,6 @@ class PostOrderDataHandler {
             bodyJson: {
               "couponId": coupon,
               "items": items,
-              "customerId": customerId,
               "customerNotes": customerNotes
             }),
         fromMap: (data) {

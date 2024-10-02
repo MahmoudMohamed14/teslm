@@ -60,17 +60,24 @@ class OrderCubit extends Cubit<OrderState> {
   void postOrder({
     String? coupon,
     required List items,
-    required String customerId,
     required String customerNotes,
     required BuildContext context,
   }) async {
     emit(PostOrderLoading());
-    final result = await PostOrderDataHandler.postOrder(
-      coupon: coupon,
-      items: items,
-      customerId: customerId,
-      customerNotes: customerNotes,
-    );
+    final result;
+    if(coupon!=null){
+      result = await PostOrderDataHandler.postOrder(
+        coupon: coupon,
+        items: items,
+        customerNotes: customerNotes,
+      );
+    }else{
+      result = await PostOrderDataHandler.postOrder(
+        items: items,
+        customerNotes: customerNotes,
+      );
+    }
+
     result.fold((l) {
       print("error is ${l.errorModel.statusMessage}");
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
