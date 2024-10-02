@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../Dio/Dio.dart';
-import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/categories_model.dart';
 import '../../../models/offers_model.dart';
 import '../../../models/provider_model.dart';
-import '../../auth/controller/auth_data_handler.dart';
 import 'home_data_handler.dart';
 part 'home_state.dart';
 
@@ -18,18 +15,16 @@ class HomeCubit extends Cubit<HomeState> {
     current = index;
     emit(Reload());
   }
-
   AdvertisingModel? offersData;
-  void offers(){
+  void offers() async {
     emit(OffersLoading());
-    DioHelper.getData(url: ApiEndPoint.ads,
-    ).then((value) {
-      offersData=AdvertisingModel.fromJson(value.data);
-      offersData = AdvertisingModel.fromJson(value.data);
-      // print(" offersData${offersData?.data?.firstOrNull?.provider?.categories?.firstOrNull?.name?.ar}");
-      emit(OffersSuccess());
-    }).catchError((error) {
+    final result = await HomeDataHandler.getAdvertisingHome();
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
       emit(OffersError());
+    }, (r) {
+      offersData = r;
+      emit(OffersSuccess());
     });
   }
 
@@ -46,29 +41,18 @@ class HomeCubit extends Cubit<HomeState> {
       emit(CategoriesSuccess());
     });
   }
-  /*void category() {
-    emit(CategoriesLoading());
-    DioHelper.getData(url: ApiEndPoint.categories,)
-        .then((value) {
-      final List<dynamic> categories = value.data;
-      categoryData = categories.map((item) => Categories.fromJson(item)).toList();
-      emit(CategoriesSuccess());
-    }).catchError((error) {
-      emit(CategoriesError());
-    });
-  }*/
-
 
   ProviderHome? providerData;
-  void getProviderData() {
+  void getProviderData() async {
     emit(GetProviderLoading());
-    DioHelper.getData(
-      url: ApiEndPoint.providersHome,
-    ).then((value) {
-      providerData = ProviderHome.fromJson(value.data);
-      emit(GetProviderSuccess());
-    }).catchError((error) {
+    final result = await HomeDataHandler.getProvidersHome();
+    result.fold((l) {
+      print("error issssssssssss ${l.errorModel.statusMessage}");
       emit(GetProviderError());
+    }, (r) {
+      providerData = r;
+      emit(GetProviderSuccess());
     });
   }
+
 }

@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:delivery/features/main_category_page/controller/category_cubit.dart';
 import 'package:flutter/material.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../home/controller/home_cubit.dart';
@@ -8,7 +10,7 @@ import '../../provider page/controller/provider_cubit.dart';
 import '../../provider page/screen/Provider page.dart';
 
 Widget categorySlider(context)=>CarouselSlider(
-    items: HomeCubit.get(context).offersData?.data?.map((e) => Padding(
+    items: CategoryCubit.get(context).offersData?.data?.map((e) => Padding(
       padding: const EdgeInsets.only(top: 10.0,right: 10),
       child:InkWell(
         onTap: (){
@@ -19,14 +21,39 @@ Widget categorySlider(context)=>CarouselSlider(
               providerCover: '${e.provider?.providerCover}', providerImage: '${e.provider?.providerImage}',
           providerId: '${e.provider?.id}',));
         },
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-          child: CachedNetworkImage(
-            placeholder: (context,url) => const Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            imageUrl: '${e.image}',
-            width: double.infinity,
-            fit: BoxFit.cover,),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              child: CachedNetworkImage(
+                placeholder: (context,url) => const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                imageUrl: '${e.image}',
+                width: double.infinity,
+                fit: BoxFit.cover,),
+            ),
+            Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  decoration: BoxDecoration(
+                      color: ThemeModel.mainColor.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Center(
+                    child: Text(
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      language == 'en'? '${e.name?.en}':'${e.name?.ar}',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ))
+          ],
         ),
       ),
     )).toList(),

@@ -44,10 +44,11 @@ class MainCategories extends StatelessWidget {
             preferredSize: const Size.fromHeight(200.0),
             child:appBar(context,false),
           ),
-          body:providers!=null&&state is !CategoryProviderLoading? Padding(
+          body:providers!=null&&state is !CategoryProviderLoading&&state is !GetAdsByCategoryLoading? Padding(
             padding: const EdgeInsets.only(left: 8.0,right: 8),
             child: CustomScrollView(
               slivers: [
+                if(CategoryCubit.get(context).offersData?.data?.isNotEmpty??false)
                 SliverAppBar(
                   leading: Container(),
                   bottom: PreferredSize(
@@ -78,7 +79,7 @@ class MainCategories extends StatelessWidget {
                     minHeight: 50.0,
                     maxHeight: 50.0,
                     child: Container(
-                      color: ThemeModel.of(context).cardsColor,
+                      color: isDark??false?ThemeModel.of(context).cardsColor:Colors.grey.shade100,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(

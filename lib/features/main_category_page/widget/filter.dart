@@ -3,7 +3,6 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Cubite/delivery_cubit.dart';
-import '../../../common/colors/colors.dart';
 import '../../../common/translate/strings.dart';
 import '../controller/category_cubit.dart';
 
@@ -16,9 +15,9 @@ Widget changeItems(index,context)=>BlocBuilder<DeliveryCubit, DeliveryState>(
       child: InkWell(
         onTap: (){
           if(index==0)
-          {CategoryCubit.get(context).filterProvider(sortField: 'DESC',sortBy:'reviewCount' );}
+          {CategoryCubit.get(context).filterProvider('DESC','reviewCount' );}
           else
-          {CategoryCubit.get(context).filterProvider(sortField: 'DESC',sortBy:'totalReviews' );}
+          {CategoryCubit.get(context).filterProvider('DESC','totalReviews' );}
         },
         child: Container(
           padding:const EdgeInsets.all(8),
