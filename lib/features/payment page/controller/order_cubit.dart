@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:delivery/common/end_points_api/api_end_points.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
@@ -88,6 +90,18 @@ class OrderCubit extends Cubit<OrderState> {
           alignment: Alignment.center,child: Text(Strings.orderDoneSuccessfully.tr(context),
         style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
       emit(PostOrderSuccess());
+    });
+  }
+  List<bool> isCheckedList =[ true,false,false];
+  bool choosePadding =true;
+  void changePaymentMethod(index){
+    if(index==1){isCheckedList=[false,true,false];emit(Reload());}
+    else if(index==2){isCheckedList=[false,false,true];emit(Reload());}
+    else {isCheckedList=[true,false,false];emit(Reload());}
+    choosePadding =false;
+    Timer(Duration(milliseconds: 350), () {
+      choosePadding = true;
+      emit(Reload());
     });
   }
 }

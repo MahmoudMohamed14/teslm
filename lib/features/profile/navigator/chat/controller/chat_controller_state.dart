@@ -5,6 +5,8 @@ sealed class ChatControllerState {}
 
 final class ChatControllerInitial extends ChatControllerState {}
 
+class Reload extends ChatControllerState{}
+
 class MessageLoading extends ChatControllerState{}
 
 class MessageSuccess extends ChatControllerState{}

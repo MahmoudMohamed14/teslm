@@ -244,14 +244,14 @@ class Chat extends StatelessWidget {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage == null) return;
     selectedImages = File(returnedImage.path);
-    DeliveryCubit.get(context).increment();
+    ChatControllerCubit.get(context).increment();
   }
   Future pickImageFromCamera(context) async {
     final returnedImage =
         await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnedImage == null) return;
     selectedImages = File(returnedImage.path);
-    DeliveryCubit.get(context).increment();
+    ChatControllerCubit.get(context).increment();
   }
 }
 String formatTime(String dateTimeString) {

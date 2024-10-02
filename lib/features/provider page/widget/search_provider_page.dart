@@ -25,7 +25,7 @@ BlocConsumer<ProviderCubit, ProviderState>(
                // showSearchProvider=false;
 
                ProviderCubit.get(context).hideSearch();
-               DeliveryCubit.get(context).increment();}, icon: Icon(Icons.arrow_back_outlined,color: floatActionColor,)),
+               ProviderCubit.get(context).increment();}, icon: Icon(Icons.arrow_back_outlined,color: floatActionColor,)),
              Container(
                width: MediaQuery.sizeOf(context).width/1.35,
                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color(0xFFF5F5F5),),

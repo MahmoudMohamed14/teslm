@@ -40,7 +40,7 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                               child: Icon(Icons.star,color: Colors.amber,size: 15),
                             ),
                             Text(
-                        "${(providerData.reviewCount != null && providerData.reviewCount != 0 ? (providerData.totalReviews / providerData.reviewCount) : 0).toInt()} (${providerData.reviewCount ?? 0})",
+                        "${(providerData.reviewCount != null && providerData.reviewCount != 0 ? (providerData.totalReviews / providerData.reviewCount) : 0)} (${providerData.reviewCount ?? 0})",
                         style:const TextStyle(color: Colors.white,fontSize: 13,fontWeight: FontWeight.w400),
                       ),
                           ],

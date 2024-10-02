@@ -13,11 +13,6 @@ class MyCoupons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
-      listener: (context, state) {
-
-      },
-      builder: (context, state) {
         return Scaffold(
           appBar: PreferredSize(
               preferredSize: const Size.fromHeight(70.0),
@@ -115,8 +110,6 @@ class MyCoupons extends StatelessWidget {
             )),
           ),
         );
-      },
-    );
   }
 }
 

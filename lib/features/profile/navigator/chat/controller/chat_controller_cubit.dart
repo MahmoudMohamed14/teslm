@@ -11,6 +11,9 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     connectSocket();
   }
   static ChatControllerCubit get(context) => BlocProvider.of(context);
+  void increment(){
+    emit(Reload());
+  }
 
   ChatModel? chatsCallCenter;
   void getChat() {
