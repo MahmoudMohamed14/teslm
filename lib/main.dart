@@ -10,6 +10,7 @@ import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
 import 'package:delivery/features/point/controller/point_cubit.dart';
 import 'package:delivery/features/profile/navigator/chat/controller/chat_controller_cubit.dart';
 import 'package:delivery/features/profile/navigator/my_account/controller/account_cubit.dart';
+import 'package:delivery/features/profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import 'package:delivery/shared_preference/shared%20preference.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'Cubite/delivery_cubit.dart';
 import 'Cubite/them/app_dark_light_cubit.dart';
 import 'Utilities/git_it.dart';
-import 'Utilities/shared_preferences.dart';
 import 'bloc_observer.dart';
 import 'common/translate/app_local.dart';
 import 'features/home/screens/home.dart';
@@ -72,10 +71,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     print("initState>>>>>>>>>>>>>>>>>>>${Save.getdata(key: 'customerId')}");
-  //  String? json = Save.getdata(key: 'myCart');
-  //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
- //Save.remove(key: 'myCart');
-
+    //  String? json = Save.getdata(key: 'myCart');
+    //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
+    //Save.remove(key: 'myCart');
   }
 
   @override
@@ -96,12 +94,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         print('if>>>>>>>>>>>>>>>>>>');
         Save.remove(key: 'myCart');
 
-        List<Map<String, dynamic>> cardList = (jsonDecode(json) as List<dynamic>)
-            .map((item) => Map<String, dynamic>.from(item))
-            .toList();
+        List<Map<String, dynamic>> cardList =
+            (jsonDecode(json) as List<dynamic>)
+                .map((item) => Map<String, dynamic>.from(item))
+                .toList();
 
         // Use removeWhere to safely remove elements
-        cardList.removeWhere((item) => item["isRestaurant"]== true);
+        cardList.removeWhere((item) => item["isRestaurant"] == true);
         String encodedData = jsonEncode(cardList);
         print('Encoded data to save: $encodedData');
         try {
@@ -156,6 +155,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ),
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(),
+        ),
+        BlocProvider<CouponsCubit>(
+          create: (context) => CouponsCubit(),
         ),
         BlocProvider<PointCubit>(
           create: (context) => PointCubit()
