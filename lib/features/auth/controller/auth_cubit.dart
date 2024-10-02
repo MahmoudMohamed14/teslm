@@ -111,6 +111,7 @@ class AuthCubit extends Cubit<AuthState> {
       token = loginOTP!.token;
       if (loginOTP!.token != null) {
         SharedPref.setToken(token: loginOTP!.token!);
+        SharedPref.setUserID(id: loginOTP!.id!);
       }
       HomeCubit.get(context).changeNavigator(3);
       customerId = loginOTP!.id;

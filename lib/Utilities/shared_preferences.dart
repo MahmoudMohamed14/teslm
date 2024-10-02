@@ -7,6 +7,7 @@ class SharedPref {
   static FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   static const String _userToken = "token";
+  static const String _userID = "userID";
   static const String loginStatusKey = "loginStatus";
   static const String _theme = "theme";
 
@@ -24,6 +25,14 @@ class SharedPref {
 
   static String? getToken() {
     return prefs.getString(_userToken);
+  }
+
+  static Future<void> setUserID({required String id}) async {
+    await prefs.setString(_userID, id);
+  }
+
+  static String? getUserID() {
+    return prefs.getString(_userID);
   }
 
   static Future<void> setTheme(bool themeValue) async {

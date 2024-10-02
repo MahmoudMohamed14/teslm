@@ -1,4 +1,3 @@
-import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/images/images.dart';
 import '../../../../common/translate/strings.dart';
+import 'controller/coupons_cubit.dart';
 
 class MyCoupons extends StatelessWidget {
   const MyCoupons({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<CouponsCubit, CouponsState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
