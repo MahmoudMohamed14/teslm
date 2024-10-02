@@ -16,3 +16,6 @@ class PostOrderLoading extends OrderState{}
 class PostOrderSuccess extends OrderState{}
 
 class PostOrderError extends OrderState{}
+
+class Reload extends OrderState{}
+

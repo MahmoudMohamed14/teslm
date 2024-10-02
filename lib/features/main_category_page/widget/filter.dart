@@ -1,13 +1,10 @@
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/translate/strings.dart';
 import '../controller/category_cubit.dart';
 
-Widget changeItems(index,context)=>BlocBuilder<DeliveryCubit, DeliveryState>(
-  builder: (context, state) {
+Widget changeItems(index,context){
     List filterData=[Strings.highReview.tr(context),Strings.mostReviewers.tr(context)];
     List filterIcons= [Icon(Icons.star,color: ThemeModel.of(context).greenAppBar,),Icon(Icons.person_search,color: ThemeModel.of(context).greenAppBar,)];
     return Padding(
@@ -35,5 +32,4 @@ Widget changeItems(index,context)=>BlocBuilder<DeliveryCubit, DeliveryState>(
           ),),
       ),
     );
-  },
-);
+  }

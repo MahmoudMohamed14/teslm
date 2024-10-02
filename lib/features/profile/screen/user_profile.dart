@@ -24,13 +24,6 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
-      listener: (context, state) {
-        if (token == '') {
-          Save.savedata(key: 'token', value: '').then((value) {});
-        }
-      },
-      builder: (context, state) {
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(98.0),
@@ -124,8 +117,6 @@ class UserProfile extends StatelessWidget {
             ),
           ),
         );
-      },
-    );
   }
 }
 

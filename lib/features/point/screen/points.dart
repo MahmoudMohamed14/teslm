@@ -18,7 +18,7 @@ class Points extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DeliveryCubit, DeliveryState>(
+    return BlocConsumer<PointCubit, PointState>(
   listener: (context, state) {
     // TODO: implement listener
   },
@@ -34,7 +34,7 @@ class Points extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20.0,right: 20,top: 10,bottom: 10),
             child: Row(children: [
               if(PointCubit.get(context).balanceAndPointsData!=null)
-                Text('${PointCubit.get(context).balanceAndPointsData!.points} ',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
+                Text('${PointCubit.get(context).balanceAndPointsData?.points} ',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
               if(PointCubit.get(context).balanceAndPointsData==null)
                 Skeleton(height: 15.0,width: 50.0),
               Text(Strings.point.tr(context),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),

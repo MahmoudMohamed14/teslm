@@ -16,10 +16,7 @@ Future<void> logoutAccount(context,) async {
   await showDialog(
     context: context,
     builder: (context) {
-      return BlocConsumer<DeliveryCubit, DeliveryState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return AlertDialog(
+      return AlertDialog(
             backgroundColor: ThemeModel.of(context).cardsColor,
             content: SizedBox(
               height: 200,
@@ -67,6 +64,4 @@ Future<void> logoutAccount(context,) async {
           );
         },
       );
-    },
-  );
 }

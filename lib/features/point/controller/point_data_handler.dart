@@ -50,7 +50,7 @@ class PointDataHandler{
             url: '${ApiEndPoint.wallet}/$customerId/${ApiEndPoint.redeemPoints}', body: {}
         ),
         fromMap: (data) {
-          return data['statusCode']==200||data['statusCode']==201;
+          return data['status']=="ACTIVE";
         },
       ).getResponse(printBody: false);
       return Either.right(response);

@@ -83,6 +83,11 @@ class ProviderCubit extends Cubit<ProviderState> {
     //print(values);
     saveCardList();
   }
+
+  void increment(){
+    emit(Reload());
+  }
+
   ProviderItemsMenu? providerFoodData;
   late AnimationController controller;
   Future<void> getProviderData(id) async {

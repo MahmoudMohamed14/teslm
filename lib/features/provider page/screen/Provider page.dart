@@ -1273,12 +1273,11 @@ Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage)=>Container(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-    InkWell(child: Icon(Icons.add,color: Colors.white,),onTap: add),
-Text(
+        InkWell(child:itemsNumber==1&&mainPage==false? Icon(Icons.restore_from_trash_outlined,color: Colors.white,):Icon(Icons.remove,color: Colors.white,),onTap: remove,),
+        Text(
 '$itemsNumber', maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
 style:TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),
 ),
-InkWell(child:itemsNumber==1&&mainPage==false? Icon(Icons.restore_from_trash_outlined,color: Colors.white,):Icon(Icons.remove,color: Colors.white,),onTap: remove,),
-],
+        InkWell(child: Icon(Icons.add,color: Colors.white,),onTap: add),],
 ),
 );
