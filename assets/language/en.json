@@ -114,5 +114,6 @@
   "failed_execute_order":"Failed to execute the order",
   "failed_redeem_points":"Failed to redeem your points",
   "your_points_less":"Your points less than 10,000",
-  "points_redeemed_successfully":"Your points has been redeemed successfully"
+  "points_redeemed_successfully":"Your points has been redeemed successfully",
+  "discount": "Discount"
 }

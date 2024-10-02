@@ -235,7 +235,7 @@ class ProviderCubit extends Cubit<ProviderState> {
     emit(SubmitValueEvent(value));
   }
   List<Map<String, dynamic>>  addExtra=[];
-  void addIdToSelectedOption(List<OptionGroups> optionsGroups,List<List<bool>> checklist) {
+  void addIdToSelectedOption(List optionsGroups,List<List<bool>> checklist) {
     bool valueExists = false;
     for(int i=0;i<optionsGroups.length;i++){
       for(int j=0;j<(optionsGroups[i].options?.length??0);j++){
