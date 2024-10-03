@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../point/controller/point_cubit.dart';
 import '../Models/get_coupons_model.dart';
 import 'coupons_data_handler.dart';
 
@@ -21,8 +20,7 @@ class CouponsCubit extends Cubit<CouponsState> {
       emit(GetCouponsError());
     }, (r) {
       couponsData = r;
-      PointCubit.get(context).getPointsAndBalance();
-      PointCubit.get(context).getCouponsData();
+      print("couponsData is ${couponsData?.data?.length}");
       emit(GetCouponsSuccess());
     });
   }

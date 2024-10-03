@@ -30,15 +30,14 @@ class CouponData {
   final String? code;
   final String? type;
   final String? status;
-  final int? maxAmount;
-  final int? fixedAmount;
-  final Null percentageAmount;
+  final double? maxAmount;
+  final double? fixedAmount;
+  final double? percentageAmount;
   final String appliedOn;
-  final int? minAmount;
+  final double? minAmount;
   final int? usageCount;
   final bool? applyToAllProviders;
-  final List<Providers>? providers;
-
+  final List<Providers> providers;
 
   CouponData(
       {this.id,
@@ -52,7 +51,7 @@ class CouponData {
       this.minAmount,
       this.usageCount,
       this.applyToAllProviders,
-      this.providers});
+      this.providers = const []});
 
   factory CouponData.fromJson(Map<String, dynamic> json) {
     return CouponData(
@@ -60,14 +59,14 @@ class CouponData {
       code: json['code'],
       type: json['type'],
       status: json['status'],
-      maxAmount: json['maxAmount'],
-      fixedAmount: json['fixedAmount'],
+      maxAmount: (json['maxAmount'] ?? 0).toDouble(),
+      fixedAmount: (json['fixedAmount'] ?? 0).toDouble(),
       percentageAmount: json['percentageAmount'],
       appliedOn: json['appliedOn'],
-      minAmount: json['minAmount'],
+      minAmount: (json['minAmount'] ?? 0).toDouble(),
       usageCount: json['usageCount'],
       applyToAllProviders: json['applyToAllProviders'],
-      providers: json['providers'],
+      providers: [],
     );
   }
 

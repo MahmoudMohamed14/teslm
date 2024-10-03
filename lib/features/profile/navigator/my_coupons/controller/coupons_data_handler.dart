@@ -15,9 +15,9 @@ class CouponsDataHandler {
       debugPrint("TOKEN::::::::<<<< ${SharedPref.getToken()}");
       GetCouponsModel response = await GenericRequest<GetCouponsModel>(
         method: HttpRequestHandler.getUri(
-            uri: ApiEndPoint.uri(
-                path: ApiEndPoint.coupons,
-                queryParameters: {"customerId": SharedPref.getUserID()})),
+            uri: ApiEndPoint.uri(path: ApiEndPoint.coupons, queryParameters: {
+          "customerId": "c9acc4c5-48cd-41fc-a4bf-a397f965d1fc"
+        })),
         fromMap: (data) {
           print("DATA::::::::<<<< $data");
           return GetCouponsModel.fromJson(data);

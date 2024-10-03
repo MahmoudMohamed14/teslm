@@ -5,10 +5,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/images/images.dart';
 import '../../../../common/translate/strings.dart';
+import 'Models/get_coupons_model.dart';
 import 'controller/coupons_cubit.dart';
 
-class MyCoupons extends StatelessWidget {
+class MyCoupons extends StatefulWidget {
   const MyCoupons({super.key});
+
+  @override
+  State<MyCoupons> createState() => _MyCouponsState();
+}
+
+class _MyCouponsState extends State<MyCoupons> {
+  @override
+  void initState() {
+    super.initState();
+    CouponsCubit.get(context).getUserCoupons(
+        context); // Call the Cubit method to fetch data in initState
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +40,21 @@ class MyCoupons extends StatelessWidget {
                   ImagesApp.pointsAppBarImage, true, context)),
           body: SizedBox(
             child: Center(
-                child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 4,
-              itemBuilder: (context, index) => VoucherCard(),
-            )),
+                child: CouponsCubit.get(context).couponsData == null
+                    ? const CircularProgressIndicator()
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: CouponsCubit.get(context)
+                                .couponsData
+                                ?.data
+                                ?.length ??
+                            0,
+                        itemBuilder: (context, index) => VoucherCard(
+                          coupon: CouponsCubit.get(context)
+                              .couponsData
+                              ?.data?[index],
+                        ),
+                      )),
           ),
         );
       },
@@ -35,11 +63,14 @@ class MyCoupons extends StatelessWidget {
 }
 
 class VoucherCard extends StatelessWidget {
+  final CouponData? coupon;
+  const VoucherCard({super.key, this.coupon});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16.0),
-      padding: EdgeInsets.all(16.0),
+      margin: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -48,7 +79,7 @@ class VoucherCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
       ),
@@ -61,8 +92,8 @@ class VoucherCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '50% off Up to SR50 on 2 orders',
-                  style: TextStyle(
+                  coupon?.code ?? "",
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: Colors.brown,
@@ -70,8 +101,10 @@ class VoucherCard extends StatelessWidget {
                 ),
               ),
               Text(
-                '50.0%',
-                style: TextStyle(
+                coupon?.percentageAmount != null
+                    ? "${coupon?.percentageAmount.toString()} % "
+                    : "${coupon?.fixedAmount.toString()} SR",
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   color: Colors.blue,
@@ -79,20 +112,20 @@ class VoucherCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
 
           // Max discount info
           Text(
-            'Max discount of 50.0 SR',
-            style: TextStyle(color: Colors.grey),
+            'Max discount of ${coupon?.maxAmount ?? 0} SR',
+            style: const TextStyle(color: Colors.grey),
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
 
           // Validity date and "Expired" label
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Valid until 25.05.2024',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -106,23 +139,23 @@ class VoucherCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  'Expired',
-                  style: TextStyle(color: Colors.grey),
+                  coupon?.status ?? "",
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
 
           // Payment option
           Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(5),
             ),
             child: Text(
-              'Online Payment',
+              coupon?.appliedOn ?? "",
               style: TextStyle(color: Colors.grey),
             ),
           ),
