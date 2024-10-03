@@ -1,12 +1,20 @@
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
+import 'package:delivery/features/provider%20page/controller/provider_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 
-Widget checkList(isChecked,onChange,addNewName,price,extraImage,context)=> InkWell(
+Widget checkList(isChecked,onChange,addNewName,price,extraImage,context)=> BlocConsumer<ProviderCubit, ProviderState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return InkWell(
   onTap: onChange,
   child: Card(
     color: ThemeModel.of(context).cardsColor,
@@ -43,4 +51,6 @@ Widget checkList(isChecked,onChange,addNewName,price,extraImage,context)=> InkWe
       ),
     ),
   ),
+);
+  },
 );

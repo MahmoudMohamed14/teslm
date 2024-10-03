@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/constant/constant values.dart';
+import '../../../models/provider_items_model.dart';
 import '../widget/add_or_remove_in_provider.dart';
 
 class ExtraItemsBottomSheet extends StatefulWidget {
@@ -14,9 +15,9 @@ class ExtraItemsBottomSheet extends StatefulWidget {
   final String name;
   final String id;
   final String categoryId;
-  int? price;
+  final int? price;
   final String description;
-  var extra;
+  final List<OptionGroups> extra;
   @override
   ExtraItemsBottomSheet(
       {super.key,
@@ -65,8 +66,8 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
     _bottomSheetController.addListener(bottomSheetScroll);
     checklist = List.generate(
       widget.extra.length ?? 0,
-      (index) => List.generate(widget.extra[index].options.length ?? 0,
-          (optionIndex) => widget.extra[index].isMandatory && optionIndex == 0),
+      (index) => List.generate(widget.extra[index].options?.length ?? 0,
+          (optionIndex) => widget.extra[index].isMandatory??false && optionIndex == 0),
     );
   }
 
@@ -152,8 +153,8 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                             children: [
                               Text(
                                 language == 'en'
-                                    ? '${widget.extra[index].name.en}'
-                                    : '${widget.extra[index].name.ar}',
+                                    ? '${widget.extra[index].name?.en}'
+                                    : '${widget.extra[index].name?.ar}',
                                 style: const TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
@@ -179,10 +180,10 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                             final bool isChecked = checklist[index][otherIndex];
                             return checkList(isChecked, () {
                               if (widget.extra[index].maxSelections == 1) {
-                                if (widget.extra[index].isMandatory) {
+                                if (widget.extra[index].isMandatory??false) {
                                   if (!isChecked) {
                                     for (int i = 0;
-                                        i < widget.extra[index].options.length;
+                                        i < (widget.extra[index].options?.length??0);
                                         i++) {
                                       if (i != otherIndex &&
                                           checklist[index][i]) {
@@ -191,8 +192,8 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                         totalExtraPrice -=
                                             (ProviderCubit.get(context)
                                                         .itemsNumber *
-                                                    widget.extra[index]
-                                                        .options[i].price)
+                                                    (widget.extra[index]
+                                                        .options![i].price??0))
                                                 .toInt();
                                       } else if (i == otherIndex) {
                                         changeChecklistValue(
@@ -200,10 +201,10 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                         totalExtraPrice +=
                                             (ProviderCubit.get(context)
                                                         .itemsNumber *
-                                                    widget
+                                                    (widget
                                                         .extra[index]
-                                                        .options[otherIndex]
-                                                        .price)
+                                                        .options?[otherIndex]
+                                                        .price??0))
                                                 .toInt();
                                       }
                                     }
@@ -218,13 +219,13 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                       totalExtraPrice -=
                                           (ProviderCubit.get(context)
                                                       .itemsNumber *
-                                                  widget.extra[index].options[i]
-                                                      .price)
+                                                  (widget.extra[index].options?[i]
+                                                      .price??0))
                                               .toInt();
                                       extraName = extraName.replaceAll(
                                           language == 'en'
-                                              ? '+${widget.extra[index].options[i].name.en}'
-                                              : '+${widget.extra[index].options[i].name.ar}',
+                                              ? '+${widget.extra[index].options?[i].name?.en}'
+                                              : '+${widget.extra[index].options?[i].name?.ar}',
                                           '');
                                       /* cubit.addExtra.removeWhere((item) =>
                                           item['selectedOption'].any((option) =>
@@ -238,31 +239,31 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                         totalExtraPrice +=
                                             (ProviderCubit.get(context)
                                                         .itemsNumber *
-                                                    widget
+                                                    (widget
                                                         .extra[index]
-                                                        .options[otherIndex]
-                                                        .price)
+                                                        .options?[otherIndex]
+                                                        .price??0))
                                                 .toInt();
                                         if (!extraName.contains(language == 'en'
-                                            ? widget.extra[index]
-                                                .options[otherIndex].name.en
-                                            : widget.extra[index]
-                                                .options[otherIndex].name.ar)) {
+                                            ? (widget.extra[index]
+                                                .options![otherIndex].name?.en??'')
+                                            : (widget.extra[index]
+                                                .options![otherIndex].name?.ar??''))) {
                                           extraName += language == 'en'
-                                              ? '+${widget.extra[index].options[otherIndex].name.en}'
-                                              : '+${widget.extra[index].options[otherIndex].name.ar}';
+                                              ? '+${widget.extra[index].options![otherIndex].name!.en}'
+                                              : '+${widget.extra[index].options![otherIndex].name!.ar}';
                                         }
                                       } else {
                                         totalExtraPrice -=
                                             (ProviderCubit.get(context)
                                                         .itemsNumber *
-                                                    widget.extra[index]
-                                                        .options[i].price)
+                                                   ( widget.extra[index]
+                                                        .options?[i].price??0))
                                                 .toInt();
                                         extraName = extraName.replaceAll(
                                             language == 'en'
-                                                ? '+${widget.extra[index].options[i].name.en}'
-                                                : '+${widget.extra[index].options[i].name.ar}',
+                                                ? '+${widget.extra[index].options?[i].name?.en}'
+                                                : '+${widget.extra[index].options?[i].name?.ar}',
                                             '');
                                       }
                                     }
@@ -271,48 +272,48 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                               } else {
                                 if (!isChecked &&
                                     getTrueCountAtIndex(index) <
-                                        widget.extra[index].maxSelections) {
+                                        (widget.extra[index].maxSelections??0)) {
                                   changeChecklistValue(
                                       index, otherIndex, isChecked);
                                   totalExtraPrice +=
                                       (ProviderCubit.get(context).itemsNumber *
-                                              widget.extra[index]
-                                                  .options[otherIndex].price)
+                                          (widget.extra[index]
+                                                  .options?[otherIndex].price??0))
                                           .toInt();
                                   if (!extraName.contains(language == 'en'
-                                      ? widget.extra[index].options[otherIndex]
-                                          .name.en
-                                      : widget.extra[index].options[otherIndex]
-                                          .name.ar)) {
+                                      ? (widget.extra[index].options?[otherIndex]
+                                          .name?.en??'')
+                                      : (widget.extra[index].options?[otherIndex]
+                                          .name?.ar??''))) {
                                     extraName += language == 'en'
-                                        ? '+${widget.extra[index].options[otherIndex].name.en}'
-                                        : '+${widget.extra[index].options[otherIndex].name.ar}';
+                                        ? '+${widget.extra[index].options?[otherIndex].name?.en}'
+                                        : '+${widget.extra[index].options?[otherIndex].name?.ar}';
                                   }
                                 } else if (isChecked) {
                                   changeChecklistValue(
                                       index, otherIndex, isChecked);
                                   totalExtraPrice -=
                                       (ProviderCubit.get(context).itemsNumber *
-                                              widget.extra[index]
-                                                  .options[otherIndex].price)
+                                              (widget.extra[index]
+                                                  .options?[otherIndex].price??0))
                                           .toInt();
                                   extraName = extraName.replaceAll(
                                       language == 'en'
-                                          ? '+${widget.extra[index].options[otherIndex].name.en}'
-                                          : '+${widget.extra[index].options[otherIndex].name.ar}',
+                                          ? '+${widget.extra[index].options?[otherIndex].name?.en}'
+                                          : '+${widget.extra[index].options?[otherIndex].name?.ar}',
                                       '');
                                 }
                               }
                               print("${cubit.addExtra} here extra");
                             },
                                 language == 'en'
-                                    ? '${widget.extra[index].options[otherIndex].name.en}'
-                                    : '${widget.extra[index].options[otherIndex].name.ar}',
-                                '${widget.extra[index].options[otherIndex].price}',
-                                widget.extra[index].options[otherIndex].image,
+                                    ? '${widget.extra[index].options?[otherIndex].name?.en}'
+                                    : '${widget.extra[index].options?[otherIndex].name?.ar}',
+                                '${widget.extra[index].options?[otherIndex].price}',
+                                widget.extra[index].options?[otherIndex].image,
                                 context);
                           },
-                          itemCount: widget.extra[index].options.length ?? 0,
+                          itemCount: widget.extra[index].options?.length ?? 0,
                         ),
                       ],
                     );

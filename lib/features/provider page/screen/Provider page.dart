@@ -1126,7 +1126,7 @@ class OtherWidget extends StatelessWidget {
                         () {
                       bottomSheet(context,
                         ExtraItemsBottomSheet(
-                            extra: item?.optionGroups,
+                            extra: item?.optionGroups??[],
                             itemImage: '${item?.image}'
                             ,categoryId: provederId??'',
                             name: language == 'en'
@@ -1163,7 +1163,7 @@ class OtherWidget extends StatelessWidget {
                           (){
                         ( item?.optionGroups?.isNotEmpty??false)?  bottomSheet(context,
                         ExtraItemsBottomSheet(
-                            extra:item?.optionGroups,
+                            extra:item?.optionGroups??[],
                             itemImage: '${item?.image}',
                             name: language == 'en'
                                 ? '${item?.name?.en}'
@@ -1312,7 +1312,7 @@ class OtherWidgetSmall extends StatelessWidget {
                       () {
                     bottomSheet(context,
                       ExtraItemsBottomSheet(
-                          extra: item?.optionGroups,
+                          extra: item!.optionGroups??[],
                           itemImage: '${item?.image}'
                           ,categoryId: provederId??'',
                           name: language == 'en'
@@ -1347,9 +1347,9 @@ class OtherWidgetSmall extends StatelessWidget {
                       }, false,width: (MediaQuery.sizeOf(context).width/2)-20.w,fromSmall: true): InkWell(
                     onTap:
                         (){
-                      ( item?.optionGroups?.isNotEmpty??false)?  bottomSheet(context,
+                      ( item?.optionGroups?.isNotEmpty??true)?  bottomSheet(context,
                           ExtraItemsBottomSheet(
-                            extra:item?.optionGroups,
+                            extra:item?.optionGroups??[],
                             itemImage: '${item?.image}',
                             name: language == 'en'
                                 ? '${item?.name?.en}'
