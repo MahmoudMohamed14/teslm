@@ -108,7 +108,7 @@ class EditInformation extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      bottom(
+                      BottomWidget(
                         Strings.updateMyData.tr(context),
                         radius: 30,
                         color: ThemeModel.mainColor,

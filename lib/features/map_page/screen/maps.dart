@@ -250,7 +250,7 @@ class _MapsState extends State<Maps> {
                   ],
                   ),
                   const Spacer(),
-                  bottom(language=='English Language'?'Confirm location':'تاكيد الموقع', ()async{
+                  BottomWidget(language=='English Language'?'Confirm location':'تاكيد الموقع', ()async{
                     List<Location> locations = await locationFromAddress(currentLocationMainPage);
                     if (locations.isNotEmpty) {
                         firstLatLng = locations.first.latitude;

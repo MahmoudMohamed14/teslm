@@ -108,7 +108,7 @@ class LoginState extends State<Login> {
                       ),
                       state is LoginLoading
                           ? const Center(child: CircularProgressIndicator())
-                          : bottom(
+                          : BottomWidget(
                               Strings.continueText.tr(context),
                               () async {
                                 final otpCubit = context.read<AuthCubit>();
