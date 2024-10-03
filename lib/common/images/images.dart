@@ -49,4 +49,6 @@ class ImagesApp {
   static const String moreIcon = '$_iconPath/more.svg';
   static const String pointsIcon = '$_iconPath/points.svg';
   static const String ordersIcon = '$_iconPath/myOrders.svg';
+  static const String inviteFriendImage = 'assets/images/inviteFrindImage.png';
+  static const String inviteFriendsIcon = 'assets/images/inviteFriendsIcon.svg';
 }

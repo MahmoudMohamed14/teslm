@@ -30,7 +30,7 @@ Future<void> enterCoupon(context,couponController) async {
               ];
             } else {
               actions = [
-                bottom(
+                BottomWidget(
                   language == 'English Language' ? 'Add' : 'اضافه',
                       () {
                     OrderCubit.get(context).postCoupon(

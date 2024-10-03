@@ -48,7 +48,7 @@ Widget bottomMap(selectedLocationName,locationName,firstLatLng,secondLatLng,curr
         ],
       ),
       const Spacer(),
-      bottom(language=='English Language'?'Confirm location':'تاكيد الموقع', ()async{
+      BottomWidget(language=='English Language'?'Confirm location':'تاكيد الموقع', ()async{
         var locations = await locationFromAddress(currentLocationMainPage);
         if (locations.isNotEmpty) {
           firstLatLng = locations.first.latitude;

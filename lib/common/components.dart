@@ -102,7 +102,7 @@ Widget actionAppbar(context) => BlocConsumer<MapCubit, MapState>(
                             ],
                           ),
                           Spacer(),
-                          bottom(Strings.changeOrderLocation.tr(context), () {
+                          BottomWidget(Strings.changeOrderLocation.tr(context), () {
                             navigate(
                                 context,
                                 Maps(
@@ -183,8 +183,8 @@ void navigateAndFinish(context, Widget) => Navigator.pushAndRemoveUntil(
 /*Widget bottom(data,onTap){
   return
 }*/
-class bottom extends StatelessWidget {
-  bottom(this.title, this.onTap,
+class BottomWidget extends StatelessWidget {
+  BottomWidget(this.title, this.onTap,
       {super.key, this.width, this.color, this.radius, this.height});
   Function()? onTap;
   String? title;
@@ -500,7 +500,7 @@ Widget appBarWithIcons(text, image, navigator, context) => SafeArea(
               children: [
                 if (navigator)
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 15),
+                    padding: const EdgeInsetsDirectional.only(start: 10),
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back_ios_sharp,
                           color: Colors.white),
@@ -510,7 +510,7 @@ Widget appBarWithIcons(text, image, navigator, context) => SafeArea(
                     ),
                   ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  padding:  EdgeInsetsDirectional.only(start: navigator?0:10),
                   child: Text(
                     text,
                     style: const TextStyle(
