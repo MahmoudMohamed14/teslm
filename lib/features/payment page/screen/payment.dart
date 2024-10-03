@@ -84,7 +84,7 @@ class Payment extends StatelessWidget {
                     size: 30.0,
                   ) : bottom(Strings.confirmOrder.tr(context), (){
                     print(values);
-                    OrderCubit.get(context).postOrder(items: values, customerId: '$customerId',coupon: _couponController.text ,customerNotes: customerNotes,context: context);
+                    OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponData!=null? _couponController.text :null,customerNotes: customerNotes,context: context);
                   },radius: 20,),
                   const SizedBox(height: 10,),
                 ],

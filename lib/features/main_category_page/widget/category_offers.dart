@@ -68,8 +68,8 @@ Widget categorySlider(context)=>CarouselSlider(
                       language == 'en'? '${e.name?.en}':'${e.name?.ar}',
                       style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ))

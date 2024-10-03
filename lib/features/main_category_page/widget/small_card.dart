@@ -60,7 +60,7 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                             Text(
                               providerData.reviewCount == 0
                                   ? "0 (${providerData.reviewCount??0})"
-                                  : "${((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)).isNaN ?? true ? 0 : ((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)).toInt() ?? 1} (${providerData?.reviewCount??0})",
+                                  : "${((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)).isNaN ?? true ? 0 : ((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)) ?? 1} (${providerData?.reviewCount??0})",
                               style:
                                   const TextStyle(fontWeight: FontWeight.w600),
                             ),

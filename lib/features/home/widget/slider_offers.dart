@@ -76,7 +76,7 @@ Widget slider(market, controller, context) => CarouselSlider(
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 5),
                           decoration: BoxDecoration(
-                              color: ThemeModel.mainColor.withOpacity(0.8),
+                              color: ThemeModel.mainColor,
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
                             child: Text(
@@ -85,8 +85,8 @@ Widget slider(market, controller, context) => CarouselSlider(
                               language == 'en'? '${e.name?.en}':'${e.name?.ar}',
                               style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ))

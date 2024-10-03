@@ -1,12 +1,14 @@
 import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
+import 'package:delivery/features/provider%20page/controller/provider_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../common/components.dart';
 import '../../../../common/images/images.dart';
 import '../../../../common/translate/strings.dart';
-import '../chat/controller/chat_controller_cubit.dart';
 
 class Support extends StatelessWidget {
   const Support({super.key});
@@ -18,17 +20,22 @@ class Support extends StatelessWidget {
             child: appBarWithIcons(Strings.helpSupport.tr(context),ImagesApp.supportImage,true,context)),
         body: SingleChildScrollView(
         child: Container(
-          child: _buildPanel(language=='en'? itemsEn:itemsAr,context),
+          child: _buildPanel(language=='en'? itemsEn:itemsAr),
         ),
               ),
     );
   }
 
-  Widget _buildPanel(items,BuildContext context) {
+  Widget _buildPanel(items) {
+    return BlocConsumer<ProviderCubit, ProviderState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
     return ExpansionPanelList(
         expansionCallback: (int index, bool isExpanded) {
             items[index].isExpanded = isExpanded;
-            ChatControllerCubit.get(context).increment();
+            ProviderCubit.get(context).increment();
         },
         expandIconColor:Colors.orange,
         children: items.map<ExpansionPanel>((Item item) {
@@ -60,5 +67,7 @@ class Support extends StatelessWidget {
           );
         }).toList(),
     );
+  },
+);
   }
 }
