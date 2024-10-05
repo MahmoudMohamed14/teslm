@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:delivery/Dio/Dio.dart';
+import 'package:delivery/Utilities/FilesHandler/files_cubit.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/features/auth/controller/auth_cubit.dart';
 import 'package:delivery/features/home/controller/home_cubit.dart';
@@ -141,6 +142,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<DragFilesCubit>(
+          create: (context) => DragFilesCubit(),
+        ),
         BlocProvider<MyOrdersCubit>(
           create: (context) => MyOrdersCubit()..getCustomerOrders(),
         ),
