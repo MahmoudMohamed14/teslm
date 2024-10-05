@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:delivery/Cubite/delivery_cubit.dart';
-import 'package:delivery/common/colors/colors.dart';
+
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/extensions.dart';
@@ -12,11 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../Utilities/FilesHandler/files_cubit.dart';
+import '../../../../Utilities/FilesHandler/files_states.dart';
+import '../../../../Utilities/helper_functions.dart';
 import '../../../../common/constant/constant values.dart';
+import '../../../../widgets/rounded_image_widget.dart';
 import 'controller/chat_controller_cubit.dart';
 
 class Chat extends StatelessWidget {
-
   final TextEditingController messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   Chat({super.key});
@@ -24,44 +27,104 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ChatControllerCubit, ChatControllerState>(
         listener: (context, state) {
-          if (state is ReloadChat){
-            Future.delayed(
-                const Duration(milliseconds: 500),
-                    () {
-                  _scrollController.animateTo(
-                    _scrollController.position
-                        .maxScrollExtent,
-                    duration: const Duration(
-                        milliseconds: 500),
-                    curve: Curves.easeOut,
-                  );
-                });
-          }
-        },
-        builder: (context, state) {
-          TextEditingController messageController = TextEditingController();
-          bool langEn = true;
-          final RegExp english = RegExp(r'^[a-zA-Z]+');
-          var icon = Icons.camera_alt_rounded;
-          var message = ChatControllerCubit.get(context).chatsCallCenter;
-          return Scaffold(
-            appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(70.0),
-                child: appBarWithIcons(Strings.callCenter.tr(context),ImagesApp.callCenterImage,true,context)),
-            body: state is! GetChatCallCenterLoading && message != null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      messages(message),
-                      20.h.heightBox,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                        child: Container(
+      if (state is ReloadChat) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut,
+          );
+        });
+      }
+    }, builder: (context, state) {
+      TextEditingController messageController = TextEditingController();
+      bool langEn = true;
+      final RegExp english = RegExp(r'^[a-zA-Z]+');
+      var icon = Icons.camera_alt_rounded;
+      var message = ChatControllerCubit.get(context).chatsCallCenter;
+      return Scaffold(
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(70.0),
+            child: appBarWithIcons(Strings.callCenter.tr(context),
+                ImagesApp.callCenterImage, true, context)),
+        body: state is! GetChatCallCenterLoading && message != null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  messages(message),
+                  20.h.heightBox,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        BlocConsumer<DragFilesCubit, FilesStates>(
+                          listener: (BuildContext context, state) {},
+                          builder: (BuildContext context, state) {
+                            final filesCubit =
+                                BlocProvider.of<DragFilesCubit>(context);
+                            if (filesCubit.images.isNotEmpty) {
+                              return SizedBox(
+                                height: 96,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: filesCubit.images.length,
+                                  separatorBuilder: (context, index) =>
+                                      8.0.widthBox,
+                                  itemBuilder: (context, index) => Stack(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          HelperFunctions.imagePreviewDialog(
+                                            context,
+                                            file: filesCubit.images[index],
+                                          );
+                                        },
+                                        child: RoundedImage(
+                                          radius: 72,
+                                          radiusValue: 8,
+                                          memoryImage: filesCubit.images[index],
+                                        ).paddingOnly(top: 8),
+                                      ),
+                                      PositionedDirectional(
+                                        top: 0,
+                                        end: 0,
+                                        child: InkWell(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          onTap: () => filesCubit
+                                              .removeImageFromImagesList(index),
+                                          child: Container(
+                                            padding: const EdgeInsets.all(2),
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  ThemeModel.of(context).danger,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Icon(
+                                              Icons.remove,
+                                              color: Colors.white,
+                                              size: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
+                          },
+                        ),
+                        Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: ThemeModel.of(context).chatTextField),
-                          padding: const EdgeInsets.only(left: 10, bottom: 3, top: 3),
+                          padding: const EdgeInsets.only(
+                              left: 10, bottom: 3, top: 3),
                           width: double.infinity,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -118,8 +181,15 @@ class Chat extends StatelessWidget {
                                                                     InkWell(
                                                                       onTap:
                                                                           () {
-                                                                        pickImageFromGallery(
-                                                                            context);
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                        pickFileProvider(
+                                                                          context,
+                                                                          multiImages:
+                                                                              true,
+                                                                        );
+                                                                        // pickImageFromGallery(
+                                                                        //     context);
                                                                       },
                                                                       child:
                                                                           Container(
@@ -132,8 +202,9 @@ class Chat extends StatelessWidget {
                                                                           color:
                                                                               ThemeModel.mainColor,
                                                                         ),
-                                                                        padding:
-                                                                           const EdgeInsets.all(8),
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            8),
                                                                         child:
                                                                             Column(
                                                                           children: [
@@ -152,8 +223,16 @@ class Chat extends StatelessWidget {
                                                                     InkWell(
                                                                       onTap:
                                                                           () {
-                                                                        pickImageFromCamera(
-                                                                            context);
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                        pickFileProvider(
+                                                                            context,
+                                                                            multiImages:
+                                                                                false,
+                                                                            openCamera:
+                                                                                true);
+                                                                        // pickImageFromCamera(
+                                                                        //     context);
                                                                       },
                                                                       child:
                                                                           Container(
@@ -166,8 +245,9 @@ class Chat extends StatelessWidget {
                                                                           color:
                                                                               ThemeModel.mainColor,
                                                                         ),
-                                                                        padding:
-                                                                            const EdgeInsets.all(8),
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            8),
                                                                         child:
                                                                             Column(
                                                                           children: [
@@ -195,8 +275,8 @@ class Chat extends StatelessWidget {
                                                 );
                                                 messageController.clear();
                                                 Future.delayed(
-                                                    const Duration(milliseconds: 500),
-                                                    () {
+                                                    const Duration(
+                                                        milliseconds: 500), () {
                                                   _scrollController.animateTo(
                                                     _scrollController.position
                                                         .maxScrollExtent,
@@ -209,14 +289,16 @@ class Chat extends StatelessWidget {
                                             },
                                             child: CircleAvatar(
                                               radius: 14,
-                                              backgroundColor: ThemeModel.mainColor,
+                                              backgroundColor:
+                                                  ThemeModel.mainColor,
                                               child: Icon(icon,
                                                   color: Colors.white,
                                                   size: 22),
                                             ),
                                           ),
                                         ),
-                                        hintText: Strings.writeMessage.tr(context),
+                                        hintText:
+                                            Strings.writeMessage.tr(context),
                                         border: InputBorder.none),
                                   ),
                                 ),
@@ -228,14 +310,16 @@ class Chat extends StatelessWidget {
                             ],
                           ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   )
-                : const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-          );
-        });
+                ],
+              )
+            : const Center(
+                child: CircularProgressIndicator(),
+              ),
+      );
+    });
   }
 
   late final File selectedImages;
@@ -246,6 +330,7 @@ class Chat extends StatelessWidget {
     selectedImages = File(returnedImage.path);
     ChatControllerCubit.get(context).increment();
   }
+
   Future pickImageFromCamera(context) async {
     final returnedImage =
         await ImagePicker().pickImage(source: ImageSource.camera);
@@ -254,6 +339,7 @@ class Chat extends StatelessWidget {
     ChatControllerCubit.get(context).increment();
   }
 }
+
 String formatTime(String dateTimeString) {
   DateTime dateTime = DateTime.parse(dateTimeString);
   int hour = dateTime.hour;

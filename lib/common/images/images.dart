@@ -1,5 +1,5 @@
 class ImagesApp {
-  static const String _iconPath="assets/images/icons";
+  static const String _iconPath = "assets/images/icons";
   static const String firstOnboardingImage = 'assets/images/Delivery.gif';
   static const String secondOnboardingImage = 'assets/images/Free shipping.gif';
   static const String thirdOnboardingImage = 'assets/images/Take Away.gif';
@@ -39,7 +39,8 @@ class ImagesApp {
   static const String callCenterImage = 'assets/images/call_center.svg';
   static const String settingImage = 'assets/images/setting.svg';
   static const String logoutIcon = 'assets/images/logout_icon.gif';
-  static const String backgroundImageSplash = 'assets/images/background_image_splash.svg';
+  static const String backgroundImageSplash =
+      'assets/images/background_image_splash.svg';
   static const String circleImageSplash = 'assets/images/circle_splash.svg';
   static const String panner = 'assets/images/panner.png';
   static const String cartAppbar = 'assets/images/cart_appbar.svg';
@@ -54,4 +55,5 @@ class ImagesApp {
   static const String inviteFriendImage = 'assets/images/inviteFrindImage.png';
   static const String inviteFriendsIcon = 'assets/images/inviteFriendsIcon.svg';
   static const String clockImageAppBar = 'assets/images/clockImageAppbar.svg';
+  static const String teslmPngLogo = 'assets/images/Teslm.png';
 }

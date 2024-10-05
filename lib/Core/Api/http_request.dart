@@ -169,6 +169,8 @@ class _ApiBaseHelper {
         'Accept': '*/*',
         'content-type': 'application/json',
         "Authorization": "Bearer ${SharedPref.getToken()}",
+        "lat": SharedPref.getLatLng()?[0] ?? "",
+        "lng": SharedPref.getLatLng()?[1] ?? "",
         // "lang": CURRENT_CONTEXT!.locale.languageCode
       });
 
