@@ -3,6 +3,7 @@ import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/inviteFriend/screen/invite_friend.dart';
 import 'package:delivery/features/profile/navigator/chat/controller/chat_controller_cubit.dart';
 import 'package:delivery/features/profile/navigator/my_account/controller/account_cubit.dart';
 import 'package:delivery/features/profile/navigator/setting/setting.dart';
@@ -97,7 +98,10 @@ class UserProfile extends StatelessWidget {
                         ProfileListItem(
                           icon: Icons.person_add_alt,
                           text: Strings.inviteFriend.tr(context),
-                          hasNavigation: false,
+                          hasNavigation: true,
+                          onTap: (){
+                            navigate(context, const InviteFriend());
+                          },
                         ),
                       if (token != '' && token != null)
                         ProfileListItem(

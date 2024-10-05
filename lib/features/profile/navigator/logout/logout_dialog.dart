@@ -29,7 +29,7 @@ Future<void> logoutAccount(context,) async {
                     Expanded(child: Text(Strings.logoutMissCustomerMessage.tr(context),style:const TextStyle(fontWeight: FontWeight.w400,fontSize: 14),maxLines: 2,textAlign: TextAlign.center,),),
                   Row(children: [
                     Expanded(
-                      child: bottom(
+                      child: BottomWidget(
                         radius: 15,
                         color: ThemeModel.dark().myAccountBackgroundDarkColor,
                         Strings.cancel.tr(context),
@@ -40,7 +40,7 @@ Future<void> logoutAccount(context,) async {
                     ),
                     const SizedBox(width: 10,),
                     Expanded(
-                      child: bottom(
+                      child: BottomWidget(
                         radius: 15,
                         color: ThemeModel.mainColor,
                         Strings.logout.tr(context),

@@ -143,7 +143,7 @@ class OtpNumberState extends State<OtpNumber>  with SingleTickerProviderStateMix
               Center(child: AppTextWidget( "resendCode".tr(context)
                 ,style: TextStyleHelper.of(context).regular14.copyWith(color: ThemeModel.of(context).primary,fontWeight: FontWeight.w900))),
               45.h.heightBox,
-              bottom(Strings.verity.tr(context), () async {
+              BottomWidget(Strings.verity.tr(context), () async {
               },radius: 30,)
             ],
           ),

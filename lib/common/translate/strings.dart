@@ -112,4 +112,21 @@ class Strings {
   static const String pointsRedeemedSuccessfully= "points_redeemed_successfully";
   static const String deliveryFree= "delivery_free";
   static const String discount= "discount";
+  static const String inviteFriendsEarn100= "invite_friends_earn_100";
+  static const String earn100WithEveryInvitation= "earn100WithEveryInvitation";
+  static const String earnMoreWithEveryInvitation= "invite_more_friends_earn_more";
+  static const String inviteFriends= "inviteFriends";
+  static const String inviteFriendWithPhoneNumber= "inviteFriendWithPhoneNumber";
+  static const String youReceivedCode= "youReceivedCode";
+  static const String andEarned100Points= "andEarned100Points";
+  static const String invitationHistory= "invitationHistory";
+  static const String invitationCode= "invitationHistory";
+  static const String inviteNewFriend= "inviteNewFriend";
+  static const String friendWithPhoneNumber= "friendWithPhoneNumber";
+  static const String earned= "earned";
+  static const String points100= "100Points";
+
+
+
+
 }

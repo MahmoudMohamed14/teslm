@@ -147,7 +147,7 @@ class CustomTextFormField extends StatelessWidget {
               focusedBorder: getBorder(context, radius: borderRadiusValue),
               border: getBorder(context, radius: borderRadiusValue),
               isDense: isDense ?? false,
-            //  fillColor: (backGroundColor ?? ThemeModel.of(context).card),
+             fillColor: (backGroundColor ?? ThemeModel.of(context).card),
               filled: true,
               hintText: hint,
               contentPadding:

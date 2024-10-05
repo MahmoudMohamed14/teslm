@@ -116,5 +116,21 @@
   "failed_redeem_points": "فشلت عملية استبدال نقاطك",
   "your_points_less": "نقاطك اقل من 10,000",
   "points_redeemed_successfully":"تم استبدال نقاطك بنجاح",
-  "discount": "خصم"
+  "discount": "خصم",
+  "invite_friends_earn_100": "قم بدعوة أصدقائك واكسب 100 نقطة",
+
+  "earn100WithEveryInvitation":"احصل على 100 نقط بكل دعوة تقديمتك! لا تفقد الفرصة لتحصل على هذه العرض الفانتسي",
+  "invite_more_friends_earn_more": "قم بدعوة المزيد من الأصدقاء واكسب المزيد من النقاط",
+  "inviteFriends": "دعوة أصدقاء",
+  "inviteFriendWithPhoneNumber":"دعوة صديقك برقم الهاتف",
+  "youReceivedCode": "لقد استلمت الكود",
+  "andEarned100Points":"وكسبت 100 نقطة",
+  "invitationHistory": "تاريخ الدعوات",
+  "invitationCode": "كود الدعوة",
+  "inviteNewFriend": "دعوة صديق جديد",
+  "friendWithPhoneNumber": "صديق برقم الهاتف",
+  "earned":"كسبت",
+  "100Points": "100 نقطة"
+
+
 }

@@ -81,7 +81,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>  with SingleTicke
           const Spacer(),
           Padding(
             padding: const EdgeInsets.only(left: 15.0,right: 15),
-            child: bottom(Strings.save.tr(context), (){Navigator.pop(context);}),
+            child: BottomWidget(Strings.save.tr(context), (){Navigator.pop(context);}),
           ),
           SizedBox(height: 20,)
         ],

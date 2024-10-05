@@ -68,7 +68,7 @@ Widget onBoardingBody(context,currentPage,onTap) {
         }),),
       Padding(
         padding: const EdgeInsets.all(10.0),
-        child: bottom(currentPage==2?'جرب التطبيق':'متابعه', (){
+        child: BottomWidget(currentPage==2?'جرب التطبيق':'متابعه', (){
           if(currentPage==2){submit();}
           else{ controller.nextPage(duration: const Duration(microseconds: 300), curve: Curves.easeIn);}
         },),

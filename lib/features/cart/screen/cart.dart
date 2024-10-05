@@ -75,9 +75,9 @@ class Cart extends StatelessWidget{
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        bottom(Strings.addNew.tr(context), (){Navigator.pop(context);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
+                        BottomWidget(Strings.addNew.tr(context), (){Navigator.pop(context);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
                         const SizedBox(height: 10,),
-                        bottom(Strings.payNow.tr(context), (){navigate(context,(token!=''&&token!=null)? Payment(customerNotes: noteTextController.text,)
+                        BottomWidget(Strings.payNow.tr(context), (){navigate(context,(token!=''&&token!=null)? Payment(customerNotes: noteTextController.text,)
                             :const Login(fromOrder: true,));if(token==''||token==null)loginFromCart=true;
                         totalPrice=ProviderCubit.get(context).getPrice().toInt()+shippingPrice;},radius: 20,),
                       ],
