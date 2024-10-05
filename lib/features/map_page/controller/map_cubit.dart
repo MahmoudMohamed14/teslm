@@ -1,3 +1,4 @@
+import 'package:delivery/Utilities/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,15 +8,15 @@ import 'package:geolocator/geolocator.dart';
 part 'map_state.dart';
 
 class MapCubit extends Cubit<MapState> {
-  MapCubit() : super(MapInitial()){
-  _getCurrentLocation();
+  MapCubit() : super(MapInitial()) {
+    _getCurrentLocation();
   }
 
   static MapCubit get(context) => BlocProvider.of(context);
 
-  String currentLocationName='';
-  double ?position1;
-  double ?position2;
+  String currentLocationName = '';
+  double? position1;
+  double? position2;
   Future<void> _getCurrentLocation() async {
     try {
       LocationPermission permission = await Geolocator.requestPermission();
@@ -31,18 +32,21 @@ class MapCubit extends Cubit<MapState> {
         position.longitude,
       );
       Placemark placemark = placemarks.first;
-      position1=position.latitude;
-      position2=position.longitude;
-      changeLocation(currentLocationName,position1,position2);
-      currentLocationName = '${placemark.street??''},${placemark.locality}, ${placemark.country}';
+      position1 = position.latitude;
+      position2 = position.longitude;
+      changeLocation(currentLocationName, position1, position2);
+      currentLocationName =
+          '${placemark.street ?? ''},${placemark.locality}, ${placemark.country}';
     } catch (e) {
       SystemNavigator.pop();
     }
   }
-  void changeLocation(newLocation,first,second){
-    currentLocationName=newLocation;
-    position1=first;
-    position2=second;
+
+  void changeLocation(newLocation, first, second) {
+    currentLocationName = newLocation;
+    position1 = first;
+    position2 = second;
+    SharedPref.setLatLng(latLng: [position1.toString(), position2.toString()]);
     emit(Reload());
   }
 }

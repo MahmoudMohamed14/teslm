@@ -13,6 +13,7 @@ import 'package:delivery/features/profile/navigator/my_account/controller/accoun
 import 'package:delivery/features/profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import 'package:delivery/shared_preference/shared%20preference.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -115,16 +116,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       }
     }
     if (state == AppLifecycleState.resumed) {
-      print('resumed>>>>>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print('resumed>>>>>>>>>>>>>>>>>>');
+      }
     }
     if (state == AppLifecycleState.inactive) {
-      print('inactive>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print('inactive>>>>>>>>>>>>>>');
+      }
     }
     if (state == AppLifecycleState.paused) {
-      print('paused>>>>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print('paused>>>>>>>>>>>>>>>>>');
+      }
     }
     if (state == AppLifecycleState.hidden) {
-      print('hidden>>>>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print('hidden>>>>>>>>>>>>>>>>>');
+      }
     }
   }
 
