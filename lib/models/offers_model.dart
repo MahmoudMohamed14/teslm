@@ -88,6 +88,8 @@ class ProvidersOffer {
   final DataTranslate? description;
   final String? createdAt;
   final int? totalReviews;
+  final String? view;
+
   final int? reviewCount;
  final List<CategoriesModel>? categories;
 
@@ -98,6 +100,7 @@ class ProvidersOffer {
       this.providerCover,
       this.description,
       this.createdAt,
+      this.view,
       this.totalReviews,
         this.categories,
       this.reviewCount});
@@ -115,6 +118,7 @@ class ProvidersOffer {
           ? DataTranslate.fromJson(json['description'])
           : null,
       createdAt: json['createdAt'],
+      view:json['view'] ,
       totalReviews: json['totalReviews'],
       reviewCount: json['reviewCount'],
       categories:(json['categories'] != null) ? List.from(json['categories']).map((e) => CategoriesModel.fromJson(e)).toList():[],

@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     print("initState>>>>>>>>>>>>>>>>>>>${Save.getdata(key: 'customerId')}");
     //  String? json = Save.getdata(key: 'myCart');
     //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
-    //Save.remove(key: 'myCart');
+    Save.remove(key: 'myCart');
   }
 
   @override

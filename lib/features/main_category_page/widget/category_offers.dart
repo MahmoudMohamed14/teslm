@@ -39,7 +39,10 @@ Widget categorySlider(context)=>CarouselSlider(
               providerDescription:language=='en'? '${e.provider?.description?.en}':'${e.provider?.description?.ar}',
               providerName: language=='en'?'${e.provider?.providerName?.en}':'${e.provider?.providerName?.ar}',
               providerCover: '${e.provider?.providerCover}', providerImage: '${e.provider?.providerImage}',
-          providerId: '${e.provider?.id}',));
+          providerId: '${e.provider?.id}',
+             isSmall: (e.provider?.view?.toLowerCase()??"")=='small'?true:false,
+
+          ));
         },
         child: Stack(
           children: [

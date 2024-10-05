@@ -54,22 +54,22 @@ class ProviderCubit extends Cubit<ProviderState> {
         'name': name,
         'quantity': value,
         'image': image,
-        "ProviderId":providerId,
-        "isRestaurant":isRestaurant,
+       // "ProviderId":providerId,
+      //  "isRestaurant":isRestaurant,
         'price': foodPrice,
         'itemId': id,
-        'description':description,
+       // 'description':description,
         'selectedOptionGroups': extraId??[]
       });
       cardList.add({
         'name': name,
         'quantity': value,
-        'image': image,
-        "ProviderId":providerId,
+       // 'image': image,
+       // "ProviderId":providerId,
         "isRestaurant":isRestaurant,
         'price': foodPrice,
         'itemId': id,
-        'description':description,
+       // 'description':description,
         'selectedOptionGroups': extraId??[]
       });
       print(" inside add $values");

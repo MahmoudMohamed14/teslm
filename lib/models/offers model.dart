@@ -50,6 +50,7 @@ class ProvidersOffer {
   DataTranslate? description;
   String? createdAt;
   int? totalReviews;
+  String?view;
   int? reviewCount;
   List<CategoriesModel>? categories; //List<Categories>
 
@@ -65,6 +66,7 @@ class ProvidersOffer {
         : null;
     createdAt = json['createdAt'];
     totalReviews = json['totalReviews'];
+    view = json['view'];
     reviewCount = json['reviewCount'];
 
 

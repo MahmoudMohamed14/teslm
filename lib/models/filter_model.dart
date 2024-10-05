@@ -29,6 +29,7 @@ class FilterDataModel {
   final String? providerCover;
   final FilterProviderLanguage? description;
   final String? createdAt;
+  final String? view;
   final int? totalReviews;
   final int? reviewCount;
   final List<FilterCategories>? categories;
@@ -47,6 +48,7 @@ class FilterDataModel {
       this.totalReviews,
       this.reviewCount,
       this.categories,
+        this.view,
       this.itemCount,
       this.categoryCount,
       this.branchesCount});
@@ -72,6 +74,7 @@ class FilterDataModel {
           : null,
       itemCount: json['itemCount'],
       categoryCount: json['categoryCount'],
+      view: json['view'],
       branchesCount: json['branchesCount'],
     );
   }
@@ -96,6 +99,7 @@ class FilterDataModel {
     data['itemCount'] = itemCount;
     data['categoryCount'] = categoryCount;
     data['branchesCount'] = branchesCount;
+    data['view'] = view;
     return data;
   }
 }

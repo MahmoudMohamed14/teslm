@@ -34,6 +34,7 @@ class ProviderPage extends StatefulWidget {
   String providerCover;
   String providerImage;
   String providerId;
+  bool isSmall;
 
   ProviderPage(
       {super.key,
@@ -41,6 +42,7 @@ class ProviderPage extends StatefulWidget {
       required this.providerName,
       required this.providerCover,
         required this.providerId,
+        this.isSmall=false,
       required this.providerImage});
 
   @override
@@ -243,14 +245,13 @@ class _ProviderPage extends State<ProviderPage>
                                      .copyWith(color: ThemeModel.of(context).font2),
                                ),
                                8.0.heightBox,
-                            /* todo Wrap(
+                                widget.isSmall?   Wrap(
                                 spacing: 10.w,
                                 runSpacing: 10.w,
-                                children: List.generate(menu.categoriesItemsData?[index1].items?.length ??0, (index)=>OtherWidgetSmall(item: menu.categoriesItemsData?.firstOrNull?.items?[index]
-                                  ,provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),),
-                              )*/
+                                children: List.generate(menu.categoriesItemsData?[index1].items?.length ??0, (index)=>OtherWidgetSmall(item: menu.categoriesItemsData?.firstOrNull?.items?[index],provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),),
+                              )
 
-                              ListView.separated(
+                             :     ListView.separated(
                                    itemBuilder: (context, index) =>OtherWidget(item: menu.categoriesItemsData?.firstOrNull?.items?[index]
                                      ,provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),
                                    physics: const NeverScrollableScrollPhysics(),
@@ -268,7 +269,12 @@ class _ProviderPage extends State<ProviderPage>
                    Padding(
                      padding: const EdgeInsets.only(top: 150.0),
                      child: Center(child: Text(Strings.noUItemsFounded.tr(context))),
-                   ):Padding(
+                   ):widget.isSmall?  Wrap(
+                     spacing: 10.w,
+                     runSpacing: 10.w,
+                     children: List.generate(6, (index)=>ItemSmallShimmer(),),
+                   )
+                  : Padding(
                      padding: const EdgeInsets.all(8.0),
                      child: ListView.separated(
                          itemBuilder: (context, index) =>const CategoryShimmer(),
@@ -1208,6 +1214,8 @@ class OtherWidgetSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('itemhere');
+    //print(item?.optionGroups?.first.toJson());
     return GestureDetector(
       onTap: () {
         bottomSheet(context,
@@ -1312,7 +1320,7 @@ class OtherWidgetSmall extends StatelessWidget {
                       () {
                     bottomSheet(context,
                       ExtraItemsBottomSheet(
-                          extra: item!.optionGroups??[],
+                          extra: item?.optionGroups??[],
                           itemImage: '${item?.image}'
                           ,categoryId: provederId??'',
                           name: language == 'en'
@@ -1495,3 +1503,32 @@ style:TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.white),
       fromSmall?InkWell(child:itemsNumber==1&&mainPage==false? Icon(Icons.restore_from_trash_outlined,color: Colors.white,):Icon(Icons.remove,color: Colors.white,),onTap: remove,):  InkWell(child: Icon(Icons.add,color: Colors.white,),onTap: add),],
 ),
 );
+class ItemSmallShimmer extends StatelessWidget {
+  const ItemSmallShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: (MediaQuery.sizeOf(context).width/2)-16.w,
+      decoration: BoxDecoration(
+          color: ThemeModel.of(context).cardsColor,
+          borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+
+        children: [
+          // Skeleton(width: 200.w,height: 30.h,radius: 16.0),
+
+          Skeleton(width:( MediaQuery.sizeOf(context).width/2-16.w),height: 100.0,radius: 20.0),
+          10.h.heightBox,
+          Skeleton(width: 100.w,height: 15.h,),
+          10.h.heightBox,
+          Skeleton(width: 100.w,height: 15.h,),
+          10.h.heightBox,
+          Skeleton(width: 30.w,height: 30.h,radius: 100.r),
+
+        ],
+      ),
+    );
+  }
+}
