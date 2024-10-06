@@ -1061,7 +1061,7 @@ class OtherWidget extends StatelessWidget {
                         bottomEnd: Radius.circular(30)),
                   ),
                   child: Row(
-                    mainAxisSize: ProviderCubit.get(context).isRestaurant?   MainAxisSize.max : MainAxisSize.min,
+                    mainAxisSize: item?.calories !=null ?   MainAxisSize.max : MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AppTextWidget(
@@ -1071,7 +1071,7 @@ class OtherWidget extends StatelessWidget {
                             .copyWith(color: ThemeModel.of(context).font1),
                       ),
                       5.w.widthBox,
-                      ProviderCubit.get(context).isRestaurant?    Row(
+                      item?.calories !=null ?    Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SvgPicture.asset(ImagesApp.fire),
@@ -1095,13 +1095,13 @@ class OtherWidget extends StatelessWidget {
             Stack(
               children: [
                 image(item?.image, 155.0, 140.w, 20.0, BoxFit.cover),
-               /* Positioned(
+             if((item?.discount??0)>0)   Positioned(
                   left: 0,
                   top: 0,
                   right: 0,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    decoration: const BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(20.0),
@@ -1109,17 +1109,17 @@ class OtherWidget extends StatelessWidget {
 
                       ),
                     ),
-                    child: Center(
+                    child:  Center(
                       child: Text(
-                        'Discount',
-                        style: TextStyle(
+                        Strings.discount.tr(context),
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                ),*/
+                ),
 
 
                 PositionedDirectional(
@@ -1250,7 +1250,7 @@ class OtherWidgetSmall extends StatelessWidget {
                   top: 0,
                   right: 0,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.only(
@@ -1296,7 +1296,7 @@ class OtherWidgetSmall extends StatelessWidget {
                         .copyWith(color: ThemeModel.of(context).font1),
                   ),
                   SizedBox(width: 10.w,),
-                  AppTextWidget(
+                  if((item?.discount??0)>0)     AppTextWidget(
                     ' ${item?.price} ${Strings.sar.tr(context)}',
                     style: TextStyleHelper.of(context)
                         .regular14

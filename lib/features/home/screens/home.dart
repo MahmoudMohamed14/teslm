@@ -78,7 +78,7 @@ class Home extends StatelessWidget {
           children: <Widget>
           [
             const MainPage(),
-            token==''||token==null?const Login(fromOrder: true,):NewOrderDetails(),//const Orders(),
+            token==''||token==null?const Login(fromOrder: true,):const Orders(),
             token=='' ||token==null?const Login():const Points(),
             const UserProfile(),
           ],

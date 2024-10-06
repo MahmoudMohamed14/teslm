@@ -56,4 +56,7 @@ class ImagesApp {
   static const String inviteFriendsIcon = 'assets/images/inviteFriendsIcon.svg';
   static const String clockImageAppBar = 'assets/images/clockImageAppbar.svg';
   static const String teslmPngLogo = 'assets/images/Teslm.png';
+  static const String messageSvg = '$_iconPath/messageSvg.svg';
+  static const String whatsAppSvg = '$_iconPath/whatsAppSvg.svg';
+  static const String logoSvg = '$_iconPath/logoSvg.svg';
 }

@@ -135,10 +135,9 @@ class Strings {
   static const String apartment= "apartment";
   static const String yourOrderFrom= "yourOrderFrom";
   static const String quantity= "quantity";
-
-
-
-
-
+  static const String driverName= "driverName";
+  static const String minutes= "minutes";
+  static const String toYourOrderArrival= "toYourOrderArrival";
+  static const String yourOrderHasArrived= "yourOrderHasArrived";
 
 }
