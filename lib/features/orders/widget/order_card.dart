@@ -8,6 +8,7 @@ import '../../../common/constant/constant values.dart';
 Widget orderCard(order,context){
 
   DateTime createdAt = DateTime.parse(order.createdAt);
+  print(order.providerOrders.providerImage);
   return Card(
     color: ThemeModel.of(context).cardsColor,
     child: Padding(

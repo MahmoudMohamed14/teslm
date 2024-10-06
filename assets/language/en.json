@@ -137,7 +137,10 @@
   "estimatedArrivalTime": "Estimated Arrival Time",
   "apartment": "Apartment",
   "yourOrderFrom": "Your order from",
-  "quantity": "Quantity"
-
+  "quantity": "Quantity",
+  "driverName": "Driver Name",
+  "minutes": "Minutes",
+  "toYourOrderArrival": "To Your Order Arrival",
+  "yourOrderHasArrived": "Your Order Has Arrived"
 
 }

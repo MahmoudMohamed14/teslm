@@ -143,6 +143,9 @@
   "orderStatuses": "حالات الطلب",
   "apartment": "البيت",
   "yourOrderFrom": "طلبك من",
-  "quantity": "الكمية"
-
+  "quantity": "الكمية",
+  "driverName":"اسم السائق",
+  "minutes":"دقائق",
+  "toYourOrderArrival": "الى  توصيل الطلب",
+  "yourOrderHasArrived": "تم توصيل الطلب"
 }

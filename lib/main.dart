@@ -24,6 +24,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'Cubite/them/app_dark_light_cubit.dart';
 import 'Utilities/git_it.dart';
+import 'Utilities/shared_preferences.dart';
 import 'bloc_observer.dart';
 import 'common/translate/app_local.dart';
 import 'features/home/screens/home.dart';
@@ -76,10 +77,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    print("initState>>>>>>>>>>>>>>>>>>>${Save.getdata(key: 'customerId')}");
+    print("initState>>>>>>>>>>>>>>>>>>> customerId=${Save.getdata(key: 'customerId')}}");
+    print("   token ${SharedPref.getToken()}");
     //  String? json = Save.getdata(key: 'myCart');
     //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
-    Save.remove(key: 'myCart');
+    //Save.remove(key: 'myCart');
   }
 
   @override
