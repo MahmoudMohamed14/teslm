@@ -53,6 +53,7 @@ class GenericFile {
   }
 
   final String filename;
+  final String path;
   final PickedFileType? fileType;
   final Uint8List bytes;
   final Key key;
@@ -63,6 +64,7 @@ class GenericFile {
       {required this.filename,
       this.extension,
       required this.bytes,
+      required this.path,
       this.size,
       required this.key,
       this.fileType});
@@ -73,6 +75,7 @@ class GenericFile {
       fileBytes = File(file.path!).readAsBytesSync();
     }
     return GenericFile._(
+      path: file.path ?? "",
       fileType: getFileType(file.extension),
       filename: file.name,
       bytes: fileBytes!,
@@ -86,6 +89,7 @@ class GenericFile {
 
   static fromXFile(XFile file) async {
     return GenericFile._(
+      path: file.path,
       fileType: getFileType(p.extension(file.name)),
       filename: file.name,
       bytes: await file.readAsBytes(),

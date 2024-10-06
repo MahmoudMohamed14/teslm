@@ -25,4 +25,5 @@ class ApiEndPoint {
   static String myOrders = '${baseUrl}orders/customer';
   static String getAdsByCategory = '${baseUrl}ads/category';
   static String getNewCustomer = '${baseUrl}customers/auth/me';
+  static String uploadFile = '${baseUrl}upload-file';
 }

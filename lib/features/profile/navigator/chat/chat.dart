@@ -268,6 +268,7 @@ class Chat extends StatelessWidget {
                                               } else if (icon == Icons.send) {
                                                 ChatControllerCubit.get(context)
                                                     .postMessage(
+                                                  context: context,
                                                   message: messageController
                                                       .text
                                                       .trim(),

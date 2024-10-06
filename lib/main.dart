@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloudinary_flutter/cloudinary_context.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:delivery/Dio/Dio.dart';
 import 'package:delivery/Utilities/FilesHandler/files_cubit.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
@@ -45,6 +47,8 @@ void main() async {
       projectId: "delivery-c021a", //paste your project id here
     ),
   );
+  CloudinaryContext.cloudinary =
+      Cloudinary.fromCloudName(cloudName: "dmzdzq3ug");
   bool? onboard = Save.getdata(key: 'save');
   token = Save.getdata(key: 'token');
   print(token);
