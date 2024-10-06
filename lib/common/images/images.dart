@@ -50,7 +50,10 @@ class ImagesApp {
   static const String moreIcon = '$_iconPath/more.svg';
   static const String pointsIcon = '$_iconPath/points.svg';
   static const String ordersIcon = '$_iconPath/myOrders.svg';
+  static const String giftSvg = '$_iconPath/giftSvg.svg';
+  static const String locationSvg = '$_iconPath/locationSvg.svg';
   static const String inviteFriendImage = 'assets/images/inviteFrindImage.png';
   static const String inviteFriendsIcon = 'assets/images/inviteFriendsIcon.svg';
+  static const String clockImageAppBar = 'assets/images/clockImageAppbar.svg';
   static const String teslmPngLogo = 'assets/images/Teslm.png';
 }

@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'package:delivery/Cubite/delivery_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../common/colors/theme_model.dart';
@@ -66,8 +64,8 @@ class OrderDetails extends StatelessWidget {
           )
         ],
       ),
-      bottomSheet:
-      MyDraggableSheet(orderIndex: orderIndex,child:const BottomSheetDummyUI(),),);
+      bottomSheet: MyDraggableSheet(orderIndex: orderIndex,child:const BottomSheetDummyUI(),)
+          );
   }
 }
 class BottomSheetDummyUI extends StatelessWidget {

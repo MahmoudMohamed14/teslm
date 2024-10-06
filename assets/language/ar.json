@@ -130,7 +130,19 @@
   "inviteNewFriend": "دعوة صديق جديد",
   "friendWithPhoneNumber": "صديق برقم الهاتف",
   "earned":"كسبت",
-  "100Points": "100 نقطة"
-
+  "100Points": "100 نقطة",
+  "delivery": "توصيل",
+  "viewRewards": "عرض النقاط",
+  "youEarned70Points": "كسبت 70 نقطة",
+  "forThisOrder": "لهذا الطلب",
+  "deliveryLocation": "موقع التوصيل",
+  "estimatedArrivalTime": "وقت التوصيل المتوقع",
+  "orderDetails": "تفاصيل الطلب",
+  "orderDate": "تاريخ الطلب",
+  "orderStatus": "حالة الطلب",
+  "orderStatuses": "حالات الطلب",
+  "apartment": "البيت",
+  "yourOrderFrom": "طلبك من",
+  "quantity": "الكمية"
 
 }

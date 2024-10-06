@@ -18,8 +18,11 @@ class TextStyleHelper {
       getTextStyle(fontSize: 24, fontWeight: FontWeight.w400);
   TextStyle get regular20 =>
       getTextStyle(fontSize: 20, fontWeight: FontWeight.w400);
+
   TextStyle get medium20 =>
       getTextStyle(fontSize: 20, fontWeight: FontWeight.w500);
+  TextStyle get medium18 =>
+      getTextStyle(fontSize:18, fontWeight: FontWeight.w500);
   TextStyle get medium14 =>
       getTextStyle(fontSize: 14, fontWeight: FontWeight.w500);
   TextStyle get regular16 =>

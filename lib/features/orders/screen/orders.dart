@@ -50,13 +50,13 @@ class Orders extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       reverse: true,
-                        itemCount: MyOrdersCubit.get(context).customerOrders?.data?.length,
+                        itemCount: MyOrdersCubit.get(context).customerOrders?.data?.length??0,
                         itemBuilder: (context, index) =>
                             InkWell(
                                 onTap: () {
                                   navigate(context, OrderDetails(orderIndex: index,));
                                 },
-                                child: orderCard(MyOrdersCubit.get(context).customerOrders!.data![index],context))),
+                                child: orderCard(MyOrdersCubit.get(context).customerOrders?.data?[index],context))),
                   )
                 ],),
             ) : Center(
