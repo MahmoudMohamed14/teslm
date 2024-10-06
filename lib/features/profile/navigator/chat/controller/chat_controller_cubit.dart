@@ -80,6 +80,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
       {required String message,
       required String chatId,
       required BuildContext context}) {
+    print("SEND MESSAGE");
     // if (imagesProvider(context).isNotEmpty) {
     //   sendImages(context);
     // }
@@ -89,5 +90,6 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
       'from': '$customerId',
       'content': message,
     });
+    print("SEND MESSAGE Done");
   }
 }
