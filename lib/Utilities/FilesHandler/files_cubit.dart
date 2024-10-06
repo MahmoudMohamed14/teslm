@@ -81,4 +81,24 @@ class DragFilesCubit extends Cubit<FilesStates> {
       emit(PickFilesSuccessState());
     }
   }
+
+  ///   ----------------   Send Files To Backend   -----------
+  // static Future<Either<Failure, String>> methodName(
+  //     {required String phoneOrMail, required String password}) async {
+  //   try {
+  //     String response = await GenericRequest<String>(
+  //       method:
+  //           HttpRequestHandler.postJson(url: ApiEndPoint.endpoint, bodyJson: {
+  //         "email_or_phone": phoneOrMail,
+  //         "password": password,
+  //       }),
+  //       fromMap: YourModel.fromJson,
+  //     ).getObject(printBody: false);
+  //     return Either.right(response);
+  //   } on ServerException catch (failure) {
+  //     return Either.left(
+  //       ServerFailure(failure.errorMessageModel),
+  //     );
+  //   }
+  // }
 }
