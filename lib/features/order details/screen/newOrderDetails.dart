@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
@@ -68,13 +69,13 @@ class NewOrderDetails extends StatelessWidget {
                             11.0.widthBox,
                             AppTextWidget(
                                "6 ${Strings.minutes.tr(context)}",
-                              style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font1,fontSize: 24),
+                              style: TextStyleHelper.of(context).bold20.copyWith(color: Colors.white,fontSize: 24),
 
                             ),
                             8.0.widthBox,
                             AppTextWidget(
                               Strings.toYourOrderArrival.tr(context),
-                              style: TextStyleHelper.of(context).medium14.copyWith(color: ThemeModel.of(context).font1),
+                              style: TextStyleHelper.of(context).medium14.copyWith(color: Colors.white),
 
                             ),
                           ],
@@ -87,7 +88,7 @@ class NewOrderDetails extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                             decoration: BoxDecoration(
-                              color: ThemeModel.of(context).cardsColor,
+                              color: ThemeModel.of(context).pendingColor,
                               borderRadius: const BorderRadiusDirectional.only(
                                   topEnd: Radius.circular(30),
                                   bottomEnd: Radius.circular(30)),
@@ -122,25 +123,35 @@ class NewOrderDetails extends StatelessWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                SvgPicture.asset(ImagesApp.phoneIcon,colorFilter: ColorFilter.mode(ThemeModel.of(context).font1, BlendMode.srcIn),),
+                                InkWell(
+                                  onTap: (){
+                                    makePhoneCall(orderData?.deliveryPartner?.phoneNumber??'');
+
+                                  },
+                                    child: SvgPicture.asset(ImagesApp.phoneIcon,colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),)),
                                 10.w.widthBox,
-                                SvgPicture.asset(ImagesApp.whatsAppSvg,colorFilter: ColorFilter.mode(ThemeModel.of(context).font1, BlendMode.srcIn),),
+                                InkWell(
+                                  onTap: (){
+                                    openWhatsAppChat(orderData?.deliveryPartner?.phoneNumber??'');
+
+                                  },
+                                    child: SvgPicture.asset(ImagesApp.whatsAppSvg,colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),)),
                                 10.w.widthBox,
-                                SvgPicture.asset(ImagesApp.messageSvg,colorFilter: ColorFilter.mode(ThemeModel.of(context).font1, BlendMode.srcIn),),
+                                SvgPicture.asset(ImagesApp.messageSvg,colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),),
                               ],
                             ),
                           )
                         ],
                       ),
                       15.h.heightBox,
-                      Padding(
-                        padding:EdgeInsetsDirectional.symmetric(horizontal: 8),
+                        if(orderData?.status=='pending')   Padding(
+                        padding:const EdgeInsetsDirectional.symmetric(horizontal: 8),
                         child: SizedBox(
                           width: MediaQuery.sizeOf(context).width-50.w,
                           child: Transform.flip(
                             flipX: language == 'en' ? false : true,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: language == 'en' ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                               children: [
 
                                 SvgPicture.asset(ImagesApp.logoSvg,),
@@ -157,6 +168,25 @@ class NewOrderDetails extends StatelessWidget {
                           ),
                         ),
                       )
+                        else Center(
+                          child: Padding(
+                            padding:const EdgeInsetsDirectional.symmetric(horizontal: 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+
+                              children: [
+                                AppTextWidget(
+                                  '${Strings.yourOrderHasArrived.tr(context)} ',
+                                  style: TextStyleHelper.of(context)
+                                      .medium14
+                                      .copyWith(color: Colors.white),
+                                ),
+                                SvgPicture.asset(ImagesApp.logoSvg,width: 40,height: 40,fit: BoxFit.cover,),
+
+                              ],
+                            ),
+                          ),
+                        )
                     ],
                   ),
                 ),
@@ -338,7 +368,7 @@ class OrderDetailsItem extends StatelessWidget {
     return  Container(
       padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 13),
       decoration: BoxDecoration(
-        color: ThemeModel.of(context).cardsColor,
+        color: ThemeModel.of(context).pendingColor,
         borderRadius: BorderRadius.circular(18),
 
 
@@ -392,4 +422,19 @@ class OrderDetailsItem extends StatelessWidget {
       ),
     );
   }
+}
+Future<void> makePhoneCall(String phoneNumber) async {
+  final Uri launchUri = Uri(
+    scheme: 'tel',
+    path: phoneNumber,
+  );
+  await launchUrl(launchUri);
+}
+Future<void> openWhatsAppChat(String phoneNumber) async {
+  final Uri launchUri = Uri(
+    scheme: 'https',
+    host: 'wa.me',
+    path: phoneNumber,
+  );
+  await launchUrl(launchUri);
 }

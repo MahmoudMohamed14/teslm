@@ -1091,7 +1091,7 @@ class OtherWidget extends StatelessWidget {
               ],
             ).expand,
             15.w.widthBox,
-            //hi mostfa
+
             Stack(
               children: [
                 image(item?.image, 155.0, 140.w, 20.0, BoxFit.cover),
@@ -1214,8 +1214,7 @@ class OtherWidgetSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('itemhere');
-    //print(item?.optionGroups?.first.toJson());
+
     return GestureDetector(
       onTap: () {
         bottomSheet(context,
@@ -1307,7 +1306,7 @@ class OtherWidgetSmall extends StatelessWidget {
             ),
             15.h.heightBox,
             Padding(
-              padding: EdgeInsetsDirectional.only(bottom: 5,start: 3),
+              padding: const EdgeInsetsDirectional.only(bottom: 5,start: 3),
               child: Row(
                 //mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
