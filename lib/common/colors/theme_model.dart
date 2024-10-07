@@ -51,6 +51,8 @@ class ThemeModel {
   final Color smallCardIconsColor;
   final Color pointIconBackgroundColor;
   final Color priceAndCaloriesColor;
+  final Color textCouponColor;
+  final Color maxAmountCouponColor;
   ThemeModel.light( {
     this.primary = const Color(0xffF78C2E),
     this.greenAppBar= const Color(0xff33C072),
@@ -84,7 +86,9 @@ class ThemeModel {
     this.smallCardIconsColor =const Color(0xFF5B5B5B),
     this.pointIconBackgroundColor =const Color(0x6BD9D9D9),
     this.priceAndCaloriesColor =const Color(0x6BEDEDED),
-}); // Safety check
+    this.textCouponColor = Colors.brown,
+    this.maxAmountCouponColor = Colors.grey,
+  }); // Safety check
 
   ThemeModel.dark({
     this.primary = const Color(0xff3C9AA6),
@@ -119,5 +123,7 @@ class ThemeModel {
     this.smallCardIconsColor =const Color(0xFFFFFFFF),
     this.pointIconBackgroundColor =const Color(0XFFD9D9D9),
     this.priceAndCaloriesColor =const Color(0XFF212125),
+    this.textCouponColor =const Color(0xFFFFFFFF),
+    this.maxAmountCouponColor =const Color(0xFFFFFFFF),
   }); // Safety check
 }

@@ -19,11 +19,12 @@ class ApiEndPoint {
   static String couponsValidate = '${baseUrl}coupons/validate';
   static String orders = '${baseUrl}orders/customer';
   static String wallet = '${baseUrl}wallet';
-  static String coupons = '${baseUrl}coupons';
+  static String coupons = '${baseUrl}coupons/saved';
   static String redeemPoints = 'redeem-points';
   static String providers = '${baseUrl}providers';
   static String myOrders = '${baseUrl}orders/customer';
   static String getAdsByCategory = '${baseUrl}ads/category';
   static String getNewCustomer = '${baseUrl}customers/auth/me';
   static String uploadFile = '${baseUrl}upload-file';
+  static String saveCouponCustomer = '${baseUrl}coupons/saved';
 }
