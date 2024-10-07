@@ -5,12 +5,10 @@ import 'package:delivery/features/provider%20page/controller/provider_data_handl
 import 'package:delivery/features/provider%20page/controller/provider_state.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
-import '../../../Dio/Dio.dart';
 import '../../../common/components.dart';
-import '../../../common/end_points_api/api_end_points.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../models/provider_items_model.dart';
 import '../../../shared_preference/shared preference.dart';
@@ -54,25 +52,27 @@ class ProviderCubit extends Cubit<ProviderState> {
         'name': name,
         'quantity': value,
         'image': image,
-       // "ProviderId":providerId,
-      //  "isRestaurant":isRestaurant,
+        "ProviderId":providerId,
+        "isRestaurant":isRestaurant,
         'price': foodPrice,
         'itemId': id,
-       // 'description':description,
+       'description':description,
         'selectedOptionGroups': extraId??[]
       });
       cardList.add({
         'name': name,
         'quantity': value,
-       // 'image': image,
-       // "ProviderId":providerId,
+       'image': image,
+        "ProviderId":providerId,
         "isRestaurant":isRestaurant,
         'price': foodPrice,
         'itemId': id,
-       // 'description':description,
+       'description':description,
         'selectedOptionGroups': extraId??[]
       });
-      print(" inside add $values");
+      if (kDebugMode) {
+        print(" inside add $values");
+      }
 
 
     }
@@ -94,12 +94,16 @@ class ProviderCubit extends Cubit<ProviderState> {
     emit(GetProviderFoodLoading());
     final result = await ProviderDataHandler.getProviderData(id: id.toString());
     result.fold((l) {
-      print("error is ${l.errorModel.statusMessage}");
+      if (kDebugMode) {
+        print("error is ${l.errorModel.statusMessage}");
+      }
 
       emit(GetProviderFoodError());
     }, (r) {
       providerFoodData=ProviderItemsMenu.fromJson(r);
-      print(r);
+      if (kDebugMode) {
+        print(r);
+      }
       emit(GetProviderFoodSuccess());
     });
    /* DioHelper.getData(url: '${ApiEndPoint.providers}/$id',)
@@ -151,7 +155,9 @@ class ProviderCubit extends Cubit<ProviderState> {
       cardList =  (jsonDecode(json) as List<dynamic>)
           .map((item) => Map<String, dynamic>.from(item))
           .toList();
-      print(" myCart=${cardList}");
+      if (kDebugMode) {
+        print(" myCart=$cardList");
+      }
     }
   }
   void minusValue(String name, int value, image, int foodPrice, id) {
