@@ -13,9 +13,12 @@ class HelperFunctions {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               backgroundColor: ThemeModel.of(context).backgroundColor,
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
+                  EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
               content: contentWidget,
             ));
   }

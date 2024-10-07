@@ -13,10 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../Utilities/FilesHandler/files_cubit.dart';
-import '../../../../Utilities/FilesHandler/files_states.dart';
-import '../../../../Utilities/helper_functions.dart';
+import '../../../../Utilities/FilesHandler/images_in_board.dart';
 import '../../../../common/constant/constant values.dart';
-import '../../../../widgets/rounded_image_widget.dart';
 import 'controller/chat_controller_cubit.dart';
 
 class Chat extends StatelessWidget {
@@ -59,66 +57,8 @@ class Chat extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        BlocConsumer<DragFilesCubit, FilesStates>(
-                          listener: (BuildContext context, state) {},
-                          builder: (BuildContext context, state) {
-                            final filesCubit =
-                                BlocProvider.of<DragFilesCubit>(context);
-                            if (filesCubit.images.isNotEmpty) {
-                              return SizedBox(
-                                height: 96,
-                                child: ListView.separated(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: filesCubit.images.length,
-                                  separatorBuilder: (context, index) =>
-                                      8.0.widthBox,
-                                  itemBuilder: (context, index) => Stack(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          HelperFunctions.imagePreviewDialog(
-                                            context,
-                                            file: filesCubit.images[index],
-                                          );
-                                        },
-                                        child: RoundedImage(
-                                          radius: 72,
-                                          radiusValue: 8,
-                                          memoryImage: filesCubit.images[index],
-                                        ).paddingOnly(top: 8),
-                                      ),
-                                      PositionedDirectional(
-                                        top: 0,
-                                        end: 0,
-                                        child: InkWell(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          onTap: () => filesCubit
-                                              .removeImageFromImagesList(index),
-                                          child: Container(
-                                            padding: const EdgeInsets.all(2),
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  ThemeModel.of(context).danger,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Icon(
-                                              Icons.remove,
-                                              color: Colors.white,
-                                              size: 16,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            } else {
-                              return const SizedBox.shrink();
-                            }
-                          },
-                        ),
+                        ///    ---------------   Images in board  ---------------
+                        const ImagesInBoardWidget(),
                         Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -143,7 +83,11 @@ class Chat extends StatelessWidget {
                                         } else {
                                           langEn = false;
                                         }
-                                        if (messageController.text == '') {
+                                        if (messageController.text == '' &&
+                                            BlocProvider.of<DragFilesCubit>(
+                                                    context)
+                                                .images
+                                                .isEmpty) {
                                           icon = Icons.camera_alt_rounded;
                                         } else {
                                           icon = Icons.send;

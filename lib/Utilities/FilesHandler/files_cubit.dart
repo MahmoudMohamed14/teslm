@@ -1,3 +1,4 @@
+import 'package:delivery/common/end_points_api/api_end_points.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -101,26 +102,34 @@ class DragFilesCubit extends Cubit<FilesStates> {
   //   }
   // }
 
-  Future<List<String>> uploadSelectedImages() async {
-    List<String> imageUrls = [];
+  List<String> imageUrls = [];
+  void clearUrls() {
+    imageUrls = [];
+  }
 
+  bool startUploading = false;
+  Future<void> uploadSelectedImages() async {
+    startUploading = true;
+
+    emit(UploadFilesLoadingState());
     for (GenericFile image in images) {
       String? url = await sendFiles(image);
       if (url?.isNotEmpty ?? false) {
         imageUrls.add(url!);
-        removeImageFromImagesList(_images.indexOf(image));
+        emit(UploadFilesSuccessState());
+        // removeImageFromImagesList(_images.indexOf(image));
       }
       imageUrls.forEach((e) => print("Image Path>>>>>>>  $e"));
       print("<<<   ${imageUrls.length}   >>>");
     }
     clearImages();
-    return imageUrls;
+    startUploading = false;
+    emit(UploadFilesSuccessState());
   }
 
   Future<String?> sendFiles(GenericFile singleImage) async {
     // Replace with your actual endpoint URL
-    final url =
-        Uri.parse('https://hunger-station-clone.vercel.app/upload-file');
+    final url = Uri.parse('${ApiEndPoint.baseUrl}upload-file');
 
     // Create a multipart request
     var request = http.MultipartRequest('POST', url);

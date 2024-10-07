@@ -24,6 +24,8 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     emit(GetChatCallCenterLoading());
     DioHelper.getData(url: 'chats/me', token: token).then((value) {
       chatsCallCenter = ChatModel.fromJson(value.data);
+      chatsCallCenter?.messages?.forEach(
+          (message) => debugPrint("Chat Data >>>>>>>>.  ${message.toJson()}"));
       emit(GetChatCallCenterSuccess());
     }).catchError((error) {
       debugPrint(error.toString());
@@ -31,10 +33,10 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     });
   }
 
-  List<String> imagesUrls = [];
   Future sendImages(BuildContext context) async {
-    imagesUrls =
-        await BlocProvider.of<DragFilesCubit>(context).uploadSelectedImages();
+    await BlocProvider.of<DragFilesCubit>(context).uploadSelectedImages();
+    debugPrint(
+        "Images Urls 11111111>>>>>>>>>> ${BlocProvider.of<DragFilesCubit>(context).imageUrls.length}");
   }
 
   Future<void> onNewMessage(dynamic message) async {
@@ -80,17 +82,31 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
   void postMessage(
       {required String message,
       required String chatId,
-      required BuildContext context}) {
+      required BuildContext context}) async {
     debugPrint("SEND MESSAGE");
-    // if (imagesProvider(context).isNotEmpty) {
-    //   sendImages(context);
-    // }
-    // debugPrint(">>>>>>>>>>>>>>>>>>>>>>>> ${imagesUrls}");
-    socket.emit("sendMessage", {
-      'chatId': chatId,
-      'from': '$customerId',
-      'content': message,
-    });
+    if (imagesProvider(context).isNotEmpty) {
+      await sendImages(context).then((e) {
+        debugPrint(
+            ">>>>>>>>>>>>>>>>>>>>>>>> ${BlocProvider.of<DragFilesCubit>(context).imageUrls}");
+        socket.emit("sendMessage", {
+          'chatId': chatId,
+          'from': '$customerId',
+          'content': message,
+          'imageUrls': BlocProvider.of<DragFilesCubit>(context)
+              .imageUrls
+              .map((e) => e.toString())
+              .toList()
+        });
+        BlocProvider.of<DragFilesCubit>(context).clearUrls();
+        return;
+      });
+    } else {
+      socket.emit("sendMessage", {
+        'chatId': chatId,
+        'from': '$customerId',
+        'content': message,
+      });
+    }
     debugPrint("SEND MESSAGE Done");
   }
 }
