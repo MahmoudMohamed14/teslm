@@ -26,7 +26,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
       chatsCallCenter = ChatModel.fromJson(value.data);
       emit(GetChatCallCenterSuccess());
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(GetChatCallCenterError());
     });
   }
@@ -41,7 +41,8 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     if (chatsCallCenter != null && chatsCallCenter!.messages != null) {
       chatsCallCenter!.messages!.add(MessagesModel.fromJson(message));
       emit(ReloadChat());
-      print(MessagesModel.fromJson(message));
+      debugPrint(
+          "Message >>>>>>>  ${MessagesModel.fromJson(message).toString()}");
     }
   }
 
@@ -59,12 +60,12 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     socket.connect();
 
     socket.onConnect((_) {
-      print('Connection established');
+      debugPrint('Connection established');
       socket.emit("joinChat", {"customerId": customerId});
     });
 
     socket.on("joinedChat", (data) {
-      print("Joined chat: $data");
+      debugPrint("Joined chat: $data");
       chat = ChatModel.fromJson(data); // Assuming you have a Chat model
     });
 
@@ -72,24 +73,24 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
       onNewMessage(data);
     });
 
-    socket.onConnectError((data) => print('Connect Error: $data'));
-    socket.onDisconnect((_) => print('Socket.IO server disconnected'));
+    socket.onConnectError((data) => debugPrint('Connect Error: $data'));
+    socket.onDisconnect((_) => debugPrint('Socket.IO server disconnected'));
   }
 
   void postMessage(
       {required String message,
       required String chatId,
       required BuildContext context}) {
-    print("SEND MESSAGE");
+    debugPrint("SEND MESSAGE");
     // if (imagesProvider(context).isNotEmpty) {
     //   sendImages(context);
     // }
-    // print(">>>>>>>>>>>>>>>>>>>>>>>> ${imagesUrls}");
+    // debugPrint(">>>>>>>>>>>>>>>>>>>>>>>> ${imagesUrls}");
     socket.emit("sendMessage", {
       'chatId': chatId,
       'from': '$customerId',
       'content': message,
     });
-    print("SEND MESSAGE Done");
+    debugPrint("SEND MESSAGE Done");
   }
 }

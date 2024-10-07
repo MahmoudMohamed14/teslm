@@ -108,6 +108,7 @@ class DragFilesCubit extends Cubit<FilesStates> {
       String? url = await sendFiles(image);
       if (url?.isNotEmpty ?? false) {
         imageUrls.add(url!);
+        removeImageFromImagesList(_images.indexOf(image));
       }
       imageUrls.forEach((e) => print("Image Path>>>>>>>  $e"));
       print("<<<   ${imageUrls.length}   >>>");
