@@ -56,6 +56,9 @@ class ImagesApp {
   static const String inviteFriendsIcon = 'assets/images/inviteFriendsIcon.svg';
   static const String couponImage = 'assets/images/coupon.svg';
   static const String couponTextFieldIcon = 'assets/images/coupon_text_field.svg';
+  static const String couponImage = 'assets/images/coupon.svg';
+  static const String couponTextFieldIcon =
+      'assets/images/coupon_text_field.svg';
   static const String clockImageAppBar = 'assets/images/clockImageAppbar.svg';
   static const String teslmPngLogo = 'assets/images/Teslm.png';
   static const String messageSvg = '$_iconPath/messageSvg.svg';

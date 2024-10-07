@@ -9,7 +9,7 @@ class ApiEndPoint {
         path: path.replaceAll("https://hunger-station-clone.vercel.app", ""),
         queryParameters: queryParameters,
       );
-  static String baseUrl = "https://hunger-station-clone.vercel.app/";
+  static String baseUrl = "http://147.79.114.89:5050/";
   static String generateOtp = '${baseUrl}customers/generate-otp';
   static String verifyOtp = '${baseUrl}customers/verify-otp';
   static String ads = '${baseUrl}ads';
@@ -25,5 +25,6 @@ class ApiEndPoint {
   static String myOrders = '${baseUrl}orders/customer';
   static String getAdsByCategory = '${baseUrl}ads/category';
   static String getNewCustomer = '${baseUrl}customers/auth/me';
+  static String uploadFile = '${baseUrl}upload-file';
   static String saveCouponCustomer = '${baseUrl}coupons/saved';
 }

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloudinary_flutter/cloudinary_context.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:delivery/Dio/Dio.dart';
 import 'package:delivery/Utilities/FilesHandler/files_cubit.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
@@ -46,6 +48,8 @@ void main() async {
       projectId: "delivery-c021a", //paste your project id here
     ),
   );
+  CloudinaryContext.cloudinary =
+      Cloudinary.fromCloudName(cloudName: "dmzdzq3ug");
   bool? onboard = Save.getdata(key: 'save');
   token = Save.getdata(key: 'token');
   print(token);
@@ -70,14 +74,39 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
-  void initState() {
+  void initState()  {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    print("initState>>>>>>>>>>>>>>>>>>> customerId=${Save.getdata(key: 'customerId')}}");
+   /* print("initState>>>>>>>>>>>>>>>>>>> customerId=${Save.getdata(key: 'customerId')}}");
     print("   token ${SharedPref.getToken()}");
     //  String? json = Save.getdata(key: 'myCart');
     //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
-    //Save.remove(key: 'myCart');
+    //Save.remove(key: 'myCart');*/
+    //todo remove isRestaurant
+    removeRestaurant();
+
+  }
+  Future<void> removeRestaurant() async {
+    String? json = Save.getdata(key: 'myCart');
+
+
+    if (json != null) {
+
+      List<Map<String, dynamic>> cardList =
+      (jsonDecode(json) as List<dynamic>)
+          .map((item) => Map<String, dynamic>.from(item))
+          .toList();
+      cardList.removeWhere((item) => item["isRestaurant"] == true);
+      String encodedData = jsonEncode(cardList);
+
+      try {
+        bool onSave = await Save.savedata(key: 'myCart', value: encodedData);
+        if (onSave) {
+        }
+      } catch (e) {
+        print('Error saving data: $e');
+      }
+    }
   }
 
   @override
@@ -87,36 +116,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
-  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+ Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.detached) {
-      print('detached>>>>>>>>>>>>>>>');
 
-      String? json = Save.getdata(key: 'myCart');
-      print('after>>>>>>>>>>>>>>>>>>');
 
-      if (json != null) {
-        print('if>>>>>>>>>>>>>>>>>>');
-        Save.remove(key: 'myCart');
-
-        List<Map<String, dynamic>> cardList =
-            (jsonDecode(json) as List<dynamic>)
-                .map((item) => Map<String, dynamic>.from(item))
-                .toList();
-
-        // Use removeWhere to safely remove elements
-        cardList.removeWhere((item) => item["isRestaurant"] == true);
-        String encodedData = jsonEncode(cardList);
-        print('Encoded data to save: $encodedData');
-        try {
-          bool onSave = await Save.savedata(key: 'myCart', value: encodedData);
-          if (onSave) {
-            print('done>>>>>>>>>>>>>>>>>>');
-            print(" myCart=$cardList");
-          }
-        } catch (e) {
-          print('Error saving data: $e');
-        }
-      }
+     await removeRestaurant();
+     print('detached>>>>>>>>>>>>>>>>>>');
     }
     if (state == AppLifecycleState.resumed) {
       if (kDebugMode) {
