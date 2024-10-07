@@ -26,20 +26,20 @@ class ProviderCubit extends Cubit<ProviderState> {
     int totalItems = 0;
     for (var map in values) {
       if (map['itemId'] == id) {
-        print(" befor${map['quantity']}");
+
         map['quantity'] = (map['quantity']! + 1);
         totalItems = map['quantity']!;
-        print(" after${map['quantity']}  $values;");
+
         valueExists = true;
         break;
       }
     }
-    print(" herre  $values;");
+
 
     cardList.forEach((action){
       if (action['itemId'] == id) {
         action['quantity'] = totalItems;
-        print(" after cardList${action!['quantity']}  $values;");
+        //print(" after cardList${action!['quantity']}  $values;");
 
 
       }
@@ -78,7 +78,7 @@ class ProviderCubit extends Cubit<ProviderState> {
     }
 
 
-    price+=foodPrice;
+   // price+=foodPrice;
     emit(Reload());
     //print(values);
     saveCardList();
@@ -164,12 +164,13 @@ class ProviderCubit extends Cubit<ProviderState> {
 
     bool valueExists = false;
    // List<Map<String, dynamic>> valuesCopy = List.from(values.reversed);
-
+    int totalItems = 0;
     for (var map in values) {
 
       if (map['itemId'] == id) {
 
         map['quantity'] = (map['quantity']! - 1);
+        totalItems= map['quantity'];
         if (map['quantity'] == 0) {
           values.remove(map);
         }
@@ -181,7 +182,7 @@ class ProviderCubit extends Cubit<ProviderState> {
       for (var map in cardList) {
         if (map['itemId'] == id) {
 
-          map['quantity'] = (map['quantity']! - 1);
+          map['quantity'] =totalItems;
           if (map['quantity'] == 0) {
             cardList.remove(map);
           }
@@ -193,7 +194,7 @@ class ProviderCubit extends Cubit<ProviderState> {
 
     if (valueExists) {
      // values = List.from(valuesCopy.reversed);
-      price -= foodPrice;
+     // price -= foodPrice;
       emit(Reload());
     }
     saveCardList();
