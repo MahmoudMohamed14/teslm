@@ -15,6 +15,7 @@ import '../../home/screens/home.dart';
 import '../../orders/controller/my_orders_cubit.dart';
 import '../../orders/controller/my_order_data_handler.dart';
 import '../../point/controller/point_cubit.dart';
+import '../../provider page/controller/provider_cubit.dart';
 import 'order_data_handler.dart';
 
 part 'order_state.dart';
@@ -57,23 +58,35 @@ class OrderCubit extends Cubit<OrderState> {
       emit(CouponSuccess());
     });
   }
+  List<Map<String, dynamic>> itemsValue=[];
   void postOrder({
     String? coupon,
     required List items,
     required String customerNotes,
     required BuildContext context,
   }) async {
+    itemsValue=[];
     emit(PostOrderLoading());
+    for (var action in items) {
+      itemsValue.add({
+        'name': action['name'],
+        'quantity': action['quantity'],
+        'image': action['image'],
+        'price': action['price'],
+        'itemId': action['itemId'],
+        'selectedOptionGroups':action['selectedOptionGroups']
+      });
+    }
     final result;
     if(coupon!=null){
       result = await PostOrderDataHandler.postOrder(
         coupon: coupon,
-        items: items,
+        items: itemsValue,
         customerNotes: customerNotes,
       );
     }else{
       result = await PostOrderDataHandler.postOrder(
-        items: items,
+        items: itemsValue,
         customerNotes: customerNotes,
       );
     }
@@ -91,6 +104,10 @@ class OrderCubit extends Cubit<OrderState> {
       HomeCubit.get(context).changeNavigator(2);
       PointCubit.get(context).getPointsAndBalance();
       MyOrdersCubit.get(context).getCustomerOrders();
+      values=[];
+      for (var element in itemsValue) {
+            ProviderCubit.get(context).cardList.removeWhere((test)=>test['itemId']==element['itemId']);
+      }
       couponData=null;
       navigateAndFinish(context,const Home());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
