@@ -1,39 +1,51 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 import '../../../../../Dio/Dio.dart';
+import '../../../../../Utilities/FilesHandler/files_cubit.dart';
 import '../../../../../common/constant/constant values.dart';
 import '../../../../../models/chat_model.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 part 'chat_controller_state.dart';
 
 class ChatControllerCubit extends Cubit<ChatControllerState> {
-  ChatControllerCubit() : super(ChatControllerInitial()){
+  ChatControllerCubit() : super(ChatControllerInitial()) {
     connectSocket();
   }
   static ChatControllerCubit get(context) => BlocProvider.of(context);
-  void increment(){
+  void increment() {
     emit(Reload());
   }
 
   ChatModel? chatsCallCenter;
+
   void getChat() {
     emit(GetChatCallCenterLoading());
-    DioHelper.getData(url: 'chats/me',token: token)
-        .then((value) {
-      chatsCallCenter=ChatModel.fromJson(value.data);
+    DioHelper.getData(url: 'chats/me', token: token).then((value) {
+      chatsCallCenter = ChatModel.fromJson(value.data);
       emit(GetChatCallCenterSuccess());
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(GetChatCallCenterError());
     });
   }
+
+  List<String> imagesUrls = [];
+  Future sendImages(BuildContext context) async {
+    imagesUrls =
+        await BlocProvider.of<DragFilesCubit>(context).uploadSelectedImages();
+  }
+
   Future<void> onNewMessage(dynamic message) async {
     if (chatsCallCenter != null && chatsCallCenter!.messages != null) {
-        chatsCallCenter!.messages!.add(MessagesModel.fromJson(message));
-        emit(ReloadChat());
-        print(MessagesModel.fromJson(message));
+      chatsCallCenter!.messages!.add(MessagesModel.fromJson(message));
+      emit(ReloadChat());
+      debugPrint(
+          "Message >>>>>>>  ${MessagesModel.fromJson(message).toString()}");
     }
   }
+
   IO.Socket socket = IO.io(
     'http://147.79.114.89:5051',
     <String, dynamic>{
@@ -48,12 +60,12 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     socket.connect();
 
     socket.onConnect((_) {
-      print('Connection established');
+      debugPrint('Connection established');
       socket.emit("joinChat", {"customerId": customerId});
     });
 
     socket.on("joinedChat", (data) {
-      print("Joined chat: $data");
+      debugPrint("Joined chat: $data");
       chat = ChatModel.fromJson(data); // Assuming you have a Chat model
     });
 
@@ -61,17 +73,24 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
       onNewMessage(data);
     });
 
-    socket.onConnectError((data) => print('Connect Error: $data'));
-    socket.onDisconnect((_) => print('Socket.IO server disconnected'));
+    socket.onConnectError((data) => debugPrint('Connect Error: $data'));
+    socket.onDisconnect((_) => debugPrint('Socket.IO server disconnected'));
   }
-  void postMessage({
-    required String message ,
-    required String chatId ,
-  }){
+
+  void postMessage(
+      {required String message,
+      required String chatId,
+      required BuildContext context}) {
+    debugPrint("SEND MESSAGE");
+    // if (imagesProvider(context).isNotEmpty) {
+    //   sendImages(context);
+    // }
+    // debugPrint(">>>>>>>>>>>>>>>>>>>>>>>> ${imagesUrls}");
     socket.emit("sendMessage", {
-      'chatId': '$chatId',
-      'from':'$customerId',
-      'content': '$message',
+      'chatId': chatId,
+      'from': '$customerId',
+      'content': message,
     });
+    debugPrint("SEND MESSAGE Done");
   }
 }

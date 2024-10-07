@@ -10,3 +10,9 @@ class GetCouponsLoading extends CouponsState {}
 class GetCouponsSuccess extends CouponsState {}
 
 class GetCouponsError extends CouponsState {}
+
+class SaveCouponsLoading extends CouponsState {}
+
+class SaveCouponsSuccess extends CouponsState {}
+
+class SaveCouponsError extends CouponsState {}

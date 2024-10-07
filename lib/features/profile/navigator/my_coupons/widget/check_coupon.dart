@@ -7,14 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../../common/colors/colors.dart';
+import '../../../../../common/colors/theme_model.dart';
+import '../../../../../common/components.dart';
+import '../../../../../common/constant/constant values.dart';
+import '../controller/coupons_cubit.dart';
 
-import '../../../Cubite/delivery_cubit.dart';
-import '../../../common/colors/colors.dart';
-import '../../../common/colors/theme_model.dart';
-import '../../../common/components.dart';
-import '../../../common/constant/constant values.dart';
-
-Future<void> enterCoupon(context,couponController,bool isSaveCoupon) async {
+Future<void> saveCoupon(context,couponController,bool isSaveCoupon) async {
   await showDialog(
     context: context,
     builder: (context) {
@@ -23,11 +22,11 @@ Future<void> enterCoupon(context,couponController,bool isSaveCoupon) async {
           couponController.clear();
           return true;
         },
-        child: BlocConsumer<OrderCubit, OrderState>(
+        child: BlocConsumer<CouponsCubit, CouponsState>(
           listener: (context, state) {},
           builder: (context, state) {
             List<Widget> actions = [];
-            if (state is CouponLoading) {
+            if (state is SaveCouponsLoading) {
               actions = [
                 SpinKitWave(
                   color:isDark??false? Colors.white:borderColor,
@@ -50,17 +49,10 @@ Future<void> enterCoupon(context,couponController,bool isSaveCoupon) async {
                     ),
                     BottomWidget(
                       Strings.addCoupon.tr(context),
-                      width: 120,
-                          isSaveCoupon?
-                          (){
-
-                          }
-                              :() {
-                        OrderCubit.get(context).postCoupon(
-                          coupon: couponController.text,
-                          subtotal: price,
-                          shippingPrice: 10,
-                          context: context,
+                      width: 120, () {
+                        CouponsCubit.get(context).saveCoupons(
+                          context,
+                           couponController.text.trim()
                         );
                         couponController.clear();
                       },

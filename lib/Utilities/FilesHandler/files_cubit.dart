@@ -1,7 +1,10 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 
 import '../../models/images_model.dart';
 import 'files_states.dart';
@@ -83,22 +86,70 @@ class DragFilesCubit extends Cubit<FilesStates> {
   }
 
   ///   ----------------   Send Files To Backend   -----------
-  // static Future<Either<Failure, String>> methodName(
-  //     {required String phoneOrMail, required String password}) async {
-  //   try {
-  //     String response = await GenericRequest<String>(
-  //       method:
-  //           HttpRequestHandler.postJson(url: ApiEndPoint.endpoint, bodyJson: {
-  //         "email_or_phone": phoneOrMail,
-  //         "password": password,
-  //       }),
-  //       fromMap: YourModel.fromJson,
-  //     ).getObject(printBody: false);
-  //     return Either.right(response);
-  //   } on ServerException catch (failure) {
-  //     return Either.left(
-  //       ServerFailure(failure.errorMessageModel),
-  //     );
+  // void uploadImageList() async {
+  //   CloudinaryUploader uploader = CloudinaryUploader();
+  //   List<String> uploadedUrls = await uploader.uploadImages(images
+  //       .map(
+  //         (e) => File(e.path),
+  //       )
+  //       .toList());
+  //
+  //   if (uploadedUrls.isNotEmpty) {
+  //     print('Uploaded images URLs: $uploadedUrls');
+  //   } else {
+  //     print('Failed to upload images');
   //   }
   // }
+
+  Future<List<String>> uploadSelectedImages() async {
+    List<String> imageUrls = [];
+
+    for (GenericFile image in images) {
+      String? url = await sendFiles(image);
+      if (url?.isNotEmpty ?? false) {
+        imageUrls.add(url!);
+        removeImageFromImagesList(_images.indexOf(image));
+      }
+      imageUrls.forEach((e) => print("Image Path>>>>>>>  $e"));
+      print("<<<   ${imageUrls.length}   >>>");
+    }
+    clearImages();
+    return imageUrls;
+  }
+
+  Future<String?> sendFiles(GenericFile singleImage) async {
+    // Replace with your actual endpoint URL
+    final url =
+        Uri.parse('https://hunger-station-clone.vercel.app/upload-file');
+
+    // Create a multipart request
+    var request = http.MultipartRequest('POST', url);
+
+    // Get MIME type of the file
+    final mimeType = lookupMimeType(singleImage.path);
+    final mimeTypeData =
+        mimeType?.split('/') ?? ['application', 'octet-stream'];
+
+    // Attach the file to the request
+    request.files.add(await http.MultipartFile.fromPath(
+      'file',
+      singleImage.path,
+      contentType: MediaType(mimeTypeData[0], mimeTypeData[1]),
+    ));
+
+    // Send the request
+    try {
+      final response = await request.send();
+      final responseString = await response.stream.bytesToString();
+      if (response.statusCode == 201) {
+        debugPrint('File uploaded successfully');
+        return responseString;
+      } else {
+        debugPrint('Failed to upload file: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Error occurred while uploading file: $e');
+    }
+    return null;
+  }
 }

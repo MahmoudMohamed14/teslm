@@ -76,7 +76,7 @@ class Payment extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10.0,bottom: 10,right: 15,left: 15),
               child: Column(
                 children: [
-                  BottomWidget(Strings.addCoupon.tr(context),  OrderCubit.get(context).couponData!=null? null:(){enterCoupon(context,_couponController);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
+                  BottomWidget(Strings.addCoupon.tr(context),  OrderCubit.get(context).couponData!=null? null:(){enterCoupon(context,_couponController,false);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
                   const SizedBox(height: 10,),
                   state is PostOrderLoading?
                   SpinKitWave(
