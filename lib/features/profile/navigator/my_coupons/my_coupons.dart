@@ -20,6 +20,7 @@ class _MyCouponsState extends State<MyCoupons> with SingleTickerProviderStateMix
   @override
   void initState() {
     super.initState();
+    CouponsCubit.get(context).getUserCoupons(context);
     _tabController = TabController(length: 2, vsync: this);
   }
   late TabController _tabController;

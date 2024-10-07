@@ -82,6 +82,7 @@ Future<void> saveCoupon(context,couponController,bool isSaveCoupon) async {
                     SizedBox(
                       height: 40,
                       child: TextFormField(
+                        autofocus: true,
                         controller: couponController,
                         decoration: InputDecoration(
                           prefixIcon: Padding(
