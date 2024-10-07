@@ -26,32 +26,47 @@ class GetCouponsModel {
 }
 
 class CouponData {
-  final String? id;
-  final String? code;
-  final String? type;
-  final String? status;
+  final String id;
+  final String code;
+  final String type;
+  final String status;
   final double? maxAmount;
   final double? fixedAmount;
   final double? percentageAmount;
   final String appliedOn;
   final double? minAmount;
-  final int? usageCount;
-  final bool? applyToAllProviders;
-  final List<Providers> providers;
+  final int usageCount;
+  final bool applyToAllProviders;
+  final String? startDate;
+  final String? endDate;
+  final int maxUsageCount;
+  final double? totalPrice;
+  final double? promoterProfit;
+  final double? totalDiscount;
+  final String createdAt;
+  final String updatedAt;
 
-  CouponData(
-      {this.id,
-      this.code,
-      this.type,
-      this.status,
-      this.maxAmount,
-      this.fixedAmount,
-      this.percentageAmount,
-      required this.appliedOn,
-      this.minAmount,
-      this.usageCount,
-      this.applyToAllProviders,
-      this.providers = const []});
+  CouponData({
+    required this.id,
+    required this.code,
+    required this.type,
+    required this.status,
+    this.maxAmount,
+    this.fixedAmount,
+    this.percentageAmount,
+    required this.appliedOn,
+    this.minAmount,
+    required this.usageCount,
+    required this.applyToAllProviders,
+    this.startDate,
+    this.endDate,
+    required this.maxUsageCount,
+    this.totalPrice,
+    this.promoterProfit,
+    this.totalDiscount,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
   factory CouponData.fromJson(Map<String, dynamic> json) {
     return CouponData(
@@ -59,14 +74,21 @@ class CouponData {
       code: json['code'],
       type: json['type'],
       status: json['status'],
-      maxAmount: (json['maxAmount'] ?? 0).toDouble(),
-      fixedAmount: (json['fixedAmount'] ?? 0).toDouble(),
-      percentageAmount: json['percentageAmount'],
+      maxAmount: (json['maxAmount'] as num?)?.toDouble(),
+      fixedAmount: (json['fixedAmount'] as num?)?.toDouble(),
+      percentageAmount: (json['percentageAmount'] as num?)?.toDouble(),
       appliedOn: json['appliedOn'],
-      minAmount: (json['minAmount'] ?? 0).toDouble(),
-      usageCount: json['usageCount'],
-      applyToAllProviders: json['applyToAllProviders'],
-      providers: [],
+      minAmount: (json['minAmount'] as num?)?.toDouble(),
+      usageCount: json['usageCount'] ?? 0,
+      applyToAllProviders: json['applyToAllProviders'] ?? false,
+      startDate: json['startDate'],
+      endDate: json['endDate'],
+      maxUsageCount: json['maxUsageCount'] ?? 0,
+      totalPrice: (json['totalPrice'] as num?)?.toDouble(),
+      promoterProfit: (json['promoterProfit'] as num?)?.toDouble(),
+      totalDiscount: (json['totalDiscount'] as num?)?.toDouble(),
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
     );
   }
 
@@ -83,7 +105,8 @@ class CouponData {
     data['minAmount'] = minAmount;
     data['usageCount'] = usageCount;
     data['applyToAllProviders'] = applyToAllProviders;
-    data['providers'] = providers;
+    data['startDate'] = startDate;
+    data['endDate'] = endDate;
     return data;
   }
 }

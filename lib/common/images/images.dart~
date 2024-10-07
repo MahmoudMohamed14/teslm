@@ -51,6 +51,6 @@ class ImagesApp {
   static const String ordersIcon = '$_iconPath/myOrders.svg';
   static const String inviteFriendImage = 'assets/images/inviteFrindImage.png';
   static const String inviteFriendsIcon = 'assets/images/inviteFriendsIcon.svg';
-  static const String couponImage = 'assets/images/coupon.svg';
+  static const String couponImage = 'assets/images/coupon.png';
   static const String couponTextFieldIcon = 'assets/images/coupon_text_field.svg';
 }
