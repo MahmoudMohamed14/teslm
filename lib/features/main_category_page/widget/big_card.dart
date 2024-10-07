@@ -37,10 +37,13 @@ Widget bigCardCategory(providerData,onTap,context)=>InkWell(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const Icon(Icons.star,color: Colors.amber,),
-                                Text(providerData.reviewCount??0 == 0
-                                    ? "0 (${providerData.reviewCount??0})"
-                                    : "${(providerData.totalReviews??0 / providerData.reviewCount??1).isNaN??true ? 0 : (providerData.totalReviews??0 / providerData.reviewCount)??1} (${providerData.reviewCount??0})",
-                                  style:const TextStyle(color: Colors.white),),
+                                Text(
+                                  providerData.reviewCount == 0
+                                      ? "0 (${providerData.reviewCount??0})"
+                                      : "${((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)).isNaN ?? true ? 0 : ((providerData?.totalReviews ?? 0) / (providerData?.reviewCount ?? 1)) ?? 1} (${providerData?.reviewCount??0})",
+                                  style:
+                                  const TextStyle(fontWeight: FontWeight.w600,color: Colors.white),
+                                ),
                               ],
                             ),
                           ),

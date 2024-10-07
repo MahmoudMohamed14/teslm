@@ -27,19 +27,19 @@ class Home extends StatelessWidget {
   builder: (context, state) {
     List<BottomNavigationBarItem> items = [
     BottomNavigationBarItem(
-        icon:SvgPicture.asset(ImagesApp.homeIcon,colorFilter:HomeCubit.get(context).current==0? ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),
+        icon:SvgPicture.asset(HomeCubit.get(context).current==0?ImagesApp.currentHome:ImagesApp.homeIcon,),
         label: Strings.home.tr(context),
       ),
       BottomNavigationBarItem(
-        icon:SvgPicture.asset(ImagesApp.ordersIcon,colorFilter: HomeCubit.get(context).current==1?ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),
+        icon:SvgPicture.asset(HomeCubit.get(context).current==1?ImagesApp.currentOrder:ImagesApp.ordersIcon, ),
         label: Strings.myOrders.tr(context),
       ),
       BottomNavigationBarItem(
-        icon:SvgPicture.asset(ImagesApp.pointsIcon,colorFilter: HomeCubit.get(context).current==2?ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),
+        icon:SvgPicture.asset(HomeCubit.get(context).current==2?ImagesApp.currentPoint:ImagesApp.pointsIcon,),
         label: Strings.points.tr(context),
       ),
        BottomNavigationBarItem(
-         icon:SvgPicture.asset(ImagesApp.moreIcon,colorFilter:HomeCubit.get(context).current==3? ColorFilter.mode(ThemeModel.of(context).iconMainColor, BlendMode.srcIn):null,),
+         icon:SvgPicture.asset(HomeCubit.get(context).current==3?ImagesApp.currentProfile:ImagesApp.moreIcon,),
         label:Strings.more.tr(context),
       ),
     ];

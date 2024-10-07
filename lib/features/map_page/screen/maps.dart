@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
-import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/map_page/controller/map_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +12,7 @@ import 'package:google_places_autocomplete_text_field/google_places_autocomplete
 import 'package:google_places_autocomplete_text_field/model/prediction.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
+import '../../../common/translate/strings.dart';
 import '../fuctions/map_functions.dart';
 
 class Maps extends StatefulWidget {
@@ -19,12 +20,12 @@ class Maps extends StatefulWidget {
   final double firstPosition;
   final double secondPosition;
   // final LatLng initialLocationLatLng;
-  Maps({required this.initialLocationName,required this.firstPosition,required this.secondPosition});
+  const Maps({super.key, required this.initialLocationName,required this.firstPosition,required this.secondPosition});
   @override
-  _MapsState createState() => _MapsState();
+  MapsState createState() => MapsState();
 }
 
-class _MapsState extends State<Maps> {
+class MapsState extends State<Maps> {
   final _yourGoogleAPIKey = 'AIzaSyCuYw0V7GTKhFC3N0H4UDwCh8wLkWaNIrI';
   late String _locationName ;
   String currentLocationMainPage='';
@@ -40,7 +41,7 @@ class _MapsState extends State<Maps> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late GoogleMapController _mapController;
   Positioned? _centerIcon;
-  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  final AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
   void _initMapController() async {
     final GoogleMapController controller = await _controller.future;
@@ -110,12 +111,6 @@ class _MapsState extends State<Maps> {
     });
   }
   Future<void> _setCenterMarker() async {
-    LatLngBounds visibleRegion = await _mapController.getVisibleRegion();
-    LatLng centerPoint = LatLng(
-      (visibleRegion.northeast.latitude + visibleRegion.southwest.latitude) / 2,
-      (visibleRegion.northeast.longitude + visibleRegion.southwest.longitude) / 2,
-    );
-
     setState(() {
       _centerIcon = Positioned(
         left: MediaQuery.of(context).size.width / 2 - 22,
@@ -131,7 +126,10 @@ class _MapsState extends State<Maps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(language=='English Language'?'Order location':'موقع الطلب'),),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70.0),
+        child: appBarWithIcons(Strings.orderLocation.tr(context),ImagesApp.locationAppBar,true,context),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -171,14 +169,14 @@ class _MapsState extends State<Maps> {
                           borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(15.7),
                         ),
-                        hintText: language=='English Language'?'Enter order location':'اختار موقع الطلب',
-                        hintStyle: TextStyle(color: Colors.black),
-                        border: OutlineInputBorder(),
+                        hintText: Strings.enterOrderLocation.tr(context),
+                        hintStyle:const TextStyle(color: Colors.black),
+                        border:const OutlineInputBorder(),
                         fillColor: floatActionColor,
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return language=='English Language'?'Please enter some text':'ادخل نص';
+                          return Strings.enterTextSearch.tr(context);
                         }
                         return null;
                       },
@@ -211,7 +209,7 @@ class _MapsState extends State<Maps> {
             ),
           ),
           Container(
-              height: 130,
+              height: 140,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -220,37 +218,35 @@ class _MapsState extends State<Maps> {
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 4.0,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                    const Icon(
-                      Icons.location_on,
-                      size: 32.0,
-                      color: Colors.red,
-                    ),
-                    const SizedBox(height: 8.0),
-                    Flexible(
-                      child: Text(
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        _selectedLocationName!=''?'$_selectedLocationName':_locationName,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: ThemeModel.of(context).bigCardBottomColor),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.location_on_outlined,
+                          size: 25.0, ),
+                        const SizedBox(width: 10,),
+                        Flexible(child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(Strings.orderLocation.tr(context),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                            Text( _selectedLocationName!=''?_selectedLocationName:_locationName,maxLines: 1,
+                              overflow: TextOverflow.ellipsis,style:const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),),
+                          ],
+                        )),
+                        const SizedBox(width: 10,),
+                      ],),
                   ),
-                  const Spacer(),
-                  BottomWidget(language=='English Language'?'Confirm location':'تاكيد الموقع', ()async{
+                  BottomWidget(Strings.confirmLocation.tr(context), ()async{
                     List<Location> locations = await locationFromAddress(currentLocationMainPage);
                     if (locations.isNotEmpty) {
                         firstLatLng = locations.first.latitude;

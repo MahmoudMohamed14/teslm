@@ -21,8 +21,6 @@ class _MyCouponsState extends State<MyCoupons> with SingleTickerProviderStateMix
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    CouponsCubit.get(context).getUserCoupons(
-        context); // Call the Cubit method to fetch data in initState
   }
   late TabController _tabController;
   @override
@@ -50,15 +48,18 @@ class _MyCouponsState extends State<MyCoupons> with SingleTickerProviderStateMix
                       ? const CircularProgressIndicator()
                       : Column(
                         children: [
-                          TabBar(
-                            controller: _tabController,
-                            tabs: [
-                              Expanded(child: Tab(text: 'ACTIVE')),
-                              Expanded(child: Tab(text: 'DRAFT')),
-                            ],
-                            indicatorColor: Colors.blue,  // Customize TabBar as needed
-                            labelColor: ThemeModel.mainColor,
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: TabBar(
+                              controller: _tabController,
+                              tabs:  [
+                                Text(Strings.active.tr(context),style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                                Text(Strings.draft.tr(context),style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                              ],
+                              indicatorColor: Colors.blue,  // Customize TabBar as needed
+                              labelColor: ThemeModel.mainColor,
 
+                            ),
                           ),
                           Expanded(
                             child: TabBarView(
@@ -165,9 +166,21 @@ class VoucherCard extends StatelessWidget {
           const SizedBox(height: 8.0),
 
           // Max discount info
-          Text(
-            'Max discount of ${coupon?.maxAmount ?? 0} SR',
-            style: TextStyle(color: ThemeModel.of(context).maxAmountCouponColor),
+          Row(
+            children: [
+              Text(
+                Strings.maxDiscount.tr(context),
+                style: TextStyle(color: ThemeModel.of(context).maxAmountCouponColor),
+              ),
+              Text(
+                ' ${coupon?.maxAmount ?? 0} ',
+                style: TextStyle(color: ThemeModel.of(context).maxAmountCouponColor),
+              ),
+              Text(
+                Strings.sr.tr(context),
+                style: TextStyle(color: ThemeModel.of(context).maxAmountCouponColor),
+              ),
+            ],
           ),
           const SizedBox(height: 8.0),
 
@@ -183,13 +196,13 @@ class VoucherCard extends StatelessWidget {
                 ),
               ):Container(),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 decoration: BoxDecoration(
                   color:coupon?.status=="ACTIVE"? Colors.green[300]:Colors.red[300],
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  coupon?.status ?? "",
+                  coupon?.status=="ACTIVE"? Strings.active.tr(context):Strings.draft.tr(context),
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
@@ -205,8 +218,8 @@ class VoucherCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
             ),
             child: Text(
-              coupon?.appliedOn ?? "",
-              style: TextStyle(color: Colors.white),
+              coupon?.appliedOn=="ORDER" ? Strings.order.tr(context):Strings.shipping.tr(context),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ],

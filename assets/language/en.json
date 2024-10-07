@@ -116,6 +116,11 @@
   "your_points_less":"Your points less than 10,000",
   "points_redeemed_successfully":"Your points has been redeemed successfully",
   "discount": "Discount",
+  "active": "Active",
+  "draft": "Draft",
+  "order":"ORDER",
+  "shipping":"SHIPPING",
+  "max_discount": "Max discount of",
   "invite_friends_earn_100": "Invite your friends and earn 100 points",
   "earn100WithEveryInvitation":"Earn 100 points with every invitation you make! Don't miss the chance to take advantage of this\nfantastic offer",
   "invite_more_friends_earn_more": "Invite more friends and earn more points",
@@ -141,6 +146,7 @@
   "driverName": "Driver Name",
   "minutes": "Minutes",
   "toYourOrderArrival": "To Your Order Arrival",
-  "yourOrderHasArrived": "Your Order Has Arrived"
-
+  "yourOrderHasArrived": "Your Order Has Arrived",
+  "enter_order_location":"Enter order location",
+  "confirm_location":"Confirm location"
 }

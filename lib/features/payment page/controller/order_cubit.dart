@@ -87,8 +87,8 @@ class OrderCubit extends Cubit<OrderState> {
       ));
       emit(PostOrderError());
     }, (r) {
-      pageController=PageController(initialPage: 2);
-      HomeCubit.get(context).changeNavigator(2);
+      pageController=PageController(initialPage: 1);
+      HomeCubit.get(context).changeNavigator(1);
       PointCubit.get(context).getPointsAndBalance();
       MyOrdersCubit.get(context).getCustomerOrders();
       couponData=null;

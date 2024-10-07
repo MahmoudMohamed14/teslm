@@ -62,7 +62,7 @@ Widget categorySlider(context)=>CarouselSlider(
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   decoration: BoxDecoration(
-                      color: ThemeModel.mainColor.withOpacity(0.8),
+                      color: ThemeModel.of(context).greenAppBar,
                       borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
