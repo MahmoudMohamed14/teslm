@@ -125,8 +125,19 @@ class Strings {
   static const String friendWithPhoneNumber= "friendWithPhoneNumber";
   static const String earned= "earned";
   static const String points100= "100Points";
+  static const String delivery= "delivery";
+  static const String viewRewards= "viewRewards";
+  static const String youEarned70Points= "youEarned70Points";
+  static const String forThisOrder= "forThisOrder";
+  static const String deliveryLocation= "deliveryLocation";
+  static const String estimatedArrivalTime= "estimatedArrivalTime";
 
-
-
+  static const String apartment= "apartment";
+  static const String yourOrderFrom= "yourOrderFrom";
+  static const String quantity= "quantity";
+  static const String driverName= "driverName";
+  static const String minutes= "minutes";
+  static const String toYourOrderArrival= "toYourOrderArrival";
+  static const String yourOrderHasArrived= "yourOrderHasArrived";
 
 }

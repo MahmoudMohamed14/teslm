@@ -10,6 +10,7 @@ class SharedPref {
   static const String _userID = "userID";
   static const String loginStatusKey = "loginStatus";
   static const String _theme = "theme";
+  static const String _latLng = "latLng";
 
   // static Future logout() async {
   //   GitIt.instance.registerLazySingleton<UserModel>(
@@ -25,6 +26,16 @@ class SharedPref {
 
   static String? getToken() {
     return prefs.getString(_userToken);
+  }
+
+  ///   [latLng] --- [lat] , [lng]
+  static Future<void> setLatLng({required List<String> latLng}) async {
+    await prefs.setStringList(_latLng, latLng);
+  }
+
+  ///   [latLng] --- [lat] , [lng]
+  static List<String>? getLatLng() {
+    return prefs.getStringList(_latLng);
   }
 
   static Future<void> setUserID({required String id}) async {

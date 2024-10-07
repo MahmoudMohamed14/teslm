@@ -41,6 +41,7 @@ class CategoryProvidersModelData {
   final ProviderLanguage? description;
   final int? totalReviews;
   final int? reviewCount;
+  final String?view;
 
   CategoryProvidersModelData(
       {this.id,
@@ -49,6 +50,7 @@ class CategoryProvidersModelData {
         this.providerImage,
         this.providerCover,
         this.description,
+        this.view,
         this.totalReviews,
         this.reviewCount});
   factory CategoryProvidersModelData.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,7 @@ class CategoryProvidersModelData {
           : null,
       providerImage: json['provider_image'],
       providerCover: json['provider_cover'],
+      view: json['view'],
       description: json['description'] != null?
       ProviderLanguage.fromJson(json['description'])
           : null,
@@ -78,6 +81,7 @@ class CategoryProvidersModelData {
       data['provider_location'] = providerLocation!.toJson();
     }
     data['provider_image'] = providerImage;
+    data['view'] = view;
     data['provider_cover'] = providerCover;
     if (description != null) {
       data['description'] = description!.toJson();

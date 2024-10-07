@@ -39,6 +39,11 @@ class PostOrderDataHandler {
     required String customerNotes,
   }) async {
     try {
+      print({
+        "couponId": coupon,
+        "items": items,
+        "customerNotes": customerNotes
+      });
       bool response = await GenericRequest<bool>(
         method: HttpRequestHandler.postJson(
             url: ApiEndPoint.orders,

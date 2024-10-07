@@ -84,7 +84,8 @@ Widget bigCardHome(providerData,onTap,context)=>InkWell(
                   ),
                     Row(
                       children: [
-                        const Icon(Icons.more_time_rounded,),const SizedBox(width: 5,),Text(Strings.timeMinutes.tr(context),
+                        const Icon(Icons.more_time_rounded,size: 20,),const SizedBox(width: 5,)
+                        ,Text(Strings.timeMinutes.tr(context),
                           style:const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),),
                       ],
                     ),

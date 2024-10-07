@@ -9,6 +9,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../Cubite/them/app_dark_light_cubit.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
+import '../../order details/screen/newOrderDetails.dart';
+import '../../order details/screen/orderDetails.dart';
 import '../../orders/screen/orders.dart';
 import '../../point/screen/points.dart';
 import '../../profile/screen/user_profile.dart';

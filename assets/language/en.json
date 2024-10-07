@@ -128,5 +128,19 @@
   "inviteNewFriend": "Invite New Friend",
   "friendWithPhoneNumber": "Friend with Phone Number",
   "earned": "Earned",
-  "100Points": "100 Points"
+  "100Points": "100 Points",
+  "delivery": "Delivery",
+  "viewRewards": "View Rewards",
+  "youEarned70Points": "You earned 70 points",
+  "forThisOrder": "For this order",
+  "deliveryLocation": "Delivery Location",
+  "estimatedArrivalTime": "Estimated Arrival Time",
+  "apartment": "Apartment",
+  "yourOrderFrom": "Your order from",
+  "quantity": "Quantity",
+  "driverName": "Driver Name",
+  "minutes": "Minutes",
+  "toYourOrderArrival": "To Your Order Arrival",
+  "yourOrderHasArrived": "Your Order Has Arrived"
+
 }

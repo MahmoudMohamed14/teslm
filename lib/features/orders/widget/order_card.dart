@@ -6,7 +6,9 @@ import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 
 Widget orderCard(order,context){
+
   DateTime createdAt = DateTime.parse(order.createdAt);
+  print(order.providerOrders.providerImage);
   return Card(
     color: ThemeModel.of(context).cardsColor,
     child: Padding(
@@ -19,12 +21,12 @@ Widget orderCard(order,context){
               Expanded(
                 child: Row(
                   children: [
-                    image('${order.providerOrders.providerImage}', 60.0, 60.0, 40.0,BoxFit.cover),
+                    image('${order?.providerOrders?.providerImage??""}', 60.0, 60.0, 40.0,BoxFit.cover),
                     const SizedBox(width: 10,),
                     Expanded(child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(language == 'en'? '${order.providerOrders.providerName.en}':'${order.providerOrders.providerName.ar}',
+                        Text(language == 'en'? '${order?.providerOrders?.providerName?.en??''}':'${order.providerOrders?.providerName?.ar??''}',
                           style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w700),maxLines: 1,overflow: TextOverflow.ellipsis,),
                         Text(
                             DateFormat('MMMM d, yyyy HH:mm').format(createdAt),

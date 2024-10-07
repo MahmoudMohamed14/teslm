@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
+import '../../order details/screen/newOrderDetails.dart';
 import '../../order details/screen/orderDetails.dart';
 import '../widget/loading_orders.dart';
 import '../widget/order_card.dart';
@@ -50,13 +51,14 @@ class Orders extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       reverse: true,
-                        itemCount: MyOrdersCubit.get(context).customerOrders?.data?.length,
+                        itemCount: MyOrdersCubit.get(context).customerOrders?.data?.length??0,
                         itemBuilder: (context, index) =>
                             InkWell(
                                 onTap: () {
-                                  navigate(context, OrderDetails(orderIndex: index,));
+                                 // navigate(context, OrderDetails(orderIndex: index,));
+                                  navigate(context, NewOrderDetails(orderData:MyOrdersCubit.get(context).customerOrders?.data?[index] ,));
                                 },
-                                child: orderCard(MyOrdersCubit.get(context).customerOrders!.data![index],context))),
+                                child: orderCard(MyOrdersCubit.get(context).customerOrders?.data?[index],context))),
                   )
                 ],),
             ) : Center(

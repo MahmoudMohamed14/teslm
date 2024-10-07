@@ -1,5 +1,5 @@
 class CustomerOrders {
-  final List<Data>? data;
+  final List<OrderData>? data;
   final int? count;
 
   CustomerOrders({this.data, this.count});
@@ -7,7 +7,7 @@ class CustomerOrders {
   factory CustomerOrders.fromJson(Map<String, dynamic> json) {
     return CustomerOrders(
       data: json['data'] != null
-          ? (json['data'] as List).map((i) => Data.fromJson(i)).toList()
+          ? (json['data'] as List).map((i) => OrderData.fromJson(i)).toList()
           : null,
       count: json['count'],
     );
@@ -23,7 +23,7 @@ class CustomerOrders {
   }
 }
 
-class Data {
+class OrderData {
   final String? id;
   final int? totalPrice;
   final int? shippingPrice;
@@ -41,13 +41,13 @@ class Data {
   final ProviderOrders ?providerOrders;
   final DeliveryPartner? deliveryPartner;
 
-  Data({this.id, this.totalPrice, this.shippingPrice, this.subtotal,
+  OrderData({this.id, this.totalPrice, this.shippingPrice, this.subtotal,
     this.discount, this.coupon, this.location, this.status, this.serial,
     this.createdAt, this.updatedAt, this.customerNotes, this.items,
     this.customer, this.providerOrders, this.deliveryPartner});
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory OrderData.fromJson(Map<String, dynamic> json) {
+    return OrderData(
       id: json['id'],
       totalPrice: json['totalPrice'],
       shippingPrice: json['shippingPrice'],
@@ -66,9 +66,12 @@ class Data {
       customer: json['customer'] != null
           ?  Customer.fromJson(json['customer'])
           : null,
-      providerOrders: json['providerOrders'] != null
-          ?  ProviderOrders.fromJson(json['providerOrders'])
-          :null
+      providerOrders: json['provider'] != null
+          ?  ProviderOrders.fromJson(json['provider'])
+          :null,
+      deliveryPartner: json['deliveryPartner'] != null
+          ?  DeliveryPartner.fromJson(json['deliveryPartner'])
+          :null,
     );
   }
 

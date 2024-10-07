@@ -179,6 +179,9 @@ class Items {
       image: json['image'],
       totalReviews: json['totalReviews'],
       reviewCount: json['reviewCount'],
+      optionGroups: json['optionGroups'] != null?(json['optionGroups'] as List)
+          .map((i) => OptionGroups.fromJson(i))
+          .toList():[],
       reviews: json['reviews'] != null
           ? (json['reviews'] as List)
               .map((i) => Reviews.fromJson(i))
@@ -344,7 +347,7 @@ class Options {
     }
     data['image'] = image;
     if (extraItem != null) {
-      data['extraItem'] = extraItem!.toJson();
+      data['extraItem'] = extraItem?.toJson();
     }
     return data;
   }

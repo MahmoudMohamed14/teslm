@@ -1,6 +1,7 @@
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
@@ -18,7 +19,7 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                 children: [
                   Stack(
                     children: [
-                      image(providerData.providerCover, 120.0, 110.0, 8.0,
+                      image(providerData.providerCover, 120.0.h, 110.0.w, 8.0,
                           BoxFit.fill),
                       PositionedDirectional(
                           top: 5,
@@ -28,7 +29,7 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                       Positioned(
                           bottom: 0,
                           child: Container(
-                            width: 110,
+                            width: 110.w,
                             decoration: BoxDecoration(
                                 color: ThemeModel.mainColor,
                                 borderRadius: BorderRadius.circular(5)),
@@ -37,15 +38,15 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                                 Strings.deliveryFree.tr(context),
                                 style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 15,
+                                    fontSize: 13,
                                     fontWeight: FontWeight.w700),
                               ),
                             ),
                           ))
                     ],
                   ),
-                  const SizedBox(
-                    width: 10,
+                SizedBox(
+                    width: 5.w,
                   ),
                   Expanded(
                     child: Column(
@@ -99,11 +100,12 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                             children: [
                               Icon(
                                 Icons.location_on_outlined,
+                                size: 20,
                                 color:
                                     ThemeModel.of(context).smallCardIconsColor,
                               ),
-                              const SizedBox(
-                                width: 3,
+                               SizedBox(
+                                width: 3.w,
                               ),
                               Text(
                                 language == 'en' ? '0.5 KM' : "0.5 كم",
@@ -111,10 +113,11 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                                     color: ThemeModel.of(context)
                                         .smallCardIconsColor),
                               ),
-                              const SizedBox(
-                                width: 9,
+                               SizedBox(
+                                width:4.w,
                               ),
                               Icon(Icons.more_time_rounded,
+                                  size: 20,
                                   color: ThemeModel.of(context)
                                       .smallCardIconsColor),
                               const SizedBox(

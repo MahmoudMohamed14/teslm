@@ -146,6 +146,7 @@ class MainCategories extends StatelessWidget {
                                   providerCover: providerItem.providerCover,
                                   providerImage: providerItem.providerImage,
                                   providerId: providerItem.id,
+                                  isSmall: (providerItem?.view?.toLowerCase()??"")=='small'?true:false,
                                 ),
                               );
                               },context
@@ -176,6 +177,7 @@ class MainCategories extends StatelessWidget {
                                 providerCover: providerItem.providerCover,
                                 providerImage: providerItem.providerImage,
                                 providerId: providerItem.id,
+                                isSmall: (providerItem?.view?.toLowerCase()??"")=='small'?true:false,
                               ),
                                                         );
                                                       },context),

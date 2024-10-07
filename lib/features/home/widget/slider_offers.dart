@@ -53,6 +53,7 @@ Widget slider(market, controller, context) => CarouselSlider(
                         providerCover: '${e.provider?.providerCover}',
                         providerImage: '${e.provider?.providerImage}',
                         providerId: e.provider?.id ?? '',
+                       isSmall: (e.provider?.view?.toLowerCase()??"")=='small'?true:false,
                       ));
                 },
                 child: Stack(

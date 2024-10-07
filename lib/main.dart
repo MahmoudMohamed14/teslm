@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:delivery/Dio/Dio.dart';
+import 'package:delivery/Utilities/FilesHandler/files_cubit.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/features/auth/controller/auth_cubit.dart';
 import 'package:delivery/features/home/controller/home_cubit.dart';
@@ -13,6 +14,7 @@ import 'package:delivery/features/profile/navigator/my_account/controller/accoun
 import 'package:delivery/features/profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import 'package:delivery/shared_preference/shared%20preference.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,6 +22,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'Cubite/them/app_dark_light_cubit.dart';
 import 'Utilities/git_it.dart';
+import 'Utilities/shared_preferences.dart';
 import 'bloc_observer.dart';
 import 'common/translate/app_local.dart';
 import 'features/home/screens/home.dart';
@@ -70,7 +73,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    print("initState>>>>>>>>>>>>>>>>>>>${Save.getdata(key: 'customerId')}");
+    print("initState>>>>>>>>>>>>>>>>>>> customerId=${Save.getdata(key: 'customerId')}}");
+    print("   token ${SharedPref.getToken()}");
     //  String? json = Save.getdata(key: 'myCart');
     //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
     //Save.remove(key: 'myCart');
@@ -115,16 +119,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       }
     }
     if (state == AppLifecycleState.resumed) {
-      print('resumed>>>>>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print('resumed>>>>>>>>>>>>>>>>>>');
+      }
     }
     if (state == AppLifecycleState.inactive) {
-      print('inactive>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print('inactive>>>>>>>>>>>>>>');
+      }
     }
     if (state == AppLifecycleState.paused) {
-      print('paused>>>>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print('paused>>>>>>>>>>>>>>>>>');
+      }
     }
     if (state == AppLifecycleState.hidden) {
-      print('hidden>>>>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print('hidden>>>>>>>>>>>>>>>>>');
+      }
     }
   }
 
@@ -132,6 +144,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<DragFilesCubit>(
+          create: (context) => DragFilesCubit(),
+        ),
         BlocProvider<MyOrdersCubit>(
           create: (context) => MyOrdersCubit()..getCustomerOrders(),
         ),

@@ -31,8 +31,8 @@ Widget orderBrief(context)=>Container(
       children: [
         const Image(image: AssetImage(ImagesApp.pointImage),height: 20,width: 20,),
         const SizedBox(width: 7,),
-        Text(Strings.getPointsOrder.tr(context),style: TextStyle(fontWeight: FontWeight.w700,color: Colors.green.shade600),),
-        Text('${(ProviderCubit.get(context).getPrice()+shippingPrice)*10} ${Strings.point.tr(context)} ',style: TextStyle(fontWeight: FontWeight.w700,color: Colors.green.shade600),),
+        Text(Strings.getPointsOrder.tr(context),style: TextStyle(fontWeight: FontWeight.w400,color: Colors.green.shade600),),
+        Text('${(ProviderCubit.get(context).getPrice()+shippingPrice)*10} ${Strings.point.tr(context)} ',style: TextStyle(fontWeight: FontWeight.w400,color: Colors.green.shade600),),
       ],
     ),
     seperate(),
