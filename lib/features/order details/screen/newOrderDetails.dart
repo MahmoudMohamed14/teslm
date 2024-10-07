@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';

@@ -61,4 +61,9 @@ class ImagesApp {
   static const String messageSvg = '$_iconPath/messageSvg.svg';
   static const String whatsAppSvg = '$_iconPath/whatsAppSvg.svg';
   static const String logoSvg = '$_iconPath/logoSvg.svg';
+  static const String currentHome = '$_iconPath/current_home.svg';
+  static const String currentOrder = '$_iconPath/current_order.svg';
+  static const String currentPoint = '$_iconPath/current_point.svg';
+  static const String currentProfile = '$_iconPath/current_profile.svg';
+  static const String locationAppBar = 'assets/images/location_app_bar.svg';
 }

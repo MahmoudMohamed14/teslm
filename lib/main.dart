@@ -172,7 +172,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           create: (context) => AuthCubit(),
         ),
         BlocProvider<CouponsCubit>(
-          create: (context) => CouponsCubit(),
+          create: (context) => CouponsCubit()..getUserCoupons(context),
         ),
         BlocProvider<PointCubit>(
           create: (context) => PointCubit()

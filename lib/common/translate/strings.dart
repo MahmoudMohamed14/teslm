@@ -131,7 +131,8 @@ class Strings {
   static const String forThisOrder= "forThisOrder";
   static const String deliveryLocation= "deliveryLocation";
   static const String estimatedArrivalTime= "estimatedArrivalTime";
-
+  static const String active= "active";
+  static const String draft= "draft";
   static const String apartment= "apartment";
   static const String yourOrderFrom= "yourOrderFrom";
   static const String quantity= "quantity";
@@ -139,5 +140,9 @@ class Strings {
   static const String minutes= "minutes";
   static const String toYourOrderArrival= "toYourOrderArrival";
   static const String yourOrderHasArrived= "yourOrderHasArrived";
-
+  static const String maxDiscount= "max_discount";
+  static const String order= "order";
+  static const String shipping= "shipping";
+  static const String enterOrderLocation= "enter_order_location";
+  static const String confirmLocation= "confirm_location";
 }

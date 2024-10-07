@@ -1,4 +1,4 @@
-import 'package:delivery/Cubite/delivery_cubit.dart';
+import 'package:delivery/Cubite/them/app_dark_light_cubit.dart';
 import 'package:delivery/common/colors/colors.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
@@ -9,11 +9,9 @@ import 'package:delivery/features/profile/navigator/my_account/controller/accoun
 import 'package:delivery/features/profile/navigator/setting/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
-import '../../../shared_preference/shared preference.dart';
 import '../navigator/chat/chat.dart';
 import '../navigator/logout/logout_dialog.dart';
 import '../navigator/my_account/my_account.dart';
@@ -25,7 +23,12 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
+        return BlocConsumer<AppDarkLightCubit, AppDarkLightState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(98.0),
             child: appBarWithIcons(Strings.more.tr(context),
@@ -121,6 +124,8 @@ class UserProfile extends StatelessWidget {
             ),
           ),
         );
+  },
+);
   }
 }
 

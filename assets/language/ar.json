@@ -33,6 +33,8 @@
   "sar": "ريال",
   "calories": "سعره حراريه",
   "save":"حفظ",
+  "order":"الطلب",
+  "shipping":"التوصيل",
   "delivery_time":"مدة التوصيل",
   "time_minutes": "30 - 40 دقيقة",
   "delivery_fee":"رسوم التوصيل",
@@ -118,7 +120,9 @@
   "points_redeemed_successfully":"تم استبدال نقاطك بنجاح",
   "discount": "خصم",
   "invite_friends_earn_100": "قم بدعوة أصدقائك واكسب 100 نقطة",
-
+  "active": "فعال",
+  "draft": "مسودة",
+  "max_discount": "اعلى حد للخصم",
   "earn100WithEveryInvitation":"احصل على 100 نقط بكل دعوة تقديمتك! لا تفقد الفرصة لتحصل على هذه العرض الفانتسي",
   "invite_more_friends_earn_more": "قم بدعوة المزيد من الأصدقاء واكسب المزيد من النقاط",
   "inviteFriends": "دعوة أصدقاء",
@@ -147,5 +151,7 @@
   "driverName":"اسم السائق",
   "minutes":"دقائق",
   "toYourOrderArrival": "الى  توصيل الطلب",
-  "yourOrderHasArrived": "تم توصيل الطلب"
+  "yourOrderHasArrived": "تم توصيل الطلب",
+  "enter_order_location": "اختار موقع الطلب",
+  "confirm_location": "تاكيد الموقع"
 }
