@@ -11,7 +11,8 @@ class ChatModel {
               .map((i) => MessagesModel.fromJson(i))
               .toList()
           : null,
-    );}
+    );
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -26,8 +27,14 @@ class MessagesModel {
   final String? content;
   final String? createdAt;
   final String? from;
+  final List<String> imageUrls;
 
-  MessagesModel({this.id, this.content, this.createdAt, this.from});
+  MessagesModel(
+      {this.imageUrls = const [],
+      this.id,
+      this.content,
+      this.createdAt,
+      this.from});
 
   factory MessagesModel.fromJson(Map<String, dynamic> json) {
     return MessagesModel(
@@ -35,6 +42,8 @@ class MessagesModel {
       content: json['content'],
       createdAt: json['createdAt'],
       from: json['from'],
+      imageUrls:
+          json['imageUrls'] != null ? List<String>.from(json['imageUrls']) : [],
     );
   }
 
@@ -44,7 +53,7 @@ class MessagesModel {
     data['content'] = content;
     data['createdAt'] = createdAt;
     data['from'] = from;
+    data['imageUrls'] = imageUrls;
     return data;
   }
-
 }
