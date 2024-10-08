@@ -35,32 +35,34 @@ class Orders extends StatelessWidget {
       ),
         body: MyOrdersCubit.get(context).customerOrders != null && state is! GetOrdersLoading ? SafeArea(
             child: MyOrdersCubit.get(context).customerOrders!.data!.isNotEmpty ?
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RefreshIndicator(
-                    onRefresh: ()async {
-                      await Future.delayed(const Duration(milliseconds: 500), () {
-                        MyOrdersCubit.get(context).customerOrders=null;
-                        MyOrdersCubit.get(context).getCustomerOrders();
-                      });
-                    },
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      reverse: true,
-                        itemCount: MyOrdersCubit.get(context).customerOrders?.data?.length??0,
-                        itemBuilder: (context, index) =>
-                            InkWell(
-                                onTap: () {
-                                 // navigate(context, OrderDetails(orderIndex: index,));
-                                  navigate(context, NewOrderDetails(orderData:MyOrdersCubit.get(context).customerOrders?.data?[index] ,));
-                                },
-                                child: orderCard(MyOrdersCubit.get(context).customerOrders?.data?[index],context))),
-                  )
-                ],),
+            RefreshIndicator(
+              onRefresh: ()async {
+                await Future.delayed(const Duration(milliseconds: 500), () {
+                  MyOrdersCubit.get(context).customerOrders=null;
+                  MyOrdersCubit.get(context).getCustomerOrders();
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        reverse: true,
+                          itemCount: MyOrdersCubit.get(context).customerOrders?.data?.length??0,
+                          itemBuilder: (context, index) =>
+                              InkWell(
+                                  onTap: () {
+                                   // navigate(context, OrderDetails(orderIndex: index,));
+                                    navigate(context, NewOrderDetails(orderData:MyOrdersCubit.get(context).customerOrders?.data?[index] ,));
+                                  },
+                                  child: orderCard(MyOrdersCubit.get(context).customerOrders?.data?[index],context)))
+                    ],),
+                ),
+              ),
             ) : Center(
               child: Stack(
                 children: [

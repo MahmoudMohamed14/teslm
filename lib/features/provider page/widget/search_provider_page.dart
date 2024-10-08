@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/colors/colors.dart';
+import '../../../common/colors/theme_model.dart';
 import '../controller/provider_cubit.dart';
 import '../controller/provider_state.dart';
 import '../screen/Provider page.dart';
@@ -16,25 +17,28 @@ BlocConsumer<ProviderCubit, ProviderState>(
   listener: (context, state){},
  builder: (context, state) {
    return Padding(
-     padding: EdgeInsets.all(16.0),
+     padding: const EdgeInsets.all(8),
      child: Column(
+
        children: [
+         20.h.heightBox,
          Row(
            children: [
              IconButton(onPressed: (){
                // showSearchProvider=false;
 
                ProviderCubit.get(context).hideSearch();
-               ProviderCubit.get(context).increment();}, icon: Icon(Icons.arrow_back_outlined,color: floatActionColor,)),
+               ProviderCubit.get(context).increment();}, icon: const Icon(Icons.arrow_back_outlined,color: floatActionColor,)),
              Container(
                width: MediaQuery.sizeOf(context).width/1.35,
-               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Color(0xFFF5F5F5),),
+               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color:  ThemeModel.of(context).cardsColor,),
                child: TextField(
-                 style: TextStyle(color: Colors.black87),
+                 style:  TextStyle(color: ThemeModel.of(context).font1),
                  onChanged: (value){
                    ProviderCubit.get(context).searchProvider(value);
                  },
                  autofocus: true,
+
                  controller: searchController,
                  decoration: InputDecoration(
                    focusedBorder: OutlineInputBorder(

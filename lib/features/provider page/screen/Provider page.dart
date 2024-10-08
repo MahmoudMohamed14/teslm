@@ -1243,7 +1243,7 @@ class OtherWidgetSmall extends StatelessWidget {
           children: [
             Stack(
               children: [
-                image(item?.image, 155.0, (MediaQuery.sizeOf(context).width/2)-20.w, 16.0, BoxFit.cover),
+                image(item?.image, 130.0, (MediaQuery.sizeOf(context).width/2)-16.w, 16.0, BoxFit.fill),
                if((item?.discount??0)>0)Positioned(
                   left: 0,
                   top: 0,
@@ -1301,9 +1301,29 @@ class OtherWidgetSmall extends StatelessWidget {
                         .regular14
                         .copyWith(color: ThemeModel.of(context).font1,decorationStyle: TextDecorationStyle.solid,decorationColor: Colors.red,decoration: TextDecoration.lineThrough),
                   ),
+
                 ],
               ),
             ),
+
+           if(item?.calories!=null)...[
+             8.h.heightBox,
+             Padding(
+              padding: EdgeInsetsDirectional.only(start: 10.w),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(ImagesApp.fire),
+                  5.w.widthBox,
+                  AppTextWidget(
+                    '${item?.calories} ${Strings.calories.tr(context)}',
+                    style: TextStyleHelper.of(context)
+                        .regular15
+                        .copyWith(color: ThemeModel.of(context).font1,),
+                  ),
+                ],
+              ),
+            ),],
             15.h.heightBox,
             Padding(
               padding: const EdgeInsetsDirectional.only(bottom: 5,start: 3),
