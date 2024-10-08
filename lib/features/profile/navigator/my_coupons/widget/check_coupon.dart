@@ -1,3 +1,4 @@
+import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/images/images.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
@@ -36,26 +37,38 @@ Future<void> saveCoupon(context,couponController,bool isSaveCoupon) async {
             } else {
               actions = [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    BottomWidget(
-                      Strings.cancel.tr(context),
-                      color: ThemeModel.dark().myAccountBackgroundDarkColor,
-                      width: 120,
-                          () {
-                        Navigator.pop(context);
-                        couponController.clear();
-                      },
+                    Expanded(
+                      child: BottomWidget(
+                        Strings.cancel.tr(context),
+                        color: ThemeModel.dark().myAccountBackgroundDarkColor,
+                        //   width: 120,
+                            () {
+                          Navigator.pop(context);
+                          couponController.clear();
+                        },
+                      ),
                     ),
-                    BottomWidget(
-                      Strings.addCoupon.tr(context),
-                      width: 120, () {
-                        CouponsCubit.get(context).saveCoupons(
-                          context,
-                           couponController.text.trim()
-                        );
-                        couponController.clear();
-                      },
+                    12.w.widthBox,
+                    Expanded(
+                      child: BottomWidget(
+                        Strings.addCoupon.tr(context),
+                        //  width: 120,
+                        isSaveCoupon?
+                            (){
+
+                        }
+                            :() {
+                          OrderCubit.get(context).postCoupon(
+                            coupon: couponController.text,
+                            subtotal: price,
+                            shippingPrice: 10,
+                            context: context,
+                          );
+                          couponController.clear();
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -65,8 +78,9 @@ Future<void> saveCoupon(context,couponController,bool isSaveCoupon) async {
               backgroundColor: ThemeModel.of(context).cardsColor,
               content: SizedBox(
                 width: MediaQuery.sizeOf(context).width/1.2,
-                height: 130.h,
+                //height: 130.h,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     CircleAvatar(
                         backgroundColor: ThemeModel.of(context).backgroundCouponColor,
@@ -79,35 +93,32 @@ Future<void> saveCoupon(context,couponController,bool isSaveCoupon) async {
                     SizedBox(
                       height: 10.h,
                     ),
-                    SizedBox(
-                      height: 40,
-                      child: TextFormField(
-                        autofocus: true,
-                        controller: couponController,
-                        decoration: InputDecoration(
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SvgPicture.asset(
-                              ImagesApp.couponTextFieldIcon,
-                            ),
+                    TextFormField(
+                      autofocus: true,
+                      controller: couponController,
+                      decoration: InputDecoration(
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SvgPicture.asset(
+                            ImagesApp.couponTextFieldIcon,
                           ),
-                          fillColor: ThemeModel.of(context).myAccountTextFieldLightColor,
-                          filled: true,
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: textFieldColor, width: 0),
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                          ),
-                          hintText: 'Hsk-125',
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: ThemeModel.mainColor),
-                            borderRadius: const BorderRadius.all(Radius.circular(35.0)),
-                          ),
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: isDark ?? false ? Colors.white : Colors.black),
-                          contentPadding: const EdgeInsets.all(5),
                         ),
+                        fillColor: ThemeModel.of(context).myAccountTextFieldLightColor,
+                        filled: true,
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: textFieldColor, width: 0),
+                          borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                        ),
+                        hintText: 'Hsk-125',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: ThemeModel.mainColor),
+                          borderRadius: const BorderRadius.all(Radius.circular(35.0)),
+                        ),
+                        labelStyle: TextStyle(
+                            fontSize: 14,
+                            color: isDark ?? false ? Colors.white : Colors.black),
+                        contentPadding: const EdgeInsets.all(5),
                       ),
                     ),
                   ],

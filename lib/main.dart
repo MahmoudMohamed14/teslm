@@ -84,6 +84,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     //Save.remove(key: 'myCart');*/
     //todo remove isRestaurant
     removeRestaurant();
+    print("   token ${SharedPref.getToken()}");
 
   }
   Future<void> removeRestaurant() async {

@@ -24,6 +24,13 @@ class OrderCubit extends Cubit<OrderState> {
   OrderCubit() : super(OrderInitial());
   static OrderCubit get(context) => BlocProvider.of(context);
 
+
+
+  String?couponCode;
+void getCoupon({String ?value}) async {
+couponCode=value;
+print(couponCode);
+}
   Coupon ?couponData;
   void postCoupon({
     required String coupon,
@@ -78,18 +85,19 @@ class OrderCubit extends Cubit<OrderState> {
       });
     }
     final result;
-    if(coupon!=null){
+   // if(coupon!=null){
       result = await PostOrderDataHandler.postOrder(
         coupon: coupon,
         items: itemsValue,
         customerNotes: customerNotes,
       );
-    }else{
-      result = await PostOrderDataHandler.postOrder(
-        items: itemsValue,
-        customerNotes: customerNotes,
-      );
-    }
+   // }
+    // else{
+    //   result = await PostOrderDataHandler.postOrder(
+    //     items: itemsValue,
+    //     customerNotes: customerNotes,
+    //   );
+    // }
 
     result.fold((l) {
       print("error is ${l.errorModel.statusMessage}");
@@ -104,6 +112,7 @@ class OrderCubit extends Cubit<OrderState> {
       HomeCubit.get(context).changeNavigator(1);
       PointCubit.get(context).getPointsAndBalance();
       MyOrdersCubit.get(context).getCustomerOrders();
+      couponCode=null;
       values=[];
       for (var element in itemsValue) {
             ProviderCubit.get(context).cardList.removeWhere((test)=>test['itemId']==element['itemId']);

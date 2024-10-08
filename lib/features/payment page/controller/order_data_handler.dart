@@ -39,6 +39,7 @@ class PostOrderDataHandler {
     required String customerNotes,
   }) async {
     try {
+      print("coupon is $coupon");
       print({
         "couponId": coupon,
         "items": items,

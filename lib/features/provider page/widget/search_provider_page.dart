@@ -26,7 +26,7 @@ BlocConsumer<ProviderCubit, ProviderState>(
            children: [
              IconButton(onPressed: (){
                // showSearchProvider=false;
-
+//C:\Users\ALROAD LAPTOP\StudioProjects\teslm\build\app\outputs\flutter-apk\
                ProviderCubit.get(context).hideSearch();
                ProviderCubit.get(context).increment();}, icon: const Icon(Icons.arrow_back_outlined,color: floatActionColor,)),
              Container(

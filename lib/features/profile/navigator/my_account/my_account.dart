@@ -33,126 +33,133 @@ class EditInformation extends StatelessWidget {
           body: AccountCubit.get(context).getUserData != null
               ? Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      if (state is UpdateUserLoading)
-                        const LinearProgressIndicator(),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            color: ThemeModel.of(context)
-                                .myAccountBackgroundDarkColor,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            profile(
-                                Strings.myPhoneNumber.tr(context),
-                                true,
-                                TextEditingController(
-                                  text:
-                                      '${AccountCubit.get(context).getUserData?.phoneNumber}',
-                                ),
-                                Icons.phone,
-                                context),
-                            profile(Strings.myName.tr(context), false,
-                                nameController, Icons.person, context),
-                            profile(
-                                Strings.myGmail.tr(context),
-                                false,
-                                gmailController,
-                                Icons.email,
-                                context, validate: (value) {
-                              if (emailRegex.hasMatch(value)) {
-                                return null;
-                              }
-                            }),
-                            Text(
-                              Strings.myBirthDate.tr(context),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w400),
-                            ),
-                            StatefulBuilder(
-                              builder: (context, setState) => GestureDetector(
-                                  child: dateSelected
-                                      ? date(
-                                          "${birthDate!.day}-${birthDate!.month}-${birthDate!.year}",
-                                          true,
-                                          context)
-                                      : date(
-                                          user!.birthdate != ''
-                                              ? '${user.birthdate}'
-                                              : 'mm/dd/yy',
-                                          true,
-                                          context),
-                                  onTap: () async {
-                                    final datePick = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1950),
-                                      lastDate: DateTime.now(),
-                                    );
-                                    if (datePick != null &&
-                                        datePick != birthDate) {
-                                      setState(() {
-                                        dateSelected = true;
-                                        birthDate = datePick;
-                                      });
-                                    }
-                                  }),
-                            ),
-                          ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        if (state is UpdateUserLoading)
+                          const LinearProgressIndicator(),
+                        const SizedBox(
+                          height: 15,
                         ),
-                      ),
-                      const Spacer(),
-                      BottomWidget(
-                        Strings.updateMyData.tr(context),
-                        radius: 30,
-                        color: ThemeModel.mainColor,
-                        () {
-                          if (gmailController.text.isNotEmpty) {
-                            if ((emailRegex.hasMatch(gmailController.text) &&
-                                    gmailController.text != user?.email) ||
-                                nameController.text.isNotEmpty) {
-                              AccountCubit.get(context).userUpdate(
-                                  email: gmailController.text,
-                                  username: nameController.text,
-                                  context: context);
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                backgroundColor: Colors.red.shade400,
-                                content: Text(
-                                  Strings.enterValidEmail.tr(context),
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ));
-                            }
-                          }
-                          // if (nameController.text.isNotEmpty) {
-                          //   print("HHERE 11");
-                          //   AccountCubit.get(context).userUpdate(
-                          //       username: nameController.text,
-                          //       context: context);
-                          // }
-                          if (birthDate != null) {
-                            AccountCubit.get(context).userUpdate(
-                                birthdate:
-                                    '${birthDate!.year}-${birthDate!.month}-${birthDate!.day}',
-                                context: context);
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      )
-                    ],
+                        Container(
+                          padding: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: ThemeModel.of(context)
+                                  .myAccountBackgroundDarkColor,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              profile(
+                                  Strings.myPhoneNumber.tr(context),
+                                  true,
+                                  TextEditingController(
+                                    text:
+                                        '${AccountCubit.get(context).getUserData?.phoneNumber}',
+                                  ),
+                                  Icons.phone,
+                                  context),
+                              profile(Strings.myName.tr(context), false,
+                                  nameController, Icons.person, context),
+                              profile(
+                                  Strings.myGmail.tr(context),
+                                  false,
+                                  gmailController,
+                                  Icons.email,
+                                  context, validate: (value) {
+                                if (emailRegex.hasMatch(value)) {
+                                  return null;
+                                }
+                              }),
+                              Text(
+                                Strings.myBirthDate.tr(context),
+                                style:
+                                    const TextStyle(fontWeight: FontWeight.w400),
+                              ),
+                              StatefulBuilder(
+                                builder: (context, setState) => GestureDetector(
+                                    child: dateSelected
+                                        ? date(
+                                            "${birthDate!.day}-${birthDate!.month}-${birthDate!.year}",
+                                            true,
+                                            context)
+                                        : date(
+                                            user!.birthdate != ''
+                                                ? '${user.birthdate}'
+                                                : 'mm/dd/yy',
+                                            true,
+                                            context),
+                                    onTap: () async {
+                                      final datePick = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1950),
+                                        lastDate: DateTime.now(),
+                                      );
+                                      if (datePick != null &&
+                                          datePick != birthDate) {
+                                        setState(() {
+                                          dateSelected = true;
+                                          birthDate = datePick;
+                                        });
+                                      }
+                                    }),
+                              ),
+                            ],
+                          ),
+                        ),
+                      //  const Spacer(),
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiY3VzdG9tZXIiLCJpZCI6IjU1NWQ1OTZkLTFhZWEtNDUwOS05YmVkLWEwM2MxY2VlOGM2YSIsImlhdCI6MTcyODQyMTAzNywiZXhwIjoxNzMxMDEzMDM3fQ.d-DKvc0CnFDEHy1Y4x-PMXxTmDWUUNOi5g84SOYw6ZY
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
                   ),
                 )
               : const Center(child: LinearProgressIndicator()),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton:   Padding(
+            padding: const EdgeInsets.all(20),
+            child: BottomWidget(
+              Strings.updateMyData.tr(context),
+              radius: 30,
+              color: ThemeModel.mainColor,
+                  () {
+                if (gmailController.text.isNotEmpty) {
+                  if ((emailRegex.hasMatch(gmailController.text) &&
+                      gmailController.text != user?.email) ||
+                      nameController.text.isNotEmpty) {
+                    AccountCubit.get(context).userUpdate(
+                        email: gmailController.text,
+                        username: nameController.text,
+                        context: context);
+                  } else {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(
+                      backgroundColor: Colors.red.shade400,
+                      content: Text(
+                        Strings.enterValidEmail.tr(context),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ));
+                  }
+                }
+                // if (nameController.text.isNotEmpty) {
+                //   print("HHERE 11");
+                //   AccountCubit.get(context).userUpdate(
+                //       username: nameController.text,
+                //       context: context);
+                // }
+                if (birthDate != null) {
+                  AccountCubit.get(context).userUpdate(
+                      birthdate:
+                      '${birthDate!.year}-${birthDate!.month}-${birthDate!.day}',
+                      context: context);
+                }
+              },
+            ),
+          ),
         );
       },
     );
