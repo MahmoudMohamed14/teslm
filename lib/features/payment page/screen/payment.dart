@@ -4,12 +4,14 @@ import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
+import 'package:delivery/features/payment%20page/widget/copoun_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
+import '../../provider page/controller/provider_cubit.dart';
 import '../function/check_copoun.dart';
 import '../widget/location_card.dart';
 import '../widget/order_brief.dart';
@@ -76,8 +78,15 @@ class Payment extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10.0,bottom: 10,right: 15,left: 15),
               child: Column(
                 children: [
-                  BottomWidget(Strings.addCoupon.tr(context),  OrderCubit.get(context).couponData!=null? null:(){enterCoupon(context,_couponController,false);},radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
+                  BottomWidget(Strings.addCoupon.tr(context),  (){
+                    showModalBottomSheet(
+                        isScrollControlled: true,
+                        builder: (context) => Container(color: Colors.red,height: 50,), context: context,
+                        );
+                    //enterCoupon(context,_couponController,false);
+                    },radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
                   const SizedBox(height: 10,),
+
                   state is PostOrderLoading?
                   SpinKitWave(
                     color:isDark??false? Colors.white:borderColor,

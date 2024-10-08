@@ -76,17 +76,46 @@ Future<void> enterCoupon(context,couponController,bool isSaveCoupon) async {
                 height: 130.h,
                 child: Column(
                   children: [
-                    SvgPicture.asset(
-                      ImagesApp.couponImage,
-                    ),
+                    CircleAvatar(
+                        backgroundColor: ThemeModel.of(context).backgroundCouponColor,
+                        radius: 30,
+                        child: SvgPicture.asset(
+                          width: 50.w,
+                          height: 50.h,
+                          ImagesApp.couponImage,
+                        )),
                     SizedBox(
                       height: 10.h,
                     ),
-                    TextField(
-                      autofocus: true,
-                      controller: couponController,
-                      decoration: InputDecoration(
-                        hintText: 'Htss1254',
+                    SizedBox(
+                      height: 40,
+                      child: TextFormField(
+                        autofocus: true,
+                        controller: couponController,
+                        decoration: InputDecoration(
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SvgPicture.asset(
+                              ImagesApp.couponTextFieldIcon,
+                            ),
+                          ),
+                          fillColor: ThemeModel.of(context).myAccountTextFieldLightColor,
+                          filled: true,
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: textFieldColor, width: 0),
+                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                          ),
+                          hintText: 'Hsk-125',
+                          focusedBorder:const OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ThemeModel.mainColor),
+                            borderRadius: const BorderRadius.all(Radius.circular(35.0)),
+                          ),
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              color: isDark ?? false ? Colors.white : Colors.black),
+                          contentPadding: const EdgeInsets.all(5),
+                        ),
                       ),
                     ),
                   ],
