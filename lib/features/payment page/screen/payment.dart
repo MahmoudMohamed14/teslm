@@ -81,7 +81,7 @@ class Payment extends StatelessWidget {
                   BottomWidget(Strings.addCoupon.tr(context),  (){
                     showModalBottomSheet(
                         isScrollControlled: true,
-                        builder: (context) => Container(color: Colors.red,height: 50,), context: context,
+                        builder: (context) => CouponsBottomSheet(couponsController: _couponController,), context: context,
                         );
                     //enterCoupon(context,_couponController,false);
                     },radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),

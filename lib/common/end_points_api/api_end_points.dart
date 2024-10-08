@@ -3,10 +3,10 @@ class ApiEndPoint {
   static Uri uri(
           {required String path, Map<String, dynamic>? queryParameters}) =>
       Uri(
-        scheme: "https",
-        host: "hunger-station-clone.vercel.app",
-        // port: _apiServer.port,
-        path: path.replaceAll("https://hunger-station-clone.vercel.app", ""),
+        scheme: "http",
+        host: "147.79.114.89",
+        port: 5050,
+        path: path.startsWith('/') ? path : '/$path',
         queryParameters: queryParameters,
       );
   static String baseUrl = "http://147.79.114.89:5050/";
@@ -19,7 +19,7 @@ class ApiEndPoint {
   static String couponsValidate = '${baseUrl}coupons/validate';
   static String orders = '${baseUrl}orders/customer';
   static String wallet = '${baseUrl}wallet';
-  static String coupons = '${baseUrl}coupons/saved';
+  static String coupons = 'coupons/saved';
   static String redeemPoints = 'redeem-points';
   static String providers = '${baseUrl}providers';
   static String myOrders = '${baseUrl}orders/customer';
