@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../../payment page/screen/payment.dart';
+import '../../profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import '../widgets/add_notes.dart';
 import '../widgets/items_data.dart';
 import '../widgets/unavailable_item.dart';
@@ -79,7 +80,7 @@ class Cart extends StatelessWidget{
                         const SizedBox(height: 10,),
                         BottomWidget(Strings.payNow.tr(context), (){navigate(context,(token!=''&&token!=null)? Payment(customerNotes: noteTextController.text,)
                             :const Login(fromOrder: true,));if(token==''||token==null)loginFromCart=true;
-                        totalPrice=ProviderCubit.get(context).getPrice().toInt()+shippingPrice;},radius: 20,),
+                        totalPrice=ProviderCubit.get(context).getPrice().toInt()+shippingPrice;CouponsCubit.get(context).getUserCoupons(context);},radius: 20,),
                       ],
                     ),
                   ),

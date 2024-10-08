@@ -103,7 +103,7 @@ Widget slider(market, controller, context) => CarouselSlider(
       initialPage: HomeCubit.get(context).offersData?.data?.length ?? 0,
       height: 150,
       autoPlay: true,
-      autoPlayInterval: const Duration(seconds: 2),
+      autoPlayInterval: const Duration(seconds: 1),
       autoPlayAnimationDuration: const Duration(seconds: 2),
       enableInfiniteScroll: true,
     ));

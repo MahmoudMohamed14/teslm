@@ -19,6 +19,7 @@ import '../../home/screens/home.dart';
 import '../../orders/controller/my_orders_cubit.dart';
 import '../../payment page/screen/payment.dart';
 import '../../point/controller/point_cubit.dart';
+import '../../profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import '../screen/otp number.dart';
 import 'auth_data_handler.dart';
 
@@ -120,6 +121,7 @@ class AuthCubit extends Cubit<AuthState> {
         PointCubit.get(context).getCouponsData();
         PointCubit.get(context).getPointsAndBalance();
       });
+      CouponsCubit.get(context).getUserCoupons(context);
       Save.savedata(key: 'token', value: token).then((value) {
         loginFromCart
             ? navigate(context, const Payment(customerNotes: ''))
