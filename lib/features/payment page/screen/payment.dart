@@ -5,6 +5,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
 import 'package:delivery/features/payment%20page/widget/copoun_bottom_sheet.dart';
+import 'package:delivery/features/profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -79,10 +80,15 @@ class Payment extends StatelessWidget {
               child: Column(
                 children: [
                   BottomWidget(Strings.addCoupon.tr(context),  (){
-                    showModalBottomSheet(
+                    if(CouponsCubit.get(context).couponsData?.data?.isNotEmpty??false){
+                      showModalBottomSheet(
                         isScrollControlled: true,
                         builder: (context) => CouponsBottomSheet(couponsController: _couponController,), context: context,
-                        );
+                      );
+                    }else{
+                      enterCoupon(context,_couponController);
+                    }
+
                     //enterCoupon(context,_couponController,false);
                     },radius: 20,color: ThemeModel.dark().myAccountBackgroundDarkColor,),
                   const SizedBox(height: 10,),
@@ -93,7 +99,7 @@ class Payment extends StatelessWidget {
                     size: 30.0,
                   ) : BottomWidget(Strings.confirmOrder.tr(context), (){
                     print(values);
-                    OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponData!=null? _couponController.text :null,customerNotes: customerNotes,context: context);
+                    OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode,customerNotes: customerNotes,context: context);
                   },radius: 20,),
                   const SizedBox(height: 10,),
                 ],

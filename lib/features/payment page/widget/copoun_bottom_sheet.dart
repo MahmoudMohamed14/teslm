@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/images/images.dart';
+import '../controller/order_cubit.dart';
 
 
 class CouponsBottomSheet extends StatefulWidget {
@@ -52,7 +53,10 @@ class CouponsBottomSheetState extends State<CouponsBottomSheet> {
                     return CouponsCubit.get(context).couponsData?.data?[index].status=="ACTIVE"?Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          OrderCubit.get(context).getCoupon(value: CouponsCubit.get(context).couponsData?.data?[index].id);
+                       Navigator.pop(context);
+                        },
                         child: Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: ThemeModel.of(context).bigCardBottomColor),
@@ -112,7 +116,7 @@ class CouponsBottomSheetState extends State<CouponsBottomSheet> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: BottomWidget(Strings.addCoupon.tr(context), () {
-                enterCoupon(context,widget.couponsController,true);
+                enterCoupon(context,widget.couponsController);
               }),
             ),
             const SizedBox(height: 10,),

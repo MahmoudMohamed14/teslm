@@ -30,7 +30,7 @@ class PointDataHandler {
     try {
       GetCouponsModel response = await GenericRequest<GetCouponsModel>(
         method: HttpRequestHandler.get(
-            url: '${ApiEndPoint.coupons}?customerId=$customerId'),
+            url: '${ApiEndPoint.saveCouponCustomer}'),
         fromMap: (data) {
           return GetCouponsModel.fromJson(data);
         },
