@@ -309,7 +309,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                 language == 'en'
                                     ? '${widget.extra[index].options?[otherIndex].name?.en}'
                                     : '${widget.extra[index].options?[otherIndex].name?.ar}',
-                                '${widget.extra[index].options?[otherIndex].price}',
+                                widget.extra[index].isMandatory ?? false? '':'${widget.extra[index].options?[otherIndex].price}+',
                                 widget.extra[index].options?[otherIndex].image,
                                 context);
                           },
@@ -366,6 +366,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
+
                             Text(
                               '${widget.price ?? 0 * ProviderCubit.get(context).itemsNumber + totalExtraPrice * ProviderCubit.get(context).itemsNumber}',
                               maxLines: 1,

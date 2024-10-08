@@ -26,13 +26,14 @@ Widget checkList(isChecked,onChange,addNewName,price,extraImage,context)=> BlocC
         children: [
           Row(
             children: [
+              if(price!='')
               Text(
                 Strings.sar.tr(context), maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
                 style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold,),
               ),
               const SizedBox(width: 5,),
               Text(
-                '$price+', maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
+                '$price', maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.start,
                 style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold,),
               ),
             ],
