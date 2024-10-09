@@ -10,18 +10,18 @@ class ProviderItemsMenu {
   final List<Reviews>? reviews;
   final List<ItemsCategory>? categoriesItemsData;
 
-  ProviderItemsMenu(
-      {this.id,
-      this.providerName,
-      this.providerImage,
-      this.providerCover,
-      this.description,
-      this.createdAt,
-      this.totalReviews,
-      this.reviewCount,
-      this.reviews,
-      this.categoriesItemsData,
-      });
+  ProviderItemsMenu({
+    this.id,
+    this.providerName,
+    this.providerImage,
+    this.providerCover,
+    this.description,
+    this.createdAt,
+    this.totalReviews,
+    this.reviewCount,
+    this.reviews,
+    this.categoriesItemsData,
+  });
   factory ProviderItemsMenu.fromJson(Map<String, dynamic> json) {
     return ProviderItemsMenu(
       id: json['id'],
@@ -91,6 +91,7 @@ class ProviderLocation {
     return data;
   }
 }
+
 class ItemsLanguage {
   final String? ar;
   final String? en;
@@ -110,6 +111,7 @@ class ItemsLanguage {
     return data;
   }
 }
+
 class Reviews {
   final String? id;
   final String? content;
@@ -135,6 +137,7 @@ class Reviews {
     return data;
   }
 }
+
 class Items {
   final String? id;
   final ItemsLanguage? name;
@@ -150,28 +153,26 @@ class Items {
   final List<Null>? categories;
   final List<OptionGroups>? optionGroups;
 
-  Items(
-      {this.id,
-        this.name,
-        this.calories,
-        this.price,
-        this.discount,
-        this.topItem,
-        this.image,
-        this.totalReviews,
-        this.reviewCount,
-        this.reviews,
-        this.description,
-        this.categories,
-        this.optionGroups,
-        });
+  Items({
+    this.id,
+    this.name,
+    this.calories,
+    this.price,
+    this.discount,
+    this.topItem,
+    this.image,
+    this.totalReviews,
+    this.reviewCount,
+    this.reviews,
+    this.description,
+    this.categories,
+    this.optionGroups,
+  });
 
   factory Items.fromJson(Map<String, dynamic> json) {
     return Items(
       id: json['id'],
-      name: json['name'] != null
-          ? ItemsLanguage.fromJson(json['name'])
-          : null,
+      name: json['name'] != null ? ItemsLanguage.fromJson(json['name']) : null,
       calories: json['calories'],
       price: json['price'],
       discount: json['discount'],
@@ -179,13 +180,13 @@ class Items {
       image: json['image'],
       totalReviews: json['totalReviews'],
       reviewCount: json['reviewCount'],
-      optionGroups: json['optionGroups'] != null?(json['optionGroups'] as List)
-          .map((i) => OptionGroups.fromJson(i))
-          .toList():[],
-      reviews: json['reviews'] != null
-          ? (json['reviews'] as List)
-              .map((i) => Reviews.fromJson(i))
+      optionGroups: json['optionGroups'] != null
+          ? (json['optionGroups'] as List)
+              .map((i) => OptionGroups.fromJson(i))
               .toList()
+          : [],
+      reviews: json['reviews'] != null
+          ? (json['reviews'] as List).map((i) => Reviews.fromJson(i)).toList()
           : null,
       description: json['description'] != null
           ? ItemsLanguage.fromJson(json['description'])
@@ -215,6 +216,7 @@ class Items {
     return data;
   }
 }
+
 class ReviewsItems {
   final String? id;
   final String? content;
@@ -222,7 +224,8 @@ class ReviewsItems {
   final String? createdAt;
   final String? author;
 
-  ReviewsItems({this.id, this.content, this.rating, this.createdAt, this.author});
+  ReviewsItems(
+      {this.id, this.content, this.rating, this.createdAt, this.author});
   factory ReviewsItems.fromJson(Map<String, dynamic> json) {
     return ReviewsItems(
       id: json['id'],
@@ -243,6 +246,7 @@ class ReviewsItems {
     return data;
   }
 }
+
 class ItemsCategory {
   final String? name;
   final String? id;
@@ -269,13 +273,13 @@ class ItemsCategory {
     return data;
   }
 }
+
 class OptionGroups {
   final String? id;
   final bool? isMandatory;
   final int? maxSelections;
   final ItemsLanguage? name;
   final List<Options>? options;
-
 
   OptionGroups(
       {this.id, this.isMandatory, this.maxSelections, this.name, this.options});
@@ -284,13 +288,9 @@ class OptionGroups {
       id: json['id'],
       isMandatory: json['isMandatory'],
       maxSelections: json['maxSelections'],
-      name: json['name'] != null
-          ? ItemsLanguage.fromJson(json['name'])
-          : null,
+      name: json['name'] != null ? ItemsLanguage.fromJson(json['name']) : null,
       options: json['options'] != null
-          ? (json['options'] as List)
-              .map((i) => Options.fromJson(i))
-              .toList()
+          ? (json['options'] as List).map((i) => Options.fromJson(i)).toList()
           : null,
     );
   }
@@ -311,6 +311,7 @@ class OptionGroups {
 }
 
 class Options {
+  bool isSelected;
   final String? id;
   final int? price;
   final ItemsLanguage? name;
@@ -318,6 +319,7 @@ class Options {
   final ExtraItem? extraItem;
 
   Options({
+    this.isSelected = false,
     this.id,
     this.price,
     this.name,
@@ -328,9 +330,7 @@ class Options {
     return Options(
       id: json['id'],
       price: json['price'],
-      name: json['name'] != null
-          ? ItemsLanguage.fromJson(json['name'])
-          : null,
+      name: json['name'] != null ? ItemsLanguage.fromJson(json['name']) : null,
       image: json['image'],
       extraItem: json['extraItem'] != null
           ? ExtraItem.fromJson(json['extraItem'])
@@ -363,9 +363,7 @@ class ExtraItem {
   factory ExtraItem.fromJson(Map<String, dynamic> json) {
     return ExtraItem(
       id: json['id'],
-      name: json['name'] != null
-          ? ItemsLanguage.fromJson(json['name'])
-          : null,
+      name: json['name'] != null ? ItemsLanguage.fromJson(json['name']) : null,
       image: json['image'],
       price: json['price'],
     );
