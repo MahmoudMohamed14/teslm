@@ -139,7 +139,7 @@ class Items {
   final String? id;
   final ItemsLanguage? name;
   final int? calories;
-  final int? price;
+  final double? price;
   final int? discount;
   final bool? topItem;
   final String? image;
@@ -173,7 +173,7 @@ class Items {
           ? ItemsLanguage.fromJson(json['name'])
           : null,
       calories: json['calories'],
-      price: json['price'],
+      price: double.parse(json['price'].toString()??'0.0'),
       discount: json['discount'],
       topItem: json['top_item'],
       image: json['image'],

@@ -18,10 +18,22 @@ import '../widget/location_card.dart';
 import '../widget/order_brief.dart';
 import '../widget/payment_methods card.dart';
 
-class Payment extends StatelessWidget {
+class Payment extends StatefulWidget {
   const Payment({super.key,required this.customerNotes});
 
   final String customerNotes;
+
+  @override
+  State<Payment> createState() => _PaymentState();
+}
+
+class _PaymentState extends State<Payment> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    OrderCubit.get(context).couponCode=null;
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OrderCubit, OrderState>(
@@ -99,7 +111,7 @@ class Payment extends StatelessWidget {
                     size: 30.0,
                   ) : BottomWidget(Strings.confirmOrder.tr(context), (){
                     print(values);
-                    OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: customerNotes,context: context);
+                    OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: widget.customerNotes,context: context);
                   },radius: 20,),
                   const SizedBox(height: 10,),
                 ],
