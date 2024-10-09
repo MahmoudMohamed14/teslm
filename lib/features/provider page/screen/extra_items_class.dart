@@ -15,7 +15,7 @@ class ExtraItemsBottomSheet extends StatefulWidget {
   final String name;
   final String id;
   final String categoryId;
-  final int? price;
+  final double? price;
   final String description;
   final List<OptionGroups> extra;
   @override
@@ -339,7 +339,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                             widget.name + extraName,
                             ProviderCubit.get(context).itemsNumber,
                             widget.itemImage,
-                            (widget.price as int),
+                            (widget.price as double),
                             widget.id,
                             widget.description,
                             cubit.addExtra,

@@ -153,5 +153,6 @@
   "toYourOrderArrival": "الى  توصيل الطلب",
   "yourOrderHasArrived": "تم توصيل الطلب",
   "enter_order_location": "اختار موقع الطلب",
-  "confirm_location": "تاكيد الموقع"
+  "confirm_location": "تاكيد الموقع",
+  "messageMinimumCoupon":"الحد الادنى للقيمة لاستخدام هذا الكوبون هو"
 }

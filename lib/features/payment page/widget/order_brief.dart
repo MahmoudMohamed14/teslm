@@ -36,6 +36,6 @@ Widget orderBrief(context)=>Container(
       ],
     ),
     seperate(),
-    orderMoney(Strings.total.tr(context),OrderCubit.get(context).couponData!=null?'${(ProviderCubit.get(context).getPrice()+shippingPrice)-(OrderCubit.get(context).couponData!.discount)!.toInt()}':(ProviderCubit.get(context).getPrice()+shippingPrice),
+    orderMoney(Strings.total.tr(context),OrderCubit.get(context).couponCode!=null?'${(ProviderCubit.get(context).getPrice()+shippingPrice)-(OrderCubit.get(context).couponDiscount)!.toInt()}':(ProviderCubit.get(context).getPrice()+shippingPrice),
         OrderCubit.get(context).couponData!=null?'${(ProviderCubit.get(context).getPrice()+shippingPrice)}':(ProviderCubit.get(context).getPrice()+shippingPrice),OrderCubit.get(context).couponData!=null?true:false,context),
   ],),);

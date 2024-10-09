@@ -106,6 +106,7 @@ class Strings {
   static const String couponNotValid= "coupon_not_valid";
   static const String couponAddSuccessfully= "coupon_add_successfully";
   static const String orderDoneSuccessfully= "order_done_successfully";
+  static const String messageMinimumCoupon= "messageMinimumCoupon";
   static const String failedExecuteOrder= "failed_execute_order";
   static const String failedRedeemPoints= "failed_redeem_points";
   static const String yourPointsLess= "your_points_less";
