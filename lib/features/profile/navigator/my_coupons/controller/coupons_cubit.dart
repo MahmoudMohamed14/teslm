@@ -41,6 +41,7 @@ class CouponsCubit extends Cubit<CouponsState> {
       Navigator.pop(context);
       emit(SaveCouponsError());
     }, (r) {
+      getUserCoupons (context);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.green.shade500,
         content:  Align(
