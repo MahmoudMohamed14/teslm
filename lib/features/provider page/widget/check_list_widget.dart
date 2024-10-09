@@ -10,14 +10,18 @@ import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../models/provider_items_model.dart';
 
-Widget checkList(isChecked, onChange, context, {Options? optionModel}) =>
+Widget checkList(isChecked, Function(Options) onChange, context,
+        {Options? optionModel}) =>
     BlocConsumer<ProviderCubit, ProviderState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
         return InkWell(
-          onTap: onChange,
+          onTap: () {
+            if (optionModel == null) return;
+            onChange(optionModel);
+          },
           child: Card(
             color: ThemeModel.of(context).cardsColor,
             child: Container(
