@@ -555,27 +555,49 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
         debugPrint("isisMandatory${widget.extra[i].isMandatory}");
       }
     }
+    selectedOptions = widget.extra;
     _bottomSheetController.addListener(bottomSheetScroll);
-    selectedOptions = List.generate(
-      widget.extra.length,
-      (index) => OptionGroups(
-        id: widget.extra[index].id,
-        name: widget.extra[index].name,
-        isMandatory: widget.extra[index].isMandatory,
-        maxSelections: widget.extra[index].maxSelections,
-        options: (widget.extra[index].isMandatory ?? false)
-            ? widget.extra[index].options
+    selectedOptions = selectedOptions.map((e) {
+      return OptionGroups(
+        id: e.id,
+        name: e.name,
+        isMandatory: e.isMandatory,
+        maxSelections: e.maxSelections,
+        options: (e.isMandatory ?? false)
+            ? e.options
                     ?.sublist(
                         0,
-                        (widget.extra[index].options?.length ?? 0) >=
-                                (widget.extra[index].maxSelections ?? 0)
-                            ? (widget.extra[index].maxSelections ?? 0)
-                            : (widget.extra[index].options?.length ?? 0))
+                        (e.options?.length ?? 0) >= (e.maxSelections ?? 0)
+                            ? (e.maxSelections ?? 0)
+                            : (e.options?.length ?? 0))
                     .toList() ??
                 []
             : [],
-      ),
+      );
+    }).toList();
+    List.generate(
+      widget.extra.length,
+      (index) {
+        return OptionGroups(
+          id: widget.extra[index].id,
+          name: widget.extra[index].name,
+          isMandatory: widget.extra[index].isMandatory,
+          maxSelections: widget.extra[index].maxSelections,
+          options: (widget.extra[index].isMandatory ?? false)
+              ? widget.extra[index].options
+                      ?.sublist(
+                          0,
+                          (widget.extra[index].options?.length ?? 0) >=
+                                  (widget.extra[index].maxSelections ?? 0)
+                              ? (widget.extra[index].maxSelections ?? 0)
+                              : (widget.extra[index].options?.length ?? 0))
+                      .toList() ??
+                  []
+              : [],
+        );
+      },
     );
+    print("selectedOptions: $selectedOptions");
   }
 
   void bottomSheetScroll() {
@@ -641,6 +663,7 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
                           .options?[innerIndex]
                           .isSelected ??
                       false;
+                  print("isChecked: $isChecked");
                   return checkList(
                     isChecked,
                     () {
