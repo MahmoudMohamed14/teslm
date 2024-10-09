@@ -66,8 +66,10 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
     _bottomSheetController.addListener(bottomSheetScroll);
     checklist = List.generate(
       widget.extra.length ?? 0,
-      (index) => List.generate(widget.extra[index].options?.length ?? 0,
-          (optionIndex) => (widget.extra[index].isMandatory??false) && optionIndex == 0),
+      (index) => List.generate(
+          widget.extra[index].options?.length ?? 0,
+          (optionIndex) =>
+              (widget.extra[index].isMandatory ?? false) && optionIndex == 0),
     );
   }
 
@@ -139,185 +141,10 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  controller: _bottomSheetController,
-                  itemCount: widget.extra.length ?? 0,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10.0, right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                language == 'en'
-                                    ? '${widget.extra[index].name?.en}'
-                                    : '${widget.extra[index].name?.ar}',
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                '${getTrueCountAtIndex(index)}/${widget.extra[index].maxSelections}',
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (
-                            context,
-                            otherIndex,
-                          ) {
-                            final bool isChecked = checklist[index][otherIndex];
-                            return checkList(isChecked, () {
-                              if (widget.extra[index].maxSelections == 1) {
-                                if (widget.extra[index].isMandatory??false) {
-                                  if (!isChecked) {
-                                    for (int i = 0;
-                                        i < (widget.extra[index].options?.length??0);
-                                        i++) {
-                                      if (i != otherIndex &&
-                                          checklist[index][i]) {
-                                        changeChecklistValue(index, i, false);
-
-                                        totalExtraPrice -=
-                                            (ProviderCubit.get(context)
-                                                        .itemsNumber *
-                                                    (widget.extra[index]
-                                                        .options![i].price??0))
-                                                .toInt();
-                                      } else if (i == otherIndex) {
-                                        changeChecklistValue(
-                                            index, otherIndex, isChecked);
-                                        totalExtraPrice +=
-                                            (ProviderCubit.get(context)
-                                                        .itemsNumber *
-                                                    (widget
-                                                        .extra[index]
-                                                        .options?[otherIndex]
-                                                        .price??0))
-                                                .toInt();
-                                      }
-                                    }
-                                  }
-                                } else {
-                                  for (int i = 0;
-                                      i < checklist[index].length;
-                                      i++) {
-                                    if (i != otherIndex &&
-                                        checklist[index][i]) {
-                                      changeChecklistValue(index, i, isChecked);
-                                      totalExtraPrice -=
-                                          (ProviderCubit.get(context)
-                                                      .itemsNumber *
-                                                  (widget.extra[index].options?[i]
-                                                      .price??0))
-                                              .toInt();
-                                      extraName = extraName.replaceAll(
-                                          language == 'en'
-                                              ? '+${widget.extra[index].options?[i].name?.en}'
-                                              : '+${widget.extra[index].options?[i].name?.ar}',
-                                          '');
-                                      /* cubit.addExtra.removeWhere((item) =>
-                                          item['selectedOption'].any((option) =>
-                                          option['id'] ==
-                                              widget.extra[index].options[i]
-                                                  .id));*/
-                                    } else if (i == otherIndex) {
-                                      changeChecklistValue(
-                                          index, otherIndex, isChecked);
-                                      if (!isChecked) {
-                                        totalExtraPrice +=
-                                            (ProviderCubit.get(context)
-                                                        .itemsNumber *
-                                                    (widget
-                                                        .extra[index]
-                                                        .options?[otherIndex]
-                                                        .price??0))
-                                                .toInt();
-                                        if (!extraName.contains(language == 'en'
-                                            ? (widget.extra[index]
-                                                .options![otherIndex].name?.en??'')
-                                            : (widget.extra[index]
-                                                .options![otherIndex].name?.ar??''))) {
-                                          extraName += language == 'en'
-                                              ? '+${widget.extra[index].options![otherIndex].name!.en}'
-                                              : '+${widget.extra[index].options![otherIndex].name!.ar}';
-                                        }
-                                      } else {
-                                        totalExtraPrice -=
-                                            (ProviderCubit.get(context)
-                                                        .itemsNumber *
-                                                   ( widget.extra[index]
-                                                        .options?[i].price??0))
-                                                .toInt();
-                                        extraName = extraName.replaceAll(
-                                            language == 'en'
-                                                ? '+${widget.extra[index].options?[i].name?.en}'
-                                                : '+${widget.extra[index].options?[i].name?.ar}',
-                                            '');
-                                      }
-                                    }
-                                  }
-                                }
-                              } else {
-                                if (!isChecked &&
-                                    getTrueCountAtIndex(index) <
-                                        (widget.extra[index].maxSelections??0)) {
-                                  changeChecklistValue(
-                                      index, otherIndex, isChecked);
-                                  totalExtraPrice +=
-                                      (ProviderCubit.get(context).itemsNumber *
-                                          (widget.extra[index]
-                                                  .options?[otherIndex].price??0))
-                                          .toInt();
-                                  if (!extraName.contains(language == 'en'
-                                      ? (widget.extra[index].options?[otherIndex]
-                                          .name?.en??'')
-                                      : (widget.extra[index].options?[otherIndex]
-                                          .name?.ar??''))) {
-                                    extraName += language == 'en'
-                                        ? '+${widget.extra[index].options?[otherIndex].name?.en}'
-                                        : '+${widget.extra[index].options?[otherIndex].name?.ar}';
-                                  }
-                                } else if (isChecked) {
-                                  changeChecklistValue(
-                                      index, otherIndex, isChecked);
-                                  totalExtraPrice -=
-                                      (ProviderCubit.get(context).itemsNumber *
-                                              (widget.extra[index]
-                                                  .options?[otherIndex].price??0))
-                                          .toInt();
-                                  extraName = extraName.replaceAll(
-                                      language == 'en'
-                                          ? '+${widget.extra[index].options?[otherIndex].name?.en}'
-                                          : '+${widget.extra[index].options?[otherIndex].name?.ar}',
-                                      '');
-                                }
-                              }
-                              print("${cubit.addExtra} here extra");
-                            },
-                                language == 'en'
-                                    ? '${widget.extra[index].options?[otherIndex].name?.en}'
-                                    : '${widget.extra[index].options?[otherIndex].name?.ar}',
-                                widget.extra[index].isMandatory ?? false? '':'${widget.extra[index].options?[otherIndex].price}+',
-                                widget.extra[index].options?[otherIndex].image,
-                                context);
-                          },
-                          itemCount: widget.extra[index].options?.length ?? 0,
-                        ),
-                      ],
-                    );
-                  }),
+              ///   -------    todo
+              child: OptionsWidget(
+                extra: widget.extra,
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -366,7 +193,6 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
-
                             Text(
                               '${widget.price ?? 0 * ProviderCubit.get(context).itemsNumber + totalExtraPrice * ProviderCubit.get(context).itemsNumber}',
                               maxLines: 1,
@@ -423,5 +249,554 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
         ),
       ),
     );
+  }
+}
+
+class OptionsWidget extends StatefulWidget {
+  final List<OptionGroups> extra;
+  const OptionsWidget({super.key, this.extra = const []});
+
+  @override
+  State<OptionsWidget> createState() => _OptionsWidgetState();
+}
+
+class _OptionsWidgetState extends State<OptionsWidget> {
+  final ScrollController _bottomSheetController = ScrollController();
+  late AnimationController controller;
+
+  int totalExtraPrice = 0;
+  String extraName = '';
+  late double imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4;
+  List<OptionGroups> selectedOptions = [];
+  List<List<bool>> checklist = [];
+
+  void changeChecklistValue(int checklistIndex, int itemIndex, bool value) {
+    setState(() {
+      checklist[checklistIndex][itemIndex] =
+          !checklist[checklistIndex][itemIndex];
+    });
+  }
+
+  int getTrueCountAtIndex(int index) {
+    return checklist[index].where((value) => value).length;
+  }
+
+  ///   ----------   Init state
+  @override
+  void initState() {
+    super.initState();
+    ProviderCubit.get(context).itemsNumber = 1;
+    ProviderCubit.get(context).addExtra = [];
+    for (int i = 0; i < widget.extra.length; i++) {
+      if (widget.extra[i].isMandatory ?? false) {
+        debugPrint("isisMandatory${widget.extra[i].isMandatory}");
+      }
+    }
+    _bottomSheetController.addListener(bottomSheetScroll);
+    checklist = List.generate(
+      widget.extra.length,
+      (index) => List.generate(
+          widget.extra[index].options?.length ?? 0,
+          (optionIndex) =>
+              (widget.extra[index].isMandatory ?? false) && optionIndex == 0),
+    );
+  }
+
+  void bottomSheetScroll() {
+    setState(() {
+      if (_bottomSheetController.offset > 20 &&
+          _bottomSheetController.offset < 32) {
+        imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4 -
+            _bottomSheetController.offset * 2.5;
+      } else if (_bottomSheetController.offset <= 25) {
+        imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _bottomSheetController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var cubit = ProviderCubit.get(context);
+    return ListView.builder(
+        controller: _bottomSheetController,
+        itemCount: widget.extra.length,
+        itemBuilder: (context, upperIndex) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      language == 'en'
+                          ? '${widget.extra[upperIndex].name?.en}'
+                          : '${widget.extra[upperIndex].name?.ar}',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '${getTrueCountAtIndex(upperIndex)}/${widget.extra[upperIndex].maxSelections}',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (
+                  context,
+                  innerIndex,
+                ) {
+                  final bool isChecked = checklist[upperIndex][innerIndex];
+                  return checkList(
+                    isChecked,
+                    () {
+                      if (widget.extra[upperIndex].maxSelections == 1) {
+                        if (widget.extra[upperIndex].isMandatory ?? false) {
+                          if (!isChecked) {
+                            for (int i = 0;
+                                i <
+                                    (widget.extra[upperIndex].options?.length ??
+                                        0);
+                                i++) {
+                              if (i != innerIndex && checklist[upperIndex][i]) {
+                                changeChecklistValue(upperIndex, i, false);
+
+                                totalExtraPrice -=
+                                    (ProviderCubit.get(context).itemsNumber *
+                                            (widget.extra[upperIndex]
+                                                    .options![i].price ??
+                                                0))
+                                        .toInt();
+                              } else if (i == innerIndex) {
+                                changeChecklistValue(
+                                    upperIndex, innerIndex, isChecked);
+                                totalExtraPrice +=
+                                    (ProviderCubit.get(context).itemsNumber *
+                                            (widget
+                                                    .extra[upperIndex]
+                                                    .options?[innerIndex]
+                                                    .price ??
+                                                0))
+                                        .toInt();
+                              }
+                            }
+                          }
+                        } else {
+                          for (int i = 0;
+                              i < checklist[upperIndex].length;
+                              i++) {
+                            if (i != innerIndex && checklist[upperIndex][i]) {
+                              changeChecklistValue(upperIndex, i, isChecked);
+                              totalExtraPrice -=
+                                  (ProviderCubit.get(context).itemsNumber *
+                                          (widget.extra[upperIndex].options?[i]
+                                                  .price ??
+                                              0))
+                                      .toInt();
+                              extraName = extraName.replaceAll(
+                                  language == 'en'
+                                      ? '+${widget.extra[upperIndex].options?[i].name?.en}'
+                                      : '+${widget.extra[upperIndex].options?[i].name?.ar}',
+                                  '');
+                              /* cubit.addExtra.removeWhere((item) =>
+                                          item['selectedOption'].any((option) =>
+                                          option['id'] ==
+                                              widget.extra[index].options[i]
+                                                  .id));*/
+                            } else if (i == innerIndex) {
+                              changeChecklistValue(
+                                  upperIndex, innerIndex, isChecked);
+                              if (!isChecked) {
+                                totalExtraPrice +=
+                                    (ProviderCubit.get(context).itemsNumber *
+                                            (widget
+                                                    .extra[upperIndex]
+                                                    .options?[innerIndex]
+                                                    .price ??
+                                                0))
+                                        .toInt();
+                                if (!extraName.contains(language == 'en'
+                                    ? (widget.extra[upperIndex]
+                                            .options![innerIndex].name?.en ??
+                                        '')
+                                    : (widget.extra[upperIndex]
+                                            .options![innerIndex].name?.ar ??
+                                        ''))) {
+                                  extraName += language == 'en'
+                                      ? '+${widget.extra[upperIndex].options![innerIndex].name!.en}'
+                                      : '+${widget.extra[upperIndex].options![innerIndex].name!.ar}';
+                                }
+                              } else {
+                                totalExtraPrice -=
+                                    (ProviderCubit.get(context).itemsNumber *
+                                            (widget.extra[upperIndex]
+                                                    .options?[i].price ??
+                                                0))
+                                        .toInt();
+                                extraName = extraName.replaceAll(
+                                    language == 'en'
+                                        ? '+${widget.extra[upperIndex].options?[i].name?.en}'
+                                        : '+${widget.extra[upperIndex].options?[i].name?.ar}',
+                                    '');
+                              }
+                            }
+                          }
+                        }
+                      } else {
+                        if (!isChecked &&
+                            getTrueCountAtIndex(upperIndex) <
+                                (widget.extra[upperIndex].maxSelections ?? 0)) {
+                          changeChecklistValue(
+                              upperIndex, innerIndex, isChecked);
+                          totalExtraPrice +=
+                              (ProviderCubit.get(context).itemsNumber *
+                                      (widget.extra[upperIndex]
+                                              .options?[innerIndex].price ??
+                                          0))
+                                  .toInt();
+                          if (!extraName.contains(language == 'en'
+                              ? (widget.extra[upperIndex].options?[innerIndex]
+                                      .name?.en ??
+                                  '')
+                              : (widget.extra[upperIndex].options?[innerIndex]
+                                      .name?.ar ??
+                                  ''))) {
+                            extraName += language == 'en'
+                                ? '+${widget.extra[upperIndex].options?[innerIndex].name?.en}'
+                                : '+${widget.extra[upperIndex].options?[innerIndex].name?.ar}';
+                          }
+                        } else if (isChecked) {
+                          changeChecklistValue(
+                              upperIndex, innerIndex, isChecked);
+                          totalExtraPrice -=
+                              (ProviderCubit.get(context).itemsNumber *
+                                      (widget.extra[upperIndex]
+                                              .options?[innerIndex].price ??
+                                          0))
+                                  .toInt();
+                          extraName = extraName.replaceAll(
+                              language == 'en'
+                                  ? '+${widget.extra[upperIndex].options?[innerIndex].name?.en}'
+                                  : '+${widget.extra[upperIndex].options?[innerIndex].name?.ar}',
+                              '');
+                        }
+                      }
+                      print("${cubit.addExtra} here extra");
+                    },
+                    context,
+                    optionModel: widget.extra[upperIndex].options?[innerIndex],
+                  );
+                },
+                itemCount: widget.extra[upperIndex].options?.length ?? 0,
+              ),
+            ],
+          );
+        });
+  }
+}
+
+///   ------------  Enhanced OptionsList  ---------------
+class EnhancedOptionsWidget extends StatefulWidget {
+  final List<OptionGroups> extra;
+  const EnhancedOptionsWidget({super.key, this.extra = const []});
+
+  @override
+  State<EnhancedOptionsWidget> createState() => _EnhancedOptionsWidgetState();
+}
+
+class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
+  final ScrollController _bottomSheetController = ScrollController();
+  late AnimationController controller;
+
+  int totalExtraPrice = 0;
+  String extraName = '';
+  late double imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4;
+  List<OptionGroups> selectedOptions = [];
+
+  void changeChecklistValue(int checklistIndex, int itemIndex, bool value) {
+    setState(() {
+      selectedOptions[checklistIndex].options?[itemIndex].isSelected =
+          !(selectedOptions[checklistIndex].options?[itemIndex].isSelected ??
+              true);
+    });
+  }
+
+  int getTrueCountAtIndex(int index) {
+    return selectedOptions[index]
+            .options
+            ?.where((value) => value.isSelected)
+            .length ??
+        0;
+  }
+
+  ///   ----------   Init state
+  @override
+  void initState() {
+    super.initState();
+    ProviderCubit.get(context).itemsNumber = 1;
+    ProviderCubit.get(context).addExtra = [];
+    for (int i = 0; i < widget.extra.length; i++) {
+      if (widget.extra[i].isMandatory ?? false) {
+        debugPrint("isisMandatory${widget.extra[i].isMandatory}");
+      }
+    }
+    _bottomSheetController.addListener(bottomSheetScroll);
+    selectedOptions = List.generate(
+      widget.extra.length,
+      (index) => OptionGroups(
+        id: widget.extra[index].id,
+        name: widget.extra[index].name,
+        isMandatory: widget.extra[index].isMandatory,
+        maxSelections: widget.extra[index].maxSelections,
+        options: (widget.extra[index].isMandatory ?? false)
+            ? widget.extra[index].options
+                    ?.sublist(
+                        0,
+                        (widget.extra[index].options?.length ?? 0) >=
+                                (widget.extra[index].maxSelections ?? 0)
+                            ? (widget.extra[index].maxSelections ?? 0)
+                            : (widget.extra[index].options?.length ?? 0))
+                    .toList() ??
+                []
+            : [],
+      ),
+    );
+  }
+
+  void bottomSheetScroll() {
+    setState(() {
+      if (_bottomSheetController.offset > 20 &&
+          _bottomSheetController.offset < 32) {
+        imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4 -
+            _bottomSheetController.offset * 2.5;
+      } else if (_bottomSheetController.offset <= 25) {
+        imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _bottomSheetController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var cubit = ProviderCubit.get(context);
+    return ListView.builder(
+        controller: _bottomSheetController,
+        itemCount: widget.extra.length,
+        itemBuilder: (context, upperIndex) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      language == 'en'
+                          ? '${widget.extra[upperIndex].name?.en}'
+                          : '${widget.extra[upperIndex].name?.ar}',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '${getTrueCountAtIndex(upperIndex)}/${widget.extra[upperIndex].maxSelections}',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (
+                  context,
+                  innerIndex,
+                ) {
+                  final bool isChecked = selectedOptions[upperIndex]
+                          .options?[innerIndex]
+                          .isSelected ??
+                      false;
+                  return checkList(
+                    isChecked,
+                    () {
+                      if (widget.extra[upperIndex].maxSelections == 1) {
+                        if (widget.extra[upperIndex].isMandatory ?? false) {
+                          if (!isChecked) {
+                            for (int i = 0;
+                                i <
+                                    (widget.extra[upperIndex].options?.length ??
+                                        0);
+                                i++) {
+                              if (i != innerIndex &&
+                                  (selectedOptions[upperIndex]
+                                          .options?[i]
+                                          .isSelected ??
+                                      false)) {
+                                changeChecklistValue(upperIndex, i, false);
+
+                                totalExtraPrice -=
+                                    (ProviderCubit.get(context).itemsNumber *
+                                            (widget.extra[upperIndex]
+                                                    .options![i].price ??
+                                                0))
+                                        .toInt();
+                              } else if (i == innerIndex) {
+                                changeChecklistValue(
+                                    upperIndex, innerIndex, isChecked);
+                                totalExtraPrice +=
+                                    (ProviderCubit.get(context).itemsNumber *
+                                            (widget
+                                                    .extra[upperIndex]
+                                                    .options?[innerIndex]
+                                                    .price ??
+                                                0))
+                                        .toInt();
+                              }
+                            }
+                          }
+                        } else {
+                          for (int i = 0;
+                              i <
+                                  (selectedOptions[upperIndex]
+                                          .options
+                                          ?.length ??
+                                      0);
+                              i++) {
+                            if (i != innerIndex &&
+                                (selectedOptions[upperIndex]
+                                        .options?[i]
+                                        .isSelected ??
+                                    false)) {
+                              changeChecklistValue(upperIndex, i, isChecked);
+                              totalExtraPrice -=
+                                  (ProviderCubit.get(context).itemsNumber *
+                                          (widget.extra[upperIndex].options?[i]
+                                                  .price ??
+                                              0))
+                                      .toInt();
+                              extraName = extraName.replaceAll(
+                                  language == 'en'
+                                      ? '+${widget.extra[upperIndex].options?[i].name?.en}'
+                                      : '+${widget.extra[upperIndex].options?[i].name?.ar}',
+                                  '');
+                              /* cubit.addExtra.removeWhere((item) =>
+                                          item['selectedOption'].any((option) =>
+                                          option['id'] ==
+                                              widget.extra[index].options[i]
+                                                  .id));*/
+                            } else if (i == innerIndex) {
+                              changeChecklistValue(
+                                  upperIndex, innerIndex, isChecked);
+                              if (!isChecked) {
+                                totalExtraPrice +=
+                                    (ProviderCubit.get(context).itemsNumber *
+                                            (widget
+                                                    .extra[upperIndex]
+                                                    .options?[innerIndex]
+                                                    .price ??
+                                                0))
+                                        .toInt();
+                                if (!extraName.contains(language == 'en'
+                                    ? (widget.extra[upperIndex]
+                                            .options![innerIndex].name?.en ??
+                                        '')
+                                    : (widget.extra[upperIndex]
+                                            .options![innerIndex].name?.ar ??
+                                        ''))) {
+                                  extraName += language == 'en'
+                                      ? '+${widget.extra[upperIndex].options![innerIndex].name!.en}'
+                                      : '+${widget.extra[upperIndex].options![innerIndex].name!.ar}';
+                                }
+                              } else {
+                                totalExtraPrice -=
+                                    (ProviderCubit.get(context).itemsNumber *
+                                            (widget.extra[upperIndex]
+                                                    .options?[i].price ??
+                                                0))
+                                        .toInt();
+                                extraName = extraName.replaceAll(
+                                    language == 'en'
+                                        ? '+${widget.extra[upperIndex].options?[i].name?.en}'
+                                        : '+${widget.extra[upperIndex].options?[i].name?.ar}',
+                                    '');
+                              }
+                            }
+                          }
+                        }
+                      } else {
+                        if (!isChecked &&
+                            getTrueCountAtIndex(upperIndex) <
+                                (widget.extra[upperIndex].maxSelections ?? 0)) {
+                          changeChecklistValue(
+                              upperIndex, innerIndex, isChecked);
+                          totalExtraPrice +=
+                              (ProviderCubit.get(context).itemsNumber *
+                                      (widget.extra[upperIndex]
+                                              .options?[innerIndex].price ??
+                                          0))
+                                  .toInt();
+                          if (!extraName.contains(language == 'en'
+                              ? (widget.extra[upperIndex].options?[innerIndex]
+                                      .name?.en ??
+                                  '')
+                              : (widget.extra[upperIndex].options?[innerIndex]
+                                      .name?.ar ??
+                                  ''))) {
+                            extraName += language == 'en'
+                                ? '+${widget.extra[upperIndex].options?[innerIndex].name?.en}'
+                                : '+${widget.extra[upperIndex].options?[innerIndex].name?.ar}';
+                          }
+                        } else if (isChecked) {
+                          changeChecklistValue(
+                              upperIndex, innerIndex, isChecked);
+                          totalExtraPrice -=
+                              (ProviderCubit.get(context).itemsNumber *
+                                      (widget.extra[upperIndex]
+                                              .options?[innerIndex].price ??
+                                          0))
+                                  .toInt();
+                          extraName = extraName.replaceAll(
+                              language == 'en'
+                                  ? '+${widget.extra[upperIndex].options?[innerIndex].name?.en}'
+                                  : '+${widget.extra[upperIndex].options?[innerIndex].name?.ar}',
+                              '');
+                        }
+                      }
+                      print("${cubit.addExtra} here extra");
+                    },
+                    context,
+                    optionModel: widget.extra[upperIndex].options?[innerIndex],
+                  );
+                },
+                itemCount: widget.extra[upperIndex].options?.length ?? 0,
+              ),
+            ],
+          );
+        });
   }
 }
