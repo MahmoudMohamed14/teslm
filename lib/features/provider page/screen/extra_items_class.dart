@@ -142,7 +142,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
             ),
             Expanded(
               ///   -------    todo
-              child: OptionsWidget(
+              child: EnhancedOptionsWidget(
                 extra: widget.extra,
               ),
             ),
@@ -558,46 +558,44 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
     selectedOptions = widget.extra;
     _bottomSheetController.addListener(bottomSheetScroll);
     selectedOptions = selectedOptions.map((e) {
-      return OptionGroups(
-        id: e.id,
-        name: e.name,
-        isMandatory: e.isMandatory,
-        maxSelections: e.maxSelections,
-        options: (e.isMandatory ?? false)
-            ? e.options
-                    ?.sublist(
-                        0,
-                        (e.options?.length ?? 0) >= (e.maxSelections ?? 0)
-                            ? (e.maxSelections ?? 0)
-                            : (e.options?.length ?? 0))
-                    .toList() ??
-                []
-            : [],
+      List<Options> options = e.options ?? [];
+      if (e.isMandatory ?? false) {
+        for (int i = 0;
+            i <
+                ((e.maxSelections ?? 0) <= (e.options?.length ?? 0)
+                    ? (e.maxSelections ?? 0)
+                    : (e.options?.length ?? 0));
+            i++) {
+          options[i].isSelected = true;
+        }
+      }
+      return e.copyWith(
+        options: options,
       );
     }).toList();
-    List.generate(
-      widget.extra.length,
-      (index) {
-        return OptionGroups(
-          id: widget.extra[index].id,
-          name: widget.extra[index].name,
-          isMandatory: widget.extra[index].isMandatory,
-          maxSelections: widget.extra[index].maxSelections,
-          options: (widget.extra[index].isMandatory ?? false)
-              ? widget.extra[index].options
-                      ?.sublist(
-                          0,
-                          (widget.extra[index].options?.length ?? 0) >=
-                                  (widget.extra[index].maxSelections ?? 0)
-                              ? (widget.extra[index].maxSelections ?? 0)
-                              : (widget.extra[index].options?.length ?? 0))
-                      .toList() ??
-                  []
-              : [],
-        );
-      },
-    );
-    print("selectedOptions: $selectedOptions");
+    // List.generate(
+    //   widget.extra.length,
+    //   (index) {
+    //     return OptionGroups(
+    //       id: widget.extra[index].id,
+    //       name: widget.extra[index].name,
+    //       isMandatory: widget.extra[index].isMandatory,
+    //       maxSelections: widget.extra[index].maxSelections,
+    //       options: (widget.extra[index].isMandatory ?? false)
+    //           ? widget.extra[index].options
+    //                   ?.sublist(
+    //                       0,
+    //                       (widget.extra[index].options?.length ?? 0) >=
+    //                               (widget.extra[index].maxSelections ?? 0)
+    //                           ? (widget.extra[index].maxSelections ?? 0)
+    //                           : (widget.extra[index].options?.length ?? 0))
+    //                   .toList() ??
+    //               []
+    //           : [],
+    //     );
+    //   },
+    // );
+    // print("selectedOptions: $selectedOptions");
   }
 
   void bottomSheetScroll() {
