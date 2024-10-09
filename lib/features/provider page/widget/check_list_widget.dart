@@ -11,7 +11,7 @@ import '../../../common/constant/constant values.dart';
 import '../../../models/provider_items_model.dart';
 
 Widget checkList(isChecked, Function(Options) onChange, context,
-        {Options? optionModel}) =>
+        {Options? optionModel,bool ?isMandatory}) =>
     BlocConsumer<ProviderCubit, ProviderState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -36,7 +36,7 @@ Widget checkList(isChecked, Function(Options) onChange, context,
                 children: [
                   Row(
                     children: [
-                      if (price != '')
+                      if (!isMandatory!)
                         Text(
                           Strings.sar.tr(context),
                           maxLines: 1,
@@ -51,7 +51,7 @@ Widget checkList(isChecked, Function(Options) onChange, context,
                         width: 5,
                       ),
                       Text(
-                        '$price',
+                        isMandatory? '':'${optionModel?.price}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,

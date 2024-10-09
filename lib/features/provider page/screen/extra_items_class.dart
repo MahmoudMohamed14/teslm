@@ -365,6 +365,7 @@ class _OptionsWidgetState extends State<OptionsWidget> {
                   final bool isChecked = checklist[upperIndex][innerIndex];
                   return checkList(
                     isChecked,
+                    isMandatory: widget.extra[upperIndex].isMandatory,
                     (optionID) {
                       if (widget.extra[upperIndex].maxSelections == 1) {
                         if (widget.extra[upperIndex].isMandatory ?? false) {
@@ -674,6 +675,7 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
                   print("isChecked:....... $isChecked");
                   return checkList(
                     isChecked,
+                    isMandatory: widget.extra[upperIndex].isMandatory,
                     (item) {
                       if (isChecked) {
                         if ((widget.extra[upperIndex].isMandatory ?? false) &&
