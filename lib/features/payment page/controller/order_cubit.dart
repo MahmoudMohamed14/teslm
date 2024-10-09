@@ -15,6 +15,7 @@ import '../../home/screens/home.dart';
 import '../../orders/controller/my_orders_cubit.dart';
 import '../../orders/controller/my_order_data_handler.dart';
 import '../../point/controller/point_cubit.dart';
+import '../../profile/navigator/my_coupons/Models/get_coupons_model.dart';
 import '../../provider page/controller/provider_cubit.dart';
 import 'order_data_handler.dart';
 
@@ -26,10 +27,10 @@ class OrderCubit extends Cubit<OrderState> {
 
 
 
-  String?couponCode;
-void getCoupon({String ?value}) async {
+  CouponData?couponCode;
+void getCoupon({CouponData ?value}) async {
 couponCode=value;
-print(couponCode);
+print(couponCode?.toJson());
 }
   Coupon ?couponData;
   void postCoupon({
@@ -44,6 +45,8 @@ print(couponCode);
       shippingPrice: shippingPrice,
       subtotal: subtotal,
     );
+
+
     result.fold((l) {
       print("error is ${l.errorModel.statusMessage}");
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

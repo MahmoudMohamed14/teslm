@@ -54,7 +54,7 @@ class CouponsBottomSheetState extends State<CouponsBottomSheet> {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: (){
-                          OrderCubit.get(context).getCoupon(value: CouponsCubit.get(context).couponsData?.data?[index].id);
+                          OrderCubit.get(context).getCoupon(value: CouponsCubit.get(context).couponsData?.data?[index]);
                        Navigator.pop(context);
                         },
                         child: Container(

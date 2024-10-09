@@ -99,7 +99,7 @@ class Payment extends StatelessWidget {
                     size: 30.0,
                   ) : BottomWidget(Strings.confirmOrder.tr(context), (){
                     print(values);
-                    OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode,customerNotes: customerNotes,context: context);
+                    OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: customerNotes,context: context);
                   },radius: 20,),
                   const SizedBox(height: 10,),
                 ],
