@@ -54,17 +54,10 @@ Future<void> saveCoupon(context,couponController,bool isSaveCoupon) async {
                     Expanded(
                       child: BottomWidget(
                         Strings.addCoupon.tr(context),
-                        //  width: 120,
-                        isSaveCoupon?
-                            (){
-
-                        }
-                            :() {
-                          OrderCubit.get(context).postCoupon(
-                            coupon: couponController.text,
-                            subtotal: price,
-                            shippingPrice: 10,
-                            context: context,
+                        () {
+                          CouponsCubit.get(context).saveCoupons(
+                            context,
+                            couponController.text,
                           );
                           couponController.clear();
                         },

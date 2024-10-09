@@ -35,6 +35,7 @@ class CouponsDataHandler {
     required String couponCode,
   }) async {
     // print("otp is $otp");
+    print(couponCode);
     try {
       PostCoupon response = await GenericRequest<PostCoupon>(
         method:
