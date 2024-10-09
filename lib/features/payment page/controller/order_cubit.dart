@@ -15,6 +15,7 @@ import '../../home/screens/home.dart';
 import '../../orders/controller/my_orders_cubit.dart';
 import '../../orders/controller/my_order_data_handler.dart';
 import '../../point/controller/point_cubit.dart';
+import '../../profile/navigator/my_coupons/Models/get_coupons_model.dart';
 import '../../provider page/controller/provider_cubit.dart';
 import 'order_data_handler.dart';
 
@@ -25,11 +26,33 @@ class OrderCubit extends Cubit<OrderState> {
   static OrderCubit get(context) => BlocProvider.of(context);
 
 
+  double couponDiscount=0.0;
 
-  String?couponCode;
-void getCoupon({String ?value}) async {
-couponCode=value;
-print(couponCode);
+  CouponData?couponCode;
+void getCoupon(BuildContext context, {CouponData ?value}) async {
+  couponDiscount=0.0;
+  double totalPrice=ProviderCubit.get(context).getPrice()+shippingPrice;
+  if((value?.minAmount??0)<totalPrice){
+    if((value?.type.toLowerCase()??'')=='percentage'){
+      if(totalPrice*(value?.percentageAmount??1)>(value?.maxAmount??0)){
+        couponDiscount=value?.maxAmount??0;
+      }else{
+        couponDiscount=totalPrice*(value?.percentageAmount??1);
+      }
+
+    }
+    couponCode=value;
+  }else{
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
+        alignment: Alignment.center,child: Text("${Strings.messageMinimumCoupon.tr(context)} ${value?.minAmount}",
+      style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.red.shade400,),);
+  }
+
+
+
+print(couponCode?.toJson());
+
+  emit(CalculateCoupon());
 }
   Coupon ?couponData;
   void postCoupon({
@@ -44,6 +67,8 @@ print(couponCode);
       shippingPrice: shippingPrice,
       subtotal: subtotal,
     );
+
+
     result.fold((l) {
       print("error is ${l.errorModel.statusMessage}");
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

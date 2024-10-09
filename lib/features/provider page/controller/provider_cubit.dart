@@ -21,7 +21,7 @@ class ProviderCubit extends Cubit<ProviderState> {
   }
 
   static ProviderCubit get(context) => BlocProvider.of(context);
-  void addValue(String name, int value,image,int foodPrice,id,description,extraId,providerId) {
+  void addValue(String name, int value,image,double foodPrice,id,description,extraId,providerId) {
     bool valueExists = false;
     int totalItems = 0;
     for (var map in values) {
@@ -160,7 +160,7 @@ class ProviderCubit extends Cubit<ProviderState> {
       }
     }
   }
-  void minusValue(String name, int value, image, int foodPrice, id) {
+  void minusValue(String name, int value, image, double foodPrice, id) {
 
     bool valueExists = false;
    // List<Map<String, dynamic>> valuesCopy = List.from(values.reversed);

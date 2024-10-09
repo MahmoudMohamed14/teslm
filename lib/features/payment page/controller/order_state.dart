@@ -6,6 +6,7 @@ sealed class OrderState {}
 final class OrderInitial extends OrderState {}
 
 class CouponLoading extends OrderState{}
+class CalculateCoupon extends OrderState{}
 
 class CouponSuccess extends OrderState{}
 

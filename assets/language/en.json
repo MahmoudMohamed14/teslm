@@ -148,5 +148,6 @@
   "toYourOrderArrival": "To Your Order Arrival",
   "yourOrderHasArrived": "Your Order Has Arrived",
   "enter_order_location":"Enter order location",
-  "confirm_location":"Confirm location"
+  "confirm_location":"Confirm location",
+  "messageMinimumCoupon": "Minimum  amount to use this coupon is "
 }
