@@ -67,7 +67,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
     checklist = List.generate(
       widget.extra.length ?? 0,
       (index) => List.generate(widget.extra[index].options?.length ?? 0,
-          (optionIndex) => widget.extra[index].isMandatory??false && optionIndex == 0),
+          (optionIndex) => (widget.extra[index].isMandatory??false) && optionIndex == 0),
     );
   }
 

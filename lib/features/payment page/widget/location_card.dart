@@ -66,7 +66,7 @@ Widget locationCard(context)=>Container(
             )),
             const SizedBox(width: 10,),
             BottomWidget(Strings.change.tr(context), (){
-              pageController=PageController(initialPage: 3);
+              pageController=PageController(initialPage: 0);
               navigateAndFinish(context,const Home());},width: 90,radius: 30,height: 30,),
           ],),
       ),

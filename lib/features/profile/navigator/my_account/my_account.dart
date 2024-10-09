@@ -84,7 +84,7 @@ class EditInformation extends StatelessWidget {
                                             true,
                                             context)
                                         : date(
-                                            user!.birthdate != ''
+                                            user!.birthdate != null
                                                 ? '${user.birthdate}'
                                                 : 'mm/dd/yy',
                                             true,

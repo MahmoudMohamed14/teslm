@@ -53,6 +53,7 @@ Widget categorySlider(context)=>CarouselSlider(
                 errorWidget: (context, url, error) => const Icon(Icons.error),
                 imageUrl: '${e.image}',
                 width: double.infinity,
+                height: double.infinity,
                 fit: BoxFit.cover,),
             ),
             Positioned(
