@@ -174,7 +174,7 @@ class Items {
       id: json['id'],
       name: json['name'] != null ? ItemsLanguage.fromJson(json['name']) : null,
       calories: json['calories'],
-      price: double.parse(json['price'].toString()??'0.0'),
+      price: double.parse(json['price'].toString() ?? '0.0'),
       discount: json['discount'],
       topItem: json['top_item'],
       image: json['image'],
@@ -308,6 +308,22 @@ class OptionGroups {
     }
     return data;
   }
+
+  OptionGroups copyWith({
+    String? id,
+    bool? isMandatory,
+    int? maxSelections,
+    ItemsLanguage? name,
+    List<Options>? options,
+  }) {
+    return OptionGroups(
+      id: id ?? this.id,
+      isMandatory: isMandatory ?? this.isMandatory,
+      maxSelections: maxSelections ?? this.maxSelections,
+      name: name ?? this.name,
+      options: options ?? this.options,
+    );
+  }
 }
 
 class Options {
@@ -351,6 +367,24 @@ class Options {
     }
     return data;
   }
+
+  Options copyWith({
+    bool? isSelected,
+    String? id,
+    int? price,
+    ItemsLanguage? name,
+    String? image,
+    ExtraItem? extraItem,
+  }) {
+    return Options(
+      isSelected: isSelected ?? this.isSelected,
+      id: id ?? this.id,
+      price: price ?? this.price,
+      name: name ?? this.name,
+      image: image ?? this.image,
+      extraItem: extraItem ?? this.extraItem,
+    );
+  }
 }
 
 class ExtraItem {
@@ -378,5 +412,19 @@ class ExtraItem {
     data['image'] = image;
     data['price'] = price;
     return data;
+  }
+
+  ExtraItem copyWith({
+    String? id,
+    ItemsLanguage? name,
+    String? image,
+    int? price,
+  }) {
+    return ExtraItem(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      image: image ?? this.image,
+      price: price ?? this.price,
+    );
   }
 }

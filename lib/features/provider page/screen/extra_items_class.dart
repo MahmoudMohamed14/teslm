@@ -142,7 +142,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
             ),
             Expanded(
               ///   -------    todo
-              child: OptionsWidget(
+              child: EnhancedOptionsWidget(
                 extra: widget.extra,
               ),
             ),
@@ -555,27 +555,47 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
         debugPrint("isisMandatory${widget.extra[i].isMandatory}");
       }
     }
+    selectedOptions = widget.extra;
     _bottomSheetController.addListener(bottomSheetScroll);
-    selectedOptions = List.generate(
-      widget.extra.length,
-      (index) => OptionGroups(
-        id: widget.extra[index].id,
-        name: widget.extra[index].name,
-        isMandatory: widget.extra[index].isMandatory,
-        maxSelections: widget.extra[index].maxSelections,
-        options: (widget.extra[index].isMandatory ?? false)
-            ? widget.extra[index].options
-                    ?.sublist(
-                        0,
-                        (widget.extra[index].options?.length ?? 0) >=
-                                (widget.extra[index].maxSelections ?? 0)
-                            ? (widget.extra[index].maxSelections ?? 0)
-                            : (widget.extra[index].options?.length ?? 0))
-                    .toList() ??
-                []
-            : [],
-      ),
-    );
+    selectedOptions = selectedOptions.map((e) {
+      List<Options> options = e.options ?? [];
+      if (e.isMandatory ?? false) {
+        for (int i = 0;
+            i <
+                ((e.maxSelections ?? 0) <= (e.options?.length ?? 0)
+                    ? (e.maxSelections ?? 0)
+                    : (e.options?.length ?? 0));
+            i++) {
+          options[i].isSelected = true;
+        }
+      }
+      return e.copyWith(
+        options: options,
+      );
+    }).toList();
+    // List.generate(
+    //   widget.extra.length,
+    //   (index) {
+    //     return OptionGroups(
+    //       id: widget.extra[index].id,
+    //       name: widget.extra[index].name,
+    //       isMandatory: widget.extra[index].isMandatory,
+    //       maxSelections: widget.extra[index].maxSelections,
+    //       options: (widget.extra[index].isMandatory ?? false)
+    //           ? widget.extra[index].options
+    //                   ?.sublist(
+    //                       0,
+    //                       (widget.extra[index].options?.length ?? 0) >=
+    //                               (widget.extra[index].maxSelections ?? 0)
+    //                           ? (widget.extra[index].maxSelections ?? 0)
+    //                           : (widget.extra[index].options?.length ?? 0))
+    //                   .toList() ??
+    //               []
+    //           : [],
+    //     );
+    //   },
+    // );
+    // print("selectedOptions: $selectedOptions");
   }
 
   void bottomSheetScroll() {
@@ -641,6 +661,7 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
                           .options?[innerIndex]
                           .isSelected ??
                       false;
+                  print("isChecked: $isChecked");
                   return checkList(
                     isChecked,
                     () {
