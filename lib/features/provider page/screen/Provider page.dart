@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../common/constant/constant values.dart';
 import '../../../common/text_style_helper.dart';
@@ -192,7 +193,7 @@ class _ProviderPage extends State<ProviderPage>
                   ),
                   SliverAppBar(
                     expandedHeight: 0.h,
-                    toolbarHeight: 30,
+                    toolbarHeight: 80,
                     pinned: true,
                     leading: const SizedBox.shrink(),
                     flexibleSpace: PreferredSize(
@@ -200,28 +201,47 @@ class _ProviderPage extends State<ProviderPage>
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 15,vertical: 10.h),
-                        child: GestureDetector(
-                          onTap: (){
-                            ProviderCubit.get(context).showSearch();
-                          },
-                          child: Container(
-                           padding:  EdgeInsets.symmetric(vertical: 10.h),
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                                color: ThemeModel.of(context).font3,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.only(start: 15),
-                                  child: Icon(
-                                    CupertinoIcons.search,
-                                    color: ThemeModel.of(context).font1,
-                                  ),
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                ProviderCubit.get(context).showSearch();
+                              },
+                              child: Container(
+                               padding:  EdgeInsets.symmetric(vertical: 10.h),
+                                width: double.maxFinite,
+                                decoration: BoxDecoration(
+                                    color: ThemeModel.of(context).font3,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.only(start: 15),
+                                      child: Icon(
+                                        CupertinoIcons.search,
+                                        color: ThemeModel.of(context).font1,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                            if(menu!=null&&state is !GetProviderFoodLoading)
+                            SizedBox(
+                              height: 60.h,
+                              child: ScrollablePositionedList.builder(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: menu.categoriesItemsData?.length??0,
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: (){ProviderCubit.get(context).scrollToIndex(index);},
+                                  child: topBar(language=='en'?(menu.categoriesItemsData?[index].name?.en??''):(menu.categoriesItemsData?[index].name?.ar??''),index == ProviderCubit.get(context).currentIndex ? ThemeModel.mainColor: Colors.transparent,
+                                      index == ProviderCubit.get(context).currentIndex ? ThemeModel.mainColor:ThemeModel.of(context).blackWhiteColor),
+                                ),
+                                itemScrollController: ProviderCubit.get(context).itemScrollController,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

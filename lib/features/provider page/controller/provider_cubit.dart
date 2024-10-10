@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:delivery/features/provider%20page/controller/provider_data_handler.dart';
@@ -17,6 +18,7 @@ import 'package:collection/collection.dart';
 
 class ProviderCubit extends Cubit<ProviderState> {
   ProviderCubit() : super(ProviderInitial()){
+   // onScroll();
     scrollControllerColumn.addListener(_scrollAnimation);
   }
 
@@ -356,15 +358,54 @@ class ProviderCubit extends Cubit<ProviderState> {
     emit(Reload());
   }
 
+  List<int> listOffsets = [];
+  void _calculateListOffsets() {
+    int offset = 0;
+    for (int i = 0; i < (providerFoodData?.categoriesItemsData?.length??0); i++) {
+      listOffsets.add(offset);
+      offset += providerFoodData?.categoriesItemsData?[i].items!.length??0 * 140;
+    }
+  }
+  void onScroll() {
+    final itemHeight = 170; // Replace with the actual height of each item
+    final offset = scrollControllerColumn.offset;
+    int? currentIndexNew;
 
- /* void scrollToIndex(int index) {
+    _calculateListOffsets(); // Call _calculateListOffsets() before using listOffsets
+
+    if (listOffsets.isNotEmpty) {
+      for (int i = 0; i < listOffsets.length; i++) {
+        final startOffset = listOffsets[i];
+        final endOffset = startOffset + providerFoodData!.categoriesItemsData![i].items!.length * itemHeight;
+
+        if (offset >= startOffset && offset < endOffset) {
+          currentIndexNew = i;
+          break;
+        }
+      }
+      // Check if the scrollControllerColumn is at the last page
+      final totalHeight = listOffsets.last + providerFoodData!.categoriesItemsData![listOffsets.length - 1].items!.length * itemHeight;
+      if (scrollControllerColumn.position.pixels >= totalHeight - scrollControllerColumn.position.viewportDimension) {
+        currentIndexNew = providerFoodData!.categoriesItemsData!.length; // Set currentIndexNew to 4 if the scrollControllerColumn is at the last page
+      }
+      if (currentIndexNew != currentIndex) {
+        currentIndex = currentIndexNew!;
+        Timer(Duration(milliseconds: 200), () {
+          itemScrollController.jumpTo(index: currentIndex, alignment:currentIndex==0||currentIndex==1? 0.0:0.3);
+        });
+      }
+    }
+    emit(Reload());
+  }
+  int currentIndex = 0;
+  void scrollToIndex(int index) {
     int items = calculateItemsBeforeIndex(index);
     scrollController.animateTo(
-      items * 150, // Replace ITEM_HEIGHT with the height of each item in your list
+      items * 170, // Replace ITEM_HEIGHT with the height of each item in your list
       duration: Duration(milliseconds: 500), // Adjust the duration as per your preference
       curve: Curves.easeOut, // Adjust the curve as per your preference
     );
     emit(Reload());
-  }*/
+  }
 
 }
