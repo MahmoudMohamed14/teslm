@@ -22,8 +22,8 @@ Widget orderBrief(context)=>Container(
         '${ProviderCubit.get(context).getPrice()}' ,OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='ORDER':false,context),
     seperate(),
     orderMoney(Strings.deliveryFee.tr(context),OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='SHIPPING'?
-    '${shippingPrice-(OrderCubit.get(context).couponData!.discount)!.toInt()}':shippingPrice:shippingPrice,
-        '$shippingPrice',  OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='SHIPPING':false,context),
+    '${ OrderCubit.get(context).shippingPrice-(OrderCubit.get(context).couponData!.discount)!.toInt()}':OrderCubit.get(context).shippingPrice:OrderCubit.get(context).shippingPrice,
+        '${ OrderCubit.get(context).shippingPrice}',  OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='SHIPPING':false,context),
     seperate(),
     if(OrderCubit.get(context).couponData!=null)
       orderMoney(Strings.youSaved.tr(context),OrderCubit.get(context).couponData!.discount,0,false,context),
@@ -32,10 +32,10 @@ Widget orderBrief(context)=>Container(
         const Image(image: AssetImage(ImagesApp.pointImage),height: 20,width: 20,),
         const SizedBox(width: 7,),
       //  Text(Strings.getPointsOrder.tr(context),style: TextStyle(fontWeight: FontWeight.w400,color: Colors.green.shade600),),
-        Flexible(child: Text('${Strings.getPointsOrder.tr(context)}${(ProviderCubit.get(context).getPrice()+shippingPrice)*10} ${Strings.point.tr(context)} ',style: TextStyle(fontWeight: FontWeight.w400,color: Colors.green.shade600),)),
+        Flexible(child: Text('${Strings.getPointsOrder.tr(context)}${(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice-((OrderCubit.get(context).couponDiscount).toInt()))*10} ${Strings.point.tr(context)} ',style: TextStyle(fontWeight: FontWeight.w400,color: Colors.green.shade600),)),
       ],
     ),
     seperate(),
-    orderMoney(Strings.total.tr(context),OrderCubit.get(context).couponCode!=null?'${(ProviderCubit.get(context).getPrice()+shippingPrice)-(OrderCubit.get(context).couponDiscount)!.toInt()}':(ProviderCubit.get(context).getPrice()+shippingPrice),
-        OrderCubit.get(context).couponData!=null?'${(ProviderCubit.get(context).getPrice()+shippingPrice)}':(ProviderCubit.get(context).getPrice()+shippingPrice),OrderCubit.get(context).couponData!=null?true:false,context),
+    orderMoney(Strings.total.tr(context),OrderCubit.get(context).couponCode!=null?'${(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)-(OrderCubit.get(context).couponDiscount)!.toInt()}':(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice),
+        OrderCubit.get(context).couponCode!=null?'${(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)}':(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice),OrderCubit.get(context).couponCode!=null?true:false,context),
   ],),);

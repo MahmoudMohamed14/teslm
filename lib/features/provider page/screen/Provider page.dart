@@ -239,7 +239,7 @@ class _ProviderPage extends State<ProviderPage>
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                AppTextWidget(
-                                 language == 'en'?(menu.categoriesItemsData?[index1].name?.ar??''):(menu.categoriesItemsData?[index1].name?.ar ?? ''),
+                                language == 'en'?( menu.categoriesItemsData?[index1].name?.en ?? ''):( menu.categoriesItemsData?[index1].name?.ar ??""),
                                  style: TextStyleHelper.of(context)
                                      .bold20
                                      .copyWith(color: ThemeModel.of(context).font2),
@@ -252,7 +252,7 @@ class _ProviderPage extends State<ProviderPage>
                               )
 
                              :     ListView.separated(
-                                   itemBuilder: (context, index) =>OtherWidget(item: menu.categoriesItemsData?.firstOrNull?.items?[index]
+                                   itemBuilder: (context, index) =>OtherWidget(item: menu.categoriesItemsData?[index1].items?[index]
                                      ,provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),
                                    physics: const NeverScrollableScrollPhysics(),
                                    shrinkWrap: true,

@@ -13,8 +13,8 @@ Widget orderMoney(text,price,oldPrice,check,context)=>Padding(
     Row(children: [
       if(check)
         Text('$oldPrice',style: TextStyle(fontSize: 16 ,decoration: TextDecoration.lineThrough,color: isDark??false?Colors.white:borderColor),),
-      if(OrderCubit.get(context).couponData!=null)
-        const SizedBox(width: 5,),
+      if(OrderCubit.get(context).couponCode!=null)
+        const SizedBox(width: 10,),
       Text('$price',style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 18),),
       const SizedBox(width: 3,),
       Text(Strings.sr.tr(context),style:const TextStyle(fontWeight: FontWeight.w500,fontSize: 15),)

@@ -254,18 +254,22 @@ class ItemsCategory {
 
   ItemsCategory({this.name, this.id, this.items});
   factory ItemsCategory.fromJson(Map<String, dynamic> json) {
+    print("name####3333333${json['name']}");
     return ItemsCategory(
-      name: json['name'] != null ? ItemsLanguage.fromJson(json['name']) : null,
+        name: json['name'] != null
+            ? json['name']  is Map?ItemsLanguage.fromJson(json['name']):ItemsLanguage.fromJson(
+            {"en":json['name'],"ar":json['name']})
+            : null,
       id: json['id'],
       items: json['items'] != null
           ? (json['items'] as List).map((i) => Items.fromJson(i)).toList()
           : null,
     );
   }
-
+//C:\Users\ALROAD LAPTOP\StudioProjects\teslm\build\app\outputs\flutter-apk\
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
+    data['name'] = name?.toJson();
     data['id'] = id;
     if (items != null) {
       data['items'] = items!.map((v) => v.toJson()).toList();

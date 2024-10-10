@@ -149,5 +149,7 @@
   "yourOrderHasArrived": "Your Order Has Arrived",
   "enter_order_location":"Enter order location",
   "confirm_location":"Confirm location",
-  "messageMinimumCoupon": "Minimum  amount to use this coupon is "
+  "messageMinimumCoupon": "Minimum  amount to use this coupon is ",
+  "messageDiscountCoupon": "It has been deducted from the total amount of your order ",
+  "messageShippingCoupon": "Shipping amount has been deducted"
 }

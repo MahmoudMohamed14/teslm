@@ -146,4 +146,6 @@ class Strings {
   static const String shipping= "shipping";
   static const String enterOrderLocation= "enter_order_location";
   static const String confirmLocation= "confirm_location";
+  static const String messageDiscountCoupon= "messageDiscountCoupon";
+  static const String messageShippingCoupon= "messageShippingCoupon";
 }

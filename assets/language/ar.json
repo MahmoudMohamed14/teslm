@@ -154,5 +154,7 @@
   "yourOrderHasArrived": "تم توصيل الطلب",
   "enter_order_location": "اختار موقع الطلب",
   "confirm_location": "تاكيد الموقع",
-  "messageMinimumCoupon":"الحد الادنى للقيمة لاستخدام هذا الكوبون هو"
+  "messageMinimumCoupon":"الحد الادنى للقيمة لاستخدام هذا الكوبون هو",
+  "messageDiscountCoupon": "تم خصم من مبلغ الطلب ",
+  "messageShippingCoupon": "تم خصم  مبلغ الشحن"
 }
