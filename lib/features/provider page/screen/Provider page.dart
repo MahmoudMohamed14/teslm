@@ -239,7 +239,7 @@ class _ProviderPage extends State<ProviderPage>
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                AppTextWidget(
-                                 menu.categoriesItemsData?[index1].name ?? '',
+                                 language == 'en'?(menu.categoriesItemsData?[index1].name?.ar??''):(menu.categoriesItemsData?[index1].name?.ar ?? ''),
                                  style: TextStyleHelper.of(context)
                                      .bold20
                                      .copyWith(color: ThemeModel.of(context).font2),

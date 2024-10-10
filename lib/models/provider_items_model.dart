@@ -248,14 +248,14 @@ class ReviewsItems {
 }
 
 class ItemsCategory {
-  final String? name;
+  final ItemsLanguage? name;
   final String? id;
   final List<Items>? items;
 
   ItemsCategory({this.name, this.id, this.items});
   factory ItemsCategory.fromJson(Map<String, dynamic> json) {
     return ItemsCategory(
-      name: json['name'],
+      name: json['name'] != null ? ItemsLanguage.fromJson(json['name']) : null,
       id: json['id'],
       items: json['items'] != null
           ? (json['items'] as List).map((i) => Items.fromJson(i)).toList()
