@@ -252,7 +252,7 @@ class _ProviderPage extends State<ProviderPage>
                               )
 
                              :     ListView.separated(
-                                   itemBuilder: (context, index) =>OtherWidget(item: menu.categoriesItemsData?.firstOrNull?.items?[index]
+                                   itemBuilder: (context, index) =>OtherWidget(item: menu.categoriesItemsData?[index1].items?[index]
                                      ,provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),
                                    physics: const NeverScrollableScrollPhysics(),
                                    shrinkWrap: true,

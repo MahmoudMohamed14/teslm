@@ -5,8 +5,8 @@ import '../../shared_preference/shared preference.dart';
 import '../colors/theme_model.dart';
 
 bool? isDark=Save.getdata(key: 'isDark');
-int shippingPrice=15;
-int totalPrice=0;
+
+double totalPrice=0;
 String? balances=Save.getdata(key: 'balance');
 String? customerId=Save.getdata(key: 'customerId');
 PageController pageController = PageController(

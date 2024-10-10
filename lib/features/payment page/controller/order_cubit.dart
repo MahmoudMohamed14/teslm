@@ -25,13 +25,14 @@ class OrderCubit extends Cubit<OrderState> {
   OrderCubit() : super(OrderInitial());
   static OrderCubit get(context) => BlocProvider.of(context);
 
-
+  int shippingPrice=15;
   double couponDiscount=0.0;
 
   CouponData?couponCode;
 void getCoupon(BuildContext context, {CouponData ?value}) async {
   couponDiscount=0.0;
   double totalPrice=ProviderCubit.get(context).getPrice()+shippingPrice;
+  if(value?.appliedOn.toLowerCase()=='order'){
   if((value?.minAmount??0)<totalPrice){
     if((value?.type.toLowerCase()??'')=='percentage'){
       if(totalPrice*((value?.percentageAmount??1)/100)>(value?.maxAmount??0)){
@@ -44,11 +45,22 @@ void getCoupon(BuildContext context, {CouponData ?value}) async {
       couponDiscount=value?.fixedAmount??0;
 
     }
+
     couponCode=value;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
+        alignment: Alignment.center,child: Text("${Strings.messageDiscountCoupon.tr(context)} $couponDiscount",
+      style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
   }else{
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
         alignment: Alignment.center,child: Text("${Strings.messageMinimumCoupon.tr(context)} ${value?.minAmount}",
       style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.red.shade400,),);
+  }}else{
+    shippingPrice=0;
+    couponDiscount=0.0;
+    couponCode=value;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
+        alignment: Alignment.center,child: Text("${Strings.messageShippingCoupon.tr(context)} $couponDiscount",
+      style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
   }
 
 
