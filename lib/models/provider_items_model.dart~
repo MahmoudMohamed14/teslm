@@ -253,8 +253,7 @@ class ItemsCategory {
     print("name####3333333${json['name']}");
     return ItemsCategory(
         name: json['name'] != null
-            ? json['name']  is Map?ItemsLanguage.fromJson(json['name']):ItemsLanguage.fromJson(
-            {"en":json['name'],"ar":json['name']})
+            ? ItemsLanguage.fromJson(json['name'])
             : null,
       id: json['id'],
       items: json['items'] != null
