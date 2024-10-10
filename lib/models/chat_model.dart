@@ -23,7 +23,7 @@ class ChatModel {
 }
 
 class MessagesModel {
-  final String? id;
+  final int? id;
   final String? content;
   final String? createdAt;
   final String? from;
