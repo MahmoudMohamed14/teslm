@@ -84,6 +84,6 @@ Widget categorySlider(context)=>CarouselSlider(
     options: CarouselOptions(
       aspectRatio: 9.0 / 16.0,
       viewportFraction: 0.35,
-      initialPage:(HomeCubit.get(context).offersData?.data?.length??0),height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 2),
-      autoPlayAnimationDuration: const Duration(seconds: 2),enableInfiniteScroll: true,
+      initialPage:(HomeCubit.get(context).offersData?.data?.length??0),height: 150,autoPlay: true,autoPlayInterval:const Duration(seconds: 1),
+      autoPlayAnimationDuration: const Duration(seconds: 1),enableInfiniteScroll: true,
     ));
