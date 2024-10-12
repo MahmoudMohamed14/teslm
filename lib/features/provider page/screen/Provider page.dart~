@@ -240,7 +240,6 @@ class _ProviderPage extends State<ProviderPage>
                              children: [
                                AppTextWidget(
                                 language == 'en'?( menu.categoriesItemsData?[index1].name?.en ?? ''):( menu.categoriesItemsData?[index1].name?.ar ??""),
-
                                  style: TextStyleHelper.of(context)
                                      .bold20
                                      .copyWith(color: ThemeModel.of(context).font1),
