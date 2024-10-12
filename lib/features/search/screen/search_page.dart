@@ -75,18 +75,24 @@ class SearchPage extends StatelessWidget {
     ),
     ),
     body:textController.text.isNotEmpty ? ProviderCubit.get(context).searchedItems.isNotEmpty? SafeArea(
-    child: isSmall?Wrap(
-      spacing: 10.w,
-      runSpacing: 10.w,
-      children: List.generate(ProviderCubit.get(context).searchedItems.length ??0, (index)=>OtherWidgetSmall(item: ProviderCubit.get(context).searchedItems[index],provederId:providerId,controller: ProviderCubit.get(context).controller,),),
+    child: isSmall?Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Wrap(
+        spacing: 10.w,
+        runSpacing: 10.w,
+        children: List.generate(ProviderCubit.get(context).searchedItems.length ??0, (index)=>OtherWidgetSmall(item: ProviderCubit.get(context).searchedItems[index],provederId:providerId,controller: ProviderCubit.get(context).controller,),),
+      ),
     )
 
-        : ListView.separated(
-        itemBuilder: (context, index) =>OtherWidget(item: ProviderCubit.get(context).searchedItems[index],controller: ProviderCubit.get(context).controller,provederId: providerId,),
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        separatorBuilder: (context, index) => 10.h.heightBox,
-        itemCount: ProviderCubit.get(context).searchedItems.length ),
+        : Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.separated(
+          itemBuilder: (context, index) =>OtherWidget(item: ProviderCubit.get(context).searchedItems[index],controller: ProviderCubit.get(context).controller,provederId: providerId,),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          separatorBuilder: (context, index) => 10.h.heightBox,
+          itemCount: ProviderCubit.get(context).searchedItems.length ),
+        ),
     ):const Center(child: Image(image: AssetImage(ImagesApp.searchImage),height:200,width: 200 ,),):const Center(child: Image(image: AssetImage(ImagesApp.emptySearch),height:200,width: 200 ,),),
     );
     }
