@@ -175,6 +175,7 @@ Widget homeBody(scrollController, controller, context) =>
                                         context,
                                         PageTransition(
                                           child: ProviderPage(
+                                            isSmall: (providers?.categories?[categoryIndex].providers?[index].view?.toLowerCase()??"")=="small"?true:false,
                                             providerDescription: language ==
                                                     'en'
                                                 ? '${providers?.categories?[categoryIndex].providers?[index].description?.en}'
@@ -193,9 +194,10 @@ Widget homeBody(scrollController, controller, context) =>
                                                 '',
                                           ),
                                           type: PageTransitionType.downToUp,
+
                                         ),
                                       );
-                                    }, context),
+                                    }, context,),
                                   )),
                         ),
                       ),
