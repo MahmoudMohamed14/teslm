@@ -1,5 +1,4 @@
 
-
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/extensions.dart';
@@ -11,20 +10,16 @@ import 'package:delivery/widgets/app_text_widget.dart';
 import 'package:delivery/widgets/flip_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
 import '../../../common/constant/constant values.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
 import '../../../models/provider_items_model.dart';
-
-
-
 import '../../cart/screen/cart.dart';
+import '../../search/screen/search_page.dart';
 import '../widget/search_provider_page.dart';
 import 'extra_items_class.dart';
 
@@ -206,7 +201,8 @@ class _ProviderPage extends State<ProviderPage>
                           child: Row(
                             children: [
                               IconButton(icon: Icon(Icons.search,size: 25,color: ThemeModel.of(context).blackWhiteColor,),onPressed: (){setState(() {
-                                ProviderCubit.get(context).showSearch();
+                               // ProviderCubit.get(context).showSearch();
+                                navigate(context, SearchPage(isSmall: widget.isSmall,providerId: widget.providerId,));
                               });},),
                               Expanded(
                                 child: ScrollablePositionedList.builder(
@@ -973,9 +969,8 @@ class _ProviderPage extends State<ProviderPage>
     );
   }
 }
-
 class OtherWidget extends StatelessWidget {
-  const OtherWidget({super.key, this.item, this.controller, this.provederId, });
+  const OtherWidget({super.key, this.item, this.controller,  this.provederId, });
 
   final Items? item;
   final AnimationController ?controller;
@@ -1423,7 +1418,6 @@ class OtherWidgetSmall extends StatelessWidget {
     );
   }
 }
-
 class PriceWidget extends StatelessWidget {
   const PriceWidget({super.key, c, this.value, this.title});
 
@@ -1457,7 +1451,6 @@ class PriceWidget extends StatelessWidget {
     );
   }
 }
-
 class BottomSheetWidget extends StatelessWidget {
   const BottomSheetWidget({super.key});
 
@@ -1512,7 +1505,6 @@ class CategoryShimmer extends StatelessWidget {
     );
   }
 }
-
 Widget addOrRemoveOne(itemsNumber,context,add,remove,mainPage,{double ?width,fromSmall=false})=>Container(
     margin: mainPage?EdgeInsets.only(left: 20,bottom: 10):EdgeInsets.zero,
     padding: EdgeInsets.all(mainPage?10:5),

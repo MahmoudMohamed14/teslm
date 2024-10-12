@@ -33,6 +33,9 @@ class _PaymentState extends State<Payment> {
     // TODO: implement initState
     super.initState();
     OrderCubit.get(context).couponCode=null;
+    OrderCubit.get(context).couponDiscount=0.0;
+    OrderCubit.get(context).shippingPrice=15;
+    OrderCubit.get(context).isShippingDiscount=false;
   }
   @override
   Widget build(BuildContext context) {

@@ -328,7 +328,7 @@ class ProviderCubit extends Cubit<ProviderState> {
          (langEn ? element.description?.en?.toLowerCase().contains(
              name.toLowerCase()) ?? false : element.description?.ar
              ?.toLowerCase().contains(name.toLowerCase()) ?? false) ||
-         (element.price.toString().contains(name))
+         (element.price.toString().contains(name))||((element.calories?.toString().contains(name))??false)
      ).toList();
      print('Search: $searchedItems');
      print(searchedItems.lastOrNull?.name?.en??''+"SEARCH HERE"+"${searchedItems.firstOrNull?.price}");

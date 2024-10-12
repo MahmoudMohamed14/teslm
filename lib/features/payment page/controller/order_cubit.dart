@@ -27,6 +27,7 @@ class OrderCubit extends Cubit<OrderState> {
 
   int shippingPrice=15;
   double couponDiscount=0.0;
+  bool isShippingDiscount=false;
 
   CouponData?couponCode;
 void getCoupon(BuildContext context, {CouponData ?value}) async {
@@ -57,6 +58,7 @@ void getCoupon(BuildContext context, {CouponData ?value}) async {
   }}else{
     shippingPrice=0;
     couponDiscount=0.0;
+    isShippingDiscount=true;
     couponCode=value;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
         alignment: Alignment.center,child: Text("${Strings.messageShippingCoupon.tr(context)} $couponDiscount",
@@ -153,6 +155,9 @@ print(couponCode?.toJson());
       PointCubit.get(context).getPointsAndBalance();
       MyOrdersCubit.get(context).getCustomerOrders();
       couponCode=null;
+      shippingPrice=15;
+      couponDiscount=0.0;
+      isShippingDiscount=false;
       values=[];
       for (var element in itemsValue) {
             ProviderCubit.get(context).cardList.removeWhere((test)=>test['itemId']==element['itemId']);
