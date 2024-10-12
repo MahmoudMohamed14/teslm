@@ -416,7 +416,7 @@ Widget topBar(name, color, textColor) => Container(
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.start,
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w600, color: textColor),
+              fontSize: 17, fontWeight: FontWeight.w700, color: textColor),
         ),
       ),
     );

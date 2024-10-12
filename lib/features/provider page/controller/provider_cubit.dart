@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:delivery/features/provider%20page/controller/provider_data_handler.dart';
@@ -17,7 +18,12 @@ import 'package:collection/collection.dart';
 
 class ProviderCubit extends Cubit<ProviderState> {
   ProviderCubit() : super(ProviderInitial()){
-    scrollControllerColumn.addListener(_scrollAnimation);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollControllerColumn.addListener(onScroll);  // Call onScroll after the widget is ready
+      scrollControllerColumn.addListener(_scrollAnimation);
+      if(providerFoodData!=null)
+        _calculateListOffsets();
+    });
   }
 
   static ProviderCubit get(context) => BlocProvider.of(context);
@@ -104,6 +110,7 @@ class ProviderCubit extends Cubit<ProviderState> {
       if (kDebugMode) {
         print(r);
       }
+      _calculateListOffsets();
       emit(GetProviderFoodSuccess());
     });
    /* DioHelper.getData(url: '${ApiEndPoint.providers}/$id',)
@@ -356,15 +363,82 @@ class ProviderCubit extends Cubit<ProviderState> {
     emit(Reload());
   }
 
+  List<int> listOffsets = [];
 
- /* void scrollToIndex(int index) {
+  void _calculateListOffsets() {
+    listOffsets.clear();  // Clear any previous offsets before recalculating
+    int offset = 0;
+
+    if (providerFoodData?.categoriesItemsData != null) {
+      for (int i = 0; i < providerFoodData!.categoriesItemsData!.length; i++) {
+        listOffsets.add(offset);
+        offset += (providerFoodData!.categoriesItemsData![i].items!.length * 170); // Calculate total height for each category
+      }
+    }
+  }
+
+  int currentIndex = 0;
+
+  void onScroll() {
+    final itemHeight = 170; // Replace with the actual height of each item
+    final offset = scrollControllerColumn.offset;
+    int? currentIndexNew;
+
+    print('Scroll offset: $offset'); // To see current scroll position
+
+    // Ensure that listOffsets are calculated once and providerFoodData is valid
+    if (listOffsets.isEmpty || providerFoodData == null || providerFoodData!.categoriesItemsData == null) {
+      print('Exiting onScroll: listOffsets or providerFoodData is not ready');
+      return;  // Exit if there's no valid data
+    }
+
+    for (int i = 0; i < listOffsets.length; i++) {
+      final startOffset = listOffsets[i];
+      final endOffset = startOffset + providerFoodData!.categoriesItemsData![i].items!.length * itemHeight;
+
+      if (offset >= startOffset && offset < endOffset) {
+        currentIndexNew = i;
+        break;
+      }
+    }
+
+    // Check if the scrollControllerColumn is at the last page
+    final totalHeight = listOffsets.last + providerFoodData!.categoriesItemsData![listOffsets.length - 1].items!.length * itemHeight;
+    if (scrollControllerColumn.position.pixels >= totalHeight - scrollControllerColumn.position.viewportDimension) {
+      currentIndexNew = providerFoodData!.categoriesItemsData!.length - 1;  // Set to last index
+    }
+
+    // Ensure currentIndexNew is within bounds
+    if (currentIndexNew != null && currentIndexNew >= 0 && currentIndexNew < providerFoodData!.categoriesItemsData!.length) {
+      if (currentIndexNew != currentIndex) {
+        print('Updating currentIndex from $currentIndex to $currentIndexNew');
+        currentIndex = currentIndexNew;
+        Timer(Duration(milliseconds: 200), () {
+          itemScrollController.jumpTo(
+            index: currentIndex,
+            alignment: currentIndex == 0 || currentIndex == 1 ? 0.0 : 0.3,
+          );
+        });
+      } else {
+        print('currentIndex remains unchanged: $currentIndex');
+      }
+    } else {
+      print('currentIndexNew is null or out of bounds');
+    }
+
+    print('Final currentIndex: $currentIndex'); // This should always print before the state reload
+    emit(Reload());
+  }
+
+
+  void scrollToIndex(int index) {
     int items = calculateItemsBeforeIndex(index);
     scrollController.animateTo(
-      items * 150, // Replace ITEM_HEIGHT with the height of each item in your list
+      items * 170, // Replace ITEM_HEIGHT with the height of each item in your list
       duration: Duration(milliseconds: 500), // Adjust the duration as per your preference
       curve: Curves.easeOut, // Adjust the curve as per your preference
     );
     emit(Reload());
-  }*/
+  }
 
 }
