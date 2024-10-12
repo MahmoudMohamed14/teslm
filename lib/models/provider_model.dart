@@ -72,6 +72,7 @@ class Providers {
   final String? createdAt;
   final int? totalReviews;
   final int? reviewCount;
+  final String?view;
 
   Providers(
       {this.id,
@@ -81,7 +82,8 @@ class Providers {
       this.description,
       this.createdAt,
       this.totalReviews,
-      this.reviewCount});
+      this.reviewCount,
+      this.view});
 
   factory Providers.fromJson(Map<String, dynamic> json) {
     return Providers(
@@ -97,6 +99,7 @@ class Providers {
       createdAt: json['createdAt'],
       totalReviews: json['totalReviews'],
       reviewCount: json['reviewCount'],
+      view: json['view'],
     );
   }
 
@@ -111,6 +114,7 @@ class Providers {
     if (description != null) {
       data['description'] = description!.toJson();
     }
+    data['view'] = view;
     data['createdAt'] = createdAt;
     data['totalReviews'] = totalReviews;
     data['reviewCount'] = reviewCount;
