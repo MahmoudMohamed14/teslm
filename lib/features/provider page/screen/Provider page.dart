@@ -162,7 +162,6 @@ class _ProviderPage extends State<ProviderPage>
                     //expandedHeight: 200.h,
                   ),
                   SliverAppBar(
-
                     expandedHeight: 60,
                     // pinned: true,
                     leading: const SizedBox.shrink(),
@@ -193,56 +192,49 @@ class _ProviderPage extends State<ProviderPage>
                   ),
                   SliverAppBar(
                     expandedHeight: 0.h,
-                    toolbarHeight: 80,
+                    toolbarHeight: 10,
                     pinned: true,
                     leading: const SizedBox.shrink(),
                     flexibleSpace: PreferredSize(
                       preferredSize: const Size.fromHeight(0),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 15,vertical: 10.h),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: (){
+                            horizontal: 5,vertical: 10.h),
+                        child: menu!=null&&state is !GetProviderFoodLoading?
+                        SizedBox(
+                          height: 60.h,
+                          child: Row(
+                            children: [
+                              IconButton(icon: Icon(Icons.search,size: 25,color: ThemeModel.of(context).blackWhiteColor,),onPressed: (){setState(() {
                                 ProviderCubit.get(context).showSearch();
-                              },
-                              child: Container(
-                               padding:  EdgeInsets.symmetric(vertical: 10.h),
-                                width: double.maxFinite,
-                                decoration: BoxDecoration(
-                                    color: ThemeModel.of(context).font3,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.only(start: 15),
-                                      child: Icon(
-                                        CupertinoIcons.search,
-                                        color: ThemeModel.of(context).font1,
-                                      ),
+                              });},),
+                              Expanded(
+                                child: ScrollablePositionedList.builder(
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemScrollController:  ProviderCubit.get(context).itemScrollController,
+                                  itemCount: menu.categoriesItemsData?.length ?? 0,
+                                  itemBuilder: (context, index) => InkWell(
+                                    onTap: () {
+                                      ProviderCubit.get(context).scrollToIndex(index); // Scroll to the tapped index
+                                    },
+                                    child: topBar(
+                                      language == 'en'
+                                          ? (menu.categoriesItemsData?[index].name?.en ?? '')
+                                          : (menu.categoriesItemsData?[index].name?.ar ?? ''),
+                                      index == ProviderCubit.get(context).currentIndex
+                                          ? ThemeModel.mainColor
+                                          : Colors.transparent,
+                                      index == ProviderCubit.get(context).currentIndex
+                                          ? ThemeModel.mainColor
+                                          : ThemeModel.of(context).blackWhiteColor,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            if(menu!=null&&state is !GetProviderFoodLoading)
-                            SizedBox(
-                              height: 60.h,
-                              child: ScrollablePositionedList.builder(
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: menu.categoriesItemsData?.length??0,
-                                itemBuilder: (context, index) => InkWell(
-                                  onTap: (){ProviderCubit.get(context).scrollToIndex(index);},
-                                  child: topBar(language=='en'?(menu.categoriesItemsData?[index].name?.en??''):(menu.categoriesItemsData?[index].name?.ar??''),index == ProviderCubit.get(context).currentIndex ? ThemeModel.mainColor: Colors.transparent,
-                                      index == ProviderCubit.get(context).currentIndex ? ThemeModel.mainColor:ThemeModel.of(context).blackWhiteColor),
-                                ),
-                                itemScrollController: ProviderCubit.get(context).itemScrollController,
-                              ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          )
+                        ):Skeleton(width: 100.w,height: 35.h,),
                       ),
                     ),
                     backgroundColor: ThemeModel.of(context).backgroundColor,
@@ -252,7 +244,7 @@ class _ProviderPage extends State<ProviderPage>
                delegate: SliverChildBuilderDelegate(
                  (context, index) {
                    return  menu!=null&&state is !GetProviderFoodLoading?menu.categoriesItemsData!.isNotEmpty? Padding(
-                     padding:  EdgeInsets.only(bottom: 8.0,left: 8.0.w,right: 8.0.w, top: 0,),
+                     padding:  EdgeInsets.only(bottom: 8.0,left: 8.0.w,right: 8.0.w, ),
                      child: ListView.separated(
                          itemBuilder: (context, index1) {
                            return Column(
@@ -262,7 +254,6 @@ class _ProviderPage extends State<ProviderPage>
                                 language == 'en'?( menu.categoriesItemsData?[index1].name?.en ?? ''):( menu.categoriesItemsData?[index1].name?.ar ??""),
                                  style: TextStyleHelper.of(context)
                                      .bold20
-                                     .copyWith(color: ThemeModel.of(context).font2),
                                ),
                                8.0.heightBox,
                                 widget.isSmall?   Wrap(
@@ -1087,7 +1078,7 @@ class OtherWidget extends StatelessWidget {
                       AppTextWidget(
                         ' ${item?.price} ${Strings.sar.tr(context)}',
                         style: TextStyleHelper.of(context)
-                            .regular15
+                            .regular16
                             .copyWith(color: ThemeModel.of(context).font1),
                       ),
                       5.w.widthBox,
@@ -1100,7 +1091,7 @@ class OtherWidget extends StatelessWidget {
                             '${item?.calories} ${Strings.calories.tr(context)}',
                             style: TextStyleHelper.of(context)
                                 .regular15
-                                .copyWith(color: ThemeModel.of(context).font1,),
+                                .copyWith(color: ThemeModel.of(context).font2,),
                           ),
                         ],
                       ):const SizedBox.shrink()
@@ -1303,28 +1294,6 @@ class OtherWidgetSmall extends StatelessWidget {
                 maxLines: 1,
               ),
             ),
-            8.h.heightBox,
-            Padding(
-              padding: EdgeInsetsDirectional.only(start: 10.w),
-              child: Row(
-                children: [
-                  AppTextWidget(
-                    ' ${item?.price} ${Strings.sar.tr(context)}',
-                    style: TextStyleHelper.of(context)
-                        .regular15
-                        .copyWith(color: ThemeModel.of(context).font1),
-                  ),
-                  SizedBox(width: 10.w,),
-                  if((item?.discount??0)>0)     AppTextWidget(
-                    ' ${item?.price} ${Strings.sar.tr(context)}',
-                    style: TextStyleHelper.of(context)
-                        .regular14
-                        .copyWith(color: ThemeModel.of(context).font1,decorationStyle: TextDecorationStyle.solid,decorationColor: Colors.red,decoration: TextDecoration.lineThrough),
-                  ),
-
-                ],
-              ),
-            ),
 
            if(item?.calories!=null)...[
              8.h.heightBox,
@@ -1339,11 +1308,33 @@ class OtherWidgetSmall extends StatelessWidget {
                     '${item?.calories} ${Strings.calories.tr(context)}',
                     style: TextStyleHelper.of(context)
                         .regular15
-                        .copyWith(color: ThemeModel.of(context).font1,),
+                        .copyWith(color: ThemeModel.of(context).font2,),
                   ),
                 ],
               ),
             ),],
+            8.h.heightBox,
+            Padding(
+              padding: EdgeInsetsDirectional.only(start: 10.w),
+              child: Row(
+                children: [
+                  AppTextWidget(
+                    ' ${item?.price} ${Strings.sar.tr(context)}',
+                    style: TextStyleHelper.of(context)
+                        .regular16
+                        .copyWith(color: ThemeModel.of(context).font1),
+                  ),
+                  SizedBox(width: 10.w,),
+                  if((item?.discount??0)>0)     AppTextWidget(
+                    ' ${item?.price} ${Strings.sar.tr(context)}',
+                    style: TextStyleHelper.of(context)
+                        .regular14
+                        .copyWith(color: ThemeModel.of(context).font1,decorationStyle: TextDecorationStyle.solid,decorationColor: Colors.red,decoration: TextDecoration.lineThrough),
+                  ),
+
+                ],
+              ),
+            ),
             15.h.heightBox,
             Padding(
               padding: const EdgeInsetsDirectional.only(bottom: 5,start: 3),
