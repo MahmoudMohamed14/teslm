@@ -259,7 +259,7 @@ class _ProviderPage extends State<ProviderPage>
                                 widget.isSmall?   Wrap(
                                 spacing: 10.w,
                                 runSpacing: 10.w,
-                                children: List.generate(menu.categoriesItemsData?[index1].items?.length ??0, (index)=>OtherWidgetSmall(item: menu.categoriesItemsData?.firstOrNull?.items?[index],provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),),
+                                children: List.generate(menu.categoriesItemsData?[index1].items?.length ??0, (index)=>OtherWidgetSmall(item: menu.categoriesItemsData?[index1].items?[index],provederId:widget.providerId,controller: ProviderCubit.get(context).controller,),),
                               )
 
                              :     ListView.separated(
