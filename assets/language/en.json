@@ -151,5 +151,11 @@
   "confirm_location":"Confirm location",
   "messageMinimumCoupon": "Minimum  amount to use this coupon is ",
   "messageDiscountCoupon": "It has been deducted from the total amount of your order ",
-  "messageShippingCoupon": "Shipping amount has been deducted"
+  "messageShippingCoupon": "Shipping amount has been deducted",
+  "cardNumber": "Card Number",
+  "cardHolderName": "CardHolder Name",
+  "expiryDate": "Expiry Date",
+  "cvv": "CVV/CVC",
+  "pay": "Pay",
+  "addPayment": "addPayment"
 }

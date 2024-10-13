@@ -65,6 +65,10 @@ class ImagesApp {
   static const String currentOrder = '$_iconPath/current_order.svg';
   static const String currentPoint = '$_iconPath/current_point.svg';
   static const String currentProfile = '$_iconPath/current_profile.svg';
+  static const String cardNumber = '$_iconPath/cardNumber.svg';
+  static const String cardCvv = '$_iconPath/card_cvv.svg';
+  static const String calendar = '$_iconPath/calendar.svg';
+  static const String person = '$_iconPath/person.svg';
   static const String locationAppBar = 'assets/images/location_app_bar.svg';
   static const String searchImage = 'assets/images/searchImage.png';
   static const String emptySearch= 'assets/images/emptySearch.png';

@@ -12,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
+
+import '../navigator/addPayment/add_payment.dart';
 import '../navigator/chat/chat.dart';
 import '../navigator/logout/logout_dialog.dart';
 import '../navigator/my_account/my_account.dart';
@@ -62,6 +64,10 @@ class UserProfile extends StatelessWidget {
                           icon: Icons.add_card_outlined,
                           text: Strings.addPayment.tr(context),
                           hasNavigation: true,
+                          onTap: (){
+                            showBottomSheet1(context, widget: AddPayment(),isFullScreen: true);
+
+                          },
                         ),
                       if (token != '' && token != null)
                         ProfileListItem(
