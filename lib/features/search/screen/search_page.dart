@@ -88,7 +88,6 @@ class SearchPage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: ListView.separated(
           itemBuilder: (context, index) =>OtherWidget(item: ProviderCubit.get(context).searchedItems[index],controller: ProviderCubit.get(context).controller,provederId: providerId,),
-          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           separatorBuilder: (context, index) => 10.h.heightBox,
           itemCount: ProviderCubit.get(context).searchedItems.length ),

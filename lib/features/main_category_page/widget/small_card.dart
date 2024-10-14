@@ -77,8 +77,8 @@ Widget smallCard(providerData, onTap, context) => InkWell(
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.start,
                             style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
