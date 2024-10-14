@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloudinary_flutter/cloudinary_context.dart';
-import 'package:cloudinary_url_gen/cloudinary.dart';
 import 'package:delivery/Dio/Dio.dart';
 import 'package:delivery/Utilities/FilesHandler/files_cubit.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
@@ -27,6 +25,7 @@ import 'Utilities/git_it.dart';
 import 'Utilities/shared_preferences.dart';
 import 'bloc_observer.dart';
 import 'common/translate/app_local.dart';
+import 'features/Notifications/notifications_cubit.dart';
 import 'features/home/screens/home.dart';
 import 'features/main_category_page/controller/category_cubit.dart';
 import 'features/onboarding/screen/onboarding.dart';
@@ -48,12 +47,14 @@ void main() async {
       projectId: "delivery-c021a", //paste your project id here
     ),
   );
-  CloudinaryContext.cloudinary =
-      Cloudinary.fromCloudName(cloudName: "dmzdzq3ug");
+  // CloudinaryContext.cloudinary =
+  //     Cloudinary.fromCloudName(cloudName: "dmzdzq3ug");
   bool? onboard = Save.getdata(key: 'save');
   token = Save.getdata(key: 'token');
-  print(token);
-  print(customerId);
+  if (kDebugMode) {
+    print(token);
+    print(customerId);
+  }
   Widget widget;
   if (onboard != null && onboard != false) {
     widget = const Home();
@@ -74,10 +75,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-   /* print("initState>>>>>>>>>>>>>>>>>>> customerId=${Save.getdata(key: 'customerId')}}");
+    /* print("initState>>>>>>>>>>>>>>>>>>> customerId=${Save.getdata(key: 'customerId')}}");
     print("   token ${SharedPref.getToken()}");
     //  String? json = Save.getdata(key: 'myCart');
     //  print('init after>>>>>>>>>>>>>>>>>>${jsonDecode(json??'') } ');
@@ -85,16 +86,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     //todo remove isRestaurant
     removeRestaurant();
     print("   token ${SharedPref.getToken()}");
-
   }
+
   Future<void> removeRestaurant() async {
     String? json = Save.getdata(key: 'myCart');
 
-
     if (json != null) {
-
-      List<Map<String, dynamic>> cardList =
-      (jsonDecode(json) as List<dynamic>)
+      List<Map<String, dynamic>> cardList = (jsonDecode(json) as List<dynamic>)
           .map((item) => Map<String, dynamic>.from(item))
           .toList();
       cardList.removeWhere((item) => item["isRestaurant"] == true);
@@ -102,10 +100,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
       try {
         bool onSave = await Save.savedata(key: 'myCart', value: encodedData);
-        if (onSave) {
-        }
+        if (onSave) {}
       } catch (e) {
-        print('Error saving data: $e');
+        if (kDebugMode) {
+          print('Error saving data: $e');
+        }
       }
     }
   }
@@ -117,12 +116,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
- Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.detached) {
-
-
-     await removeRestaurant();
-     print('detached>>>>>>>>>>>>>>>>>>');
+      await removeRestaurant();
+      if (kDebugMode) {
+        print('detached>>>>>>>>>>>>>>>>>>');
+      }
     }
     if (state == AppLifecycleState.resumed) {
       if (kDebugMode) {
@@ -166,6 +165,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           create: (context) => AccountCubit()..getNewCustomer(context),
         ),
         BlocProvider<MapCubit>(create: (context) => MapCubit()),
+        BlocProvider<NotificationCubit>(
+            create: (context) => NotificationCubit()),
         BlocProvider<OrderCubit>(create: (context) => OrderCubit()),
         BlocProvider<AppDarkLightCubit>(
           create: (context) =>
@@ -196,7 +197,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         designSize: const Size(428, 926),
         child: BlocBuilder<AppDarkLightCubit, AppDarkLightState>(
           builder: (context, state) {
-            // AppDarkLightCubit.get(context).getCurrentTheme();
+            if (customerId != null) {
+              NotificationCubit.get(context).subscribeToNotifications(
+                  userId: customerId!, userType: 'CUSTOMER');
+            }
             return MaterialApp(
               theme: lightMode,
               debugShowCheckedModeBanner: false,

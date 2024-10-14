@@ -128,6 +128,7 @@ Widget homeBody(scrollController, controller, context) =>
                                     child: bigCardHome(
                                         providers?.categories?[categoryIndex]
                                             .providers?[index], () {
+                                      ProviderCubit.get(context).currentIndex=0;
                                       ProviderCubit.get(context)
                                           .expandedHeight = 80;
                                       ProviderCubit.get(context).opecity = 1;
