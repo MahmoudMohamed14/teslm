@@ -14,7 +14,13 @@ Widget categoryLoading(categoryName,view,context)=>ListView(children: [
       itemBuilder: (context,index)=>Container(
       padding:const EdgeInsets.all(10),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-      child: Skeleton(height: 100.0,width:MediaQuery.sizeOf(context).width / 2 ),
+      child: Row(
+        children: [
+          Skeleton(height: 200.0,width: 100.0 ),
+          Skeleton(height: 200.0,width: 100.0 ),
+          Skeleton(height: 200.0,width: 100.0 ),
+        ],
+      ),
     ),),
   ),
   const SizedBox(height: 5,),

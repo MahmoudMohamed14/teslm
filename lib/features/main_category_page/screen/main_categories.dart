@@ -123,6 +123,7 @@ class MainCategories extends StatelessWidget {
                               padding:const EdgeInsets.only(left: 8.0,right: 8.0),
                               child: bigCardCategory(providerItem,
                                 () {
+                                  ProviderCubit.get(context).currentIndex=0;
                                   ProviderCubit.get(context).expandedHeight=80;
                                   ProviderCubit.get(context).opecity=1;
                               ProviderCubit.get(context).getProviderData(providerItem.id);
@@ -155,7 +156,7 @@ class MainCategories extends StatelessWidget {
                             : Padding(
                               padding: const EdgeInsets.only(left: 8.0,right: 8.0),
                               child: smallCard(providerItem, () {
-
+                                ProviderCubit.get(context).currentIndex=0;
                                 ProviderCubit.get(context).expandedHeight=80;
                                 ProviderCubit.get(context).opecity=1;
                                 ProviderCubit.get(context).getProviderData(providerItem.id);

@@ -15,7 +15,10 @@ Widget categorySlider(context)=>CarouselSlider(
       child:InkWell(
         onTap: (){
 
-
+          ProviderCubit.get(context)
+              .expandedHeight = 80;
+          ProviderCubit.get(context).opecity = 1;
+          ProviderCubit.get(context).currentIndex=0;
           ProviderCubit.get(context).getProviderData('${e.provider?.id}');
           if ((e.provider?.categories?.firstOrNull?.name?.en?.toLowerCase()??'') == 'restaurants') {
 

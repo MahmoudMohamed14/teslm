@@ -18,6 +18,10 @@ Widget slider(market, controller, context) => CarouselSlider(
               padding: const EdgeInsets.only(top: 10.0, right: 10),
               child: InkWell(
                 onTap: () {
+                  ProviderCubit.get(context)
+                      .expandedHeight = 80;
+                  ProviderCubit.get(context).opecity = 1;
+                  ProviderCubit.get(context).currentIndex=0;
                   print(e.provider?.categories?.length??'test');
                   //  Save.remove(key: 'MyCart');
                   if ((e.provider?.categories?.firstOrNull?.name?.en?.toLowerCase()??'') == 'restaurants') {
