@@ -26,7 +26,8 @@ class HomeDataHandler {
     }
   }
 
-  static Future<Either<Failure, List<CategoriesModel>>> getCategoryHome() async {
+  static Future<Either<Failure, List<CategoriesModel>>>
+      getCategoryHome() async {
     try {
       List<CategoriesModel> response = await GenericRequest<CategoriesModel>(
         method: HttpRequestHandler.get(
