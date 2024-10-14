@@ -148,4 +148,10 @@ class Strings {
   static const String confirmLocation= "confirm_location";
   static const String messageDiscountCoupon= "messageDiscountCoupon";
   static const String messageShippingCoupon= "messageShippingCoupon";
+  static const String cardNumber= "cardNumber";
+  static const String cardHolderName= "cardHolderName";
+  static const String expiryDate= "expiryDate";
+  static const String cvv= "cvv";
+  static const String addPaymentName= "addPayment";
+
 }

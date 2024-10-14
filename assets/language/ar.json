@@ -156,5 +156,10 @@
   "confirm_location": "تاكيد الموقع",
   "messageMinimumCoupon":"الحد الادنى للقيمة لاستخدام هذا الكوبون هو",
   "messageDiscountCoupon": "تم خصم من مبلغ الطلب ",
-  "messageShippingCoupon": "تم خصم  مبلغ الشحن"
+  "messageShippingCoupon": "تم خصم  مبلغ الشحن",
+  "cardNumber": "رقم البطاقة",
+  "cardHolderName": "اسم صاحب البطاقة",
+  "expiryDate": "تاريخ انتهاء الصلاحية",
+  "cvv": "CVV/CVC",
+  "addPayment": "اضافة طريقة الدفع"
 }

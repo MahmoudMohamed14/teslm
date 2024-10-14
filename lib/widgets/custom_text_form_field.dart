@@ -32,7 +32,9 @@ class CustomTextFormField extends StatelessWidget {
   final List<TextInputFormatter>? formatter;
   final TextInputAction? textInputAction;
   final bool? expands;
+  final int?maxLength;
   final bool enable,
+
       isClickable,
       autoFocus,
       cancelDisableBackground,
@@ -46,6 +48,7 @@ class CustomTextFormField extends StatelessWidget {
     this.style,
     this.onchange,
     this.title,
+    this.maxLength,
     this.validator,
     this.maxLine,
     this.hint,
@@ -109,6 +112,7 @@ class CustomTextFormField extends StatelessWidget {
           child: TextFormField(
             keyboardType: textInputType,
             onChanged: onchange,
+            maxLength:maxLength ,
 
             style: TextStyleHelper.of(context).regular16,
             enabled: enable,
@@ -123,6 +127,7 @@ class CustomTextFormField extends StatelessWidget {
             focusNode: focusNode,
             readOnly: readOnly ?? false,
             textAlignVertical: TextAlignVertical.center,
+
             validator: validator,
             inputFormatters: formatter,
             obscureText: obscure ?? false,
@@ -138,11 +143,10 @@ class CustomTextFormField extends StatelessWidget {
                 maxHeight: 32.h,
                 maxWidth: 48.w,
               ),
-              errorStyle: const TextStyle(height: 0, fontSize: 0),
-              enabledBorder: getBorder(context,
-                  radius: borderRadiusValue, color: borderColor),
-              disabledBorder: getBorder(context,
-                  radius: borderRadiusValue, color: borderColor),
+              errorStyle:  TextStyle(height: 48.h, fontSize:0,color: ThemeModel.of(context).font1),
+
+              enabledBorder: getBorder(context, radius: borderRadiusValue, color: borderColor),
+              disabledBorder: getBorder(context, radius: borderRadiusValue, color: borderColor),
               errorBorder: getBorder(context,color: Colors.red,radius: borderRadiusValue),
               focusedBorder: getBorder(context, radius: borderRadiusValue),
               border: getBorder(context, radius: borderRadiusValue),

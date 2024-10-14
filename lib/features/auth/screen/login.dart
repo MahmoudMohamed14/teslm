@@ -1,6 +1,7 @@
 import 'package:delivery/common/colors/theme_model.dart';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/auth/widget/phone_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,7 @@ import '../../../common/colors/colors.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
 import '../controller/auth_cubit.dart';
-import '../widget/phone_field_widget.dart';
+
 
 class Login extends StatefulWidget {
   const Login({super.key, this.fromOrder = false});
