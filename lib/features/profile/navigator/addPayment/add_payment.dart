@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:moyasar/moyasar.dart';
 
 import '../../../../common/colors/theme_model.dart';
@@ -15,6 +16,7 @@ import '../../../../common/colors/theme_model.dart';
 import '../../../../common/components.dart';
 import '../../../../common/text_style_helper.dart';
 import '../../../../widgets/app_text_widget.dart';
+import '../../../../widgets/credit_card_widget.dart';
 import '../../../../widgets/custom_text_form_field.dart';
 
 
@@ -38,6 +40,20 @@ class AddPayment extends StatelessWidget {
           //mainAxisSize: MainAxisSize.min,
           children: [
             Center(child: AppTextWidget(Strings.addPaymentName.tr(context), style: TextStyleHelper.of(context).bold20.copyWith(color: ThemeModel.of(context).font1,),textAlign: TextAlign.center,)),
+          32.h.heightBox,
+            Swiper(
+              itemWidth: double.infinity,
+                itemHeight: 255,
+                loop: true,
+                duration: 500,
+                scrollDirection: Axis.horizontal,
+                layout: SwiperLayout.TINDER,
+                itemBuilder: (context, index) {
+                  return CreditCardWidget(id: index,);
+                },
+                itemCount: 1
+            ),
+
           32.h.heightBox,
             Column(
               children: [
