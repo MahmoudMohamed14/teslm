@@ -31,9 +31,10 @@ abstract class DioHelper {
         url, // is the path that i will move in it will change while bring data so i need to make a parameter form it so when it is changed i see this change
     Map<String, dynamic>? query,
     Map<String, dynamic>? data,
+    Map<String, dynamic>? headers,
     String? token,
   }) async {
-    dio!.options.headers = {
+    dio!.options.headers = headers??{
       'Content-Type': 'application/json',
       'lang': 'ar',
       'Authorization': token ?? '',

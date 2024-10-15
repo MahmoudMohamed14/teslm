@@ -25,12 +25,15 @@ class GenericRequest<T> {
         statusMessage: statusMessage,
       ));
 
-  Future<T> getObject({bool printBody = true}) async {
+  Future<T> getObject(
+      {bool printBody = true, bool useCustomHeader = false}) async {
     Map<String, dynamic> response;
     if (method.body.isNotEmpty) {
-      response = await method.request(printBody: printBody);
+      response = await method.request(
+          printBody: printBody, useCustomHeader: useCustomHeader);
     } else {
-      response = await method.requestJson(printBody: printBody);
+      response = await method.requestJson(
+          printBody: printBody, useCustomHeader: useCustomHeader);
     }
     if (response["data"] is! Map) {
       if (kDebugMode) {
@@ -56,12 +59,15 @@ class GenericRequest<T> {
     }
   }
 
-  Future<List<T>> getList({bool printBody = true}) async {
+  Future<List<T>> getList(
+      {bool printBody = true, bool useCustomHeader = false}) async {
     Map<String, dynamic> response;
     if (method.body.isNotEmpty) {
-      response = await method.request(printBody: printBody);
+      response = await method.request(
+          printBody: printBody, useCustomHeader: useCustomHeader);
     } else {
-      response = await method.requestJson(printBody: printBody);
+      response = await method.requestJson(
+          printBody: printBody, useCustomHeader: useCustomHeader);
     }
     if (!(response["data"] is List || response["data"]["data"] is List)) {
       throw errorModel(response, "data is not compatible with expected data",
@@ -89,12 +95,15 @@ class GenericRequest<T> {
     }
   }
 
-  Future<T> getResponse({bool printBody = true}) async {
+  Future<T> getResponse(
+      {bool printBody = true, bool useCustomHeader = false}) async {
     Map<String, dynamic> response;
     if (method.body.isNotEmpty) {
-      response = await method.request(printBody: printBody);
+      response = await method.request(
+          printBody: printBody, useCustomHeader: useCustomHeader);
     } else {
-      response = await method.requestJson(printBody: printBody);
+      response = await method.requestJson(
+          printBody: printBody, useCustomHeader: useCustomHeader);
     }
 
     try {

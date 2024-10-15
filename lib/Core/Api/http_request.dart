@@ -14,6 +14,7 @@ import '../Error/exceptions.dart';
 import '../Network/error_message_model.dart';
 
 class HttpRequestHandler {
+  final bool useCustomHeader;
   final Uri uri;
   final Map<String, String> body;
   final Map<String, dynamic> bodyJson;
@@ -22,6 +23,7 @@ class HttpRequestHandler {
   final String method;
 
   HttpRequestHandler.post({
+    this.useCustomHeader = false,
     required String url,
     required this.body,
     this.files = const [],
@@ -31,6 +33,7 @@ class HttpRequestHandler {
         bodyJson = {};
 
   HttpRequestHandler.postJson({
+    this.useCustomHeader = false,
     required String url,
     required this.bodyJson,
     this.headers,
@@ -40,6 +43,7 @@ class HttpRequestHandler {
         body = {};
 
   HttpRequestHandler.patchJson({
+    this.useCustomHeader = false,
     required String url,
     required this.bodyJson,
     this.headers,
@@ -49,6 +53,7 @@ class HttpRequestHandler {
         body = {};
 
   HttpRequestHandler.put({
+    this.useCustomHeader = false,
     required String url,
     required this.body,
     this.files = const [],
@@ -58,6 +63,7 @@ class HttpRequestHandler {
         bodyJson = {};
 
   HttpRequestHandler.putJson({
+    this.useCustomHeader = false,
     required String url,
     required this.bodyJson,
     this.headers,
@@ -68,6 +74,7 @@ class HttpRequestHandler {
 
   //  todo
   HttpRequestHandler.postJsonUri({
+    this.useCustomHeader = false,
     required this.uri,
     required this.bodyJson,
     this.headers,
@@ -75,6 +82,7 @@ class HttpRequestHandler {
         files = [],
         body = {};
   HttpRequestHandler.putJsonUri({
+    this.useCustomHeader = false,
     required this.uri,
     required this.bodyJson,
     this.headers,
@@ -83,6 +91,7 @@ class HttpRequestHandler {
         body = {};
 
   HttpRequestHandler.get({
+    this.useCustomHeader = false,
     required String url,
     this.headers,
   })  : method = "GET",
@@ -92,6 +101,7 @@ class HttpRequestHandler {
         bodyJson = {};
 
   HttpRequestHandler.getUri({
+    this.useCustomHeader = false,
     required this.uri,
     this.headers,
   })  : method = "GET",
@@ -100,6 +110,7 @@ class HttpRequestHandler {
         bodyJson = {};
 
   HttpRequestHandler.delete({
+    this.useCustomHeader = false,
     required String url,
     required this.bodyJson,
     this.headers,
@@ -109,6 +120,7 @@ class HttpRequestHandler {
         uri = Uri.parse(url);
 
   HttpRequestHandler.deleteUri({
+    this.useCustomHeader = false,
     required this.uri,
     this.headers,
   })  : method = "DELETE",
@@ -117,6 +129,7 @@ class HttpRequestHandler {
         bodyJson = {};
 
   HttpRequestHandler.customMethod({
+    this.useCustomHeader = false,
     required this.method,
     this.bodyJson = const {},
     required String url,
@@ -126,6 +139,7 @@ class HttpRequestHandler {
   }) : uri = Uri.parse(url);
 
   HttpRequestHandler.customMethodUri({
+    this.useCustomHeader = false,
     required this.method,
     required this.uri,
     this.bodyJson = const {},
@@ -134,7 +148,8 @@ class HttpRequestHandler {
     this.body = const {},
   });
 
-  Future<Map<String, dynamic>> request({bool printBody = true}) async {
+  Future<Map<String, dynamic>> request(
+      {bool printBody = true, bool useCustomHeader = false}) async {
     debugPrint(uri.toString());
     if (printBody) {
       debugPrint(json.encode(body));
@@ -143,10 +158,12 @@ class HttpRequestHandler {
     request.fields.addAll(body);
     request.files.addAll(files);
     if (headers != null) request.headers.addAll(headers!);
-    return await _ApiBaseHelper.httpSendRequest(request, this);
+    return await _ApiBaseHelper.httpSendRequest(request, this,
+        useCustomHeader: useCustomHeader);
   }
 
-  Future<Map<String, dynamic>> requestJson({bool printBody = true}) async {
+  Future<Map<String, dynamic>> requestJson(
+      {bool printBody = true, bool useCustomHeader = false}) async {
     print("Start>>>>>>>");
     debugPrint(uri.toString());
     if (printBody) {
@@ -155,24 +172,28 @@ class HttpRequestHandler {
     var request = Request(method, uri);
     request.body = json.encode(bodyJson);
     if (headers != null) request.headers.addAll(headers!);
-    return await _ApiBaseHelper.httpSendRequest(request, this);
+    return await _ApiBaseHelper.httpSendRequest(request, this,
+        useCustomHeader: useCustomHeader);
   }
 }
 
 class _ApiBaseHelper {
   static Future<dynamic> httpSendRequest(
-      BaseRequest request, HttpRequestHandler requestApi) async {
+      BaseRequest request, HttpRequestHandler requestApi,
+      {bool useCustomHeader = false}) async {
     StreamedResponse response;
     try {
       ///   -----
-      request.headers.addAll({
-        'Accept': '*/*',
-        'content-type': 'application/json',
-        "Authorization": "Bearer ${SharedPref.getToken()}",
-        "lat": SharedPref.getLatLng()?[0] ?? "",
-        "lng": SharedPref.getLatLng()?[1] ?? "",
-        // "lang": CURRENT_CONTEXT!.locale.languageCode
-      });
+      if (!useCustomHeader) {
+        request.headers.addAll({
+          'Accept': '*/*',
+          'content-type': 'application/json',
+          "Authorization": "Bearer ${SharedPref.getToken()}",
+          "lat": SharedPref.getLatLng()?[0] ?? "",
+          "lng": SharedPref.getLatLng()?[1] ?? "",
+          // "lang": CURRENT_CONTEXT!.locale.languageCode
+        });
+      }
 
       response = await request.send().timeout(const Duration(seconds: 60));
       debugPrint("statusCode: ${response.statusCode}");

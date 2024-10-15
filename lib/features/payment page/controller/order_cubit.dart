@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:delivery/common/end_points_api/api_end_points.dart';
 import 'package:delivery/common/translate/app_local.dart';
@@ -118,6 +119,32 @@ print(couponCode?.toJson());
       emit(CouponSuccess());
     });
   }
+  void payment(context) async {
+    emit(CouponLoading());
+    final result = await PostOrderDataHandler.paymentMethod();
+
+
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red.shade500,
+        content:  Align(
+            alignment: Alignment.center,child: Text(Strings.couponNotValid.tr(context),
+          style:const TextStyle(color: Colors.white),)),
+      ));
+     // Navigator.pop(context);
+      emit(CouponError());
+    }, (r) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.green.shade400,
+        content:  Align(
+            alignment: Alignment.center,child: Text(Strings.couponAddSuccessfully.tr(context),
+          style:const TextStyle(color: Colors.white),)),
+      ));
+      //Navigator.pop(context);
+      emit(CouponSuccess());
+    });
+  }
   List<Map<String, dynamic>> itemsValue=[];
   void postOrder({
     String? coupon,
@@ -193,4 +220,40 @@ print(couponCode?.toJson());
       emit(Reload());
     });
   }
+
+ /* void payment1(){
+
+
+    final data = {
+      "amount": 600,
+      "currency": "SAR",
+      "description": "Payment for order #123456789",
+      "callback_url": "https://example.com/thankyou",
+      "source": {
+        "type": "creditcard",
+        "name": "mahmoud mohamed",
+        "number": "4201320111111010",
+        "cvc": "123",
+        "month": "12",
+        "year": "26"
+      }};
+
+
+    const apiKey = 'pk_test_Z9MJdDVC96N12UzYPUgdkLREmQJHCmHdjZzY5EZm';
+    final encodedApiKey = base64Encode(utf8.encode(apiKey));
+
+    // Request headers
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic $encodedApiKey',
+    };
+    DioHelper.postData(url: 'https://api.moyasar.com/v1/payments',data:data,headers: headers).then((value) {
+      if(value.statusCode==201){
+        print("value.data =${value.data}");
+
+    }else{
+      print(value.data);}
+    }
+      );
+  }*/
 }

@@ -72,6 +72,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     });
 
     socket.on('newMessage', (data) {
+      print("New Message:>>>>>>>> $data");
       onNewMessage(data);
     });
 

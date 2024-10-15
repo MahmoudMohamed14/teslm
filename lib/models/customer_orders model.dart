@@ -25,9 +25,9 @@ class CustomerOrders {
 
 class OrderData {
   final String? id;
-  final int? totalPrice;
-  final int? shippingPrice;
-  final int? subtotal;
+  final double? totalPrice;
+  final double? shippingPrice;
+  final double? subtotal;
   final int? discount;
   final dynamic coupon;
   final dynamic location;
@@ -38,20 +38,35 @@ class OrderData {
   final String? customerNotes;
   final List<Items>? items;
   final Customer? customer;
-  final ProviderOrders ?providerOrders;
+  final ProviderOrders? providerOrders;
   final DeliveryPartner? deliveryPartner;
 
-  OrderData({this.id, this.totalPrice, this.shippingPrice, this.subtotal,
-    this.discount, this.coupon, this.location, this.status, this.serial,
-    this.createdAt, this.updatedAt, this.customerNotes, this.items,
-    this.customer, this.providerOrders, this.deliveryPartner});
+  OrderData(
+      {this.id,
+      this.totalPrice,
+      this.shippingPrice,
+      this.subtotal,
+      this.discount,
+      this.coupon,
+      this.location,
+      this.status,
+      this.serial,
+      this.createdAt,
+      this.updatedAt,
+      this.customerNotes,
+      this.items,
+      this.customer,
+      this.providerOrders,
+      this.deliveryPartner});
 
   factory OrderData.fromJson(Map<String, dynamic> json) {
     return OrderData(
       id: json['id'],
-      totalPrice: json['totalPrice'],
-      shippingPrice: json['shippingPrice'],
-      subtotal: json['subtotal'],
+      totalPrice:
+          double.tryParse(json['totalPrice']?.toString() ?? '0.0') ?? 0.0,
+      shippingPrice:
+          double.tryParse(json['shippingPrice']?.toString() ?? '0.0') ?? 0.0,
+      subtotal: double.tryParse(json['subtotal']?.toString() ?? '0.0') ?? 0.0,
       discount: json['discount'],
       coupon: json['coupon'],
       location: json['location'],
@@ -63,15 +78,14 @@ class OrderData {
       items: json['items'] != null
           ? (json['items'] as List).map((i) => Items.fromJson(i)).toList()
           : null,
-      customer: json['customer'] != null
-          ?  Customer.fromJson(json['customer'])
-          : null,
+      customer:
+          json['customer'] != null ? Customer.fromJson(json['customer']) : null,
       providerOrders: json['provider'] != null
-          ?  ProviderOrders.fromJson(json['provider'])
-          :null,
+          ? ProviderOrders.fromJson(json['provider'])
+          : null,
       deliveryPartner: json['deliveryPartner'] != null
-          ?  DeliveryPartner.fromJson(json['deliveryPartner'])
-          :null,
+          ? DeliveryPartner.fromJson(json['deliveryPartner'])
+          : null,
     );
   }
 
@@ -104,6 +118,7 @@ class OrderData {
     return data;
   }
 }
+
 class Location {
   String? type;
   List<double>? coordinates;
@@ -113,38 +128,39 @@ class Location {
     coordinates = json['coordinates'].cast<double>();
   }
 }
+
 class Items {
   final String? id;
   final int? quantity;
   final String? image;
-  final int? price;
+  final double? price;
   final Item? item;
   final List<SelectedOptionGroups>? selectedOptionGroups;
 
   Items(
       {this.id,
-        this.quantity,
-        this.image,
-        this.price,
-        this.item,
-        this.selectedOptionGroups});
+      this.quantity,
+      this.image,
+      this.price,
+      this.item,
+      this.selectedOptionGroups});
   factory Items.fromJson(Map<String, dynamic> json) {
     return Items(
       id: json['id'],
       quantity: json['quantity'],
       image: json['image'],
-      price: json['price'],
+      price: double.tryParse(json['price']?.toString() ?? '0.0') ?? 0.0,
       item: json['item'] != null ? Item.fromJson(json['item']) : null,
       selectedOptionGroups: json['selectedOptionGroups'] != null
           ? (json['selectedOptionGroups'] as List)
-          .map((i) => SelectedOptionGroups.fromJson(i))
-          .toList()
+              .map((i) => SelectedOptionGroups.fromJson(i))
+              .toList()
           : null,
     );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['quantity'] = quantity;
     data['image'] = image;
@@ -159,6 +175,7 @@ class Items {
     return data;
   }
 }
+
 class Translate {
   final String? ar;
   final String? en;
@@ -176,13 +193,13 @@ class Translate {
     data['en'] = en;
     return data;
   }
-
 }
+
 class Item {
   final String? id;
   final Translate? name;
   final int? calories;
-  final int? price;
+  final double? price;
   final int? discount;
   final bool? topItem;
   final String? image;
@@ -190,27 +207,28 @@ class Item {
 
   Item(
       {this.id,
-        this.name,
-        this.calories,
-        this.price,
-        this.discount,
-        this.topItem,
-        this.image,
-        this.description});
+      this.name,
+      this.calories,
+      this.price,
+      this.discount,
+      this.topItem,
+      this.image,
+      this.description});
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
       id: json['id'],
-      name: json['name'] != null ?  Translate.fromJson(json['name']) : null,
+      name: json['name'] != null ? Translate.fromJson(json['name']) : null,
       calories: json['calories'],
-      price: json['price'],
+      price: double.tryParse(json['price']?.toString() ?? '0.0') ?? 0.0,
       discount: json['discount'],
       topItem: json['top_item'],
       image: json['image'],
       description: json['description'] != null
-          ?  Translate.fromJson(json['description'])
+          ? Translate.fromJson(json['description'])
           : null,
-    );}
+    );
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -242,14 +260,14 @@ class SelectedOptionGroups {
       name: json['name'] != null ? Translate.fromJson(json['name']) : null,
       selectedOption: json['selectedOption'] != null
           ? (json['selectedOption'] as List)
-          .map((i) => SelectedOption.fromJson(i))
-          .toList()
+              .map((i) => SelectedOption.fromJson(i))
+              .toList()
           : null,
     );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     if (name != null) {
       data['name'] = name!.toJson();
@@ -263,7 +281,7 @@ class SelectedOptionGroups {
 
 class SelectedOption {
   final String? id;
-  final int? price;
+  final double? price;
   final Translate? name;
   final String? image;
 
@@ -271,7 +289,7 @@ class SelectedOption {
   factory SelectedOption.fromJson(Map<String, dynamic> json) {
     return SelectedOption(
       id: json['id'],
-      price: json['price'],
+      price: double.tryParse(json['price']?.toString() ?? '0.0') ?? 0.0,
       name: json['name'] != null ? Translate.fromJson(json['name']) : null,
       image: json['image'],
     );
@@ -300,12 +318,12 @@ class Customer {
 
   Customer(
       {this.id,
-        this.name,
-        this.email,
-        this.birthdate,
-        this.phoneNumber,
-        this.address,
-        this.isDeleted});
+      this.name,
+      this.email,
+      this.birthdate,
+      this.phoneNumber,
+      this.address,
+      this.isDeleted});
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     return Customer(
@@ -352,28 +370,26 @@ class DeliveryPartner {
   final int? totalReviews;
   final int? reviewCount;
 
-
-  DeliveryPartner(
-      {this.id,
-        this.name,
-        this.phoneNumber,
-        this.profilePhoto,
-        this.city,
-        this.district,
-        this.residencyNumber,
-        this.residencyPhoto,
-        this.licenseNumber,
-        this.licensePhoto,
-        this.status,
-        this.vehicleNumber,
-        this.vehicleLicensePhoto,
-        this.currentLocation,
-        this.isAvailable,
-        this.createdAt,
-        this.totalReviews,
-        this.reviewCount,
-
-      });
+  DeliveryPartner({
+    this.id,
+    this.name,
+    this.phoneNumber,
+    this.profilePhoto,
+    this.city,
+    this.district,
+    this.residencyNumber,
+    this.residencyPhoto,
+    this.licenseNumber,
+    this.licensePhoto,
+    this.status,
+    this.vehicleNumber,
+    this.vehicleLicensePhoto,
+    this.currentLocation,
+    this.isAvailable,
+    this.createdAt,
+    this.totalReviews,
+    this.reviewCount,
+  });
 
   factory DeliveryPartner.fromJson(Map<String, dynamic> json) {
     return DeliveryPartner(
@@ -418,6 +434,7 @@ class DeliveryPartner {
     return data;
   }
 }
+
 class ProviderOrders {
   final String? id;
   final Translate? providerName;
@@ -430,24 +447,24 @@ class ProviderOrders {
 
   ProviderOrders(
       {this.id,
-        this.providerName,
-        this.providerImage,
-        this.providerCover,
-        this.description,
-        this.createdAt,
-        this.totalReviews,
-        this.reviewCount});
+      this.providerName,
+      this.providerImage,
+      this.providerCover,
+      this.description,
+      this.createdAt,
+      this.totalReviews,
+      this.reviewCount});
 
   factory ProviderOrders.fromJson(Map<String, dynamic> json) {
     return ProviderOrders(
       id: json['id'],
       providerName: json['provider_name'] != null
-          ?  Translate.fromJson(json['provider_name'])
+          ? Translate.fromJson(json['provider_name'])
           : null,
       providerImage: json['provider_image'],
       providerCover: json['provider_cover'],
       description: json['description'] != null
-          ?  Translate.fromJson(json['description'])
+          ? Translate.fromJson(json['description'])
           : null,
       createdAt: json['createdAt'],
       totalReviews: json['totalReviews'],
@@ -471,5 +488,4 @@ class ProviderOrders {
     data['reviewCount'] = reviewCount;
     return data;
   }
-
 }
