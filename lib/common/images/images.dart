@@ -20,6 +20,7 @@ class ImagesApp {
   static const String phoneIcon = '$_iconPath/phoneIcon.svg';
   static const String pointerIcon = '$_iconPath/pointerIcon.svg';
   static const String salaIcon = '$_iconPath/salaIcon.svg';
+  static const String addPayment = '$_iconPath/addPayment.svg';
   static const String categorySmallViewImage = 'assets/images/smallView.svg';
   static const String categoryBigViewImage = 'assets/images/bigView.svg';
   static const String codeImage = 'assets/images/codeImage.png';

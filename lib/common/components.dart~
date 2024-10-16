@@ -172,6 +172,7 @@ Widget date(text, selected, context) {
     ),
   );
 }
+
 navigate(context, screen) {
   Navigator.of(context).push(MaterialPageRoute(builder: (context) => screen));
 }
@@ -384,6 +385,7 @@ Widget Skeleton({height, width, radius}) {
         ),
       ));
 }
+
 Widget image(url, height, width, reduis, fit,
         {BorderRadiusGeometry? borderRadius}) =>
     ClipRRect(
@@ -418,6 +420,7 @@ Widget topBar(name, color, textColor) => Container(
         ),
       ),
     );
+
 Widget seperate() => Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(

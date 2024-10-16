@@ -4,6 +4,7 @@ import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
+import 'package:delivery/features/payment%20page/screen/pay_screen.dart';
 import 'package:delivery/features/payment%20page/widget/copoun_bottom_sheet.dart';
 import 'package:delivery/features/profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import 'package:flutter/material.dart';
@@ -27,15 +28,31 @@ class Payment extends StatefulWidget {
   State<Payment> createState() => _PaymentState();
 }
 
-class _PaymentState extends State<Payment> {
+class _PaymentState extends State<Payment>with WidgetsBindingObserver {
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    OrderCubit.get(context).couponCode=null;
-    OrderCubit.get(context).couponDiscount=0.0;
-    OrderCubit.get(context).shippingPrice=15;
-    OrderCubit.get(context).isShippingDiscount=false;
+    WidgetsBinding.instance.addObserver(this);
+    OrderCubit.get(context).init();
+    OrderCubit.get(context).customerNotes=widget.customerNotes;
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this); // Remove observer
+    super.dispose();
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state)  {
+    if (state == AppLifecycleState.resumed && OrderCubit.get(context).fromBack)  {
+  /*  OrderCubit.get(context).getPayoutById().then((onValue){
+      OrderCubit.get(context).fromBack=false;
+      print("AppLifecycleState.resumed");
+    });*/
+
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -114,7 +131,10 @@ class _PaymentState extends State<Payment> {
                     size: 30.0,
                   ) : BottomWidget(Strings.confirmOrder.tr(context), (){
                     print(values);
-                    OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: widget.customerNotes,context: context);
+                    navigate(context, const PayScreen());
+                  //  OrderCubit.get(context).payment(context);
+                  //  OrderCubit.get(context).getPayoutById();
+                   // OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: widget.customerNotes,context: context);
                   },radius: 20,),
                   const SizedBox(height: 10,),
                 ],

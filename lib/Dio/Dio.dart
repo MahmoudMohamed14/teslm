@@ -16,12 +16,14 @@ abstract class DioHelper {
   static Future<Response> getData({
     required String url,
     Map<String, dynamic>? query,
+    Map<String, dynamic>? headers,
     String? token,
   }) async {
-    dio!.options.headers = {
+    dio!.options.headers =headers?? {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token'
     };
+    print('url is $url');
 
     return await dio!.get(url, queryParameters: query);
   }
