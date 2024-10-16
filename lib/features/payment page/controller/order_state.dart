@@ -19,4 +19,13 @@ class PostOrderSuccess extends OrderState{}
 class PostOrderError extends OrderState{}
 
 class Reload extends OrderState{}
+class ActionPaymentLoading extends OrderState{}
 
+class ActionPaymentSuccess extends OrderState{}
+
+class ActionPaymentError extends OrderState{}
+class GetStatusPaymentLoading extends OrderState{}
+
+class GetStatusPaymentSuccess extends OrderState{}
+
+class GetStatusPaymentError extends OrderState{}

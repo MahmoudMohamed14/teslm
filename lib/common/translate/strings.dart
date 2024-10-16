@@ -153,6 +153,14 @@ class Strings {
   static const String expiryDate= "expiryDate";
   static const String cvv= "cvv";
   static const String addPaymentName= "addPayment";
+  static const String cartNumberIsRequired = "cartNumberIsRequired";
+  static const String cardHolderNameIsRequired = "cardHolderNameIsRequired";
+  static const String expiryDateIsRequired = "expiryDateIsRequired";
+  static const String cvvIsRequired = "cvvIsRequired";
+  static const String enterValidExpiryDate = "enterValidExpiryDate";
+  static const String cartNumberMustBe16Digits = "cartNumberMustBe16Digits";
+  static const String cardIsExpired = "cardIsExpired";
+  static const String cvvMustBe3Or4Digits = "cvvMustBe3Or4Digits";
   static const String scheduledOrder= "scheduled_order";
   static const String scheduledOrderDate= "scheduled_order_date";
 

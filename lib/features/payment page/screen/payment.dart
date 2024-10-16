@@ -4,6 +4,7 @@ import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
+import 'package:delivery/features/payment%20page/screen/pay_screen.dart';
 import 'package:delivery/features/payment%20page/widget/copoun_bottom_sheet.dart';
 import 'package:delivery/features/profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import 'package:flutter/material.dart';
@@ -28,17 +29,33 @@ class Payment extends StatefulWidget {
   State<Payment> createState() => _PaymentState();
 }
 
-class _PaymentState extends State<Payment> {
-  DateTime? selectedDate;
-  TimeOfDay? selectedTime;
+class _PaymentState extends State<Payment>with WidgetsBindingObserver {
+
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    OrderCubit.get(context).couponCode=null;
-    OrderCubit.get(context).couponDiscount=0.0;
-    OrderCubit.get(context).shippingPrice=15;
-    OrderCubit.get(context).isShippingDiscount=false;
+    WidgetsBinding.instance.addObserver(this);
+    OrderCubit.get(context).init();
+    OrderCubit.get(context).customerNotes=widget.customerNotes;
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this); // Remove observer
+    super.dispose();
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state)  {
+    if (state == AppLifecycleState.resumed && OrderCubit.get(context).fromBack)  {
+  /*  OrderCubit.get(context).getPayoutById().then((onValue){
+      OrderCubit.get(context).fromBack=false;
+      print("AppLifecycleState.resumed");
+    });*/
+
+    }
   }
   // Method to pick a date
   Future<void> _selectDateTime(BuildContext context) async {
@@ -57,8 +74,8 @@ class _PaymentState extends State<Payment> {
 
       if (pickedTime != null) {
         setState(() {
-          selectedDate = pickedDate;
-          selectedTime = pickedTime;
+          OrderCubit.get(context). selectedDate = pickedDate;
+          OrderCubit.get(context).selectedTime = pickedTime;
         });
       }
     }
@@ -70,6 +87,7 @@ class _PaymentState extends State<Payment> {
     // TODO: implement listener
   },
   builder: (context, state) {
+    var cubit=OrderCubit.get(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -142,7 +160,12 @@ class _PaymentState extends State<Payment> {
                     size: 30.0,
                   ) : BottomWidget(Strings.confirmOrder.tr(context), (){
                     print(values);
-                      OrderCubit.get(context).postOrder(items: values,
+                    navigate(context, const PayScreen());
+                  //  OrderCubit.get(context).payment(context);
+                  //  OrderCubit.get(context).getPayoutById();
+                   // OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: widget.customerNotes,context: context);
+                  },radius: 20,),
+                      /*OrderCubit.get(context).postOrder(items: values,
                           coupon: OrderCubit
                               .get(context)
                               .couponCode
@@ -151,7 +174,7 @@ class _PaymentState extends State<Payment> {
                           scheduledDate:selectedDate != null && selectedTime != null? DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, selectedTime!.hour, selectedTime!.minute):null,
                           isScheduled:selectedDate != null && selectedTime != null? true:false,
                           context: context);
-                    },radius: 20,),
+                    },radius: 20,),*/
                   const SizedBox(height: 10,),
                 ],
               ),
@@ -174,8 +197,8 @@ class _PaymentState extends State<Payment> {
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(left: 15.0,right: 15),
-          child: BottomWidget(selectedDate != null && selectedTime != null
-              ? "${DateFormat('yyyy-MM-dd').format(selectedDate!)} at ${selectedTime!.format(context)}"
+          child: BottomWidget(OrderCubit.get(context).selectedDate != null && OrderCubit.get(context).selectedTime != null
+              ? "${DateFormat('yyyy-MM-dd').format(OrderCubit.get(context).selectedDate!)} at ${OrderCubit.get(context).selectedTime!.format(context)}"
           : Strings.scheduledOrderDate.tr(context), ()=>_selectDateTime(context),radius: 20,),
         ),
       ],
