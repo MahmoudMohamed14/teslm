@@ -38,9 +38,9 @@ Widget orderCard(order,context){
                 ),
               ),
               Container(
-                decoration: BoxDecoration(color:order.status=='pending'? ThemeModel.of(context).pendingColor: Colors.green.shade400,
+                decoration: BoxDecoration(color:order.status=='pending'? ThemeModel.of(context).pendingColor:order.status=='scheduled'? Colors.blue.shade400: Colors.green.shade400,
                     borderRadius: BorderRadius.circular(5)),
-                padding: const EdgeInsets.only(left: 15,right: 15),child: Text('${order.status}',),)
+                padding: const EdgeInsets.only(left: 15,right: 15),child: Text('${order.status}',style: TextStyle(color:order.status=='pending'? Colors.black:Colors.white),),)
             ],),
         ],
       ),

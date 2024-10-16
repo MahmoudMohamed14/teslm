@@ -38,6 +38,8 @@ class PostOrderDataHandler {
     String? coupon,
     required List items,
     required String customerNotes,
+    bool? isScheduled, // Pass the scheduling status
+    DateTime? scheduledDate,
   }) async {
     try {
       print("coupon is $coupon");
@@ -47,7 +49,9 @@ class PostOrderDataHandler {
         method: HttpRequestHandler.postJson(url: ApiEndPoint.orders, bodyJson: {
           "couponId": coupon,
           "items": items,
-          "customerNotes": customerNotes
+          "customerNotes": customerNotes,
+          "isScheduled": isScheduled??false, // Pass the scheduling status
+          "scheduledDate":isScheduled??false? scheduledDate?.toIso8601String():null,
         }),
         fromMap: (data) {
           return data["statusCode"] == 200 || data["statusCode"] == 201;

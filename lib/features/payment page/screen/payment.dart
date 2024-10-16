@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../../provider page/controller/provider_cubit.dart';
@@ -30,6 +31,9 @@ class Payment extends StatefulWidget {
 
 class _PaymentState extends State<Payment>with WidgetsBindingObserver {
 
+
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
   @override
   void initState() {
     // TODO: implement initState
@@ -52,6 +56,29 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
       print("AppLifecycleState.resumed");
     });*/
 
+    }
+  }
+  // Method to pick a date
+  Future<void> _selectDateTime(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null) {
+      final TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        setState(() {
+          selectedDate = pickedDate;
+          selectedTime = pickedTime;
+        });
+      }
     }
   }
   @override
@@ -99,6 +126,8 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
                   const SizedBox(height: 10,),
                   paymentMethodCard(context),
                   const SizedBox(height: 10,),
+                  _buildScheduledDelivery(context),
+                  const SizedBox(height: 10,),
                   Text(Strings.orderSummary.tr(context),style:const TextStyle(fontSize: 19,fontWeight: FontWeight.w700,),),
                   Text(Strings.confirmVat.tr(context),style:const TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
                   const SizedBox(height: 10,),
@@ -136,6 +165,16 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
                   //  OrderCubit.get(context).getPayoutById();
                    // OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: widget.customerNotes,context: context);
                   },radius: 20,),
+                      OrderCubit.get(context).postOrder(items: values,
+                          coupon: OrderCubit
+                              .get(context)
+                              .couponCode
+                              ?.id,
+                          customerNotes: widget.customerNotes,
+                          scheduledDate:selectedDate != null && selectedTime != null? DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, selectedTime!.hour, selectedTime!.minute):null,
+                          isScheduled:selectedDate != null && selectedTime != null? true:false,
+                          context: context);
+                    },radius: 20,),
                   const SizedBox(height: 10,),
                 ],
               ),
@@ -145,6 +184,25 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
     );
   },
 );
+  }
+  // Widget for selecting scheduled delivery
+  Widget _buildScheduledDelivery(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          Strings.scheduledOrder.tr(context),
+          style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0,right: 15),
+          child: BottomWidget(selectedDate != null && selectedTime != null
+              ? "${DateFormat('yyyy-MM-dd').format(selectedDate!)} at ${selectedTime!.format(context)}"
+          : Strings.scheduledOrderDate.tr(context), ()=>_selectDateTime(context),radius: 20,),
+        ),
+      ],
+    );
   }
 }
 final TextEditingController _couponController = TextEditingController();

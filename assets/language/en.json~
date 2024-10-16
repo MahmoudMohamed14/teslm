@@ -157,16 +157,7 @@
   "expiryDate": "Expiry Date",
   "cvv": "CVV/CVC",
   "pay": "Pay",
-
-  "scheduled_order": "Scheduled order",
-  "scheduled_order_date": "Choose the order delivery time",
   "addPayment": "Add Payment",
-  "cartNumberIsRequired":"Card number is required",
-  "cardHolderNameIsRequired":"Card holder name is required",
-  "expiryDateIsRequired":"Expiry date is required",
-  "cvvIsRequired":"Cvv is required",
-  "enterValidExpiryDate":"Enter valid expiry date",
-  "cartNumberMustBe16Digits": "Card number must be 16 digits",
-  "cardIsExpired": "Card is expired",
-  "cvvMustBe3Or4Digits": "CVV must be 3 or 4 digits"
+  "scheduled_order": "Scheduled order",
+  "scheduled_order_date": "Choose "
 }

@@ -161,5 +161,7 @@ class Strings {
   static const String cartNumberMustBe16Digits = "cartNumberMustBe16Digits";
   static const String cardIsExpired = "cardIsExpired";
   static const String cvvMustBe3Or4Digits = "cvvMustBe3Or4Digits";
+  static const String scheduledOrder= "scheduled_order";
+  static const String scheduledOrderDate= "scheduled_order_date";
 
 }

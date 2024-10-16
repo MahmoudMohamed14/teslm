@@ -76,6 +76,7 @@ dependencies:
   flutter_background_service: ^5.0.10
   moyasar: ^2.0.13
   flutter_swiper_view: ^1.1.8
+  web_socket_channel: ^3.0.1
 
 
 
