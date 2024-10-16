@@ -33,6 +33,8 @@ class OrderCubit extends Cubit<OrderState> {
   double couponDiscount=0.0;
   bool isShippingDiscount=false;
   String customerNotes='';
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
 
   CouponData?couponCode;
   void init(){
@@ -351,7 +353,10 @@ String?id;
       if (response.statusCode == 200||response.statusCode==201) {
         if(response.data['status']=='paid'){
           emit(GetStatusPaymentSuccess());
-          postOrder(items: values,coupon:couponCode?.id,customerNotes: customerNotes,context: context);
+          postOrder(items: values,coupon:couponCode?.id,customerNotes: customerNotes,context: context
+              , scheduledDate:selectedDate != null && selectedTime != null? DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, selectedTime!.hour, selectedTime!.minute):null,
+            isScheduled:selectedDate != null && selectedTime != null? true:false,
+          );
 
         }
         print('Payout Data: ${response.data}');

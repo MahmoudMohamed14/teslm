@@ -32,8 +32,7 @@ class Payment extends StatefulWidget {
 class _PaymentState extends State<Payment>with WidgetsBindingObserver {
 
 
-  DateTime? selectedDate;
-  TimeOfDay? selectedTime;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -75,8 +74,8 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
 
       if (pickedTime != null) {
         setState(() {
-          selectedDate = pickedDate;
-          selectedTime = pickedTime;
+          OrderCubit.get(context). selectedDate = pickedDate;
+          OrderCubit.get(context).selectedTime = pickedTime;
         });
       }
     }
@@ -88,6 +87,7 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
     // TODO: implement listener
   },
   builder: (context, state) {
+    var cubit=OrderCubit.get(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -165,7 +165,7 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
                   //  OrderCubit.get(context).getPayoutById();
                    // OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: widget.customerNotes,context: context);
                   },radius: 20,),
-                      OrderCubit.get(context).postOrder(items: values,
+                      /*OrderCubit.get(context).postOrder(items: values,
                           coupon: OrderCubit
                               .get(context)
                               .couponCode
@@ -174,7 +174,7 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
                           scheduledDate:selectedDate != null && selectedTime != null? DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, selectedTime!.hour, selectedTime!.minute):null,
                           isScheduled:selectedDate != null && selectedTime != null? true:false,
                           context: context);
-                    },radius: 20,),
+                    },radius: 20,),*/
                   const SizedBox(height: 10,),
                 ],
               ),
@@ -197,8 +197,8 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
         const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(left: 15.0,right: 15),
-          child: BottomWidget(selectedDate != null && selectedTime != null
-              ? "${DateFormat('yyyy-MM-dd').format(selectedDate!)} at ${selectedTime!.format(context)}"
+          child: BottomWidget(OrderCubit.get(context).selectedDate != null && OrderCubit.get(context).selectedTime != null
+              ? "${DateFormat('yyyy-MM-dd').format(OrderCubit.get(context).selectedDate!)} at ${OrderCubit.get(context).selectedTime!.format(context)}"
           : Strings.scheduledOrderDate.tr(context), ()=>_selectDateTime(context),radius: 20,),
         ),
       ],
