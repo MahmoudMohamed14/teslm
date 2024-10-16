@@ -172,7 +172,7 @@ print(couponCode?.toJson());
         coupon: coupon,
         items: itemsValue,
         customerNotes: customerNotes,
-        scheduledDate: scheduledDate,
+        scheduledDate:scheduledDate!=null? scheduledDate?.toIso8601String():null,
         isScheduled: isScheduled
       );
    // }

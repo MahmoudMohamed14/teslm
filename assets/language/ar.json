@@ -161,5 +161,7 @@
   "cardHolderName": "اسم صاحب البطاقة",
   "expiryDate": "تاريخ انتهاء الصلاحية",
   "cvv": "CVV/CVC",
-  "addPayment": "اضافة طريقة الدفع"
+  "addPayment": "اضافة طريقة الدفع",
+  "scheduled_order": "جدولة الطلب",
+  "scheduled_order_date": "اختار ميعاد وصول الطلب"
 }
