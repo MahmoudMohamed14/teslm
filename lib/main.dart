@@ -25,7 +25,6 @@ import 'Utilities/git_it.dart';
 import 'Utilities/shared_preferences.dart';
 import 'bloc_observer.dart';
 import 'common/translate/app_local.dart';
-import 'features/Notifications/notification_service.dart';
 import 'features/home/screens/home.dart';
 import 'features/main_category_page/controller/category_cubit.dart';
 import 'features/onboarding/screen/onboarding.dart';
@@ -37,8 +36,11 @@ void main() async {
   await GitIt.initGitIt();
   DioHelper.init();
   await Save.init();
-  final webSocketService = SocketService();
-  webSocketService.initializeSocket();
+  // socket.onDisconnect((_) => print('disconnect'));
+  // socket.on('fromServer', (_) => print(_));
+  // final webSocketService = SocketService();
+  // webSocketService.initializeSocket();
+  // connectAndListen();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey:
