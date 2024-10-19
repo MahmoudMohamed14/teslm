@@ -153,5 +153,7 @@ class Strings {
   static const String expiryDate= "expiryDate";
   static const String cvv= "cvv";
   static const String addPaymentName= "addPayment";
+  static const String scheduledOrder= "scheduled_order";
+  static const String scheduledOrderDate= "scheduled_order_date";
 
 }

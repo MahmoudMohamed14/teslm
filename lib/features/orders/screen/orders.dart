@@ -51,7 +51,6 @@ class Orders extends StatelessWidget {
                       ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
-                        reverse: true,
                           itemCount: MyOrdersCubit.get(context).customerOrders?.data?.length??0,
                           itemBuilder: (context, index) =>
                               InkWell(
