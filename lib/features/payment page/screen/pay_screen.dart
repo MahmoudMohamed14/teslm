@@ -98,6 +98,7 @@ class _PayScreenState extends State<PayScreen> with WidgetsBindingObserver {
                             textInputType: TextInputType.number,
                             maxLength: 16,
                             controller: cardNumberController,
+
                             backGroundColor: ThemeModel.of(context).myAccountTextFieldLightColor,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -201,7 +202,7 @@ class _PayScreenState extends State<PayScreen> with WidgetsBindingObserver {
 
 
                       if (formKey.currentState!.validate()) {
-                        OrderCubit.get(context).actionPayment(cardNumber: cardNumberController.text, expiryMonth: '12',expiryYear: '26', name: nameController.text,total: (((ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)-(OrderCubit.get(context).couponDiscount).toInt())*100).toInt(),cvv: cvvController.text);
+                        OrderCubit.get(context).actionPayment(context,cardNumber: cardNumberController.text, expiryMonth: '12',expiryYear: '26', name: nameController.text,total: (((ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)-(OrderCubit.get(context).couponDiscount).toInt())*100).toInt(),cvv: cvvController.text);
                       }
 
                     },radius: 20,)

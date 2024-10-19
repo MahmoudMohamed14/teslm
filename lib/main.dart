@@ -262,6 +262,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               debugShowCheckedModeBanner: false,
               darkTheme: darkMode,
               themeMode: isDark ?? false ? ThemeMode.dark : ThemeMode.light,
+
               home: widget.start,
               locale: Locale(AppDarkLightCubit.get(context).lang),
               localizationsDelegates: const [
