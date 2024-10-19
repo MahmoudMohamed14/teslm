@@ -184,8 +184,11 @@ class _PayScreenState extends State<PayScreen> with WidgetsBindingObserver {
                             controller: nameController,
                             textInputType: TextInputType.text,
                             validator: (value) {
+                              final RegExp english = RegExp(r'^[a-zA-Z]+');
                               if (value == null || value.isEmpty) {
-                                return 'Cardholder name is required';
+                                return Strings.cardHolderNameIsRequired.tr(context);
+                              }else if(!english.hasMatch(value)){
+                                return "should be English letters only".tr(context);
                               }
                               return null;
                             },

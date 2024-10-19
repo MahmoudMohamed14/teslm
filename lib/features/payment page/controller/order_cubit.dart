@@ -306,10 +306,15 @@ String?id;
     // }
     //   );
       if (response.statusCode == 200||response.statusCode==201) {
+       if( response.data['source']['transaction_url']!=null){
+        _launchUrl(response.data['source']['transaction_url']??'');
         fromBack=true;
-        _launchUrl(response.data['source']['transaction_url']);
         id=response.data['id'];
-        emit(ActionPaymentSuccess());
+        emit(ActionPaymentSuccess());}else{
+         showDialogHelper(context, contentWidget:ErrorDialogPayment(message: response.data['source']['message'].toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+         emit(ActionPaymentError());
+
+       }
 
 
 
@@ -335,7 +340,11 @@ String?id;
         if (kDebugMode) {
           print('Error Response Data: ${e.response?.data}');
         }
-        showDialogHelper(context, contentWidget:ErrorDialogPayment(message: e.response?.data['errors']['source.number'].first.toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+        if(e.response?.data['errors']['source.number']!=null) {
+          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: e.response?.data['errors']['source.number'].first.toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+        }else if(e.response?.data['errors']['name']!=null){
+          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: e.response?.data['errors']['name'].first.toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+        }
         emit(ActionPaymentError());
       }
     } catch (e) {
