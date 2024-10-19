@@ -109,7 +109,7 @@ class EditInformation extends StatelessWidget {
                           ),
                         ),
                       //  const Spacer(),
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiY3VzdG9tZXIiLCJpZCI6IjU1NWQ1OTZkLTFhZWEtNDUwOS05YmVkLWEwM2MxY2VlOGM2YSIsImlhdCI6MTcyODQyMTAzNywiZXhwIjoxNzMxMDEzMDM3fQ.d-DKvc0CnFDEHy1Y4x-PMXxTmDWUUNOi5g84SOYw6ZY
+//G9tZXIiLCJpZCI6IjU1NWQ1OTZkLTFhZWEtNDUwOS05YmVkLWEwM2MxY2VlOGM2YSIsImlhdCI6MTcyODQyMTAzNywiZXhwIjoxNzMxMDEzMDM3fQ.d-DKvc0CnFDEHy1Y4x-PMXxTmDWUUNOi5g84SOYw6ZY
                         const SizedBox(
                           height: 10,
                         )
@@ -183,6 +183,7 @@ Widget profile(text, readOnly, controller, icon, context, {validate}) =>
               controller: controller,
               readOnly: readOnly,
               decoration: InputDecoration(
+
                 prefixIcon: Icon(
                   icon,
                 ),

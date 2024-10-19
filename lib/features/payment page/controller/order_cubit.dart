@@ -4,8 +4,11 @@ import 'dart:convert';
 import 'package:delivery/common/end_points_api/api_end_points.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path/path.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../Dio/Dio.dart';
 import '../../../common/components.dart';
@@ -29,8 +32,18 @@ class OrderCubit extends Cubit<OrderState> {
   double shippingPrice=15;
   double couponDiscount=0.0;
   bool isShippingDiscount=false;
+  String customerNotes='';
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
 
   CouponData?couponCode;
+  void init(){
+   couponCode=null;
+  couponDiscount=0.0;
+    shippingPrice=15;
+   isShippingDiscount=false;
+    fromBack=false;
+  }
 void getCoupon(BuildContext context, {CouponData ?value}) async {
   couponDiscount=0.0;
   isShippingDiscount=false;
@@ -119,7 +132,7 @@ print(couponCode?.toJson());
       emit(CouponSuccess());
     });
   }
-  void payment(context) async {
+  /*void payment(context) async {
     emit(CouponLoading());
     final result = await PostOrderDataHandler.paymentMethod();
 
@@ -144,7 +157,7 @@ print(couponCode?.toJson());
       //Navigator.pop(context);
       emit(CouponSuccess());
     });
-  }
+  }*/
   List<Map<String, dynamic>> itemsValue=[];
   void postOrder({
     String? coupon,
@@ -197,6 +210,7 @@ print(couponCode?.toJson());
       PointCubit.get(context).getPointsAndBalance();
       MyOrdersCubit.get(context).getCustomerOrders();
       couponCode=null;
+
       shippingPrice=15;
       couponDiscount=0.0;
       isShippingDiscount=false;
@@ -206,6 +220,7 @@ print(couponCode?.toJson());
       }
       couponData=null;
       navigateAndFinish(context,const Home());
+      fromBack=false;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
           alignment: Alignment.center,child: Text(Strings.orderDoneSuccessfully.tr(context),
         style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
@@ -214,6 +229,7 @@ print(couponCode?.toJson());
   }
   List<bool> isCheckedList =[ true,false,false];
   bool choosePadding =true;
+  bool fromBack=false;
   void changePaymentMethod(index){
     if(index==1){isCheckedList=[false,true,false];emit(Reload());}
     else if(index==2){isCheckedList=[false,false,true];emit(Reload());}
@@ -224,26 +240,39 @@ print(couponCode?.toJson());
       emit(Reload());
     });
   }
-
- /* void payment1(){
+  Future<void> _launchUrl(String url) async {
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+String?id;
+  Future<void> actionPayment({
+    String?name,
+    String?cardNumber,
+    String?cvv,
+    String?expiryMonth,
+    String?expiryYear,
+    int?total,
+}) async {
 
 
     final data = {
-      "amount": 600,
+      "amount":total,
       "currency": "SAR",
       "description": "Payment for order #123456789",
       "callback_url": "https://example.com/thankyou",
       "source": {
         "type": "creditcard",
-        "name": "mahmoud mohamed",
-        "number": "4201320111111010",
-        "cvc": "123",
-        "month": "12",
-        "year": "26"
+        "name": name,
+        "number": cardNumber,//"4201320111111010",
+        "cvc": cvv,
+        "month": expiryMonth,
+        "year": expiryYear
       }};
 
 
-    const apiKey = 'pk_test_Z9MJdDVC96N12UzYPUgdkLREmQJHCmHdjZzY5EZm';
+    const apiKey = 'sk_test_4hPQUZG3KYCdoRCRkQvoSYAtDyDdEYcRRk27a5mo';
     final encodedApiKey = base64Encode(utf8.encode(apiKey));
 
     // Request headers
@@ -251,13 +280,102 @@ print(couponCode?.toJson());
       'Content-Type': 'application/json',
       'Authorization': 'Basic $encodedApiKey',
     };
-    DioHelper.postData(url: 'https://api.moyasar.com/v1/payments',data:data,headers: headers).then((value) {
-      if(value.statusCode==201){
-        print("value.data =${value.data}");
+    try{
+      emit(ActionPaymentLoading());
+      print("payment value =${data}");
+     final response =await DioHelper.postData(url: 'https://api.moyasar.com/v1/payments',data:data,headers: headers);
+      // .then((value) {
+    //
+    //
+    //   if(value.statusCode==201){
+    //     fromBack=true;
+    //     _launchUrl(value.data['source']['transaction_url']);
+    //     id=value.data['id'];
+    //
+    //
+    //     print("value.data =${value.data}");
+    //
+    // }else{
+    //   print(value.data);}
+    // }
+    //   );
+      if (response.statusCode == 200||response.statusCode==201) {
+        fromBack=true;
+        _launchUrl(response.data['source']['transaction_url']);
+        id=response.data['id'];
+        emit(ActionPaymentSuccess());
 
-    }else{
-      print(value.data);}
+
+
+        print('Payout Data: ${response.data}');
+        // Handle payout data (e.g., update UI or save data)
+      } else {
+        print('Failed to fetch payout: ${response.statusCode}');
+        print('Response: ${response.data}');
+        emit(ActionPaymentError());
+      }
+    }on DioException catch (e) {
+      print('Dio Error: ${e.message}');
+      if (e.response != null) {
+        print('Error Response Data: ${e.response?.data}');
+        emit(ActionPaymentError());
+      }
+    } catch (e) {
+      print('Unexpected Error: $e');
+      emit(ActionPaymentError());
     }
+  }
+
+  Future<void> getPayoutStatusById(context) async {
+    emit(GetStatusPaymentLoading());
+    final dio = Dio();
+
+    // URL with the payout ID in the path
+    final url = 'https://api.moyasar.com/v1/payments/$id';
+    print(url);
+
+    // API key encoded in Base64 for authorization
+    const apiKey = 'sk_test_4hPQUZG3KYCdoRCRkQvoSYAtDyDdEYcRRk27a5mo';
+    final encodedApiKey = base64Encode(utf8.encode(apiKey));
+
+    // Request headers
+    final headers = {
+      'Authorization': 'Basic $encodedApiKey',
+    };
+
+    try {
+      // Send the GET request
+      final response = await dio.get(
+        url,
+        options: Options(headers: headers),
       );
-  }*/
+
+      if (response.statusCode == 200||response.statusCode==201) {
+        if(response.data['status']=='paid'){
+          emit(GetStatusPaymentSuccess());
+          postOrder(items: values,coupon:couponCode?.id,customerNotes: customerNotes,context: context
+              , scheduledDate:selectedDate != null && selectedTime != null? DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, selectedTime!.hour, selectedTime!.minute):null,
+            isScheduled:selectedDate != null && selectedTime != null? true:false,
+          );
+
+        }
+        print('Payout Data: ${response.data}');
+        // Handle payout data (e.g., update UI or save data)
+      } else {
+        print('Failed to fetch payout: ${response.statusCode}');
+        print('Response: ${response.data}');
+        emit(GetStatusPaymentError());
+      }
+    } on DioException catch (e) {
+      print('Dio Error: ${e.message}');
+      emit(GetStatusPaymentError());
+      if (e.response != null) {
+        print('Error Response Data: ${e.response?.data}');
+        emit(GetStatusPaymentError());
+      }
+    } catch (e) {
+      print('Unexpected Error: $e');
+      emit(GetStatusPaymentError());
+    }
+  }
 }

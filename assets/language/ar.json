@@ -161,7 +161,15 @@
   "cardHolderName": "اسم صاحب البطاقة",
   "expiryDate": "تاريخ انتهاء الصلاحية",
   "cvv": "CVV/CVC",
-  "addPayment": "اضافة طريقة الدفع",
   "scheduled_order": "جدولة الطلب",
-  "scheduled_order_date": "اختار ميعاد وصول الطلب"
+  "scheduled_order_date": "اختار ميعاد وصول الطلب",
+  "addPayment": "اضافة طريقة الدفع",
+  "cartNumberIsRequired": "رقم البطاقة مطلوب",
+  "cardHolderNameIsRequired": "اسم حامل البطاقة مطلوب",
+  "expiryDateIsRequired": "تاريخ انتهاء البطاقة مطلوب",
+  "cvvIsRequired": "رمز التحقق (CVV) مطلوب",
+  "enterValidExpiryDate": "أدخل تاريخ انتهاء صالح",
+  "cartNumberMustBe16Digits": "يجب أن يكون رقم البطاقة مكوناً من 16 رقماً",
+  "cardIsExpired": "انتهت صلاحية البطاقة",
+  "cvvMustBe3Or4Digits": "يجب أن يكون رمز التحقق (CVV) مكوناً من 3 أو 4 أرقام"
 }
