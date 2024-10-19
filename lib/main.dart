@@ -37,62 +37,8 @@ void main() async {
   await GitIt.initGitIt();
   DioHelper.init();
   await Save.init();
-  final webSocketService = WebSocketService();
-  webSocketService.connect();
-  // // Correct WebSocket protocol: Use ws:// or wss:// instead of http://
-  // print("TRY CONNECTING TO SERVER ................... ws://147.79.114.89:5053");
-  // // Connect to the WebSocket server
-  // final channel =
-  //     IOWebSocketChannel.connect(Uri.parse("ws://147.79.114.89:5053"));
-  // // try {
-  // //   IOWebSocketChannel.connect(Uri.parse("ws://147.79.114.89:5053"));
-  // //   print("Connection>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-  // // } catch (e) {
-  // //   print("ERROR FACED>>>>>>>>>>>>>>  ${e}");
-  // // }
-  //
-  // print("Connected to WebSocket server.");
-  //
-  // // Send user info when connected
-  // try {
-  //   channel.sink.add(jsonEncode({
-  //     "userId": "57d33393-582b-4772-86c4-0aa05b9969d8",
-  //     "userType": "CUSTOMER"
-  //   }));
-  //   print("SEND FIRST MESSAGE");
-  // } catch (e) {
-  //   print("ERROR FACED>>>>>>>>>>>>>>  ${e}");
-  // }
-  // try {
-  //   // Subscribe to notifications
-  //   channel.sink.add("subscribeToNotifications");
-  //   // channel.sink.add(jsonEncode({
-  //   //   "action": "subscribeToNotifications",
-  //   //   "data": {
-  //   //     "userId": "57d33393-582b-4772-86c4-0aa05b9969d8",
-  //   //     "userType": "CUSTOMER"
-  //   //   }
-  //   // }));
-  //   print("SUBSCRIBED.......>>");
-  // } catch (e) {
-  //   print("ERROR WHEN SUBSCRIBE>>>>>>  $e");
-  // }
-
-  // Listen for incoming messages from the WebSocket server
-  // channel.stream.listen(
-  //   (message) {
-  //     print('Received: $message');
-  //   },
-  //   onError: (error) {
-  //     print('WebSocket Error: $error');
-  //   },
-  //   onDone: () {
-  //     print('WebSocket closed with reason: ${channel.closeReason}');
-  //   },
-  // );
-
-  // Optional: Close the channel when done
-  // channel.sink.close();
+  final webSocketService = SocketService();
+  webSocketService.initializeSocket();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey:
