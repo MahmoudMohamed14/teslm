@@ -416,7 +416,7 @@ class ProviderCubit extends Cubit<ProviderState> {
         Timer(Duration(milliseconds: 200), () {
           itemScrollController.jumpTo(
             index: currentIndex,
-            alignment: currentIndex == 0 || currentIndex == 1 ? 0.0 : 0.3,
+            alignment: currentIndex == 0 || currentIndex == 1|| currentIndex == providerFoodData!.categoriesItemsData!.length-1 ? 0.0 : 0.3,
           );
         });
       } else {

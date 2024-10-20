@@ -9,10 +9,56 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/images/images.dart';
 import '../../../../common/translate/strings.dart';
-
-class EditInformation extends StatelessWidget {
+class EditInformation extends StatefulWidget {
   const EditInformation({super.key});
 
+  @override
+  State<EditInformation> createState() => _EditInformationState();
+}
+
+class _EditInformationState extends State<EditInformation> {
+  void selectGender(String gender) {
+    setState(() {
+      selectedGender = gender;
+    });
+
+  }
+  String? selectedGender;
+  Widget genderOption(String gender, String icon,checkCondition) {
+    return GestureDetector(
+      onTap: () =>AccountCubit.get(context).getUserData?.gender != null ? null :   selectGender(gender),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: checkCondition ? ThemeModel.mainColor.withOpacity(0.2) : ThemeModel.of(context).cardsColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: checkCondition ? ThemeModel.mainColor : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              icon,
+              height: 70,
+              width: 70,
+            ),
+            SizedBox(height: 10),
+            Text(
+              gender,
+              style: TextStyle(
+                fontSize: 18,
+                color: checkCondition ? ThemeModel.of(context).alwaysWhitColor : ThemeModel.of(context).blackWhiteColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     DateTime? birthDate;
@@ -59,7 +105,7 @@ class EditInformation extends StatelessWidget {
                                   ),
                                   Icons.phone,
                                   context),
-                              profile(Strings.myName.tr(context), false,
+                              profile(Strings.myName.tr(context),user?.name == null ? false : true,
                                   nameController, Icons.person, context),
                               profile(
                                   Strings.myGmail.tr(context),
@@ -80,16 +126,16 @@ class EditInformation extends StatelessWidget {
                                 builder: (context, setState) => GestureDetector(
                                     child: dateSelected
                                         ? date(
-                                            "${birthDate!.day}-${birthDate!.month}-${birthDate!.year}",
+                                            "${birthDate!.year}-${birthDate!.month}-${birthDate!.day}",
                                             true,
                                             context)
                                         : date(
                                             user!.birthdate != null
                                                 ? '${user.birthdate}'
-                                                : 'mm/dd/yy',
+                                                : 'YY/MM/DD',
                                             true,
                                             context),
-                                    onTap: () async {
+                                    onTap:user!.birthdate != null? () async {
                                       final datePick = await showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
@@ -103,7 +149,20 @@ class EditInformation extends StatelessWidget {
                                           birthDate = datePick;
                                         });
                                       }
-                                    }),
+                                    }:null),
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                Strings.myGender.tr(context),
+                                style:
+                                const TextStyle(fontWeight: FontWeight.w400),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  genderOption('Male', ImagesApp.manImage,selectedGender == "Male"||user?.gender=='MALE'),
+                                  genderOption('Female', ImagesApp.womanImage,selectedGender == "Female"||user?.gender=='Female'),
+                                ],
                               ),
                             ],
                           ),
@@ -154,7 +213,12 @@ class EditInformation extends StatelessWidget {
                 if (birthDate != null) {
                   AccountCubit.get(context).userUpdate(
                       birthdate:
-                      '${birthDate!.year}-${birthDate!.month}-${birthDate!.day}',
+                      '${birthDate!.year}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}',
+                      context: context);
+                }
+                if(selectedGender != null){
+                  AccountCubit.get(context).userUpdate(
+                      gender:selectedGender?.toUpperCase(),
                       context: context);
                 }
               },

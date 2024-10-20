@@ -10,7 +10,7 @@ import 'bottom_sheet_items.dart';
 
 Widget unavailableItem(context){
   List<String> listUnavailableItems =[ Strings.removeItemOrder.tr(context),Strings.cancelOrder.tr(context)];
-  return InkWell(
+    return InkWell(
   onTap: (){showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -35,12 +35,13 @@ Widget unavailableItem(context){
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(Strings.itemIsUnavailable.tr(context) ,style: TextStyle(fontFamily: 'fontTop',color: isDark??false? floatActionColor:borderColor.shade700,fontWeight: FontWeight.w400,fontSize: 16),),
-            Text(choose? listUnavailableItems[1]:listUnavailableItems[0],style: const TextStyle(fontFamily: 'fontTop',fontWeight: FontWeight.w600,fontSize: 16),),
+            Text(Strings.itemIsUnavailable.tr(context) ,style: TextStyle(color: isDark??false? floatActionColor:borderColor.shade700,fontWeight: FontWeight.w400,fontSize: 16),),
+            Text(choose? listUnavailableItems[1]:listUnavailableItems[0],style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 16),),
           ],),
         const Spacer(),
         const Icon(Icons.arrow_forward_ios_outlined,color: ThemeModel.mainColor,),
       ],
     ),
   ),
-);}
+);
+}

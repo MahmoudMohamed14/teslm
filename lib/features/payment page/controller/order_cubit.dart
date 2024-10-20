@@ -48,7 +48,7 @@ void getCoupon(BuildContext context, {CouponData ?value}) async {
   couponDiscount=0.0;
   isShippingDiscount=false;
   shippingPrice=15;
-  double totalPrice=ProviderCubit.get(context).getPrice()+shippingPrice;
+  double totalPrice=ProviderCubit.get(context).getPrice();
   if(value?.appliedOn.toLowerCase()=='order'){
   if((value?.minAmount??0)<totalPrice){
     if((value?.type.toLowerCase()??'')=='percentage'){
@@ -93,7 +93,6 @@ void getCoupon(BuildContext context, {CouponData ?value}) async {
 
 print("couponDiscount=$couponDiscount  # ${totalPrice*(((value?.percentageAmount??1)/100))}");
 print(couponCode?.toJson());
-
   emit(CalculateCoupon());
 }
   Coupon ?couponData;

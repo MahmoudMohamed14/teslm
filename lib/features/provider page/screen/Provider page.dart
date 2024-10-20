@@ -170,14 +170,14 @@ class _ProviderPage extends State<ProviderPage>
                           children: [
                             PriceWidget(
                               title: Strings.duration.tr(context),
-                              value: '55-21',
+                              value: '60',
                             ),
                             PriceWidget(
                                 title: Strings.deliveryPrice.tr(context),
-                                value: '55-21'),
+                                value: '0-15'),
                             PriceWidget(
                                 title: Strings.minimumCharge.tr(context),
-                                value: '55-21'),
+                                value: '15'),
                           ],
                         ),
                       ),
@@ -187,17 +187,17 @@ class _ProviderPage extends State<ProviderPage>
                   ),
                   SliverAppBar(
                     expandedHeight: 0.h,
-                    toolbarHeight: 10,
+                    toolbarHeight: 30.h,
                     pinned: true,
                     leading: const SizedBox.shrink(),
                     flexibleSpace: PreferredSize(
-                      preferredSize: const Size.fromHeight(0),
+                      preferredSize: Size.fromHeight(0.h),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 5,vertical: 10.h),
                         child: menu!=null&&state is !GetProviderFoodLoading?
                         SizedBox(
-                          height: 60.h,
+                          height: 120.h,
                           child: Row(
                             children: [
                               IconButton(icon: Icon(Icons.search,size: 25,color: ThemeModel.of(context).blackWhiteColor,),onPressed: (){setState(() {

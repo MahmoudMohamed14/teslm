@@ -163,5 +163,5 @@ class Strings {
   static const String cvvMustBe3Or4Digits = "cvvMustBe3Or4Digits";
   static const String scheduledOrder= "scheduled_order";
   static const String scheduledOrderDate= "scheduled_order_date";
-
+  static const String myGender= "your_gender";
 }

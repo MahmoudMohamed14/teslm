@@ -2,6 +2,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/colors/theme_model.dart';
@@ -11,7 +12,12 @@ import '../../../common/images/images.dart';
 import '../controller/order_cubit.dart';
 import 'order_money.dart';
 
-Widget orderBrief(context)=>Container(
+Widget orderBrief(context)=>BlocConsumer<OrderCubit, OrderState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return Container(
   padding: const EdgeInsets.all(10),
   decoration: BoxDecoration(
       color: ThemeModel.of(context).cardsColor,
@@ -25,8 +31,10 @@ Widget orderBrief(context)=>Container(
     '${ OrderCubit.get(context).shippingPrice-(OrderCubit.get(context).couponData!.discount)!.toInt()}':OrderCubit.get(context).shippingPrice:OrderCubit.get(context).shippingPrice,
         '${ OrderCubit.get(context).shippingPrice}',  OrderCubit.get(context).couponData!=null?OrderCubit.get(context).couponData!.appliedOn=='SHIPPING':false,context),
     seperate(),
-    if(OrderCubit.get(context).couponData!=null)
-      orderMoney(Strings.youSaved.tr(context),OrderCubit.get(context).couponData!.discount,0,false,context),
+    if(OrderCubit.get(context).couponData!=null||OrderCubit.get(context).couponCode!=null)
+      orderMoney(Strings.youSaved.tr(context),OrderCubit.get(context).couponCode!=null?OrderCubit.get(context).couponDiscount!=0.0?OrderCubit.get(context).couponDiscount:
+    ProviderCubit.get(context).getPrice()*((OrderCubit.get(context).couponCode?.percentageAmount??1)/100)
+          :OrderCubit.get(context).couponData!.discount,0,false,context),
     Row(
       children: [
         const Image(image: AssetImage(ImagesApp.pointImage),height: 20,width: 20,),
@@ -39,3 +47,5 @@ Widget orderBrief(context)=>Container(
     orderMoney(Strings.total.tr(context),OrderCubit.get(context).couponCode!=null?'${(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)-(OrderCubit.get(context).couponDiscount)!.toInt()}':(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice),
         OrderCubit.get(context).couponCode!=null && !OrderCubit.get(context).isShippingDiscount?'${(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)}':(ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice),OrderCubit.get(context).couponCode!=null?true:false,context),
   ],),);
+  },
+);

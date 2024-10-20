@@ -73,4 +73,6 @@ class ImagesApp {
   static const String locationAppBar = 'assets/images/location_app_bar.svg';
   static const String searchImage = 'assets/images/searchImage.png';
   static const String emptySearch= 'assets/images/emptySearch.png';
+  static const String manImage= 'assets/images/man.png';
+  static const String womanImage= 'assets/images/woman.png';
 }
