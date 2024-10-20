@@ -1,26 +1,25 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:delivery/common/end_points_api/api_end_points.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../Cubite/delivery_cubit.dart';
 import '../../../Dio/Dio.dart';
+import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
 import '../../../models/coupon_model.dart';
 import '../../home/controller/home_cubit.dart';
 import '../../home/screens/home.dart';
 import '../../orders/controller/my_orders_cubit.dart';
-import '../../orders/controller/my_order_data_handler.dart';
 import '../../point/controller/point_cubit.dart';
 import '../../profile/navigator/my_coupons/Models/get_coupons_model.dart';
 import '../../provider page/controller/provider_cubit.dart';
+import '../widget/error_dialog.dart';
 import 'order_data_handler.dart';
 
 part 'order_state.dart';
@@ -48,7 +47,7 @@ void getCoupon(BuildContext context, {CouponData ?value}) async {
   couponDiscount=0.0;
   isShippingDiscount=false;
   shippingPrice=15;
-  double totalPrice=ProviderCubit.get(context).getPrice()+shippingPrice;
+  double totalPrice=ProviderCubit.get(context).getPrice();
   if(value?.appliedOn.toLowerCase()=='order'){
   if((value?.minAmount??0)<totalPrice){
     if((value?.type.toLowerCase()??'')=='percentage'){
@@ -91,8 +90,11 @@ void getCoupon(BuildContext context, {CouponData ?value}) async {
   }
 
 
-print("couponDiscount=$couponDiscount  # ${totalPrice*(((value?.percentageAmount??1)/100))}");
-print(couponCode?.toJson());
+if (kDebugMode) {
+  print("couponDiscount=$couponDiscount  # ${totalPrice*(((value?.percentageAmount??1)/100))}");
+  print(couponCode?.toJson());
+}
+
 
   emit(CalculateCoupon());
 }
@@ -197,7 +199,9 @@ print(couponCode?.toJson());
     // }
 
     result.fold((l) {
-      print("error is ${l.errorModel.statusMessage}");
+      if (kDebugMode) {
+        print("error is ${l.errorModel.statusMessage}");
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.red.shade500,
         content:  Align(
@@ -235,19 +239,19 @@ print(couponCode?.toJson());
     else if(index==2){isCheckedList=[false,false,true];emit(Reload());}
     else {isCheckedList=[true,false,false];emit(Reload());}
     choosePadding =false;
-    Timer(Duration(milliseconds: 350), () {
+    Timer(const Duration(milliseconds: 350), () {
       choosePadding = true;
       emit(Reload());
     });
   }
   Future<void> _launchUrl(String url) async {
-    final Uri _url = Uri.parse(url);
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
+    final Uri url0 = Uri.parse(url);
+    if (!await launchUrl(url0)) {
+      throw Exception('Could not launch $url0');
     }
   }
 String?id;
-  Future<void> actionPayment({
+  Future<void> actionPayment(BuildContext context,{
     String?name,
     String?cardNumber,
     String?cvv,
@@ -282,7 +286,9 @@ String?id;
     };
     try{
       emit(ActionPaymentLoading());
-      print("payment value =${data}");
+      if (kDebugMode) {
+        print("payment value =$data");
+      }
      final response =await DioHelper.postData(url: 'https://api.moyasar.com/v1/payments',data:data,headers: headers);
       // .then((value) {
     //
@@ -300,28 +306,51 @@ String?id;
     // }
     //   );
       if (response.statusCode == 200||response.statusCode==201) {
+       if( response.data['source']['transaction_url']!=null){
+        _launchUrl(response.data['source']['transaction_url']??'');
         fromBack=true;
-        _launchUrl(response.data['source']['transaction_url']);
         id=response.data['id'];
-        emit(ActionPaymentSuccess());
+        emit(ActionPaymentSuccess());}else{
+         showDialogHelper(context, contentWidget:ErrorDialogPayment(message: response.data['source']['message'].toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+         emit(ActionPaymentError());
+
+       }
 
 
 
-        print('Payout Data: ${response.data}');
+        if (kDebugMode) {
+          print('Payout Data: ${response.data}');
+        }
         // Handle payout data (e.g., update UI or save data)
       } else {
-        print('Failed to fetch payout: ${response.statusCode}');
-        print('Response: ${response.data}');
+        if (kDebugMode) {
+          print('Failed to fetch payout: ${response.statusCode}');
+          print('Response: ${response.data}');
+        }
+
+
+
         emit(ActionPaymentError());
       }
     }on DioException catch (e) {
-      print('Dio Error: ${e.message}');
+      if (kDebugMode) {
+        print('Dio Error: ${e.message}');
+      }
       if (e.response != null) {
-        print('Error Response Data: ${e.response?.data}');
+        if (kDebugMode) {
+          print('Error Response Data: ${e.response?.data}');
+        }
+        if(e.response?.data['errors']['source.number']!=null) {
+          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: e.response?.data['errors']['source.number'].first.toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+        }else if(e.response?.data['errors']['name']!=null){
+          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: e.response?.data['errors']['name'].first.toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+        }
         emit(ActionPaymentError());
       }
     } catch (e) {
-      print('Unexpected Error: $e');
+      if (kDebugMode) {
+        print('Unexpected Error: $e');
+      }
       emit(ActionPaymentError());
     }
   }
@@ -332,7 +361,9 @@ String?id;
 
     // URL with the payout ID in the path
     final url = 'https://api.moyasar.com/v1/payments/$id';
-    print(url);
+    if (kDebugMode) {
+      print(url);
+    }
 
     // API key encoded in Base64 for authorization
     const apiKey = 'sk_test_4hPQUZG3KYCdoRCRkQvoSYAtDyDdEYcRRk27a5mo';
@@ -358,23 +389,47 @@ String?id;
             isScheduled:selectedDate != null && selectedTime != null? true:false,
           );
 
+
+        }else{
+          fromBack=false;
+          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: response.data['source']['message'].toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+
+          emit(GetStatusPaymentError());
+
         }
-        print('Payout Data: ${response.data}');
+        if (kDebugMode) {
+          print('Payout Data: ${response.data}');
+        }
         // Handle payout data (e.g., update UI or save data)
       } else {
-        print('Failed to fetch payout: ${response.statusCode}');
-        print('Response: ${response.data}');
+
+
+        if (kDebugMode) {
+          print('Failed to fetch payout: ${response.statusCode}');
+          print('Response: ${response.data}');
+        }
+        fromBack=false;
         emit(GetStatusPaymentError());
+
       }
     } on DioException catch (e) {
-      print('Dio Error: ${e.message}');
+      fromBack=false;
+      if (kDebugMode) {
+        print('Dio Error: ${e.message}');
+      }
       emit(GetStatusPaymentError());
       if (e.response != null) {
-        print('Error Response Data: ${e.response?.data}');
+        fromBack=true;
+        if (kDebugMode) {
+          print('Error Response Data: ${e.response?.data}');
+        }
         emit(GetStatusPaymentError());
       }
     } catch (e) {
-      print('Unexpected Error: $e');
+      fromBack=false;
+      if (kDebugMode) {
+        print('Unexpected Error: $e');
+      }
       emit(GetStatusPaymentError());
     }
   }

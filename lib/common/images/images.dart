@@ -12,6 +12,7 @@ class ImagesApp {
   static const String pointImage = 'assets/images/giftBox.png';
   static const String storeImage = 'assets/images/store.png';
   static const String deliveryManImage = 'assets/images/delivery-man.png';
+  static const String errorPayment = 'assets/images/errorPayment.png';
   static const String whatsAppImage = 'assets/images/whatsApp.png';
   static const String splashLightImage = 'assets/images/splash.gif';
   static const String splashDarkImage = 'assets/images/splashDark.gif';
