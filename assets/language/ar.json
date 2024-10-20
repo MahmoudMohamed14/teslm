@@ -178,6 +178,7 @@
   "Allowed time frame for transaction has been expired.": "مدة العملية الأمنة للمصادقة تم انتهاءها",
   "INSUFFICIENT_FUNDS": "رصيد غير كافي",
   "3-D Secure transaction attempt failed (Not Enrolled)": "فشلت محاولة المعاملة الآمنة ثلاثية الأبعاد (غير مسجل)",
-  "DECLINED": "مرفوض"
+  "DECLINED": "مرفوض",
+  "failed": "فشل"
 
 }
