@@ -163,5 +163,8 @@ class Strings {
   static const String cvvMustBe3Or4Digits = "cvvMustBe3Or4Digits";
   static const String scheduledOrder= "scheduled_order";
   static const String scheduledOrderDate= "scheduled_order_date";
+  static const String cardNumberError= "The value must be a proper credit/debit card number.";
+  static const String pinCardNumberError= "3-D Secure transaction attempt failed (DECLINED_INVALID_PIN)";
+
   static const String myGender= "your_gender";
 }

@@ -103,6 +103,8 @@ class NewCustomTextEdited extends StatelessWidget {
           onSaved: onSave,
           maxLength: maxLength,
 
+          keyboardType: textInputType,
+
           validator: validator,
           controller: controller,
          // readOnly: readOnly,

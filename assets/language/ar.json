@@ -172,5 +172,13 @@
   "enterValidExpiryDate": "أدخل تاريخ انتهاء صالح",
   "cartNumberMustBe16Digits": "يجب أن يكون رقم البطاقة مكوناً من 16 رقماً",
   "cardIsExpired": "انتهت صلاحية البطاقة",
-  "cvvMustBe3Or4Digits": "يجب أن يكون رمز التحقق (CVV) مكوناً من 3 أو 4 أرقام"
+  "cvvMustBe3Or4Digits": "يجب أن يكون رمز التحقق (CVV) مكوناً من 3 أو 4 أرقام",
+  "The value must be a proper credit/debit card number.":"يجب ان يكون رقم البطاقة صحيح",
+  "3-D Secure transaction attempt failed (DECLINED_INVALID_PIN)": "تم رفضها بسبب إدخال رمز PIN غير صحيح أثناء عملية المصادقة الآمنة",
+  "should be English letters only": "يجب أن يكون الحروف فقط باللغة الانجليزية",
+  "Allowed time frame for transaction has been expired.": "مدة العملية الأمنة للمصادقة تم انتهاءها",
+  "INSUFFICIENT_FUNDS": "رصيد غير كافي",
+  "3-D Secure transaction attempt failed (Not Enrolled)": "فشلت محاولة المعاملة الآمنة ثلاثية الأبعاد (غير مسجل)",
+  "DECLINED": "مرفوض"
+
 }

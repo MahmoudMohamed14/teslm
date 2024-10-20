@@ -158,6 +158,8 @@
   "expiryDate": "Expiry Date",
   "cvv": "CVV/CVC",
   "pay": "Pay",
+  "The value must be a proper credit/debit card number.": "The value must be a proper credit/debit card number.",
+
   "scheduled_order": "Scheduled order",
   "scheduled_order_date": "Choose the order delivery time",
   "addPayment": "Add Payment",
@@ -168,5 +170,11 @@
   "enterValidExpiryDate":"Enter valid expiry date",
   "cartNumberMustBe16Digits": "Card number must be 16 digits",
   "cardIsExpired": "Card is expired",
-  "cvvMustBe3Or4Digits": "CVV must be 3 or 4 digits"
+  "cvvMustBe3Or4Digits": "CVV must be 3 or 4 digits",
+  "3-D Secure transaction attempt failed (DECLINED_INVALID_PIN)": "3-D Secure transaction attempt failed (DECLINED_INVALID_PIN)",
+  "should be English letters only": "should be English letters only",
+  "Allowed time frame for transaction has been expired.":"Allowed time frame for transaction has been expired",
+  "INSUFFICIENT_FUNDS": "Insufficient Funds",
+  "3-D Secure transaction attempt failed (Not Enrolled)": "3-D Secure transaction attempt failed (Not Enrolled)",
+  "DECLINED": "Declined"
 }

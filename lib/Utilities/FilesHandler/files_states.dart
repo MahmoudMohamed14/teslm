@@ -17,3 +17,7 @@ class ClearSingleFileSuccessState extends FilesStates {}
 class UploadFilesLoadingState extends FilesStates {}
 
 class UploadFilesSuccessState extends FilesStates {}
+
+class UploadRecordLoadingState extends FilesStates {}
+
+class UploadRecordSuccessState extends FilesStates {}
