@@ -136,4 +136,34 @@ class PostOrderDataHandler {
       );
     }
   }
+  static Future<Either<Failure, bool>> saveCard({
+    required String cardHolderName,
+    required String number,
+    required String cvc,
+    required String expMonth,
+    required String expYear,
+  }) async {
+    try {
+      bool response = await GenericRequest<bool>(
+        method: HttpRequestHandler.postJson(
+            url: ApiEndPoint.createPayments,
+            bodyJson: {
+              "cardHolderName":cardHolderName,
+              "number": number,
+              "cvc": cvc,
+              "exp_month": expMonth,
+              "exp_year": expYear,
+            }),
+        fromMap: (data) {
+          print("Save Card $data");
+          return data["statusCode"] ==200 || data["statusCode"] ==201;
+        },
+      ).getResponse(printBody: false);
+      return Either.right(response);
+    } on ServerException catch (failure) {
+      return Either.left(
+        ServerFailure(failure.errorMessageModel),
+      );
+    }
+  }
 }

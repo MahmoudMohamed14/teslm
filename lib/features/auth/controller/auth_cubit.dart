@@ -124,7 +124,7 @@ class AuthCubit extends Cubit<AuthState> {
       CouponsCubit.get(context).getUserCoupons(context);
       Save.savedata(key: 'token', value: token).then((value) {
         loginFromCart
-            ? navigate(context, const Payment(customerNotes: ''))
+            ? navigateAndFinish(context, const Payment(customerNotes: ''))
             : navigateAndFinish(context, const Home());
       });
       MyOrdersCubit.get(context).getCustomerOrders();

@@ -12,6 +12,7 @@ import '../../../Dio/Dio.dart';
 import '../../../common/colors/theme_model.dart';
 import '../../../common/components.dart';
 import '../../../common/constant/constant values.dart';
+import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/coupon_model.dart';
 import '../../home/controller/home_cubit.dart';
 import '../../home/screens/home.dart';
@@ -19,6 +20,8 @@ import '../../orders/controller/my_orders_cubit.dart';
 import '../../point/controller/point_cubit.dart';
 import '../../profile/navigator/my_coupons/Models/get_coupons_model.dart';
 import '../../provider page/controller/provider_cubit.dart';
+import '../screen/pay_screen.dart';
+import '../screen/webViewScreen.dart';
 import '../widget/error_dialog.dart';
 import 'order_data_handler.dart';
 
@@ -222,6 +225,8 @@ if (kDebugMode) {
       print(r);
       if(r['status']){
         orderId=r['id'];
+        paymentUrl=null;
+        paymentMessageError=null;
         fromBack=true;
         actionPayment(context,cvv: cvv,expiryYear: expiryYear,expiryMonth: expiryMonth,cardNumber: cardNumber,name: name,total: total).then((onValue){
           // createPayment(moyasarId: moyasarId, moyasarPaymentUrl: moyasarPaymentUrl, orderId: orderId, context: context)
@@ -239,6 +244,8 @@ if (kDebugMode) {
     PointCubit.get(context).getPointsAndBalance();
     MyOrdersCubit.get(context).getCustomerOrders();
     couponCode=null;
+    paymentUrl=null;
+    paymentMessageError=null;
 
     shippingPrice=15;
     couponDiscount=0.0;
@@ -289,7 +296,7 @@ String?id;
     final data = {
       "amount":total,
       "currency": "SAR",
-      "description": "Payment for order #123456789",
+      "description": "Payment for order $orderId",
       "callback_url": "https://example.com/thankyou",
       "source": {
         "type": "creditcard",
@@ -301,8 +308,8 @@ String?id;
       }};
 
 
-    const apiKey = 'sk_test_4hPQUZG3KYCdoRCRkQvoSYAtDyDdEYcRRk27a5mo';
-    final encodedApiKey = base64Encode(utf8.encode(apiKey));
+
+    final encodedApiKey = base64Encode(utf8.encode(ApiEndPoint.moyasarPaymentKey));
 
     // Request headers
     final headers = {
@@ -310,11 +317,11 @@ String?id;
       'Authorization': 'Basic $encodedApiKey',
     };
     try{
-      emit(ActionPaymentLoading());
+     // emit(ActionPaymentLoading());
       if (kDebugMode) {
         print("payment value =$data");
       }
-     final response =await DioHelper.postData(url: 'https://api.moyasar.com/v1/payments',data:data,headers: headers);
+     final response =await DioHelper.postData(url: ApiEndPoint.moyasarPaymentUrl,data:data,headers: headers);
       // .then((value) {
     //
     //
@@ -333,10 +340,14 @@ String?id;
       if (response.statusCode == 200||response.statusCode==201) {
        if( response.data['source']['transaction_url']!=null){
          id=response.data['id'];
-         createPayment(moyasarId: response.data['id'], moyasarPaymentUrl:response.data['source']['transaction_url'], orderId: orderId??'', context: context);
+        createPayment(moyasarId: response.data['id'], moyasarPaymentUrl:response.data['source']['transaction_url'], orderId: orderId??'', context: context);
+        /* //todo test
+         paymentUrl=response.data['source']['transaction_url'];
+         navigate(context, const WebViewScreen());
+         //todo test*/
          fromBack=true;
 
-         emit(ActionPaymentSuccess());
+       //  emit(ActionPaymentSuccess());
 
        }else{
          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: response.data['source']['message'].toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
@@ -388,14 +399,14 @@ String?id;
     final dio = Dio();
 
     // URL with the payout ID in the path
-    final url = 'https://api.moyasar.com/v1/payments/$id';
+    final url = '${ApiEndPoint.moyasarPaymentUrl}/$id';
     if (kDebugMode) {
       print(url);
     }
 
     // API key encoded in Base64 for authorization
-    const apiKey = 'sk_test_4hPQUZG3KYCdoRCRkQvoSYAtDyDdEYcRRk27a5mo';
-    final encodedApiKey = base64Encode(utf8.encode(apiKey));
+
+    final encodedApiKey = base64Encode(utf8.encode(ApiEndPoint.moyasarPaymentKey));
 
     // Request headers
     final headers = {
@@ -459,6 +470,11 @@ String?id;
       emit(GetStatusPaymentError());
     }
   }
+  String? paymentUrl;
+  String? paymentMessageError;
+  void emitPaymentMessageError (){
+  emit(PaymentMessageError());
+}
   void functionPostOrder(BuildContext context,{ String?name,
     String?cardNumber,
     String?cvv,
@@ -472,14 +488,13 @@ String?id;
 
     );
   }
-
   Future<void> createPayment({
     required String moyasarId,
     required String moyasarPaymentUrl,
     required String orderId,
     required BuildContext context,
   }) async {
-    emit(CreatePaymentLoading());
+   // emit(CreatePaymentLoading());
     final result = await PostOrderDataHandler.createPayment(moyasarId: moyasarId, moyasarPaymentUrl: moyasarPaymentUrl, orderId: orderId);
 
 
@@ -498,9 +513,13 @@ String?id;
       emit(CreatePaymentError());
     }, (r) {
       print("create payment ${r}");
-      _launchUrl(moyasarPaymentUrl);
+      paymentUrl=moyasarPaymentUrl;
+      navigate(context, const WebViewScreen());
+     //todo _launchUrl(moyasarPaymentUrl);
+
 
       emit(CreatePaymentSuccess());
     });
   }
+
 }

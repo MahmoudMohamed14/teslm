@@ -34,3 +34,4 @@ class CreatePaymentLoading extends OrderState{}
 class CreatePaymentSuccess extends OrderState{}
 
 class CreatePaymentError extends OrderState{}
+class PaymentMessageError extends OrderState{}
