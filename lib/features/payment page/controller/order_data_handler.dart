@@ -34,7 +34,7 @@ class PostOrderDataHandler {
     }
   }
 
-  static Future<Either<Failure, bool>> postOrder({
+  static Future<Either<Failure, Map<String,dynamic>>> postOrder({
     String? coupon,
     required List items,
     required String customerNotes,
@@ -43,9 +43,8 @@ class PostOrderDataHandler {
   }) async {
     try {
       print("coupon is $coupon");
-      print(
-          {"couponId": coupon, "items": items, "customerNotes": customerNotes});
-      bool response = await GenericRequest<bool>(
+      print({"couponId": coupon, "items": items, "customerNotes": customerNotes});
+      Map<String,dynamic> response = await GenericRequest<Map<String,dynamic>>(
         method: HttpRequestHandler.postJson(url: ApiEndPoint.orders, bodyJson: {
           "couponId": coupon,
           "items": items,
@@ -54,7 +53,9 @@ class PostOrderDataHandler {
           "scheduledDate":isScheduled??false? scheduledDate?.toIso8601String():null,
         }),
         fromMap: (data) {
-          return data["statusCode"] == 200 || data["statusCode"] == 201;
+          print("orderData#####3${data['id']} test");
+
+          return {"status":data['id']!=null,"id":data['id']??''};
         },
       ).getResponse(printBody: false);
       return Either.right(response);
@@ -100,6 +101,32 @@ class PostOrderDataHandler {
         fromMap: (data) {
           print("data is $data");
           return data;
+        },
+      ).getResponse(printBody: false);
+      return Either.right(response);
+    } on ServerException catch (failure) {
+      return Either.left(
+        ServerFailure(failure.errorMessageModel),
+      );
+    }
+  }
+  static Future<Either<Failure, bool>> createPayment({
+    required String moyasarId,
+    required String moyasarPaymentUrl,
+    required String orderId,
+  }) async {
+    try {
+      bool response = await GenericRequest<bool>(
+        method: HttpRequestHandler.postJson(
+            url: ApiEndPoint.createPayments,
+            bodyJson: {
+              "moyasarId":moyasarId,
+              "moyasarPaymentUrl": moyasarPaymentUrl,
+              "orderId": orderId
+            }),
+        fromMap: (data) {
+          print("data is payment $data");
+          return data["moyasarPaymentId"] !=null && data["moyasarPaymentUrl"] !=null&& data["order"]['id'] !=null;
         },
       ).getResponse(printBody: false);
       return Either.right(response);

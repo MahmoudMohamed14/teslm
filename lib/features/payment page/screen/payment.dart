@@ -160,8 +160,8 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
                     size: 30.0,
                   ) : BottomWidget(Strings.confirmOrder.tr(context), (){
                     print(values);
-                    navigate(context, const PayScreen());
-                  //  OrderCubit.get(context).payment(context);
+                  navigate(context, const PayScreen());
+
                   //  OrderCubit.get(context).getPayoutById();
                    // OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: widget.customerNotes,context: context);
                   },radius: 20,),
