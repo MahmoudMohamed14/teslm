@@ -57,34 +57,40 @@ class MainCategories extends StatelessWidget {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        categoryName,
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                      ),
-                      Row(
-                        children: [
-                          viewNew(ImagesApp.categoryBigViewImage, view ? ThemeModel.of(context).greenAppBar :  ThemeModel.of(context).greenAppBar.withOpacity(0.4), context),
-                          viewNew(ImagesApp.categorySmallViewImage, view ?  ThemeModel.of(context).greenAppBar.withOpacity(0.4) : ThemeModel.of(context).greenAppBar, context),
-                        ],
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          categoryName,
+                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                        ),
+                        Row(
+                          children: [
+                            viewNew(ImagesApp.categoryBigViewImage, view ? ThemeModel.of(context).greenAppBar :  ThemeModel.of(context).greenAppBar.withOpacity(0.4), context),
+                            viewNew(ImagesApp.categorySmallViewImage, view ?  ThemeModel.of(context).greenAppBar.withOpacity(0.4) : ThemeModel.of(context).greenAppBar, context),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SliverPersistentHeader(
                   pinned: true,  // Sticks the header at the top after scrolling
                   delegate: _SliverAppBarDelegate(
-                    minHeight: 50.0,
-                    maxHeight: 50.0,
-                    child: Container(
-                      color: isDark??false?ThemeModel.of(context).cardsColor:Colors.grey.shade100,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(2, (index) => changeItems(index, context)),
+                    minHeight: 65.0,
+                    maxHeight: 65.0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0,right: 10,left: 10),
+                      child: Container(
+                        color: isDark??false?ThemeModel.of(context).cardsColor:Colors.grey.shade100,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(2, (index) => changeItems(index, context)),
+                          ),
                         ),
                       ),
                     ),
