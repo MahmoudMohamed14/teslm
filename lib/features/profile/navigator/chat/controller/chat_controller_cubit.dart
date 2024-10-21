@@ -81,10 +81,20 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
   }
 
   void postMessage(
-      {required String message,
+      {String? message,
       required String chatId,
-      required BuildContext context}) async {
-    debugPrint("SEND MESSAGE");
+      required BuildContext context,
+      String? audioUrl}) async {
+    debugPrint("SEND MESSAGE>>>>>. $chatId");
+    if (audioUrl != null) {
+      socket.emit("sendMessage", {
+        'chatId': chatId,
+        'from': '$customerId',
+        'content': message,
+        'audioUrl': audioUrl
+      });
+      return;
+    }
     if (imagesProvider(context).isNotEmpty) {
       await sendImages(context).then((e) {
         debugPrint(
@@ -93,6 +103,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
           'chatId': chatId,
           'from': '$customerId',
           'content': message,
+          'audioUrl': '',
           'imageUrls': BlocProvider.of<DragFilesCubit>(context)
               .imageUrls
               .map((e) => e.toString())
@@ -102,6 +113,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
         return;
       });
     } else {
+      if (message == null) return;
       socket.emit("sendMessage", {
         'chatId': chatId,
         'from': '$customerId',

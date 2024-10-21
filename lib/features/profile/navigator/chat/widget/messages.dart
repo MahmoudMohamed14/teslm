@@ -5,18 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../Utilities/FilesHandler/audio_player_widget.dart';
 import '../../../../../common/colors/theme_model.dart';
 import '../../../../../common/constant/constant values.dart';
 import '../../../../../models/chat_model.dart';
 
-Widget messages(ChatModel message) =>
-    // true
-    // ? const AudioPlayerWidget(
-    //     audioUrl:
-    //         "https://res.cloudinary.com/dmzdzq3ug/video/upload/v1729447467/x1cxgwq3o4v20nxa0s6v.mp3",
-    //   )
-    // :
-    ListView.builder(
+Widget messages(ChatModel message) => ListView.builder(
       shrinkWrap: true,
       reverse: true,
       physics: const BouncingScrollPhysics(),
@@ -67,59 +61,67 @@ Widget messages(ChatModel message) =>
                         style: TextStyle(
                             fontSize: 10, fontWeight: FontWeight.w400),
                       ),
-                      Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: ((message.messages![messageEnd].from == null)
-                                ? ThemeModel.of(context).cardsColor
-                                : ThemeModel.mainColor),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (message.messages![messageEnd].imageUrls
-                                  .isNotEmpty) ...[
-                                Wrap(
-                                  spacing: 10.w,
-                                  runSpacing: 10.h,
-                                  children: message
-                                      .messages![messageEnd].imageUrls
-                                      .map((url) => InkWell(
-                                            onTap: () {
-                                              HelperFunctions
-                                                  .imagePreviewDialog(context,
-                                                      imagePath: url);
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              child: Image.network(
-                                                url,
-                                                height: 120.r,
-                                                width: 120.r,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ))
-                                      .toList(),
-                                ),
-                                20.h.heightBox,
-                              ],
-                              Text(
-                                '${message.messages?[messageEnd].content}',
-                                style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: isDark ?? false
-                                        ? Colors.white
-                                        : message.messages![messageEnd].from ==
-                                                null
-                                            ? Colors.black
-                                            : Colors.white),
+                      message.messages![messageEnd].audioUrl != null
+                          ? const AudioPlayerWidget(
+                              audioUrl:
+                                  "https://res.cloudinary.com/dmzdzq3ug/video/upload/v1729447467/x1cxgwq3o4v20nxa0s6v.mp3",
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: ((message.messages![messageEnd].from ==
+                                        null)
+                                    ? ThemeModel.of(context).cardsColor
+                                    : ThemeModel.mainColor),
                               ),
-                            ],
-                          )),
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (message.messages![messageEnd].imageUrls
+                                      .isNotEmpty) ...[
+                                    Wrap(
+                                      spacing: 10.w,
+                                      runSpacing: 10.h,
+                                      children: message
+                                          .messages![messageEnd].imageUrls
+                                          .map((url) => InkWell(
+                                                onTap: () {
+                                                  HelperFunctions
+                                                      .imagePreviewDialog(
+                                                          context,
+                                                          imagePath: url);
+                                                },
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  child: Image.network(
+                                                    url,
+                                                    height: 120.r,
+                                                    width: 120.r,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ))
+                                          .toList(),
+                                    ),
+                                    20.h.heightBox,
+                                  ],
+                                  Text(
+                                    '${message.messages?[messageEnd].content}',
+                                    style: TextStyle(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: isDark ?? false
+                                            ? Colors.white
+                                            : message.messages![messageEnd]
+                                                        .from ==
+                                                    null
+                                                ? Colors.black
+                                                : Colors.white),
+                                  ),
+                                ],
+                              )),
                     ],
                   )),
             ),
