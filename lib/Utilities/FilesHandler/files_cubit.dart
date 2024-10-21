@@ -7,6 +7,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 
+import '../../features/profile/navigator/chat/controller/chat_controller_cubit.dart';
 import '../../models/images_model.dart';
 import 'files_states.dart';
 
@@ -108,12 +109,17 @@ class DragFilesCubit extends Cubit<FilesStates> {
   }
 
   bool startUploadRecord = false;
-  Future<void> uploadRecord(String recordUrl) async {
+  Future<void> uploadRecord(
+      String recordUrl, BuildContext context, String chatId) async {
     startUploadRecord = true;
     emit(UploadRecordLoadingState());
     String? url = await sendRecord(recordUrl);
     if (url?.isNotEmpty ?? false) {
-      imageUrls.add(url!);
+      ChatControllerCubit.get(context).postMessage(
+        context: context,
+        chatId: chatId,
+        audioUrl: url,
+      );
     }
     startUploadRecord = false;
     emit(UploadRecordSuccessState());

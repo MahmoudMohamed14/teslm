@@ -9,10 +9,10 @@ import 'package:delivery/features/profile/navigator/my_account/controller/accoun
 import 'package:delivery/features/profile/navigator/setting/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../common/colors/theme_model.dart';
 import '../../../common/images/images.dart';
 import '../../../common/translate/strings.dart';
-
 import '../navigator/addPayment/add_payment.dart';
 import '../navigator/chat/chat.dart';
 import '../navigator/logout/logout_dialog.dart';
@@ -25,12 +25,12 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return BlocConsumer<AppDarkLightCubit, AppDarkLightState>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    return Scaffold(
+    return BlocConsumer<AppDarkLightCubit, AppDarkLightState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(98.0),
             child: appBarWithIcons(Strings.more.tr(context),
@@ -52,10 +52,9 @@ class UserProfile extends StatelessWidget {
                           text: Strings.editInformation.tr(context),
                           hasNavigation: true,
                           onTap: () {
-                            ChatControllerCubit.get(context).getChat();
-                            if (AccountCubit.get(context).getUserData == null) {
-                              AccountCubit.get(context).getNewCustomer(context);
-                            }
+                            // if (AccountCubit.get(context).getUserData == null) {
+                            AccountCubit.get(context).getNewCustomer(context);
+                            // }
                             navigate(context, const EditInformation());
                           },
                         ),
@@ -64,9 +63,9 @@ class UserProfile extends StatelessWidget {
                           icon: Icons.add_card_outlined,
                           text: Strings.addPayment.tr(context),
                           hasNavigation: true,
-                          onTap: (){
-                            showBottomSheet1(context, widget: AddPayment(),isFullScreen: true);
-
+                          onTap: () {
+                            showBottomSheet1(context,
+                                widget: AddPayment(), isFullScreen: true);
                           },
                         ),
                       if (token != '' && token != null)
@@ -83,6 +82,7 @@ class UserProfile extends StatelessWidget {
                         text: Strings.helpSupport.tr(context),
                         hasNavigation: true,
                         onTap: () {
+                          ChatControllerCubit.get(context).getChat();
                           navigate(context, const Support());
                         },
                       ),
@@ -108,7 +108,7 @@ class UserProfile extends StatelessWidget {
                           icon: Icons.person_add_alt,
                           text: Strings.inviteFriend.tr(context),
                           hasNavigation: true,
-                          onTap: (){
+                          onTap: () {
                             navigate(context, const InviteFriend());
                           },
                         ),
@@ -130,8 +130,8 @@ class UserProfile extends StatelessWidget {
             ),
           ),
         );
-  },
-);
+      },
+    );
   }
 }
 
