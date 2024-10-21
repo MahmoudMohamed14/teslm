@@ -7,6 +7,8 @@
 	<key>CFBundleDisplayName</key>
 	<string>Teslm App</string>
 	<key>CFBundleExecutable</key>
+	<key>io.flutter.embedded_views_preview</key>
+    <string>YES</string>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>

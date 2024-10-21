@@ -28,4 +28,6 @@ class ApiEndPoint {
   static String uploadFile = '${baseUrl}upload-file';
   static String saveCouponCustomer = '${baseUrl}coupons/saved';
   static String createPayments = '${baseUrl}payments';
+  static String moyasarPaymentKey = 'sk_test_4hPQUZG3KYCdoRCRkQvoSYAtDyDdEYcRRk27a5mo';
+  static String moyasarPaymentUrl = 'https://api.moyasar.com/v1/payments';
 }

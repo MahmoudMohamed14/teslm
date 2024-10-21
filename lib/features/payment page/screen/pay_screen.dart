@@ -17,6 +17,7 @@ import '../../../common/colors/colors.dart';
 import '../../../common/constant/constant values.dart';
 import '../../provider page/controller/provider_cubit.dart';
 import '../controller/order_cubit.dart';
+import '../widget/error_dialog.dart';
 
 
 
@@ -44,16 +45,16 @@ class _PayScreenState extends State<PayScreen> with WidgetsBindingObserver {
   }
   @override
   void didChangeAppLifecycleState(AppLifecycleState state)  {
-    if (state == AppLifecycleState.resumed && OrderCubit.get(context).fromBack)  {
+   /* if (state == AppLifecycleState.resumed && OrderCubit.get(context).fromBack)  {
       OrderCubit.get(context).getPayoutStatusById(context).then((onValue){
-       /* if(response.data['status']=='paid'){
+       *//* if(response.data['status']=='paid'){
           postOrder(items: values,coupon:couponCode?.id,customerNotes: customerNotes,context: context);
-        }*/
+        }*//*
         //OrderCubit.get(context).fromBack=false;
         print("AppLifecycleState.resumed");
       });
 
-    }
+    }*/
   }
 
   var formKey = GlobalKey<FormState>();
@@ -71,6 +72,10 @@ class _PayScreenState extends State<PayScreen> with WidgetsBindingObserver {
     return BlocConsumer<OrderCubit, OrderState>(
         listener: (context, state) {
           // TODO: implement listener
+          if(state is PaymentMessageError){
+            showDialogHelper(context, contentWidget:ErrorDialogPayment(message: (OrderCubit.get(context).paymentMessageError??'failed').toString().tr(context),) , backgroundColor: ThemeModel.of(context).primary);
+
+          }
         },
 
         builder: (context, state) {
@@ -81,7 +86,7 @@ class _PayScreenState extends State<PayScreen> with WidgetsBindingObserver {
             ),
             body: Padding(
               padding: const EdgeInsets.all(16),
-              child: OrderCubit.get(context).fromBack? const Center(child: CircularProgressIndicator()):Form(
+              child: Form(
                 key: formKey,
                 child: Column(
                   //mainAxisSize: MainAxisSize.min,
