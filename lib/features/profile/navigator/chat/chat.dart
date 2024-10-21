@@ -47,6 +47,10 @@ class _ChatState extends State<Chat> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  // const AudioPlayerWidget(
+                  //   audioUrl:
+                  //       "https://res.cloudinary.com/dmzdzq3ug/video/upload/v1729447467/x1cxgwq3o4v20nxa0s6v.mp3",
+                  // ),
                   messages(message),
                   20.h.heightBox,
                   SendMessagePart(

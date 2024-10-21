@@ -42,7 +42,11 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
     _audioPlayer.positionStream.listen((position) {
       setState(() {
-        _currentPosition = position;
+        if (position == _totalDuration) {
+          _isPlaying = false;
+        } else {
+          _currentPosition = position;
+        }
       });
     });
 
@@ -107,7 +111,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           Expanded(
             child: Slider(
               min: 0.0,
-              max: _totalDuration.inMilliseconds.toDouble(),
+              max: _totalDuration.inMilliseconds.toDouble() + 1,
               value: _currentPosition.inMilliseconds.toDouble(),
               onChanged: (value) {
                 _seekAudio(Duration(milliseconds: value.toInt()));
