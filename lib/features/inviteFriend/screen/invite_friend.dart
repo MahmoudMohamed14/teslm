@@ -2,6 +2,7 @@ import 'package:delivery/common/components.dart';
 import 'package:delivery/common/extensions.dart';
 import 'package:delivery/common/images/images.dart';
 import 'package:delivery/common/translate/app_local.dart';
+import 'package:delivery/features/profile/navigator/my_account/controller/account_cubit.dart';
 import 'package:delivery/widgets/app_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ import '../../../common/colors/theme_model.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
 import '../../../widgets/custom_text_form_field.dart';
+import '../../profile/navigator/my_account/my_account.dart';
 import 'invite_new_friend.dart';
 
 class InviteFriend extends StatelessWidget {
@@ -42,25 +44,18 @@ class InviteFriend extends StatelessWidget {
               ),
               10.h.heightBox,
               AppTextWidget(Strings.earn100WithEveryInvitation.tr(context), style: TextStyleHelper.of(context).regular14.copyWith(color: ThemeModel.of(context).font1,fontWeight: FontWeight.w300,height: 1.2),textAlign: TextAlign.center,),
-             
+
              50.h.heightBox,
-              AppTextWidget(Strings.inviteFriendWithPhoneNumber.tr(context), style: TextStyleHelper.of(context).regular14.copyWith(color: ThemeModel.of(context).font1,fontWeight: FontWeight.w300,height: 1.2),textAlign: TextAlign.start,),
-              4.h.heightBox,
-              CustomTextFormField(enable: true,borderRadiusValue: 20.r,prefixIcon: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SvgPicture.asset(ImagesApp.phoneIcon),
+              profile(
+                  Strings.inviteFriendWithPhoneNumber.tr(context),
+                  true,
+                  TextEditingController(
+                    text:
+                    '${AccountCubit.get(context).getUserData?.referCode}',
+                  ),
+                  Icons.phone,
+                  context),
 
-              ),
-                textInputType: TextInputType.phone,
-                backGroundColor: ThemeModel.of(context).myAccountTextFieldLightColor,
-          
-              ),
-              100.h.heightBox,
-
-              BottomWidget(Strings.inviteFriend.tr(context), (){
-                navigate(context,const InviteNewFriend());
-
-              },radius: 20,),
             ],
           ),
         ),

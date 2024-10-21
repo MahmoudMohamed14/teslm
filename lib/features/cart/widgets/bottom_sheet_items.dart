@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:delivery/common/components.dart';
 import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
+import 'package:delivery/features/provider%20page/controller/provider_cubit.dart';
 import 'package:flutter/material.dart';
 import '../../../Cubite/delivery_cubit.dart';
 import '../../../common/colors/colors.dart';
@@ -65,7 +66,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>  with SingleTicke
                   setState((){
                     if(index==1){_isCheckedList=[false,true];choose=true;}
                     else{_isCheckedList=[true,false];choose=false;}
-                    ChatControllerCubit.get(context).increment();
+                    ProviderCubit.get(context).increment();
                   });
                   setState(() {
                     containerPadding =false;

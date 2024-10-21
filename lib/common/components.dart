@@ -245,8 +245,8 @@ Widget cartPaymentBottom(text, onTap, isProvider, context) =>
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
                           color: Colors.white),
                     ),
                     SizedBox(
@@ -259,8 +259,8 @@ Widget cartPaymentBottom(text, onTap, isProvider, context) =>
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),
                     if (!isProvider)
@@ -272,8 +272,8 @@ Widget cartPaymentBottom(text, onTap, isProvider, context) =>
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
                         style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),
                     if (OrderCubit.get(context).couponData != null &&
@@ -414,7 +414,7 @@ Widget topBar(name, color, textColor) => Container(
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.start,
           style: TextStyle(
-              fontSize: 17, fontWeight: FontWeight.w700, color: textColor),
+              fontSize: 16, fontWeight: FontWeight.w700, color: textColor),
         ),
       ),
     );
@@ -499,7 +499,7 @@ Widget appBarWithIcons(text, image, navigator, context) => SafeArea(
                   Padding(
                     padding: const EdgeInsetsDirectional.only(start: 10),
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios_sharp,
+                      icon: const Icon(Icons.arrow_back_ios_sharp,size: 20,
                           color: Colors.white),
                       onPressed: () {
                         Navigator.pop(context);
@@ -512,7 +512,7 @@ Widget appBarWithIcons(text, image, navigator, context) => SafeArea(
                     text,
                     style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 22,
                         fontWeight: FontWeight.w700),
                   ),
                 ),

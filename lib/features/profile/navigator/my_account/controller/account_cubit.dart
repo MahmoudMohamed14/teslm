@@ -16,6 +16,7 @@ class AccountCubit extends Cubit<AccountState> {
       {String? username,
       String? email,
       String? birthdate,
+      String? gender,
       required BuildContext context}) async {
     emit(UpdateUserLoading());
     Map<String, dynamic> data =
@@ -28,6 +29,9 @@ class AccountCubit extends Cubit<AccountState> {
     }
     if (birthdate != null) {
       data['birthdate'] = birthdate;
+    }
+    if (gender != null) {
+      data['gender'] = gender;
     }
     // print(data);
     final result = await AccountDataHandler.updateUser(bodyJson: data);

@@ -171,14 +171,14 @@ class _ProviderPage extends State<ProviderPage>
                           children: [
                             PriceWidget(
                               title: Strings.duration.tr(context),
-                              value: '55-21',
+                              value: '60',
                             ),
                             PriceWidget(
                                 title: Strings.deliveryPrice.tr(context),
-                                value: '55-21'),
+                                value: '0-15'),
                             PriceWidget(
                                 title: Strings.minimumCharge.tr(context),
-                                value: '55-21'),
+                                value: '15'),
                           ],
                         ),
                       ),

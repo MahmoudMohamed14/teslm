@@ -5,6 +5,8 @@ class GetUserData {
   final String? birthdate;
   final String? phoneNumber;
   final String? address;
+  final String? gender;
+  final String? referCode;
   final bool? isDeleted;
   final List? addresses;
 
@@ -16,7 +18,9 @@ class GetUserData {
       this.phoneNumber,
       this.address,
       this.isDeleted,
-      this.addresses});
+      this.addresses,
+      this.gender,
+      this.referCode});
   factory GetUserData.fromJson(Map<String, dynamic> json) {
     return GetUserData(
       id: json['id'],
@@ -27,6 +31,8 @@ class GetUserData {
       address: json['address'],
       isDeleted: json['isDeleted'],
       addresses: json['addresses'] is String ? [] : (json['addresses'] ?? []),
+      referCode: json['referCode'],
+      gender: json['gender'],
     );
   }
 }

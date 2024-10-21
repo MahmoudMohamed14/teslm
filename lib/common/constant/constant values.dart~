@@ -28,9 +28,6 @@ ThemeData darkMode=ThemeData(
   fontFamily: language=='en'? 'fonten':'fontTop',
   primaryColor: Colors.grey,
   brightness: Brightness.dark,
-  bottomSheetTheme:const BottomSheetThemeData(
-      backgroundColor: Color(0xFF33333B)
-  ),
   hintColor: Colors.white,
   dividerColor: Colors.black12,
   appBarTheme: const AppBarTheme(
