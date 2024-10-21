@@ -27,4 +27,5 @@ class ApiEndPoint {
   static String getNewCustomer = '${baseUrl}customers/auth/me';
   static String uploadFile = '${baseUrl}upload-file';
   static String saveCouponCustomer = '${baseUrl}coupons/saved';
+  static String createPayments = '${baseUrl}payments';
 }

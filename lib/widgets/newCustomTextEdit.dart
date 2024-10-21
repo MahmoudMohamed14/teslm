@@ -1,10 +1,8 @@
 import 'package:delivery/common/extensions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../common/colors/colors.dart';
 import '../common/colors/theme_model.dart';
 import '../common/constant/constant values.dart';
 import '../common/text_style_helper.dart';
@@ -26,6 +24,7 @@ class NewCustomTextEdited extends StatelessWidget {
   final bool? isDense;
   final Color? borderColor;
   final bool disableBorder;
+  final bool isDateCreditCard;
   final FocusNode? focusNode;
   final double? borderRadiusValue, width, height;
   final void Function(String?)? onSave;
@@ -49,6 +48,7 @@ class NewCustomTextEdited extends StatelessWidget {
     super.key,
     this.isDense,
     this.style,
+    this.isDateCreditCard = false,
     this.onchange,
     this.title,
     this.maxLength,
@@ -107,8 +107,11 @@ class NewCustomTextEdited extends StatelessWidget {
 
           validator: validator,
           controller: controller,
+       inputFormatters:isDateCreditCard? [CreditCardExpiryFormatter() ]:null,
+
          // readOnly: readOnly,
           decoration: InputDecoration(
+
 
             prefixIcon: prefixIcon,
 
@@ -140,6 +143,30 @@ class NewCustomTextEdited extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+
+class CreditCardExpiryFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    // Remove any existing "/"
+    String newText = newValue.text.replaceAll('/', '');
+
+    // Limit to 4 characters (MMYY)
+    if (newText.length > 4) {
+      newText = newText.substring(0, 4);
+    }
+
+    // Automatically insert "/"
+    if (newText.length >= 2) {
+      newText = '${newText.substring(0, 2)}/${newText.substring(2)}';
+    }
+
+    return TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }

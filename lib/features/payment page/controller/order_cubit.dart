@@ -32,6 +32,7 @@ class OrderCubit extends Cubit<OrderState> {
   double couponDiscount=0.0;
   bool isShippingDiscount=false;
   String customerNotes='';
+  String ?orderId;
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
 
@@ -168,6 +169,12 @@ if (kDebugMode) {
     required BuildContext context,
     bool? isScheduled, // Pass the scheduling status
     DateTime? scheduledDate,
+    String?name,
+    String?cardNumber,
+    String?cvv,
+    String?expiryMonth,
+    String?expiryYear,
+    int?total,
   }) async {
     itemsValue=[];
     emit(PostOrderLoading());
@@ -201,35 +208,52 @@ if (kDebugMode) {
     result.fold((l) {
       if (kDebugMode) {
         print("error is ${l.errorModel.statusMessage}");
+        fromBack=false;
+        emit(PostOrderError());
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.red.shade500,
         content:  Align(
             alignment: Alignment.center,child: Text(Strings.failedExecuteOrder.tr(context),style:const TextStyle(color: Colors.white,fontSize: 17),)),
       ));
+
       emit(PostOrderError());
     }, (r) {
-      pageController=PageController(initialPage: 1);
-      HomeCubit.get(context).changeNavigator(1);
-      PointCubit.get(context).getPointsAndBalance();
-      MyOrdersCubit.get(context).getCustomerOrders();
-      couponCode=null;
-
-      shippingPrice=15;
-      couponDiscount=0.0;
-      isShippingDiscount=false;
-      values=[];
-      for (var element in itemsValue) {
-            ProviderCubit.get(context).cardList.removeWhere((test)=>test['itemId']==element['itemId']);
+      print(r);
+      if(r['status']){
+        orderId=r['id'];
+        fromBack=true;
+        actionPayment(context,cvv: cvv,expiryYear: expiryYear,expiryMonth: expiryMonth,cardNumber: cardNumber,name: name,total: total).then((onValue){
+          // createPayment(moyasarId: moyasarId, moyasarPaymentUrl: moyasarPaymentUrl, orderId: orderId, context: context)
+        });
+        emit(PostOrderSuccess());
       }
-      couponData=null;
-      navigateAndFinish(context,const Home());
-      fromBack=false;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
-          alignment: Alignment.center,child: Text(Strings.orderDoneSuccessfully.tr(context),
-        style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
-      emit(PostOrderSuccess());
+
+
+
     });
+  }
+  void successPayment(BuildContext context) {
+    pageController=PageController(initialPage: 1);
+    HomeCubit.get(context).changeNavigator(1);
+    PointCubit.get(context).getPointsAndBalance();
+    MyOrdersCubit.get(context).getCustomerOrders();
+    couponCode=null;
+
+    shippingPrice=15;
+    couponDiscount=0.0;
+    isShippingDiscount=false;
+    values=[];
+    for (var element in itemsValue) {
+      ProviderCubit.get(context).cardList.removeWhere((test)=>test['itemId']==element['itemId']);
+    }
+    couponData=null;
+    navigateAndFinish(context,const Home());
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:  Align(
+        alignment: Alignment.center,child: Text(Strings.orderDoneSuccessfully.tr(context),
+      style:const TextStyle(fontSize: 17,color: Colors.white) ,)),backgroundColor: Colors.green.shade400,),);
+    fromBack=false;
   }
   List<bool> isCheckedList =[ true,false,false];
   bool choosePadding =true;
@@ -258,7 +282,8 @@ String?id;
     String?expiryMonth,
     String?expiryYear,
     int?total,
-}) async {
+}) async
+  {
 
 
     final data = {
@@ -307,10 +332,13 @@ String?id;
     //   );
       if (response.statusCode == 200||response.statusCode==201) {
        if( response.data['source']['transaction_url']!=null){
-        _launchUrl(response.data['source']['transaction_url']??'');
-        fromBack=true;
-        id=response.data['id'];
-        emit(ActionPaymentSuccess());}else{
+         id=response.data['id'];
+         createPayment(moyasarId: response.data['id'], moyasarPaymentUrl:response.data['source']['transaction_url'], orderId: orderId??'', context: context);
+         fromBack=true;
+
+         emit(ActionPaymentSuccess());
+
+       }else{
          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: response.data['source']['message'].toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
          emit(ActionPaymentError());
 
@@ -383,16 +411,14 @@ String?id;
 
       if (response.statusCode == 200||response.statusCode==201) {
         if(response.data['status']=='paid'){
+          successPayment(context);
           emit(GetStatusPaymentSuccess());
-          postOrder(items: values,coupon:couponCode?.id,customerNotes: customerNotes,context: context
-              , scheduledDate:selectedDate != null && selectedTime != null? DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, selectedTime!.hour, selectedTime!.minute):null,
-            isScheduled:selectedDate != null && selectedTime != null? true:false,
-          );
+
 
 
         }else{
           fromBack=false;
-          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: response.data['source']['message'].toString().tr(context)??'',) , backgroundColor: ThemeModel.of(context).primary);
+          showDialogHelper(context, contentWidget:ErrorDialogPayment(message: (response.data['source']['message']??'failed').toString().tr(context),) , backgroundColor: ThemeModel.of(context).primary);
 
           emit(GetStatusPaymentError());
 
@@ -432,5 +458,49 @@ String?id;
       }
       emit(GetStatusPaymentError());
     }
+  }
+  void functionPostOrder(BuildContext context,{ String?name,
+    String?cardNumber,
+    String?cvv,
+    String?expiryMonth,
+    String?expiryYear,
+    int?total,}){
+    postOrder(items: values,coupon:couponCode?.id,customerNotes: customerNotes,context: context
+      , scheduledDate:selectedDate != null && selectedTime != null? DateTime(selectedDate!.year, selectedDate!.month, selectedDate!.day, selectedTime!.hour, selectedTime!.minute):null,
+      isScheduled:selectedDate != null && selectedTime != null? true:false,
+        cvv: cvv,expiryYear: expiryYear,expiryMonth: expiryMonth,cardNumber: cardNumber,name: name,total: total
+
+    );
+  }
+
+  Future<void> createPayment({
+    required String moyasarId,
+    required String moyasarPaymentUrl,
+    required String orderId,
+    required BuildContext context,
+  }) async {
+    emit(CreatePaymentLoading());
+    final result = await PostOrderDataHandler.createPayment(moyasarId: moyasarId, moyasarPaymentUrl: moyasarPaymentUrl, orderId: orderId);
+
+
+
+
+    result.fold((l) {
+      print("error is ${l.errorModel.statusMessage}");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red.shade500,
+        content:  Align(
+            alignment: Alignment.center,child: Text(l.errorModel.statusMessage,
+          style:const TextStyle(color: Colors.white),)),
+      ));
+     // Navigator.pop(context);
+      fromBack=false;
+      emit(CreatePaymentError());
+    }, (r) {
+      print("create payment ${r}");
+      _launchUrl(moyasarPaymentUrl);
+
+      emit(CreatePaymentSuccess());
+    });
   }
 }

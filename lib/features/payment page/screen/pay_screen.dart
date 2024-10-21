@@ -8,10 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../common/colors/theme_model.dart';
 import '../../../../common/components.dart';
 import '../../../../widgets/newCustomTextEdit.dart';
+import '../../../common/colors/colors.dart';
+import '../../../common/constant/constant values.dart';
 import '../../provider page/controller/provider_cubit.dart';
 import '../controller/order_cubit.dart';
 
@@ -118,10 +121,12 @@ class _PayScreenState extends State<PayScreen> with WidgetsBindingObserver {
 
                             ),
                               title: Strings.expiryDate.tr(context),
+                              isDateCreditCard: true,
                               controller: expDateController,
                               hint: 'MM/YY',
                               // maxLength: 5,
                               textInputType: TextInputType.phone,
+
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return Strings.expiryDateIsRequired.tr(context);
@@ -200,12 +205,17 @@ class _PayScreenState extends State<PayScreen> with WidgetsBindingObserver {
                         ],
                       ),
                     ).expand,
-                    BottomWidget("${Strings.payNow.tr(context)} (${((ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)-(OrderCubit.get(context).couponDiscount).toInt())} ${Strings.sr.tr(context)})", (){
+                    state is PostOrderLoading?
+                    SpinKitWave(
+                      color:isDark??false? Colors.white:borderColor,
+                      size: 30.0,
+                    ) :  BottomWidget("${Strings.payNow.tr(context)} (${((ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)-(OrderCubit.get(context).couponDiscount).toInt())} ${Strings.sr.tr(context)})", (){
 
 
 
                       if (formKey.currentState!.validate()) {
-                        OrderCubit.get(context).actionPayment(context,cardNumber: cardNumberController.text, expiryMonth: '12',expiryYear: '26', name: nameController.text,total: (((ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)-(OrderCubit.get(context).couponDiscount).toInt())*100).toInt(),cvv: cvvController.text);
+                       OrderCubit.get(context).functionPostOrder(context,cardNumber: cardNumberController.text, expiryMonth: expDateController.text.split('/').first,expiryYear:  expDateController.text.split('/').last, name: nameController.text,total: (((ProviderCubit.get(context).getPrice()+OrderCubit.get(context).shippingPrice)-(OrderCubit.get(context).couponDiscount).toInt())*100).toInt(),cvv: cvvController.text);
+
                       }
 
                     },radius: 20,)

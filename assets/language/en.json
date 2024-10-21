@@ -176,5 +176,6 @@
   "Allowed time frame for transaction has been expired.":"Allowed time frame for transaction has been expired",
   "INSUFFICIENT_FUNDS": "Insufficient Funds",
   "3-D Secure transaction attempt failed (Not Enrolled)": "3-D Secure transaction attempt failed (Not Enrolled)",
-  "DECLINED": "Declined"
+  "DECLINED": "Declined",
+  "failed": "Failed",
 }

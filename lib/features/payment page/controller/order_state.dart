@@ -29,3 +29,8 @@ class GetStatusPaymentLoading extends OrderState{}
 class GetStatusPaymentSuccess extends OrderState{}
 
 class GetStatusPaymentError extends OrderState{}
+class CreatePaymentLoading extends OrderState{}
+
+class CreatePaymentSuccess extends OrderState{}
+
+class CreatePaymentError extends OrderState{}
