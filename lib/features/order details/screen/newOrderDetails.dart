@@ -12,7 +12,7 @@ import '../../../common/constant/constant values.dart';
 import '../../../common/images/images.dart';
 import '../../../common/text_style_helper.dart';
 import '../../../common/translate/strings.dart';
-import '../../../models/customer_orders model.dart';
+import '../../../models/customer_orders_model.dart';
 import '../../home/screens/home.dart';
 import '../../map_page/controller/map_cubit.dart';
 

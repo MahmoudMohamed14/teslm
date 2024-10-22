@@ -9,7 +9,7 @@ import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/categories_model.dart';
 import '../../../models/categories_provider.dart';
 import '../../../models/filter_model.dart';
-import '../../../models/offers model.dart';
+import '../../../models/offers_model_category.dart';
 import '../../../models/offers_model.dart';
 
 class CategoryDataHandler {

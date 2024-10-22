@@ -2,7 +2,7 @@
 import 'package:delivery/features/orders/controller/my_order_data_handler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../models/customer_orders model.dart';
+import '../../../models/customer_orders_model.dart';
 
 part 'my_order_state.dart';
 
