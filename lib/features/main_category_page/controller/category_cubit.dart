@@ -5,7 +5,7 @@ import '../../../Dio/Dio.dart';
 import '../../../common/end_points_api/api_end_points.dart';
 import '../../../models/categories_provider.dart';
 import '../../../models/filter_model.dart';
-import '../../../models/offers model.dart';
+import '../../../models/offers_model_category.dart';
 import 'category_data_handler.dart';
 
 part 'category_state.dart';

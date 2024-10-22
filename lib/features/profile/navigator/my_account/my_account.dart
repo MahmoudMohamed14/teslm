@@ -28,8 +28,8 @@ class _EditInformationState extends State<EditInformation> {
     return GestureDetector(
       onTap: () =>AccountCubit.get(context).getUserData?.gender != null ? null :   selectGender(gender),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        padding: EdgeInsets.all(15),
+        duration: const Duration(milliseconds: 300),
+        padding:const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: checkCondition ? ThemeModel.mainColor.withOpacity(0.2) : ThemeModel.of(context).cardsColor,
           borderRadius: BorderRadius.circular(12),
@@ -46,12 +46,12 @@ class _EditInformationState extends State<EditInformation> {
               height: 70,
               width: 70,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               gender,
               style: TextStyle(
                 fontSize: 18,
-                color: checkCondition ? ThemeModel.of(context).alwaysWhitColor : ThemeModel.of(context).blackWhiteColor,
+                color:  ThemeModel.of(context).blackWhiteColor,
               ),
             ),
           ],
@@ -124,17 +124,6 @@ class _EditInformationState extends State<EditInformation> {
                               ),
                               StatefulBuilder(
                                 builder: (context, setState) => GestureDetector(
-                                    child: dateSelected
-                                        ? date(
-                                            "${birthDate!.year}-${birthDate!.month}-${birthDate!.day}",
-                                            true,
-                                            context)
-                                        : date(
-                                            user!.birthdate != null
-                                                ? '${user.birthdate}'
-                                                : 'YY/MM/DD',
-                                            true,
-                                            context),
                                     onTap:user!.birthdate != null? () async {
                                       final datePick = await showDatePicker(
                                         context: context,
@@ -149,9 +138,20 @@ class _EditInformationState extends State<EditInformation> {
                                           birthDate = datePick;
                                         });
                                       }
-                                    }:null),
+                                    }:null,
+                                    child: dateSelected
+                                        ? date(
+                                            "${birthDate!.year}-${birthDate!.month}-${birthDate!.day}",
+                                            true,
+                                            context)
+                                        : date(
+                                            user.birthdate != null
+                                                ? '${user.birthdate}'
+                                                : 'YY/MM/DD',
+                                            true,
+                                            context)),
                               ),
-                              SizedBox(height: 10,),
+                              const SizedBox(height: 10,),
                               Text(
                                 Strings.myGender.tr(context),
                                 style:

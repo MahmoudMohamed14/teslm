@@ -311,7 +311,7 @@ class Customer {
   final String? id;
   final String? name;
   final String? email;
-  final Null birthdate;
+  final String? birthdate;
   final String? phoneNumber;
   final String? address;
   final bool? isDeleted;
