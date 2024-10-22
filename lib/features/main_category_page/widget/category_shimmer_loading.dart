@@ -7,7 +7,7 @@ import 'filter_loading.dart';
 
 Widget categoryLoading(categoryName,view,context)=>ListView(children: [
   SizedBox(
-    height: 110,
+    height: 155,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: 3,
@@ -18,7 +18,7 @@ Widget categoryLoading(categoryName,view,context)=>ListView(children: [
         children: [
           Skeleton(height: 200.0,width: 100.0 ),
           Skeleton(height: 200.0,width: 100.0 ),
-          Skeleton(height: 200.0,width: 100.0 ),
+          Skeleton(height: 150.0,width: 100.0 ),
         ],
       ),
     ),),
@@ -28,7 +28,7 @@ Widget categoryLoading(categoryName,view,context)=>ListView(children: [
     padding: const EdgeInsets.only(left: 10.0,right: 10),
     child: Row(
       children: [
-        Text('$categoryName',style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w700),),
+        Text('$categoryName',style:const TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
         const Spacer(),
         Row(
           children: [
