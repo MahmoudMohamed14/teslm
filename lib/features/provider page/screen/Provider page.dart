@@ -157,7 +157,8 @@ class _ProviderPage extends State<ProviderPage>
                     //expandedHeight: 200.h,
                   ),
                   SliverAppBar(
-                    expandedHeight: 60,
+
+                    toolbarHeight: 60.h,
                     // pinned: true,
                     leading: const SizedBox.shrink(),
                     flexibleSpace: Padding(
@@ -187,17 +188,17 @@ class _ProviderPage extends State<ProviderPage>
                   ),
                   SliverAppBar(
                     expandedHeight: 0.h,
-                    toolbarHeight: 30.h,
+                    toolbarHeight:35.h,
                     pinned: true,
                     leading: const SizedBox.shrink(),
                     flexibleSpace: PreferredSize(
-                      preferredSize: Size.fromHeight(0.h),
+                      preferredSize: const Size.fromHeight(0),
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 5,vertical: 10.h),
                         child: menu!=null&&state is !GetProviderFoodLoading?
                         SizedBox(
-                          height: 120.h,
+                          //height: 60.h,
                           child: Row(
                             children: [
                               IconButton(icon: Icon(Icons.search,size: 25,color: ThemeModel.of(context).blackWhiteColor,),onPressed: (){setState(() {

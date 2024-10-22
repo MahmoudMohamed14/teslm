@@ -177,5 +177,5 @@
   "INSUFFICIENT_FUNDS": "Insufficient Funds",
   "3-D Secure transaction attempt failed (Not Enrolled)": "3-D Secure transaction attempt failed (Not Enrolled)",
   "DECLINED": "Declined",
-  "failed": "Failed",
+  "failed": "Failed"
 }

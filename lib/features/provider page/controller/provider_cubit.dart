@@ -434,10 +434,14 @@ class ProviderCubit extends Cubit<ProviderState> {
   void scrollToIndex(int index) {
     int items = calculateItemsBeforeIndex(index);
     scrollController.animateTo(
-      items * 170, // Replace ITEM_HEIGHT with the height of each item in your list
+
+
+      items * 170,
+      // Replace ITEM_HEIGHT with the height of each item in your list
       duration: Duration(milliseconds: 500), // Adjust the duration as per your preference
       curve: Curves.easeOut, // Adjust the curve as per your preference
     );
+
     emit(Reload());
   }
 

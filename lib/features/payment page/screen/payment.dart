@@ -5,6 +5,7 @@ import 'package:delivery/common/translate/app_local.dart';
 import 'package:delivery/common/translate/strings.dart';
 import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
 import 'package:delivery/features/payment%20page/screen/pay_screen.dart';
+import 'package:delivery/features/payment%20page/screen/webViewScreen.dart';
 import 'package:delivery/features/payment%20page/widget/copoun_bottom_sheet.dart';
 import 'package:delivery/features/profile/navigator/my_coupons/controller/coupons_cubit.dart';
 import 'package:flutter/material.dart';
@@ -160,7 +161,8 @@ class _PaymentState extends State<Payment>with WidgetsBindingObserver {
                     size: 30.0,
                   ) : BottomWidget(Strings.confirmOrder.tr(context), (){
                     print(values);
-                  navigate(context, const PayScreen());
+                 navigate(context, const PayScreen());
+                   // navigate(context, WebViewScreen());
 
                   //  OrderCubit.get(context).getPayoutById();
                    // OrderCubit.get(context).postOrder(items: values,coupon:OrderCubit.get(context).couponCode?.id,customerNotes: widget.customerNotes,context: context);
