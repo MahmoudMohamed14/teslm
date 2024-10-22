@@ -24,6 +24,7 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     emit(GetChatCallCenterLoading());
     DioHelper.getData(url: 'chats/me', token: token).then((value) {
       chatsCallCenter = ChatModel.fromJson(value.data);
+      debugPrint("Chat Data >>>>>>>>.  ${value.data.toString()}");
       chatsCallCenter?.messages?.forEach(
           (message) => debugPrint("Chat Data >>>>>>>>.  ${message.toJson()}"));
       emit(GetChatCallCenterSuccess());

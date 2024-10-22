@@ -125,6 +125,7 @@ class _SendMessagePartState extends State<SendMessagePart> {
 
   @override
   Widget build(BuildContext context) {
+    print(">>>>>>>>>>>>>>> ${widget.chatId}");
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(

@@ -6,6 +6,7 @@ import 'package:delivery/common/constant/constant%20values.dart';
 import 'package:delivery/features/auth/controller/auth_cubit.dart';
 import 'package:delivery/features/home/controller/home_cubit.dart';
 import 'package:delivery/features/map_page/controller/map_cubit.dart';
+import 'package:delivery/features/order%20details/screen/orderDetails.dart';
 import 'package:delivery/features/orders/controller/my_orders_cubit.dart';
 import 'package:delivery/features/payment%20page/controller/order_cubit.dart';
 import 'package:delivery/features/point/controller/point_cubit.dart';
@@ -21,6 +22,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'Cubite/them/app_dark_light_cubit.dart';
+import 'Utilities/NotificationHandler/notification_display_handler.dart';
+import 'Utilities/NotificationHandler/notification_handler.dart';
 import 'Utilities/git_it.dart';
 import 'Utilities/shared_preferences.dart';
 import 'bloc_observer.dart';
@@ -33,14 +36,23 @@ import 'features/splash/screen/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService.initialize((payload) {
+    if (payload != null && payload.isNotEmpty) {
+      // Handle notification tap by navigating to a specific screen
+      print('Notification tapped with payload: $payload');
+      // Navigate to a specific screen, for example:
+      MyApp.navigatorKey.currentState?.push(
+        MaterialPageRoute(
+          builder: (context) => OrderDetails(
+            orderIndex: int.parse(payload),
+          ),
+        ),
+      );
+    }
+  });
   await GitIt.initGitIt();
   DioHelper.init();
   await Save.init();
-  // socket.onDisconnect((_) => print('disconnect'));
-  // socket.on('fromServer', (_) => print(_));
-  // final webSocketService = SocketService();
-  // webSocketService.initializeSocket();
-  // connectAndListen();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey:
@@ -70,6 +82,8 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
   const MyApp(this.start, {Key? key}) : super(key: key);
   final Widget start;
 
@@ -78,10 +92,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  final SocketService _socketService = SocketService();
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    if (customerId != null) {
+      _socketService.connectAndSubscribe(
+          customerId!, // Replace with your userId
+          "CUSTOMER");
+    }
     /* print("initState>>>>>>>>>>>>>>>>>>> customerId=${Save.getdata(key: 'customerId')}}");
     print("   token ${SharedPref.getToken()}");
     //  String? json = Save.getdata(key: 'myCart');
@@ -116,6 +136,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _socketService.disconnect();
     super.dispose();
   }
 
@@ -206,11 +227,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             //       userId: customerId!, userType: 'CUSTOMER');
             // }
             return MaterialApp(
+              navigatorKey: MyApp.navigatorKey,
               theme: lightMode,
               debugShowCheckedModeBanner: false,
               darkTheme: darkMode,
               themeMode: isDark ?? false ? ThemeMode.dark : ThemeMode.light,
-
               home: widget.start,
               locale: Locale(AppDarkLightCubit.get(context).lang),
               localizationsDelegates: const [
