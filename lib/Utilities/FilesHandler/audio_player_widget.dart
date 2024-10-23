@@ -42,18 +42,26 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
     _audioPlayer.positionStream.listen((position) {
       setState(() {
-        if (position == _totalDuration) {
-          _isPlaying = false;
-        } else {
-          _currentPosition = position;
-        }
+        _currentPosition = position;
       });
     });
 
     _audioPlayer.playerStateStream.listen((state) {
-      setState(() {
-        _isPlaying = state.playing;
-      });
+      // Check if the playback has ended
+      if (state.processingState == ProcessingState.completed) {
+        _audioPlayer.seek(Duration.zero); // Reset to the start
+        _audioPlayer.pause();
+        setState(() {
+          _isPlaying = false;
+          _currentPosition = Duration.zero; // Reset current position
+        });
+      } else {
+        if (context.mounted) {
+          setState(() {
+            _isPlaying = state.playing;
+          });
+        }
+      }
     });
   }
 
@@ -107,12 +115,14 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
             ),
             onPressed: _togglePlayback,
           ),
-          Text(_formatDuration(_isPlaying ? _currentPosition : _totalDuration)),
+          Text(_formatDuration(_currentPosition)),
           Expanded(
             child: Slider(
               min: 0.0,
-              max: _totalDuration.inMilliseconds.toDouble() + 1,
-              value: _currentPosition.inMilliseconds.toDouble(),
+              max: _totalDuration.inMilliseconds.toDouble(),
+              value: _currentPosition.inMilliseconds
+                  .toDouble()
+                  .clamp(0.0, _totalDuration.inMilliseconds.toDouble()),
               onChanged: (value) {
                 _seekAudio(Duration(milliseconds: value.toInt()));
               },

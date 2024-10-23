@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:delivery/Utilities/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -22,7 +25,8 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
 
   void getChat() {
     emit(GetChatCallCenterLoading());
-    DioHelper.getData(url: 'chats/me', token: token).then((value) {
+    DioHelper.getData(url: 'chats/me', token: SharedPref.getToken())
+        .then((value) {
       chatsCallCenter = ChatModel.fromJson(value.data);
       debugPrint("Chat Data >>>>>>>>.  ${value.data.toString()}");
       chatsCallCenter?.messages?.forEach(
@@ -57,19 +61,23 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
     },
   );
 
-  ChatModel? chat;
+  // ChatModel? chat;
 
   void connectSocket() {
     socket.connect();
 
     socket.onConnect((_) {
       debugPrint('Connection established');
-      socket.emit("joinChat", {"customerId": customerId});
+      socket.emit("joinChat", json.encode({"customerId": customerId}));
     });
 
     socket.on("joinedChat", (data) {
+      emit(GetChatCallCenterLoading());
       debugPrint("Joined chat: $data");
-      chat = ChatModel.fromJson(data); // Assuming you have a Chat model
+      chatsCallCenter =
+          ChatModel.fromJson(data); // Assuming you have a Chat model
+      emit(GetChatCallCenterSuccess());
+      // emit(ReloadChat());
     });
 
     socket.on('newMessage', (data) {
@@ -88,19 +96,18 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
       String? audioUrl}) async {
     debugPrint("SEND MESSAGE>>>>>. $chatId");
     if (audioUrl != null) {
-      socket.emit("sendMessage", {
+      String messageBody = json.encode({
         'chatId': chatId,
         'from': '$customerId',
         'content': message,
         'audioUrl': audioUrl
       });
+      socket.emit("sendMessage", messageBody);
       return;
     }
     if (imagesProvider(context).isNotEmpty) {
       await sendImages(context).then((e) {
-        debugPrint(
-            ">>>>>>>>>>>>>>>>>>>>>>>> ${BlocProvider.of<DragFilesCubit>(context).imageUrls}");
-        socket.emit("sendMessage", {
+        String messageBody = json.encode({
           'chatId': chatId,
           'from': '$customerId',
           'content': message,
@@ -110,16 +117,20 @@ class ChatControllerCubit extends Cubit<ChatControllerState> {
               .map((e) => e.toString())
               .toList()
         });
+        debugPrint(
+            ">>>>>>>>>>>>>>>>>>>>>>>> ${BlocProvider.of<DragFilesCubit>(context).imageUrls}");
+        socket.emit("sendMessage", messageBody);
         BlocProvider.of<DragFilesCubit>(context).clearUrls();
         return;
       });
     } else {
-      if (message == null) return;
-      socket.emit("sendMessage", {
+      String messageBody = json.encode({
         'chatId': chatId,
         'from': '$customerId',
         'content': message,
       });
+      if (message == null) return;
+      socket.emit("sendMessage", messageBody);
     }
     debugPrint("SEND MESSAGE Done");
   }

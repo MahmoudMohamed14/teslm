@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:delivery/Utilities/shared_preferences.dart';
 import 'package:delivery/common/constant/constant%20values.dart';
+import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'notification_display_handler.dart';
@@ -28,7 +30,9 @@ class SocketService {
       String message = json.encode({
         'userId': userId,
         'userType': userType,
+        "location": {"type": "Point", "coordinates": SharedPref.getLatLng()}
       });
+      debugPrint(">>>>>>>>>>>>${message}");
       // Emit subscription event
       _socket.emit('subscribeToNotifications', message);
     });
