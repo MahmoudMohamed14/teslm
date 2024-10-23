@@ -20,7 +20,7 @@ class ExtraItemsBottomSheet extends StatefulWidget {
   final String description;
   final List<OptionGroups> extra;
   @override
-  ExtraItemsBottomSheet(
+  const ExtraItemsBottomSheet(
       {super.key,
       required this.extra,
       required this.itemImage,
@@ -30,10 +30,10 @@ class ExtraItemsBottomSheet extends StatefulWidget {
       required this.id,
       required this.categoryId});
   @override
-  _ExtraItemsBottomSheetState createState() => _ExtraItemsBottomSheetState();
+  ExtraItemsBottomSheetState createState() => ExtraItemsBottomSheetState();
 }
 
-class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
+class ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
   Color containerColor = Colors.white;
   final ScrollController _bottomSheetController = ScrollController();
   late AnimationController controller;
@@ -66,7 +66,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
     }
     _bottomSheetController.addListener(bottomSheetScroll);
     checklist = List.generate(
-      widget.extra.length ?? 0,
+      widget.extra.length ,
       (index) => List.generate(
           widget.extra[index].options?.length ?? 0,
           (optionIndex) =>
@@ -145,6 +145,8 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
               ///   -------    todo
               child: EnhancedOptionsWidget(
                 extra: widget.extra,
+                bottomSheetController: _bottomSheetController,
+                totalExtraPrice: totalExtraPrice,
               ),
             ),
             Row(
@@ -176,9 +178,7 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
                             ProviderCubit.get(context).itemsNumber);
                         Navigator.pop(context);
                       });
-
-                      print("${cubit.addExtra} add extra");
-                    },
+                      },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -256,19 +256,16 @@ class _ExtraItemsBottomSheetState extends State<ExtraItemsBottomSheet> {
 ///   ------------  Enhanced OptionsList  ---------------
 class EnhancedOptionsWidget extends StatefulWidget {
   final List<OptionGroups> extra;
-  const EnhancedOptionsWidget({super.key, this.extra = const []});
+  final ScrollController bottomSheetController;
+  int totalExtraPrice;
+   EnhancedOptionsWidget({super.key, this.extra = const [],required this.bottomSheetController,required this.totalExtraPrice});
 
   @override
   State<EnhancedOptionsWidget> createState() => _EnhancedOptionsWidgetState();
 }
 
 class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
-  final ScrollController _bottomSheetController = ScrollController();
-  late AnimationController controller;
-
-  int totalExtraPrice = 0;
   String extraName = '';
-  late double imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4;
   List<OptionGroups> selectedOptions = [];
 
   void changeChecklistValue(int checklistIndex, String optionID) {
@@ -276,7 +273,7 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
       Options? currentOption = selectedOptions[checklistIndex]
           .options
           ?.firstWhereOrNull((element) => element.id == optionID);
-      currentOption?.isSelected = !(currentOption.isSelected ?? true);
+      currentOption?.isSelected = !(currentOption.isSelected );
     });
   }
 
@@ -300,7 +297,6 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
       }
     }
     selectedOptions = widget.extra;
-    _bottomSheetController.addListener(bottomSheetScroll);
     selectedOptions = selectedOptions.map((e) {
       print("Is Required >>>>>>>  ${e.isMandatory}");
       print(
@@ -350,29 +346,15 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
     // print("selectedOptions: $selectedOptions");
   }
 
-  void bottomSheetScroll() {
-    setState(() {
-      if (_bottomSheetController.offset > 20 &&
-          _bottomSheetController.offset < 32) {
-        imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4 -
-            _bottomSheetController.offset * 2.5;
-      } else if (_bottomSheetController.offset <= 25) {
-        imageBottomSheetHeight = MediaQuery.sizeOf(context).height / 4;
-      }
-    });
-  }
-
   @override
   void dispose() {
-    _bottomSheetController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ProviderCubit.get(context);
     return ListView.builder(
-        controller: _bottomSheetController,
+        controller: widget.bottomSheetController,
         itemCount: widget.extra.length,
         itemBuilder: (context, upperIndex) {
           return Column(
@@ -448,7 +430,9 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
                                 (widget.extra[upperIndex].maxSelections ??
                                     0))) {
                           changeChecklistValue(upperIndex, item.id!);
-                          totalExtraPrice -= (item.price ?? 0).toInt();
+                          setState(() {
+                            widget.totalExtraPrice -= (item.price ?? 0);
+                          });
                         }
                       } else {
                         if ((widget.extra[upperIndex].isMandatory ?? false) &&
@@ -477,7 +461,11 @@ class _EnhancedOptionsWidgetState extends State<EnhancedOptionsWidget> {
                                 (widget.extra[upperIndex].maxSelections ??
                                     0))) {
                           changeChecklistValue(upperIndex, item.id!);
-                          totalExtraPrice += (item.price ?? 0).toInt();
+                          setState(() {
+                            widget.totalExtraPrice += (item.price ?? 0).toInt();
+                          });
+                          print(widget.totalExtraPrice) ;
+
                         }
                       }
                     },

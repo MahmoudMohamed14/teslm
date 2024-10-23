@@ -36,34 +36,12 @@ Widget checkList(isChecked, Function(Options) onChange, context,
                 children: [
                   Row(
                     children: [
-                      if (!isMandatory!)
-                        Text(
-                          Strings.sar.tr(context),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                      if(optionModel?.image!=null)
+                        image('${optionModel?.image}', 30.0, 30.0, 30.0,
+                            BoxFit.fill),
                       const SizedBox(
-                        width: 5,
+                        width: 7,
                       ),
-                      Text(
-                        isMandatory? '':'${optionModel?.price}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
                       Text(
                         language == 'en'
                             ? (optionModel?.name?.en ?? "")
@@ -76,13 +54,37 @@ Widget checkList(isChecked, Function(Options) onChange, context,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(
-                        width: 7,
-                      ),
-                      image('${optionModel?.image}', 30.0, 30.0, 30.0,
-                          BoxFit.fill),
                     ],
                   ),
+                  if(optionModel?.price!=0)
+                    Row(
+                      children: [
+                        Text(
+                          isMandatory??false? '':'${optionModel?.price}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        if (!isMandatory!)
+                          Text(
+                            Strings.sar.tr(context),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                      ],
+                    ),
                 ],
               ),
             ),

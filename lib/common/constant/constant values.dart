@@ -29,7 +29,7 @@ ThemeData darkMode=ThemeData(
   primaryColor: Colors.grey,
   brightness: Brightness.dark,
   bottomSheetTheme:const BottomSheetThemeData(
-      backgroundColor: Color(0xFF33333B)
+      backgroundColor: Color(0xFF4F4F5C)
   ),
   hintColor: Colors.white,
   dividerColor: Colors.black12,
